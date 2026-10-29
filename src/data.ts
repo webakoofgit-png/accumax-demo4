@@ -1,4 +1,4 @@
-﻿/** Company scope and contact details checked against accumaxcontrols.com. Detailed service scopes and sample project profiles require company review. */
+/** Company scope and contact details checked against accumaxcontrols.com. Detailed service scopes and sample project profiles require company review. */
 
 export const COMPANY = {
   name: "Accumax Controls Pvt. Ltd.",
@@ -259,7 +259,7 @@ export const PROJECTS: Project[] = [
   },
 ];
 
-export const CLIENT_LOGOS = Object.values(import.meta.glob('/src/assets/client logos/*.{jpg,jpeg,png,webp,svg}', { eager: true, query: '?url', import: 'default' })) as string[];
+export const CLIENT_LOGOS = Object.entries(import.meta.glob('/src/assets/client logos/*.{jpg,jpeg,png,webp,svg}', { eager: true, query: '?url', import: 'default' })).filter(([path]) => !/^c(?:[1-9]|1[0-9]|2[0-4])\.jpg$/i.test(path.split('/').pop() ?? '')).map(([, url]) => url) as string[];
 
 export const GALLERY = [
   "/images/gallery/3.jpg",
