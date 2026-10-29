@@ -209,3 +209,6 @@ p{font-size:16px}
 .clients-heading h2{font-size:clamp(42px,6vw,86px);letter-spacing:-.055em;margin:30px 0 16px;line-height:1.1}
 .clients-heading p{font-size:16px;margin:0;color:#74786d}
 @media(max-width:640px){.clients-heading{margin-bottom:32px}.clients-heading h2{font-size:clamp(36px,10vw,48px);margin:22px 0 12px}.clients-heading p{font-size:15px}}
+
+.marquee img{width:130px;height:68px;object-fit:contain}
+@media(max-width:640px){.marquee img{width:110px;height:58px}}
