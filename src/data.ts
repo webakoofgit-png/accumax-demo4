@@ -259,7 +259,7 @@ export const PROJECTS: Project[] = [
   },
 ];
 
-export const CLIENT_LOGOS = Array.from({ length: 24 }, (_, i) => `/images/partner/c${i + 1}.jpg`);
+export const CLIENT_LOGOS = Object.values(import.meta.glob('/src/assets/client logos/*.{jpg,jpeg,png,webp,svg}', { eager: true, query: '?url', import: 'default' })) as string[];
 
 export const GALLERY = [
   "/images/gallery/3.jpg",
