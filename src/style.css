@@ -224,3 +224,47 @@ p{font-size:16px}
 
 .about-block{padding-bottom:60px}.expertise-section{padding-top:60px}
 @media(max-width:640px){.about-block{padding-bottom:38px}.expertise-section{padding-top:40px}}
+
+/* Contact options below the client logos */
+.clients.section{padding-bottom:32px}
+.home-contact.section{padding:48px max(5.2vw,24px) 90px}
+.home-contact>h2{font-size:clamp(30px,3.8vw,48px);letter-spacing:-.045em;margin-bottom:30px;text-transform:uppercase}
+.home-contact-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px}
+.home-contact-card{display:block;min-width:0;color:#242522}
+.home-contact-image{height:330px;overflow:hidden;background:#e5e5dd}
+.home-contact-image img{width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.home-contact-card:hover .home-contact-image img{transform:scale(1.035)}
+.home-contact-card h3{font-size:clamp(18px,1.7vw,23px);line-height:1.25;letter-spacing:-.025em;margin-top:16px}
+.home-contact-card p{font-size:15px;line-height:1.55;margin:8px 0 16px;color:#62645d}
+.home-contact-link{display:inline-flex;align-items:center;gap:12px;border:1px solid #343630;border-radius:30px;padding:10px 16px;font-size:13px;font-weight:500;transition:background .2s,color .2s}
+.home-contact-link svg{transition:transform .2s}
+.home-contact-card:hover .home-contact-link{background:#242522;color:white}
+.home-contact-card:hover .home-contact-link svg{transform:translateX(3px)}
+@media(max-width:950px){.home-contact-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}.home-contact-image{height:280px}}
+@media(max-width:640px){.clients.section{padding-bottom:25px}.home-contact.section{padding:40px 22px 60px}.home-contact>h2{font-size:30px;margin-bottom:22px}.home-contact-grid{grid-template-columns:1fr;gap:28px}.home-contact-image{height:245px}.home-contact-card h3{font-size:21px}.home-contact-card p{font-size:14px}}
+
+.home-contact.section{background:#fff;border-top:1px solid #e1e1db;padding-top:72px}
+@media(max-width:640px){.home-contact.section{padding-top:52px}}
+
+@media(max-width:640px){.mobile-toggle{display:grid;place-items:center;padding:6px;color:#30312e}.mobile-toggle svg{width:22px;height:22px}}
+
+@media(max-width:950px){.project-showcase-card:after{opacity:0}.project-showcase-copy{opacity:0;transform:translateY(14px)}.project-showcase-card:hover:after,.project-showcase-card:focus-visible:after,.project-showcase-card.is-revealed:after{opacity:1}.project-showcase-card:hover .project-showcase-copy,.project-showcase-card:focus-visible .project-showcase-copy,.project-showcase-card.is-revealed .project-showcase-copy{opacity:1;transform:translateY(0)}}
+
+@media(max-width:640px){.hero-banner .hero-copy{padding:0 20px}.hero-banner h1{font-size:clamp(54px,13.5vw,78px);margin-top:21px}.hero-banner h1 .hero-outline{font-size:.76em;line-height:1.06;margin-top:10px}.hero-banner .hero-copy>p{font-size:14px;line-height:1.7;margin-top:19px}.hero-banner .hero-actions{margin-top:23px;gap:20px}.hero-banner .hero-actions .button{padding:15px 17px}}
+
+.mobile-menu{padding-top:80px}
+.mobile-menu-label{margin:0 0 18px;color:#6c7163}
+.mobile-menu a{font:500 22px/1.25 'Manrope',sans-serif;padding:13px 0;display:grid;grid-template-columns:34px 1fr 20px;align-items:center;justify-content:initial;letter-spacing:-.035em}
+.mobile-menu a>span{font:500 10px/1 'DM Sans',sans-serif;letter-spacing:.12em;color:var(--brand)}
+.mobile-menu a>b{font-weight:500}
+.mobile-menu a svg{width:16px;height:16px;margin-left:auto}
+
+@media(max-width:640px){.hero-banner .hero-copy{min-height:calc(100svh - 112px);display:flex;flex-direction:column;justify-content:space-between}}
+
+@media(max-width:640px){.hero-banner .hero-copy{min-height:0;display:block;margin-block:auto;padding:0 20px}.hero-banner h1{font-size:clamp(58px,16vw,82px);line-height:.96;margin-top:20px}.hero-banner h1 .hero-outline{font-size:.75em;line-height:1.02;margin-top:8px}.hero-banner .hero-copy>p{font-size:14px;line-height:1.65;margin-top:18px}.hero-banner .hero-actions{margin-top:20px}}
+
+@media(max-width:640px){.hero-banner h1{margin-top:24px}.hero-banner .hero-copy>p{margin-top:22px}.hero-banner .hero-actions{margin-top:24px}}
+
+@media(max-width:640px){.hero-banner h1{line-height:1.05}.hero-banner h1 .hero-outline{line-height:1.1}}
+
+@media(max-width:640px){.hero-banner h1{line-height:1.15}.hero-banner h1 .hero-outline{line-height:1.15;margin-top:14px}}
