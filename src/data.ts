@@ -4,8 +4,7 @@ export const COMPANY = {
   name: "Accumax Controls Pvt. Ltd.",
   short: "Accumax Controls",
   tagline: "Control Center of Engineering Excellence",
-  address:
-    "01, Shree Flats, Ground Floor, S. No. 78/8+10, Plot No. 20 Left Bhusari Colony, Kothrud, Paud Road, Pune â€“ 411038, MH, India",
+  address: "Saudamini Commercial Complex, Building: C-2, Office: 401, 402, Fourth Floor, Survey No. 101/1, Right Bhusari Colony, Near Chandani Chowk, Paud Road, Kothrud, Pune: 411 038, Maharashtra, India",
   phones: ["+91 99201 77441", "+91 73502 00025"],
   emails: ["info@accumaxcontrols.com"],
   whatsapp: "https://wa.link/yypj14",
