@@ -221,3 +221,6 @@ p{font-size:16px}
 
 .marquee img{width:170px;height:89px}
 @media(max-width:640px){.marquee img{width:140px;height:73px}}
+
+.about-block{padding-bottom:60px}.expertise-section{padding-top:60px}
+@media(max-width:640px){.about-block{padding-bottom:38px}.expertise-section{padding-top:40px}}
