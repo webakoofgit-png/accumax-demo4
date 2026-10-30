@@ -1,5 +1,7 @@
 import aboutPerspective from "./assets/home page img/_A CONNECTED PERSPECTIVE.png";
 import homeBanner from "./assets/home banners/banner1.png";
+import { useHomepageMotion } from "./motion/useHomepageMotion";
+import { ExpertiseExperience } from "./components/ExpertiseExperience";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
   Link,
@@ -125,16 +127,22 @@ function Reveal({
     </motion.div>
   );
 }
+const HEADER_LINKS = [
+  ['About Us', '/about'],
+  ['Expertise', '/services'],
+  ['Industry Solutions', '/industries'],
+  ['Featured Works', '/projects'],
+  ['Ideas & Insights', '/gallery'],
+  ['Get in Touch', '/contact'],
+] as const;
 function Header() {
+  const reduced = useReducedMotion();
   const [open, setOpen] = useState(false);
-  const [mega, setMega] = useState(false);
-  const [active, setActive] = useState(0);
   const [small, setSmall] = useState(false);
   const path = useLocation();
   const close = useRef<HTMLButtonElement>(null);
   useEffect(() => {
     setOpen(false);
-    setMega(false);
   }, [path.pathname]);
   useEffect(() => {
     const f = () => setSmall(window.scrollY > 60);
@@ -149,7 +157,6 @@ function Header() {
     const key = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setOpen(false);
-        setMega(false);
       }
       if (e.key === "Tab") {
         const items = document.querySelectorAll<HTMLElement>(
@@ -179,15 +186,10 @@ function Header() {
         <Link to="/" aria-label="Accumax Controls home">
           <Img src={COMPANY.logo} alt="Accumax Controls Pvt. Ltd." eager />
         </Link>
+        <nav className="primary-nav" aria-label="Primary navigation">
+          {HEADER_LINKS.map(([label, to]) => <NavLink key={to} to={to}>{label}</NavLink>)}
+        </nav>
         <div className="header-right">
-          <button
-            className="explore-toggle"
-            aria-expanded={mega}
-            onClick={() => setMega(!mega)}
-          >
-            <span>Explore Accumax</span>
-            <Menu size={17} />
-          </button>
           <span className="header-socials" aria-label="Social media">
             <a
               href="https://www.instagram.com/accumax_controls?stkn=dW12a2xrdTV5MW13"
@@ -217,42 +219,26 @@ function Header() {
           <button
             className="mobile-toggle"
             aria-label="Open navigation"
+            aria-expanded={open}
+            aria-controls="mobile-navigation"
             onClick={() => setOpen(true)}
           >
             <Menu />
           </button>
         </div>
-        {mega && (
-          <div className="mega site-mega">
-            <div>
-              <span className="eyebrow">EXPLORE ACCUMAX</span>
-              {[
-                ["About Us", "/about"],
-                ["Expertise", "/services"],
-                ["Industry Solutions", "/industries"],
-                ["Featured Works", "/projects"],
-                ["Ideas & Insights", "/gallery"],
-                ["Get in Touch", "/contact"],
-              ].map(([n, to], i) => (
-                <Link key={to} to={to} onFocus={() => setActive(i)}>
-                  <span>{String(i + 1).padStart(2, "0")}</span>
-                  {n}
-                </Link>
-              ))}
-            </div>
-          </div>
-        )}
       </header>
       <AnimatePresence>
         {open && (
           <motion.div
+            id="mobile-navigation"
             className="mobile-menu"
             role="dialog"
             aria-modal="true"
             aria-label="Navigation"
-            initial={{ opacity: 0 }}
+            initial={reduced ? false : { opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: reduced ? 0 : .25 }}
           >
             <button
               ref={close}
@@ -262,22 +248,14 @@ function Header() {
               <X />
             </button>
             <span className="eyebrow mobile-menu-label">EXPLORE ACCUMAX</span>
-            {[
-              ["Home", "/"],
-              ["About", "/about"],
-              ["Services", "/services"],
-              ["Industry Solutions", "/industries"],
-              ["Featured Works", "/projects"],
-              ["Ideas & Insights", "/gallery"],
-              ["Get in Touch", "/contact"],
-            ].map(([n, to], i) => (
+            {[["Home", "/"], ...HEADER_LINKS].map(([n, to], i) => (
               <motion.div
                 key={to}
-                initial={{ y: 15, opacity: 0 }}
+                initial={reduced ? false : { y: 28, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: i * 0.035 }}
+                transition={{ delay: reduced ? 0 : i * 0.055, duration: reduced ? 0 : .45, ease: [.22, 1, .36, 1] }}
               >
-                <Link to={to}>
+                <Link to={to} onClick={() => setOpen(false)}>
                   <span>{String(i + 1).padStart(2, "0")}</span>
                   <b>{n}</b>
                   <ArrowUpRight />
@@ -459,7 +437,7 @@ function Story() {
           scrollTrigger: {
             trigger: ref.current,
             start: "top top",
-            end: "+=1700",
+            end: "+=850",
             scrub: 1,
             pin: true,
           },
@@ -542,12 +520,10 @@ function ProjectCards({ all = false }: { all?: boolean }) {
 function CounterItem({
   value,
   label,
-  icon,
   delay = 0,
 }: {
   value: number;
   label: string;
-  icon: React.ReactNode;
   delay?: number;
 }) {
   const [count, setCount] = useState(0);
@@ -585,9 +561,6 @@ function CounterItem({
   return (
     <div className="counter-item" aria-label={`${value}+ ${label}`}>
       <span className="counter-stat">
-        <span className="counter-icon" aria-hidden="true">
-          {icon}
-        </span>
         <span className="counter-number" aria-hidden="true">
           <span ref={ref}>{count.toLocaleString("en-IN")}</span>
           <span className="counter-plus">+</span>
@@ -601,20 +574,18 @@ function CounterBar() {
   return (
     <section className="counter-bar" aria-label="Accumax at a glance">
       {[
-        { value: 500, label: "Projects Done", icon: <Settings2 size={19} /> },
-        { value: 1380, label: "Happy Clients", icon: <Globe size={19} /> },
+        { value: 500, label: "Projects Done" },
+        { value: 1380, label: "Happy Clients" },
         {
           value: 100,
           label: "Experienced Staff",
-          icon: <UserRound size={19} />,
         },
-        { value: 10, label: "Win Awards", icon: <ShieldCheck size={19} /> },
+        { value: 10, label: "Win Awards" },
       ].map((item, index) => (
         <CounterItem
           key={item.label}
           value={item.value}
           label={item.label}
-          icon={item.icon}
           delay={index * 140}
         />
       ))}
@@ -655,6 +626,17 @@ function ProjectsSection() {
       </div>
     </section>
   );
+}
+function HomeIndustries() {
+  const industries = INDUSTRIES.slice(0, 6);
+  return <div className="industry-experience">
+    <div className="industry-status" aria-hidden="true"><span className="industry-current-number">01</span><span className="industry-current-title">{industries[0].name}</span><span className="industry-total">/ 06</span><span className="industry-progress"><span/></span></div>
+    <div className="industry-viewport"><div className="industry-track">{industries.map((industry, i) => <Link className="industry-slide" key={industry.name} to={'/contact?industry=' + encodeURIComponent(industry.name)} data-industry-title={industry.name}>
+      <div className="industry-media"><Img src={industry.image} alt={industry.name}/></div>
+      <div className="industry-slide-heading"><span>{String(i + 1).padStart(2, '0')}</span><h3>{industry.name}</h3><ArrowUpRight size={20}/></div>
+      <p>{industry.applications}</p>
+    </Link>)}</div></div>
+  </div>;
 }
 function Industries({ full = false }: { full?: boolean }) {
   const [active, setActive] = useState(-1);
@@ -728,16 +710,15 @@ function Process() {
 function AboutBlock() {
   return (
     <section className="section about-block">
-      {/* <Reveal className="about-photo">
+      <div className="about-photo">
         <Img src={aboutPerspective} alt="Accumax engineering operations" />
         <span>ENGINEERING WITH PURPOSE, SINCE DAY ONE.</span>
-      </Reveal> */}
-      <Reveal className="about-copy">
+      </div>
+      <div className="about-copy">
         <span className="eyebrow">A CONNECTED PERSPECTIVE</span>
         <h2>
-          Big-picture thinking.
-          <br />
-          <em>Ground-level expertise.</em>
+          <span className="motion-line"><span>Big-picture thinking.</span></span>
+          <em className="motion-line"><span>Ground-level expertise.</span></em>
         </h2>
         <p>
           Accumax Controls is a Pune-based engineering, technology and export
@@ -754,13 +735,15 @@ function AboutBlock() {
         <span className="outline-word" aria-hidden="true">
           AC
         </span>
-      </Reveal>
+      </div>
     </section>
   );
 }
 function Home() {
+  const homeRef = useRef<HTMLDivElement>(null);
+  useHomepageMotion(homeRef);
   return (
-    <>
+    <div className="home-page" ref={homeRef}>
       <section className="hero hero-banner">
         <Img
           className="hero-banner-image"
@@ -775,20 +758,12 @@ function Home() {
             INNOVATION
           </span>
           <h1>
-            {["Powering", "Progress."].map((w, i) => (
-              <motion.span
-                key={w}
-                initial={{ y: 35, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ delay: 0.12 * i, duration: 0.65 }}
-              >
-                {w}{" "}
-              </motion.span>
+            {["Powering", "Progress."].map((word) => (
+              <span className="hero-line" key={word}><span>{word}</span></span>
             ))}
             <span className="hero-outline">
-              Engineering
-              <br />
-              Possibilities.
+              <span className="hero-line"><span>Engineering</span></span>
+              <span className="hero-line"><span>Possibilities.</span></span>
             </span>
           </h1>
           <p>
@@ -806,23 +781,7 @@ function Home() {
       </section>
       <Story />
       <AboutBlock />
-      <section className="section expertise-section">
-        <div className="section-heading">
-          <div>
-            <span className="eyebrow">02 / OUR EXPERTISE</span>
-            <h2>
-              One partner.
-              <br />
-              <em>Many possibilities.</em>
-            </h2>
-          </div>
-          <p>
-            Integrated Engineering, EPC, Renewable Energy &amp; Electrical Asset
-            Management Solutions
-          </p>
-        </div>
-        <ExpertiseList />
-      </section>
+      <ExpertiseExperience />
       <section className="section bento-section">
         <span className="eyebrow">03 / THE WAY WE WORK</span>
         <div className="bento">
@@ -916,7 +875,7 @@ function Home() {
           </div>
           <Button to="/industries">All industries</Button>
         </div>
-        <Industries />
+        <HomeIndustries />
       </section>
       <Process />
       <section className="section why">
@@ -995,7 +954,7 @@ function Home() {
                 alt="Engineer testing electrical protection equipment"
               />
             </div>
-            <h3>Engineering enquiries</h3>
+            <h3><span className="motion-line"><span>Engineering</span></span><span className="motion-line"><span>enquiries</span></span></h3>
             <p>Share your requirements with our engineering team.</p>
             <span className="home-contact-link">
               Submit your enquiry <ArrowRight size={18} />
@@ -1008,7 +967,7 @@ function Home() {
                 alt="Equipment prepared for export"
               />
             </div>
-            <h3>Equipment &amp; export support</h3>
+            <h3><span className="motion-line"><span>Equipment &amp;</span></span><span className="motion-line"><span>export support</span></span></h3>
             <p>
               Explore testing kits, substation equipment and supply options.
             </p>
@@ -1020,7 +979,7 @@ function Home() {
             <div className="home-contact-image">
               <Img src="/images/team1.jpg" alt="Accumax Controls team" />
             </div>
-            <h3>Let’s work together</h3>
+            <h3><span className="motion-line"><span>Let’s work</span></span><span className="motion-line"><span>together</span></span></h3>
             <p>Connect with Accumax about your next project.</p>
             <span className="home-contact-link">
               Get in touch <ArrowRight size={18} />
@@ -1028,7 +987,7 @@ function Home() {
           </Link>
         </div>
       </section>
-    </>
+    </div>
   );
 }
 function PageTop({
@@ -1280,14 +1239,22 @@ function About() {
     </>
   );
 }
-function ExpertiseList() {
+function ExpertiseList({ animated = false }: { animated?: boolean }) {
+  const destinations: Record<string, string> = {
+    '01': '/services/epc-projects',
+    '02': '/services/solar-ev-station',
+    '03': '/services/gis-erection-supervision',
+    '06': '/services/substation-testing-commissioning',
+    '07': '/services/export',
+  };
   return (
-    <div className="expertise-list">
+    <div className={`expertise-list${animated ? ' expertise-motion' : ''}`}>
       {EXPERTISE_CATEGORIES.map((item) => (
         <details className="expertise-entry" key={item.num}>
           <summary>
             <span className="eyebrow">{item.num}</span>
             <h3>{item.title}</h3>
+            {animated && <span className="expertise-peek" aria-hidden="true"><Img src={item.image} alt=""/></span>}
             <ArrowUpRight />
           </summary>
           <div className="expertise-detail">
@@ -1298,6 +1265,7 @@ function ExpertiseList() {
                   <li key={point}>{point}</li>
                 ))}
               </ul>
+              {animated && <Link className="text-link expertise-service-link" to={destinations[item.num] ?? '/contact?service=' + encodeURIComponent(item.title)}>Discuss this expertise <ArrowUpRight size={16}/></Link>}
             </div>
             <Img src={item.image} alt={item.title} />
           </div>
@@ -1893,6 +1861,49 @@ function Seo() {
     </Helmet>
   );
 }
+function SitePreloader() {
+  const reduced = useReducedMotion();
+  const [visible, setVisible] = useState(true);
+  const [finished, setFinished] = useState(false);
+  useLayoutEffect(() => {
+    if (finished) return;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const startedAt = performance.now();
+    let scheduled = false;
+    let holdTimer: ReturnType<typeof setTimeout> | undefined;
+    const finish = () => {
+      if (scheduled) return;
+      scheduled = true;
+      holdTimer = setTimeout(() => setVisible(false), Math.max(0, (reduced ? 200 : 1000) - (performance.now() - startedAt)));
+    };
+    const fallbackTimer = setTimeout(finish, 2800);
+    if (document.readyState === 'complete') finish();
+    else window.addEventListener('load', finish, { once: true });
+    return () => {
+      clearTimeout(fallbackTimer);
+      if (holdTimer) clearTimeout(holdTimer);
+      window.removeEventListener('load', finish);
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [finished, reduced]);
+  if (finished) return null;
+  return <AnimatePresence onExitComplete={() => {
+    setFinished(true);
+    requestAnimationFrame(() => {
+      ScrollTrigger.refresh();
+      window.dispatchEvent(new Event('accumax:ready'));
+    });
+  }}>
+    {visible && <motion.div className="site-preloader" role="status" aria-label="Loading Accumax Controls" initial={false} exit={reduced ? { opacity: 0 } : { y: '100%' }} transition={{ duration: reduced ? .15 : .7, ease: [.76, 0, .24, 1] }}>
+      <motion.div className="site-preloader-content" initial={reduced ? false : { opacity: 0, y: -30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .55, ease: 'easeOut' }}>
+        <Img src={COMPANY.logo} alt="Accumax Controls" eager />
+        <p>Engineering. Infrastructure. Innovation.</p>
+        <div className="site-preloader-track" aria-hidden="true"><motion.span initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: reduced ? .15 : 1, ease: 'easeInOut' }}/></div>
+      </motion.div>
+    </motion.div>}
+  </AnimatePresence>;
+}
 export default function App() {
   const location = useLocation();
   const { scrollYProgress } = useScroll();
@@ -1915,6 +1926,7 @@ export default function App() {
   return (
     <>
       <Seo />
+      <SitePreloader />
       <motion.div
         className="scroll-progress"
         style={{ scaleX: scrollYProgress }}

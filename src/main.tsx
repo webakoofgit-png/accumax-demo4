@@ -4,4 +4,5 @@ import {BrowserRouter} from 'react-router-dom';
 import {HelmetProvider} from 'react-helmet-async';
 import App from './App';
 import './style.css';
+import './motion/homepage-motion.css';
 ReactDOM.createRoot(document.getElementById('root')!).render(<React.StrictMode><HelmetProvider><BrowserRouter><App/></BrowserRouter></HelmetProvider></React.StrictMode>);

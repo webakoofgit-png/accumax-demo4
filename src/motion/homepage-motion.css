@@ -1,0 +1,149 @@
+/* Motion styles are scoped to the existing homepage; inner pages retain their UI. */
+.home-page{--motion-accent:#dd693b;min-width:0;overflow:clip}
+.home-page .motion-line,.home-page .hero-line{display:block;overflow:clip;padding-bottom:.1em;margin-bottom:-.1em}
+.home-page .motion-line>span,.home-page .hero-line>span{display:block}
+.home-page .hero-banner-image{top:-5%;height:110%;transform-origin:50% 45%}
+.home-page .hero-banner .hero-copy{position:relative}
+.home-page .hero-outline .hero-line{line-height:1.12}
+.home-page .hero-banner .hero-actions{flex-wrap:wrap}
+.home-page .hero-banner .hero-actions svg{transition:transform .4s cubic-bezier(.22,1,.36,1)}
+.home-page .hero-banner .hero-actions>a:hover svg{transform:translate(4px,-3px)}
+.home-page .about-photo{overflow:hidden;aspect-ratio:1}
+.home-page .about-photo>img{height:100%;width:100%;object-fit:cover}
+.home-page .about-copy h2 .motion-line{line-height:1.15}
+.home-page .section-heading,.home-page .clients-heading,.home-page .home-contact-heading{position:relative;padding-bottom:24px}
+.home-page .section-heading:after,.home-page .clients-heading:after,.home-page .home-contact-heading:after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--line);transform:scaleX(var(--divider-progress,1));transform-origin:left}
+
+/* The existing seven service categories remain native, keyboard-operable details. */
+.home-page .expertise-motion .expertise-entry{position:relative}
+.home-page .expertise-motion .expertise-entry:after{content:'';position:absolute;left:0;right:0;top:0;height:2px;pointer-events:none;background:var(--motion-accent);transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.22,1,.36,1)}
+.home-page .expertise-motion .expertise-entry:hover:after,.home-page .expertise-motion .expertise-entry:focus-within:after,.home-page .expertise-motion .expertise-entry[open]:after{transform:scaleX(1)}
+.home-page .expertise-motion summary{grid-template-columns:55px minmax(0,1fr) auto 24px;min-height:96px;gap:20px}
+.home-page .expertise-motion summary>.eyebrow{font-variant-numeric:tabular-nums;transition:color .3s,transform .4s}
+.home-page .expertise-motion summary h3{transition:color .3s,transform .4s}
+.home-page .expertise-motion .expertise-entry:hover summary h3,.home-page .expertise-motion .expertise-entry:focus-within summary h3{color:var(--brand);transform:translateX(4px)}
+.home-page .expertise-motion .expertise-entry:hover summary>.eyebrow,.home-page .expertise-motion .expertise-entry[open] summary>.eyebrow{color:var(--brand);transform:translateX(3px)}
+.home-page .expertise-peek{display:block;width:60px;height:54px;overflow:hidden;transition:width .5s cubic-bezier(.22,1,.36,1)}
+.home-page .expertise-peek>img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.home-page .expertise-entry:hover .expertise-peek,.home-page .expertise-entry:focus-within .expertise-peek,.home-page .expertise-entry[open] .expertise-peek{width:120px}
+.home-page .expertise-entry:hover .expertise-peek>img{transform:scale(1.05)}
+.home-page .expertise-motion .expertise-detail>img{height:260px;object-fit:cover}
+.home-page .expertise-service-link{margin-top:24px;color:var(--brand)}
+
+/* Existing service perspectives, layered with native sticky positioning. */
+.home-page .projects-section{background:#eeede7;overflow:visible}
+.home-page .project-showcase-card{isolation:isolate}
+.home-page .project-showcase-copy{opacity:1;transform:none;right:68px}
+.home-page .project-showcase-arrow{opacity:1;transform:none}
+.home-page .project-showcase-watermark{opacity:.12;transform:none}
+.home-page .project-showcase-card:after{opacity:1}
+.home-page .project-showcase-copy>span{line-height:1.7}
+.home-page .project-showcase-category{font-variant-numeric:tabular-nums}
+.home-page .project-showcase-card>img{transition:transform .7s cubic-bezier(.22,1,.36,1),filter .5s}
+
+/* Industry images use a short desktop reel and a fully vertical touch layout. */
+.home-page .industry-status{display:flex;align-items:center;gap:16px;font-size:13px;margin-bottom:26px;min-height:24px}
+.home-page .industries-home{position:relative;z-index:2;background:var(--paper)}
+.home-page .industry-current-number{color:var(--brand);font-variant-numeric:tabular-nums}
+.home-page .industry-current-title{font-weight:600}
+.home-page .industry-total{margin-left:auto;color:#70756a;font-size:11px}
+.home-page .industry-progress{width:100px;height:2px;background:#d7dbd0;overflow:hidden}
+.home-page .industry-progress>span{display:block;width:100%;height:100%;background:var(--motion-accent);transform-origin:left}
+.home-page .industry-viewport{overflow:hidden;min-width:0}
+.home-page .industry-track{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:32px 24px}
+.home-page .industry-slide{display:block;min-width:0}
+.home-page .industry-media{overflow:hidden;aspect-ratio:4/3;background:#dfe3d8}
+.home-page .industry-media>img{width:100%;height:100%;object-fit:cover;transition:transform .65s cubic-bezier(.22,1,.36,1)}
+.home-page .industry-slide:hover .industry-media>img{transform:scale(1.045)}
+.home-page .industry-slide-heading{display:flex;align-items:center;gap:14px;margin-top:20px}
+.home-page .industry-slide-heading>span{font-size:11px;color:var(--brand);font-variant-numeric:tabular-nums}
+.home-page .industry-slide-heading h3{font-size:26px;line-height:1.2}
+.home-page .industry-slide-heading>svg{margin-left:auto;transition:transform .3s}
+.home-page .industry-slide:hover .industry-slide-heading>svg{transform:translate(3px,-3px)}
+.home-page .industry-slide p{margin:12px 0 0}
+
+/* Editorial treatment uses the existing enquiry images and destinations. */
+.home-page .home-contact-card{border:0;background:transparent;padding-bottom:0;box-shadow:none}
+.home-page .home-contact-card:hover,.home-page .home-contact-card:focus-visible{border:0;box-shadow:none}
+.home-page .home-contact-image{aspect-ratio:4/3}
+.home-page .home-contact-image img{transition:transform .8s cubic-bezier(.22,1,.36,1)}
+.home-page .home-contact-card h3{margin:24px 0 0;font-size:clamp(24px,2.4vw,34px);font-weight:500;line-height:1.15}
+.home-page .home-contact-card p{margin:18px 0 24px}
+.home-page .home-contact-link{margin:auto 0 0;padding-bottom:10px;gap:24px}
+.home-page .home-contact-link svg{transition:transform .4s cubic-bezier(.22,1,.36,1)}
+.home-page .home-contact-card:hover .home-contact-link svg{transform:translateX(5px)}
+
+/* Shared navigation and small pointer interactions. */
+.header{transition:height .35s,top .35s,background .4s,border-color .4s,box-shadow .4s}
+.header.compact{background:#fffefbf5;box-shadow:0 8px 28px #1820160b}
+.header .site-mega a{animation:menuItemIn .45s cubic-bezier(.22,1,.36,1) both}
+.header .site-mega a:nth-of-type(2){animation-delay:.04s}
+.header .site-mega a:nth-of-type(3){animation-delay:.08s}
+.header .site-mega a:nth-of-type(4){animation-delay:.12s}
+.header .site-mega a:nth-of-type(5){animation-delay:.16s}
+.header .site-mega a:nth-of-type(6){animation-delay:.2s}
+@keyframes menuItemIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+html{scroll-behavior:smooth;scroll-padding-top:104px}
+[id]{scroll-margin-top:104px}
+.home-page .button,.contact-band .button{transition:background .3s,color .3s,border-color .3s}
+.home-page .button svg,.contact-band .button svg{transition:transform .4s cubic-bezier(.22,1,.36,1)}
+.home-page .button:hover svg,.contact-band .button:hover svg{transform:translate(4px,-3px)}
+.motion-cta{position:relative;isolation:isolate;overflow:hidden}
+.motion-cta:before{content:'';position:absolute;z-index:-1;left:30%;top:50%;width:1100px;max-width:150vw;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#ed8b39aa,transparent 68%);transform:translate(-50%,-50%) scale(var(--cta-reveal,1));opacity:.22;pointer-events:none}
+.motion-cta>*{position:relative}
+
+@media(min-width:1100px) and (min-height:740px) and (prefers-reduced-motion:no-preference){
+  .home-page .industries-home{padding-top:56px;padding-bottom:48px}
+  .home-page .industries-home .section-heading{margin-bottom:24px;padding-bottom:20px}
+  .home-page .industries-home .section-heading h2{font-size:clamp(40px,4vw,58px)}
+  .home-page .industry-track{display:flex;gap:24px}
+  .home-page .industry-slide{flex:0 0 clamp(300px,29vw,430px)}
+  .home-page .industry-media{height:230px;aspect-ratio:auto}
+  .home-page .industry-media>img{width:108%;max-width:none;margin-left:-4%}
+  .home-page .industry-slide p{font-size:16px!important;line-height:1.6!important}
+  .home-page .industry-slide-heading h3{font-size:24px}
+  .home-page .projects-section{padding-top:72px;padding-bottom:72px}
+  .home-page .project-showcase{display:block}
+  .home-page .project-showcase-card{position:sticky;top:112px;display:block;height:clamp(340px,50vh,440px);min-height:340px;margin-bottom:28px;background:#252b26;transform-origin:50% 0%;border-top:1px solid #ffffff30}
+  .home-page .project-showcase-card:last-child{margin-bottom:0}
+  .home-page .project-showcase-card>img{width:61%;height:100%}
+  .home-page .project-showcase-card:after{right:39%;background:linear-gradient(90deg,#a8180018,#a8180040)}
+  .home-page .project-showcase-copy{left:65%;right:5%;bottom:60px;gap:18px}
+  .home-page .project-showcase-copy strong{font-size:clamp(25px,2.7vw,40px);line-height:1.1}
+  .home-page .project-showcase-copy>span{font-size:16px}
+  .home-page .project-showcase-category{left:65%;top:36px;padding:0;background:none;color:#d0d7cd;font-size:10px}
+  .home-page .project-showcase-arrow{right:4%;bottom:22px;width:34px;height:34px}
+  .home-page .project-showcase-watermark{left:12%;top:22%;width:36%;opacity:.1}
+}
+@media(max-width:760px){
+  .home-page .expertise-motion summary{grid-template-columns:30px minmax(0,1fr) 20px;gap:12px;min-height:84px}
+  .home-page .expertise-peek{display:none}
+  .home-page .expertise-motion summary h3{font-size:20px;line-height:1.3}
+  .home-page .expertise-motion .expertise-detail{padding-left:0}
+  .home-page .expertise-motion .expertise-detail>img{height:220px}
+  .home-page .industry-track{grid-template-columns:1fr;gap:32px}
+  .home-page .industry-status{display:none}
+  .home-page .industry-media{aspect-ratio:16/10}
+  .home-page .industry-slide-heading h3{font-size:25px}
+  .home-page .about-block{gap:32px}
+  .home-page .about-photo{aspect-ratio:1;max-height:none}
+  .home-page .home-contact-card h3{font-size:29px}
+  .home-page .section-heading,.home-page .clients-heading,.home-page .home-contact-heading{padding-bottom:20px}
+}
+@media(hover:none){.home-page .button:hover{transform:none}}
+/* Pointer hover reveals the red treatment; touch retains readable content. */
+.home-page .project-showcase-card:after{inset:0;opacity:0;background:linear-gradient(180deg,rgba(168,24,0,.3),rgba(168,24,0,.62) 52%,rgba(126,18,0,.96));transition:opacity .45s}
+.home-page .project-showcase-copy{opacity:0;transform:translateY(14px);transition:opacity .4s,transform .45s cubic-bezier(.22,1,.36,1)}
+.home-page .project-showcase-watermark{opacity:0;transition:opacity .45s}
+.home-page .project-showcase-arrow{opacity:0;transition:opacity .35s,transform .35s}
+.home-page .project-showcase-card:hover:after,.home-page .project-showcase-card:focus-visible:after,.home-page .project-showcase-card:focus-within:after{opacity:1}
+.home-page .project-showcase-card:hover .project-showcase-copy,.home-page .project-showcase-card:focus-visible .project-showcase-copy,.home-page .project-showcase-card:focus-within .project-showcase-copy{opacity:1;transform:translateY(0)}
+.home-page .project-showcase-card:hover .project-showcase-watermark,.home-page .project-showcase-card:focus-visible .project-showcase-watermark{opacity:.16}
+.home-page .project-showcase-card:hover .project-showcase-arrow,.home-page .project-showcase-card:focus-visible .project-showcase-arrow{opacity:1}
+@media(hover:none),(pointer:coarse){.home-page .project-showcase-card:after,.home-page .project-showcase-copy,.home-page .project-showcase-arrow{opacity:1}.home-page .project-showcase-copy{transform:none}.home-page .project-showcase-watermark{opacity:.12}}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .header .site-mega a{animation:none}
+  .home-page .industry-slide:hover img,.home-page .home-contact-card:hover img,.home-page .button:hover,.home-page .button:hover svg{transform:none}
+  .home-page .project-showcase-card{position:relative;top:auto}
+}
