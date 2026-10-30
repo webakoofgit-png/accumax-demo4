@@ -169,12 +169,12 @@ p{font-size:16px}
 
 @media(min-width:951px){.project-showcase{grid-template-columns:repeat(3,minmax(0,1fr))}.project-showcase-card{min-height:420px}}
 
-.project-showcase-card:after{inset:0;background:rgba(0,0,0,.72)}
+.project-showcase-card:after{inset:0;background:linear-gradient(180deg,rgba(168,24,0,.52),rgba(168,24,0,.76) 52%,rgba(126,18,0,.97))}
 .project-showcase-card:hover:after,.project-showcase-card:focus-visible:after{opacity:1}
 .project-showcase-copy{left:28px;right:28px;bottom:36px;gap:12px}
 .project-showcase-copy strong{color:#fff;font-size:clamp(22px,2vw,30px);text-shadow:0 1px 8px rgba(0,0,0,.35)}
 .project-showcase-copy>span{color:#fff;font-size:14px;line-height:1.65;text-shadow:0 1px 6px rgba(0,0,0,.45)}
-@media(max-width:950px){.project-showcase-card:after{background:rgba(0,0,0,.65)}}
+@media(max-width:950px){.project-showcase-card:after{background:linear-gradient(180deg,rgba(168,24,0,.48),rgba(168,24,0,.72) 48%,rgba(126,18,0,.97))}}
 
 .project-showcase-arrow{opacity:0;transform:scale(.82);transition:opacity .25s,transform .25s}
 .project-showcase-card:hover .project-showcase-arrow,.project-showcase-card:focus-visible .project-showcase-arrow{opacity:1;transform:scale(1)}
@@ -335,3 +335,8 @@ p{font-size:16px}
 .bento-clients h3{margin:0}
 @media(max-width:999px){.bento{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.bento>div,.bento .bento-quality,.bento .bento-number{grid-column:auto;min-height:270px;padding:28px}.bento .bento-clients{grid-column:1/-1;min-height:180px}.bento h3{font-size:28px}}
 @media(max-width:640px){.bento{grid-template-columns:1fr;gap:16px;margin-top:28px}.bento>div,.bento .bento-quality,.bento .bento-number{grid-column:auto;min-height:250px;padding:28px}.bento .bento-clients{grid-column:auto;min-height:190px}.bento h3{font-size:28px}.bento-wide>svg{top:28px;right:26px}}
+/* Brand watermark above the red image overlay, clear of the card copy. */
+.project-showcase-watermark{position:absolute;z-index:1;top:25%;left:12%;width:76%;pointer-events:none;opacity:0;transform:translateY(8px);transition:opacity .35s,transform .35s}
+.project-showcase-watermark img{width:100%;height:auto;object-fit:contain;filter:brightness(0) invert(1)}
+.project-showcase-card:hover .project-showcase-watermark,.project-showcase-card:focus-visible .project-showcase-watermark{opacity:.18;transform:translateY(0)}
+@media(max-width:950px){.project-showcase-watermark{opacity:.18;transform:none}}
