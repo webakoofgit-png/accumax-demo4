@@ -1135,7 +1135,38 @@ function PerspectiveSection() {
       touchStart = undefined;
       gestureConsumed = false;
     };
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.ctrlKey || event.metaKey || event.altKey || !isActive()) return;
+      const target = event.target as HTMLElement | null;
+      if (target?.closest('input, textarea, select, button, a, [contenteditable="true"]')) return;
+      const forward = ['ArrowDown', 'PageDown', 'End'].includes(event.key) || (event.key === ' ' && !event.shiftKey);
+      const backward = ['ArrowUp', 'PageUp', 'Home'].includes(event.key) || (event.key === ' ' && event.shiftKey);
+      if ((forward || backward) && advance(forward ? 1 : -1)) event.preventDefault();
+    };
+    let previousPageY = window.scrollY;
+    const onPageScroll = () => {
+      const pageY = window.scrollY;
+      const movingDown = pageY > previousPageY;
+      previousPageY = pageY;
+      const max = copy.scrollHeight - copy.clientHeight;
+      if (!movingDown || max < 1 || (!transitioning && !gestureConsumed && copy.scrollTop >= max - 1)) return;
+      const headerBottom = document.querySelector('.header')?.getBoundingClientRect().bottom ?? 68;
+      const bounds = copy.getBoundingClientRect();
+      const sectionBounds = section.getBoundingClientRect();
+      const desiredTop = Math.max(headerBottom + 12, Math.min(
+        headerBottom + 12 + bounds.top - sectionBounds.top,
+        window.innerHeight - copy.clientHeight - 20,
+      ));
+      const stopAt = Math.max(0, pageY + bounds.top - desiredTop);
+      // Catch a swipe or its momentum even when it began above this section.
+      if (pageY > stopAt + 1) {
+        previousPageY = stopAt;
+        window.scrollTo({ top: stopAt, behavior: 'instant' });
+      }
+    };
     window.addEventListener("wheel", onWheel, { passive: false });
+    window.addEventListener('scroll', onPageScroll, { passive: true });
+    window.addEventListener('keydown', onKeyDown);
     window.addEventListener('touchstart', onTouchStart, { passive: true });
     window.addEventListener('touchmove', onTouchMove, { passive: false });
     window.addEventListener('touchend', onTouchEnd);
@@ -1143,6 +1174,8 @@ function PerspectiveSection() {
     return () => {
       resize.disconnect();
       window.removeEventListener("wheel", onWheel);
+      window.removeEventListener('scroll', onPageScroll);
+      window.removeEventListener('keydown', onKeyDown);
       window.removeEventListener('touchstart', onTouchStart);
       window.removeEventListener('touchmove', onTouchMove);
       window.removeEventListener('touchend', onTouchEnd);
