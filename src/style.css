@@ -340,3 +340,26 @@ p{font-size:16px}
 .project-showcase-watermark img{width:100%;height:auto;object-fit:contain;filter:brightness(0) invert(1)}
 .project-showcase-card:hover .project-showcase-watermark,.project-showcase-card:focus-visible .project-showcase-watermark{opacity:.18;transform:translateY(0)}
 @media(max-width:950px){.project-showcase-watermark{opacity:.18;transform:none}}
+
+/* Project approach arranged around the company logo. */
+.process.process-brand{background:#efeee8;color:#242522;padding:76px max(6vw,24px) 86px}
+.process-brand-heading{text-align:center;max-width:1100px;margin:0 auto 64px}
+.process-brand-heading>.eyebrow{color:var(--brand);margin-bottom:18px}
+.process-brand-heading h2{font-family:'Manrope',Arial,sans-serif;font-size:clamp(36px,4.5vw,66px);font-weight:600;line-height:1.1;letter-spacing:-.055em}
+.process-brand-heading p{color:#676961;font-size:16px;line-height:1.8;margin:20px auto 0}
+.process-brand-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(220px,.95fr) minmax(0,1fr);align-items:center;gap:clamp(28px,4vw,68px);max-width:1400px;margin:auto}
+.process-feature-column{display:grid;grid-template-rows:repeat(3,minmax(156px,auto));gap:20px}
+@media(min-width:1000px){.process-brand-layout>.process-feature-column:last-child{padding-left:32px}}
+.process-feature{padding:24px 0;background:transparent;border:0;border-radius:0;box-shadow:none}
+.process-feature-heading{display:flex;align-items:center;gap:16px}
+.process-feature-icon{display:grid;place-items:center;flex-shrink:0;width:48px;height:48px;border-radius:10px;background:var(--brand);color:#fff;border:1px solid #951500;box-shadow:0 4px 10px #a8180020;font:700 23px/1 'Manrope',Arial,sans-serif;font-variant-numeric:tabular-nums}
+.process-feature-icon svg{width:20px;height:20px;stroke-width:1.8}
+.process-feature h3{font-size:clamp(21px,1.8vw,26px);font-weight:700;letter-spacing:-.03em;line-height:1.25}
+.process-feature p{color:#676961;font-size:14px;line-height:1.75;margin:16px 0 0;max-width:38ch}
+.process-brand-logo{position:relative;min-height:330px;align-self:stretch;display:grid;grid-template-rows:minmax(0,1fr) auto minmax(0,1fr);justify-items:center;align-items:center;text-align:center}
+.process-brand-logo:before,.process-brand-logo:after{content:none}
+.process-brand-logo:after{width:85%;border-color:#a818000d}
+.process-brand-logo img{position:relative;grid-row:2;width:100%;height:auto;object-fit:contain;filter:none}
+.process-brand-logo>span{position:relative;grid-row:3;align-self:start;margin-top:24px;color:#676961;font-size:9px;line-height:1.8;letter-spacing:.16em;max-width:260px}
+@media(max-width:999px){.process-brand-layout{grid-template-columns:1fr 1fr;gap:36px}.process-brand-logo{grid-column:1/-1;grid-row:1;min-height:200px;width:280px;justify-self:center}.process-brand-logo:before{width:220px}.process-brand-logo:after{width:190px}.process-brand-heading{margin-bottom:36px}.process-feature-column{gap:32px}}
+@media(max-width:640px){.process.process-brand{padding:56px 24px 60px}.process-brand-heading h2{font-size:39px}.process-brand-heading p{font-size:14px}.process-brand-layout{grid-template-columns:1fr;gap:32px}.process-brand-logo{grid-column:auto;width:min(260px,100%);min-height:200px}.process-feature-column{gap:28px}.process-feature p{max-width:none;font-size:14px}.process-feature h3{font-size:24px}}
