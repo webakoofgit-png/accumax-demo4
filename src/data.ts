@@ -168,6 +168,107 @@ export type Industry = {
   applications: string;
 };
 
+export type ExpertiseCategory = {
+  num: string;
+  title: string;
+  short: string;
+  image: string;
+  points: string[];
+};
+
+export const EXPERTISE_CATEGORIES: ExpertiseCategory[] = [
+  {
+    num: '01',
+    title: 'EPC & Project Execution',
+    short: 'End-to-end Engineering, Procurement and Construction (EPC) solutions for industrial, commercial and infrastructure projects.',
+    image: '/images/products/epc-hero.jpg',
+    points: [
+      'Electrical EPC, industrial electrification and MEP works.',
+      'Power distribution systems, substations, HT/LT installations and cabling.',
+      'Electrical infrastructure for data centres, automotive, process industries, metro rail and manufacturing plants.',
+      'Design engineering, procurement, installation, testing, commissioning and project management.',
+      'LV panels, MCCs, PCCs, control panels and electrical system retrofitting.',
+    ],
+  },
+  {
+    num: '02',
+    title: 'Solar & Renewable Energy',
+    short: 'Comprehensive solar power solutions, from feasibility assessment to commissioning and long-term asset performance.',
+    image: '/images/products/solar-and-ev-station.jpg',
+    points: [
+      'Ground-mounted and rooftop solar PV EPC projects.',
+      'Captive and open-access solar power project development support.',
+      'Feasibility studies, DPRs, design engineering and project management consultancy (PMC).',
+      'DC/AC electrical systems, evacuation infrastructure and grid connectivity.',
+      'Solar plant testing, commissioning, O&M and performance monitoring.',
+    ],
+  },
+  {
+    num: '03',
+    title: 'Substations, GIS & AIS Switchgear',
+    short: 'Specialized engineering and execution services for high-voltage substations and power transmission infrastructure.',
+    image: '/images/products/gis-direction-and-supervision.jpg',
+    points: [
+      'GIS and AIS substations, switchyards and associated electrical works up to 400 kV.',
+      'Substation engineering, equipment installation, erection supervision and commissioning.',
+      'GIS installation, gas handling, cable terminations and associated testing.',
+      'Protection, control, SCADA and Substation Automation Systems (SAS).',
+      'Substation retrofitting, upgrades and reliability improvement.',
+    ],
+  },
+  {
+    num: '04',
+    title: 'Operations, Maintenance & AMC',
+    short: 'Preventive, predictive and corrective maintenance services for reliable electrical and industrial operations.',
+    image: '/images/products/substation-t-and-c.jpg',
+    points: [
+      'Annual Maintenance Contracts (AMC) for electrical installations and MEP systems.',
+      'HT/LT switchgear, transformers, substations and distribution equipment maintenance.',
+      'Electrical system audits, condition assessment and preventive maintenance.',
+      'Breakdown support, fault identification, rectification and equipment refurbishment.',
+      'Solar plant O&M and performance optimization.',
+    ],
+  },
+  {
+    num: '05',
+    title: 'Live Electrical Panel Cleaning',
+    short: 'Specialized online/live electrical panel cleaning solutions designed to minimize production interruptions.',
+    image: '/images/products/scada-and-relay-testing.jpg',
+    points: [
+      'Cleaning of energized electrical panels using specialized non-conductive cleaning chemicals.',
+      'Applications for MCCs, PCCs, control panels, distribution boards and industrial electrical equipment.',
+      'Removal of dust, oil, grease and industrial contaminants.',
+      'Planned cleaning programs supporting electrical reliability and preventive maintenance.',
+      'Supply of NKW 99 OPP and NWK 747 cleaning chemicals, on-site services and customer maintenance-team training.',
+    ],
+  },
+  {
+    num: '06',
+    title: 'Electrical Testing & Commissioning',
+    short: 'Integrated testing, protection engineering and commissioning services for electrical power systems.',
+    image: '/images/products/substation-t-and-c.jpg',
+    points: [
+      'Testing and commissioning of MV/EHV switchgear, transformers, cables and substations.',
+      'Numerical relay testing, protection coordination and relay setting configuration.',
+      'SCADA, SAS, communication systems and control circuit testing.',
+      'GIS/AIS equipment testing, cable fault location and rectification.',
+      'Transformer oil filtration, diagnostic testing and electrical system troubleshooting.',
+    ],
+  },
+  {
+    num: '07',
+    title: 'Exports & Engineered Products',
+    short: 'International sourcing and supply of electrical, industrial and infrastructure products.',
+    image: '/images/products/export-projects.jpg',
+    points: [
+      'Substation and transmission-line equipment, electrical enclosures and cable accessories.',
+      'PPE, industrial safety products, construction tools and measuring instruments.',
+      'FRP enclosures, cable trays, handrails, cabinets and engineered structures.',
+      'Structural steel, lighting poles, earthing materials and electrical installation accessories.',
+      'Industrial MEP materials and customized engineering products.',
+    ],
+  },
+];
 export const INDUSTRIES: Industry[] = [
   { name: "Power Utilities", image: "/images/portfolio/i7.jpg", applications: "Substations, protection systems, network audits" },
   { name: "Data Centers", image: "/images/portfolio/i16.jpg", applications: "Reliable power distribution, E-House solutions" },
