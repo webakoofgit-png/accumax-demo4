@@ -227,7 +227,7 @@ function Header() {
             <div>
               <span className="eyebrow">EXPLORE ACCUMAX</span>
               {[
-                ["Company", "/about"],
+                ["About Us", "/about"],
                 ["Expertise", "/services"],
                 ["Industry Solutions", "/industries"],
                 ["Featured Works", "/projects"],
@@ -1085,21 +1085,17 @@ function PerspectiveSection() {
     let transitioning = false;
     let transition: ReturnType<typeof gsap.to> | undefined;
     let releaseTimer: ReturnType<typeof setTimeout> | undefined;
-    const onWheel = (event: WheelEvent) => {
-      if (event.ctrlKey || !event.deltaY || Math.abs(event.deltaX) > Math.abs(event.deltaY)) return;
+    const isActive = () => {
       const bounds = copy.getBoundingClientRect();
-      // Activate once the whole text area is visible, wherever the pointer is.
-      if (bounds.top < 80 || bounds.bottom > window.innerHeight - 24) return;
-      if (transitioning) {
-        event.preventDefault();
-        return;
-      }
+      const headerBottom = document.querySelector('.header')?.getBoundingClientRect().bottom ?? 68;
+      return bounds.top >= headerBottom && bounds.bottom <= window.innerHeight - 12;
+    };
+    const advance = (direction: number) => {
+      if (transitioning) return true;
       const max = copy.scrollHeight - copy.clientHeight;
-      const direction = Math.sign(event.deltaY);
-      if ((direction > 0 && copy.scrollTop >= max - 1) || (direction < 0 && copy.scrollTop <= 1)) return;
+      if ((direction > 0 && copy.scrollTop >= max - 1) || (direction < 0 && copy.scrollTop <= 1)) return false;
       const index = Math.round(copy.scrollTop / copy.clientHeight);
       const target = Math.max(0, Math.min(max, (index + direction) * copy.clientHeight));
-      event.preventDefault();
       transitioning = true;
       transition = gsap.to(copy, {
         scrollTop: target,
@@ -1109,11 +1105,48 @@ function PerspectiveSection() {
           releaseTimer = setTimeout(() => { transitioning = false; }, 140);
         },
       });
+      return true;
+    };
+    const onWheel = (event: WheelEvent) => {
+      if (event.ctrlKey || !event.deltaY || Math.abs(event.deltaX) > Math.abs(event.deltaY) || !isActive()) return;
+      if (advance(Math.sign(event.deltaY))) event.preventDefault();
+    };
+    let touchStart: { x: number; y: number } | undefined;
+    let gestureConsumed = false;
+    const onTouchStart = (event: TouchEvent) => {
+      gestureConsumed = false;
+      touchStart = event.touches.length === 1 ? { x: event.touches[0].clientX, y: event.touches[0].clientY } : undefined;
+    };
+    const onTouchMove = (event: TouchEvent) => {
+      if (!touchStart || event.touches.length !== 1) return;
+      if (gestureConsumed) {
+        if (event.cancelable) event.preventDefault();
+        return;
+      }
+      const dy = touchStart.y - event.touches[0].clientY;
+      const dx = touchStart.x - event.touches[0].clientX;
+      if (Math.abs(dy) < 8 || Math.abs(dx) > Math.abs(dy) || !isActive()) return;
+      if (advance(Math.sign(dy))) {
+        gestureConsumed = true;
+        if (event.cancelable) event.preventDefault();
+      }
+    };
+    const onTouchEnd = () => {
+      touchStart = undefined;
+      gestureConsumed = false;
     };
     window.addEventListener("wheel", onWheel, { passive: false });
+    window.addEventListener('touchstart', onTouchStart, { passive: true });
+    window.addEventListener('touchmove', onTouchMove, { passive: false });
+    window.addEventListener('touchend', onTouchEnd);
+    window.addEventListener('touchcancel', onTouchEnd);
     return () => {
       resize.disconnect();
       window.removeEventListener("wheel", onWheel);
+      window.removeEventListener('touchstart', onTouchStart);
+      window.removeEventListener('touchmove', onTouchMove);
+      window.removeEventListener('touchend', onTouchEnd);
+      window.removeEventListener('touchcancel', onTouchEnd);
       transition?.kill();
       if (releaseTimer) clearTimeout(releaseTimer);
     };
