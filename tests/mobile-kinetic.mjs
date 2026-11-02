@@ -8,7 +8,7 @@ process.env.TMP = runtime;
 const { chromium } = await import('@playwright/test');
 const browser = await chromium.launch({ executablePath: 'C:/Program Files/Google/Chrome/Application/chrome.exe', args: ['--single-process', '--no-zygote', '--disable-gpu'] });
 const [width, height] = (process.env.MOBILE_KINETIC_SIZE ?? '390x844').split('x').map(Number);
-const context = await browser.newContext({ hasTouch: true, isMobile: true, viewport: { width, height } });
+const context = await browser.newContext({ reducedMotion: 'no-preference', hasTouch: true, isMobile: true, viewport: { width, height } });
 const page = await context.newPage();
 const until = async (check, label) => {
   const end = Date.now() + 6000;
@@ -27,13 +27,14 @@ try {
     new MutationObserver(() => { if (dialog.open) dialog.close(); }).observe(dialog, { attributes: true, attributeFilter: ['open'] });
     if (dialog.open) dialog.close();
   });
-  assert.equal(await page.locator('.pin-spacer').count(), 1);
+  assert.equal(await section.locator('.pin-spacer > .ke-surface').count(), 1);
   const metadata = await page.evaluate(async () => {
     const url = performance.getEntriesByType('resource').find(entry => entry.name.includes('/gsap_ScrollTrigger.js')).name;
     const { ScrollTrigger } = await import(url);
     const pin = ScrollTrigger.getById('kinetic-engineering');
     return { start: pin.start, end: pin.end };
   });
+  assert(metadata.end - metadata.start >= 2800, 'Mobile stages need enough scroll distance to read');
   const positions = [.06, .22, .36, .5, .64, .79, .98];
   for (let index = 0; index < positions.length; index++) {
     await page.evaluate(top => window.scrollTo({ top, behavior: 'instant' }), metadata.start + (metadata.end - metadata.start) * positions[index]);

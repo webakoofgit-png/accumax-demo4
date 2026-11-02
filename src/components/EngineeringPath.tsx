@@ -48,6 +48,35 @@ export function EngineeringPath() {
       section.dataset.enhanced = 'true';
       const context = gsap.context(() => {
         const compact = Boolean(match.conditions?.compact);
+        if (compact) {
+          // Keep mobile headings intact and reserve a full reading interval per stage.
+          const sequence = gsap.timeline();
+          gsap.set(scenes, { autoAlpha: 0, y: 0 });
+          gsap.set(scenes[0], { autoAlpha: 1 });
+          accessibility(0);
+          sequence.to({}, { duration: 1.2 });
+          scenes.slice(1).forEach((scene, offset) => {
+            const previous = scenes[offset];
+            sequence.to(previous, { autoAlpha: 0, y: -12, duration: .22, ease: 'power1.in' })
+              .fromTo(scene, { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: .32, ease: 'power2.out' })
+              .to({}, { duration: 1.2 });
+          });
+          const syncStage = () => {
+            const index = Math.min(6, Math.max(0, Math.floor((sequence.time() + .01) / 1.74)));
+            accessibility(index);
+            gsap.set(counter, { y: -Math.min(index, 5) * counterWindow.clientHeight });
+          };
+          sequence.eventCallback('onUpdate', syncStage);
+          ScrollTrigger.create({
+            id: 'kinetic-engineering', trigger: surface, animation: sequence,
+            start: () => `top ${parseFloat(getComputedStyle(section).getPropertyValue('--ke-pin-top')) || 64}px`,
+            end: () => '+=' + Math.max(2800, window.innerHeight * 3.5),
+            pin: true, pinSpacing: true, scrub: .45, anticipatePin: 1, invalidateOnRefresh: true,
+            onRefresh: self => { sequence.progress(self.progress); syncStage(); },
+            onUpdate: syncStage,
+          });
+          return;
+        }
         gsap.set(scenes, { autoAlpha: 0 });
         gsap.set(scenes[0], { autoAlpha: 1 });
         scenes.slice(1, 6).forEach(scene => gsap.set(scene.querySelectorAll('.ke-glyph'), { yPercent: letter => letter % 2 ? -115 : 115 }));
@@ -89,10 +118,10 @@ export function EngineeringPath() {
         });
         ScrollTrigger.create({
           id: 'kinetic-engineering', trigger: surface, animation: sequence,
-          start: () => compact ? 'top 80%' : `top ${parseFloat(getComputedStyle(section).getPropertyValue('--ke-pin-top')) || 76}px`,
-          end: () => compact ? 'bottom 20%' : '+=' + Math.max(2400, window.innerHeight * 3.4),
-          pin: !compact, pinSpacing: !compact, scrub: compact ? .2 : .65, anticipatePin: 1, invalidateOnRefresh: true,
-          snap: compact ? undefined : {
+          start: () => `top ${parseFloat(getComputedStyle(section).getPropertyValue('--ke-pin-top')) || 76}px`,
+          end: () => '+=' + Math.max(2400, window.innerHeight * 3.4),
+          pin: true, pinSpacing: true, scrub: .65, anticipatePin: 1, invalidateOnRefresh: true,
+          snap: {
             // Only settle unfinished letter transitions. Readable holds never pull the scroll back.
             snapTo: (value, self) => {
               const time = value * duration;
