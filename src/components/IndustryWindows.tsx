@@ -1,0 +1,166 @@
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowUpRight, ArrowRight } from 'lucide-react';
+import { useReducedMotion } from 'framer-motion';
+import gsap from 'gsap';
+import { INDUSTRIES } from '../data';
+import powerUtilitiesPhoto from '../assets/images/transmission-wide.jpg';
+import './industry-windows.css';
+
+const industries = INDUSTRIES.slice(0, 6);
+const photographs = import.meta.glob('/src/assets/images/portfolio/*.{jpg,jpeg,png,webp}', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
+const source = (index: number) => index === 0 ? powerUtilitiesPhoto : photographs['/src/assets' + industries[index].image] ?? industries[index].image;
+
+export function IndustryWindows() {
+  const [active, setActive] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const root = useRef<HTMLDivElement>(null);
+  const selected = useRef(0);
+  const previous = useRef(0);
+  const request = useRef(0);
+  const manualUntil = useRef(0);
+  const alive = useRef(true);
+  const swipe = useRef<{ x: number; y: number } | null>(null);
+  const reduced = useReducedMotion();
+
+  useLayoutEffect(() => {
+    alive.current = true;
+    return () => { alive.current = false; request.current++; };
+  }, []);
+
+  const choose = useCallback(async (index: number, automatic = false) => {
+    if (!automatic) manualUntil.current = Date.now() + 2500;
+    const next = (index + industries.length) % industries.length;
+    const token = ++request.current;
+    if (next === selected.current) { setLoading(false); return; }
+    setLoading(true);
+    const photo = new Image();
+    photo.src = source(next);
+    try { await photo.decode(); } catch { /* Keep the current image if loading fails. */ }
+    if (!alive.current || token !== request.current) return;
+    setLoading(false);
+    if (!photo.naturalWidth) return;
+    selected.current = next;
+    setActive(next);
+  }, []);
+
+  useEffect(() => {
+    const element = root.current;
+    if (!element || reduced || loading) return;
+    let visible = false;
+    let nextAdvance = Date.now() + 2500;
+    const observer = new IntersectionObserver(entries => {
+      visible = entries.some(entry => entry.isIntersecting && entry.intersectionRatio >= .3);
+      nextAdvance = Date.now() + 2500;
+    }, { threshold: [0, .3] });
+    observer.observe(element);
+    const timer = window.setInterval(() => {
+      const now = Date.now();
+      const hovering = window.matchMedia('(hover:hover)').matches && element.matches(':hover');
+      if (!visible || document.hidden || hovering || element.contains(document.activeElement) || now < manualUntil.current) {
+        nextAdvance = now + 2500;
+        return;
+      }
+      if (now >= nextAdvance) {
+        nextAdvance = now + 2500;
+        void choose(selected.current + 1, true);
+      }
+    }, 250);
+    return () => { window.clearInterval(timer); observer.disconnect(); };
+  }, [choose, reduced, loading, active]);
+
+  useEffect(() => {
+    if (!window.matchMedia('(max-width: 700px)').matches) return;
+    const track = root.current?.querySelector<HTMLElement>('.iw-selector');
+    const tab = root.current?.querySelector<HTMLElement>(`#industry-selector-${active}`);
+    if (!track || !tab) return;
+    const left = tab.getBoundingClientRect().left - track.getBoundingClientRect().left + track.scrollLeft - (track.clientWidth - tab.offsetWidth) / 2;
+    track.scrollTo({ left, behavior: reduced ? 'instant' : 'smooth' });
+  }, [active, reduced]);
+
+  useLayoutEffect(() => {
+    if (!root.current) return;
+    const context = gsap.context(() => {
+      const layers = gsap.utils.toArray<HTMLElement>('.iw-layer');
+      layers.forEach((layer, index) => {
+        gsap.set(layer, { autoAlpha: 0, zIndex: 0 });
+      });
+      const incoming = layers[active];
+      const outgoing = layers[previous.current];
+      gsap.set(outgoing, { autoAlpha: 1, zIndex: 0 });
+      gsap.set(incoming, { autoAlpha: 1, zIndex: 1 });
+      const changed = previous.current !== active;
+      previous.current = active;
+      if (!reduced) {
+        if (changed) gsap.fromTo(incoming, { opacity: 0 }, { opacity: 1, duration: .45, ease: 'power2.out' });
+        gsap.fromTo('.iw-title-line>span', { yPercent: 105 }, { yPercent: 0, duration: .5, stagger: .04, ease: 'power3.out' });
+        gsap.fromTo('.iw-cta', { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: .35 });
+        gsap.fromTo('.iw-progress>span', { scaleX: 0 }, { scaleX: 1, duration: .65, ease: 'power2.inOut' });
+      }
+    }, root);
+    return () => context.revert();
+  }, [active, reduced]);
+
+  useLayoutEffect(() => {
+    const stage = root.current?.querySelector<HTMLElement>('.iw-stage');
+    const plane = root.current?.querySelector<HTMLElement>('.iw-plane');
+    if (!stage || !plane || reduced || !window.matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+    const context = gsap.context(() => {}, root);
+    let x: ReturnType<typeof gsap.quickTo>;
+    let y: ReturnType<typeof gsap.quickTo>;
+    context.add(() => {
+      x = gsap.quickTo(plane, 'x', { duration: .9, ease: 'power3.out' });
+      y = gsap.quickTo(plane, 'y', { duration: .9, ease: 'power3.out' });
+    });
+    const move = (event: PointerEvent) => {
+      if (event.pointerType !== 'mouse') return;
+      const bounds = stage.getBoundingClientRect();
+      x((event.clientX - bounds.left - bounds.width / 2) / bounds.width * 14);
+      y((event.clientY - bounds.top - bounds.height / 2) / bounds.height * 10);
+    };
+    const reset = () => { x(0); y(0); };
+    stage.addEventListener('pointermove', move);
+    stage.addEventListener('pointerleave', reset);
+    return () => { stage.removeEventListener('pointermove', move); stage.removeEventListener('pointerleave', reset); context.revert(); };
+  }, [reduced]);
+
+  const industry = industries[active];
+  const words = industry.name.split(' ');
+  const lines = words.length > 1 ? [words.slice(0, -1).join(' '), words[words.length - 1]] : [industry.name];
+  return <div className="industry-windows" ref={root}>
+    <div className="iw-stage" id="industry-window" role="tabpanel" aria-labelledby={`industry-selector-${active}`} aria-busy={loading}
+      onPointerDown={event => { swipe.current = { x: event.clientX, y: event.clientY }; }}
+      onPointerCancel={() => { swipe.current = null; }}
+      onPointerUp={event => {
+        const start = swipe.current; swipe.current = null;
+        if (!start || event.pointerType === 'mouse') return;
+        const dx = event.clientX - start.x, dy = event.clientY - start.y;
+        if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.4) void choose(active + (dx < 0 ? 1 : -1));
+      }}>
+      <div className="iw-plane" aria-hidden="true">{industries.map((item, index) => <div className="iw-layer" key={item.name} style={{ visibility: index === 0 ? 'visible' : 'hidden' }}>
+        <img className="iw-photo" src={source(index)} alt="" loading={index === 0 ? 'eager' : 'lazy'} decoding="async" width={index === 0 ? 1920 : 550} height={index === 0 ? 1088 : 400}/>
+      </div>)}</div>
+      <div className="iw-shade"/>
+      <div className="iw-topline"><span>ACCUMAX / INDUSTRY PERSPECTIVES</span><span>{String(active + 1).padStart(2, '0')} <span className="iw-total">/ 06</span></span></div>
+      <div className="iw-copy" key={active}>
+        <h3>{lines.map(line => <span className="iw-title-line" key={line}><span>{line}</span></span>)}</h3>
+      </div>
+      <div className="iw-progress" aria-hidden="true"><span/></div>
+    </div>
+    <div className="iw-details"><Link className="iw-cta" to={'/contact?industry=' + encodeURIComponent(industry.name)}>Discuss your project <ArrowUpRight size={18}/></Link></div>
+    <div className="iw-selector" role="tablist" aria-label="Industries we serve">{industries.map((item, index) => <button type="button" role="tab" id={`industry-selector-${index}`} aria-controls="industry-window" aria-selected={active === index} tabIndex={active === index ? 0 : -1} key={item.name}
+      onClick={() => { void choose(index); }}
+      onKeyDown={event => {
+        let next = index;
+        if (event.key === 'ArrowRight') next = (index + 1) % industries.length;
+        else if (event.key === 'ArrowLeft') next = (index + industries.length - 1) % industries.length;
+        else if (event.key === 'Home') next = 0;
+        else if (event.key === 'End') next = industries.length - 1;
+        else return;
+        event.preventDefault();
+        root.current?.querySelector<HTMLButtonElement>(`#industry-selector-${next}`)?.focus({ preventScroll: true });
+        void choose(next);
+      }}><span className="iw-tab-index">{String(index + 1).padStart(2, '0')}</span><span>{item.name}</span><ArrowRight size={14}/></button>)}</div>
+    <span className="iw-accessible-status" role="status">{loading ? 'Loading industry image' : industry.name + ': ' + industry.applications}</span>
+  </div>;
+}

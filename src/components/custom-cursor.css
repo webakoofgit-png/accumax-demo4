@@ -1,0 +1,22 @@
+/* Cursor-only overlay: no dimensions, layout participation or interactive surface. */
+.ac-comet-cursor{position:fixed;inset:auto;left:0;top:0;width:0;height:0;margin:0;padding:0;border:0;overflow:visible;background:transparent;color:#dd693b;z-index:2147483647;pointer-events:none!important;contain:layout style;visibility:hidden}
+.ac-comet-cursor[data-visible=true]{visibility:visible}
+.ac-comet-cursor[popover]:not(:popover-open){display:none}
+.ac-comet-cursor::backdrop{background:transparent;pointer-events:none}
+.ac-comet-cursor *{pointer-events:none!important;box-sizing:border-box}
+.ac-comet-cursor[data-tone=dark]{color:#f39a63}
+.ac-comet-cursor :is(.ac-comet-head,.ac-comet-particle,.ac-comet-ripple){position:absolute;left:0;top:0;display:block;will-change:transform}
+.ac-comet-cursor .ac-comet-trail{position:absolute;left:0;top:0;opacity:0}
+.ac-comet-cursor .ac-comet-particle{border-radius:50%;background:currentColor}
+.ac-comet-cursor .ac-comet-core{position:absolute;left:-5px;top:-5px;width:10px;height:10px;border:1px solid transparent;border-radius:50%;background:currentColor;transition:width .25s,height .25s,left .25s,top .25s,background-color .25s,border-color .25s,opacity .18s}
+.ac-comet-cursor[data-tone=dark] .ac-comet-core{box-shadow:0 0 6px #f39a6326}
+.ac-comet-cursor[data-mode=button] .ac-comet-core{width:28px;height:28px;left:-14px;top:-14px;border-color:currentColor;background:transparent;box-shadow:none}
+.ac-comet-cursor[data-mode=link] .ac-comet-core{opacity:0}
+.ac-comet-cursor .ac-comet-arrow{position:absolute;left:-6px;top:-6px;opacity:0;transform:translate(-2px,2px);transition:opacity .18s,transform .2s}
+.ac-comet-cursor[data-mode=link] .ac-comet-arrow{opacity:1;transform:translate(0,0)}
+.ac-comet-cursor[data-mode=view] .ac-comet-core{width:14px;height:14px;left:-7px;top:-7px}
+.ac-comet-cursor .ac-comet-view{position:absolute;left:13px;top:-5px;opacity:0;font:600 8px/1.3 'DM Sans',sans-serif;letter-spacing:.12em;white-space:nowrap;transition:opacity .2s}
+.ac-comet-cursor[data-mode=view] .ac-comet-view{opacity:1}
+.ac-comet-cursor .ac-comet-ripple-shape{position:absolute;left:-14px;top:-14px;display:block;width:28px;height:28px;border:1px solid currentColor;border-radius:50%;opacity:0}
+@media(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){html[data-accumax-cursor=on],html[data-accumax-cursor=on] *{cursor:none!important}html[data-accumax-cursor=on] .ke-crosshair{visibility:hidden!important}}
+@media(hover:none),(pointer:coarse),(prefers-reduced-motion:reduce){.ac-comet-cursor{display:none!important}}

@@ -4,7 +4,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-/** Native scrolling throughout; only the short desktop industry reel is pinned. */
+/** Homepage entrance and native scroll motion. */
 export function useHomepageMotion(rootRef: RefObject<HTMLDivElement>) {
   useLayoutEffect(() => {
     const root = rootRef.current;
@@ -14,7 +14,7 @@ export function useHomepageMotion(rootRef: RefObject<HTMLDivElement>) {
     let refreshFrame = 0;
     const refresh = () => {
       cancelAnimationFrame(refreshFrame);
-      refreshFrame = requestAnimationFrame(() => { if (!disposed) ScrollTrigger.refresh(); });
+      refreshFrame = requestAnimationFrame(() => { if (!disposed) { ScrollTrigger.sort(); ScrollTrigger.refresh(); } });
     };
     const imageListeners: HTMLImageElement[] = [];
     root.querySelectorAll('img').forEach(image => {
@@ -94,44 +94,6 @@ export function useHomepageMotion(rootRef: RefObject<HTMLDivElement>) {
             scrollTrigger: { trigger: projects[i + 1], start: 'top 78%', end: 'top 120px', scrub: true, invalidateOnRefresh: true },
           });
         });
-
-        const industries = root.querySelector<HTMLElement>('.industries-home');
-        const viewport = industries?.querySelector<HTMLElement>('.industry-viewport');
-        const track = industries?.querySelector<HTMLElement>('.industry-track');
-        if (industries && viewport && track && desktop) {
-          const slides = Array.from(track.querySelectorAll<HTMLElement>('.industry-slide'));
-          const number = industries.querySelector('.industry-current-number');
-          const title = industries.querySelector('.industry-current-title');
-          const travel = () => Math.max(0, track.scrollWidth - viewport.clientWidth);
-          const reel = gsap.timeline({ scrollTrigger: {
-            trigger: industries, start: 'top 80px', end: () => '+=' + Math.min(travel(), window.innerHeight * .95),
-            pin: true, scrub: .5, anticipatePin: 1, invalidateOnRefresh: true,
-            onUpdate: self => {
-              const index = Math.min(slides.length - 1, Math.round(self.progress * (slides.length - 1)));
-              if (number) number.textContent = String(index + 1).padStart(2, '0');
-              if (title) title.textContent = slides[index].dataset.industryTitle ?? '';
-            },
-          } });
-          reel.to(track, { x: () => -travel(), duration: 1, ease: 'none' }, 0)
-            .fromTo(track.querySelectorAll('img'), { xPercent: -3 }, { xPercent: 3, duration: 1, ease: 'none' }, 0)
-            .fromTo(industries.querySelector('.industry-progress>span'), { scaleX: 0 }, { scaleX: 1, duration: 1, ease: 'none' }, 0);
-          slides.forEach((slide, i) => {
-            const focus = () => {
-              const trigger = reel.scrollTrigger;
-              if (!trigger) return;
-              window.scrollTo({ top: trigger.start + (i / Math.max(1, slides.length - 1)) * (trigger.end - trigger.start), behavior: 'smooth' });
-              requestAnimationFrame(() => { viewport.scrollLeft = 0; });
-            };
-            slide.addEventListener('focus', focus);
-            cleanups.push(() => slide.removeEventListener('focus', focus));
-          });
-          cleanups.push(() => {
-            if (number) number.textContent = '01';
-            if (title) title.textContent = slides[0].dataset.industryTitle ?? '';
-          });
-        } else if (industries) {
-          all('.industry-slide').forEach(slide => enter(slide, slide));
-        }
 
         all('.home-contact-card').forEach((card, i) => {
           const timeline = gsap.timeline({ delay: i * .06, scrollTrigger: { trigger: card, start: 'top 88%', once: true } });

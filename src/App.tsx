@@ -2,6 +2,12 @@ import aboutPerspective from "./assets/home page img/_A CONNECTED PERSPECTIVE.pn
 import homeBanner from "./assets/home banners/banner1.png";
 import { useHomepageMotion } from "./motion/useHomepageMotion";
 import { ExpertiseExperience } from "./components/ExpertiseExperience";
+import { IndustryWindows } from "./components/IndustryWindows";
+import { EnquiryPopup } from "./components/EnquiryPopup";
+import { EngineeringPath } from "./components/EngineeringPath";
+import { CustomCursor } from "./components/CustomCursor";
+import "./components/project-perspectives.css";
+import "./components/story-colors.css";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
   Link,
@@ -429,7 +435,7 @@ function Story() {
   useEffect(() => {
     if (reduced) return;
     const mm = gsap.matchMedia();
-    mm.add("(min-width: 1000px)", () => {
+    mm.add("(min-width: 1000px) and (min-height: 650px) and (hover: hover) and (pointer: fine)", () => {
       const ctx = gsap.context(() => {
         const panels = gsap.utils.toArray<HTMLElement>(".story-panel");
         gsap.set(panels.slice(1), { autoAlpha: 0, y: 35 });
@@ -602,41 +608,27 @@ function ProjectsSection() {
         </div>
         <Button to="/projects">Explore projects</Button>
       </div>
-      <div className="project-showcase">
+      <div className="perspective-card-grid">
         {SERVICES.map((s) => (
           <Link
-            className="project-showcase-card"
+            className="perspective-service-card"
             key={s.slug}
             to={"/services/" + s.slug}
           >
-            <Img src={PERSPECTIVE_IMAGES[s.slug] ?? s.image} alt={s.title} />
-            <span className="project-showcase-watermark" aria-hidden="true">
+            <div className="perspective-service-media"><Img src={PERSPECTIVE_IMAGES[s.slug] ?? s.image} alt={s.title} /></div>
+            <span className="perspective-service-watermark" aria-hidden="true">
               <Img src={COMPANY.logo} alt="" />
             </span>
-            <span className="project-showcase-category">{s.num} / SERVICE</span>
-            <span className="project-showcase-arrow">
-              <ArrowUpRight size={20} />
-            </span>
-            <span className="project-showcase-copy">
-              <strong>{s.title}</strong>
-              <span>{s.short}</span>
-            </span>
+            <div className="perspective-service-body">
+              <h3>{s.title}</h3>
+              <p>{s.short}</p>
+              <span className="perspective-service-footer"><span>Explore expertise</span><span className="perspective-service-arrow" aria-hidden="true"><ArrowUpRight size={20}/></span></span>
+            </div>
           </Link>
         ))}
       </div>
     </section>
   );
-}
-function HomeIndustries() {
-  const industries = INDUSTRIES.slice(0, 6);
-  return <div className="industry-experience">
-    <div className="industry-status" aria-hidden="true"><span className="industry-current-number">01</span><span className="industry-current-title">{industries[0].name}</span><span className="industry-total">/ 06</span><span className="industry-progress"><span/></span></div>
-    <div className="industry-viewport"><div className="industry-track">{industries.map((industry, i) => <Link className="industry-slide" key={industry.name} to={'/contact?industry=' + encodeURIComponent(industry.name)} data-industry-title={industry.name}>
-      <div className="industry-media"><Img src={industry.image} alt={industry.name}/></div>
-      <div className="industry-slide-heading"><span>{String(i + 1).padStart(2, '0')}</span><h3>{industry.name}</h3><ArrowUpRight size={20}/></div>
-      <p>{industry.applications}</p>
-    </Link>)}</div></div>
-  </div>;
 }
 function Industries({ full = false }: { full?: boolean }) {
   const [active, setActive] = useState(-1);
@@ -659,52 +651,6 @@ function Industries({ full = false }: { full?: boolean }) {
         </Link>
       ))}
     </div>
-  );
-}
-const stages = ["Understand", "Plan", "Engineer", "Execute", "Test", "Deliver"];
-function Process() {
-  const descriptions = [
-    "Define scope, interfaces and operating requirements.",
-    "Coordinate resources, procurement and site activities.",
-    "Develop the engineering approach and protection requirements.",
-    "Bring equipment, civil works and electrical systems together.",
-    "Check installation, control logic and system performance.",
-    "Review documentation and prepare the handover.",
-  ];
-  const renderStep = (s: string, i: number) => (
-    <Reveal className="process-feature" key={s}>
-      <div className="process-feature-heading">
-        <span className="process-feature-icon" aria-hidden="true">
-          {i + 1}
-        </span>
-        <h3>{s}</h3>
-      </div>
-      <p>{descriptions[i]}</p>
-    </Reveal>
-  );
-  return (
-    <section className="process section process-brand">
-      <div className="process-brand-heading">
-        <span className="eyebrow">06 / FROM INTENT TO INFRASTRUCTURE</span>
-        <h2>Every connection. Considered.</h2>
-        <p>
-          A coordinated path from requirements to handover. Engineering
-          expertise at every step of your project.
-        </p>
-      </div>
-      <div className="process-brand-layout">
-        <div className="process-feature-column">
-          {stages.slice(0, 3).map((s, i) => renderStep(s, i))}
-        </div>
-        <div className="process-brand-logo">
-          <Img src={COMPANY.logo} alt="Accumax Controls" />
-          <span>ENGINEERING. INFRASTRUCTURE. INNOVATION.</span>
-        </div>
-        <div className="process-feature-column">
-          {stages.slice(3).map((s, i) => renderStep(s, i + 3))}
-        </div>
-      </div>
-    </section>
   );
 }
 function AboutBlock() {
@@ -782,68 +728,7 @@ function Home() {
       <Story />
       <AboutBlock />
       <ExpertiseExperience />
-      <section className="section bento-section">
-        <span className="eyebrow">03 / THE WAY WE WORK</span>
-        <div className="bento">
-          <Reveal className="bento-quality">
-            <ShieldCheck />
-            <h3>
-              Quality is
-              <br />a process.
-            </h3>
-            <p>
-              Customer specifications, documented checks and a focus on safe
-              working conditions.
-            </p>
-            <Link to="/quality-safety">
-              Quality & safety <ArrowUpRight />
-            </Link>
-          </Reveal>
-          <Reveal className="bento-number">
-            <span className="eyebrow">FROM DRAWING TO DELIVERY</span>
-            <Settings2 size={42} />
-            <h3>
-              Execution.
-              <br />
-              With intention.
-            </h3>
-            <p>
-              Civil, electrical and testing disciplines working toward one
-              handover.
-            </p>
-          </Reveal>
-          <Reveal className="bento-small">
-            <Globe />
-            <h3>
-              Local understanding.
-              <br />
-              Global connections.
-            </h3>
-            <Link to="/services/export">
-              Explore exports <ArrowUpRight size={15} />
-            </Link>
-          </Reveal>
-          <Reveal className="bento-wide">
-            <span className="eyebrow">PROTECTION & CONTROL</span>
-            <h3>
-              Small details.
-              <br />
-              System-wide confidence.
-            </h3>
-            <p>
-              Relay programming. Protection setting calculations. System audits.
-            </p>
-            <ArrowUpRight />
-          </Reveal>
-          <Reveal className="bento-clients">
-            <h3>Better together.</h3>
-            <p>
-              Clear communication, coordinated interfaces and long-term client
-              relationships.
-            </p>
-          </Reveal>
-        </div>
-      </section>
+      <EngineeringPath />
       <section className="image-break">
         <Img
           src="/images/transmission-wide.jpg"
@@ -867,17 +752,12 @@ function Home() {
         <div className="section-heading">
           <div>
             <span className="eyebrow">05 / INDUSTRIES WE SERVE</span>
-            <h2>
-              Different industries.
-              <br />
-              Shared ambition.
-            </h2>
+            <h2>Different industries. One ambition.</h2>
           </div>
           <Button to="/industries">All industries</Button>
         </div>
-        <HomeIndustries />
+        <IndustryWindows />
       </section>
-      <Process />
       <section className="section why">
         <span className="eyebrow">07 / WHY ACCUMAX</span>
         <h2>
@@ -1927,6 +1807,8 @@ export default function App() {
     <>
       <Seo />
       <SitePreloader />
+      <CustomCursor />
+      <EnquiryPopup />
       <motion.div
         className="scroll-progress"
         style={{ scaleX: scrollYProgress }}

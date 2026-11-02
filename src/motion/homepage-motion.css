@@ -13,6 +13,9 @@
 .home-page .about-copy h2 .motion-line{line-height:1.15}
 .home-page .section-heading,.home-page .clients-heading,.home-page .home-contact-heading{position:relative;padding-bottom:24px}
 .home-page .section-heading:after,.home-page .clients-heading:after,.home-page .home-contact-heading:after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--line);transform:scaleX(var(--divider-progress,1));transform-origin:left}
+.home-page .clients{border-top:0;border-bottom:0}
+.home-page .clients-heading:after{display:none}
+.home-page .clients+.home-contact{border-top:0}
 
 /* The existing seven service categories remain native, keyboard-operable details. */
 .home-page .expertise-motion .expertise-entry{position:relative}
@@ -95,7 +98,7 @@ html{scroll-behavior:smooth;scroll-padding-top:104px}
 @media(min-width:1100px) and (min-height:740px) and (prefers-reduced-motion:no-preference){
   .home-page .industries-home{padding-top:56px;padding-bottom:48px}
   .home-page .industries-home .section-heading{margin-bottom:24px;padding-bottom:20px}
-  .home-page .industries-home .section-heading h2{font-size:clamp(40px,4vw,58px)}
+  .home-page .industries-home .section-heading h2{font-size:clamp(32px,3.3vw,52px)}
   .home-page .industry-track{display:flex;gap:24px}
   .home-page .industry-slide{flex:0 0 clamp(300px,29vw,430px)}
   .home-page .industry-media{height:230px;aspect-ratio:auto}

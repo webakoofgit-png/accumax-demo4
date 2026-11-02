@@ -2,14 +2,10 @@
 #expertise.expertise-experience{position:relative;isolation:isolate;background:#111315;color:#f5f5f1;padding:72px max(5.2vw,22px) 68px;overflow:clip;--expertise-orange:#ef8957;--expertise-muted:#afb5ba}
 #expertise .expertise-inner{position:relative;max-width:1440px;margin:auto;min-width:0}
 #expertise .expertise-atmosphere{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:-1}
-#expertise .expertise-grid{position:absolute;inset:-64px;background-image:linear-gradient(#c8d4df08 1px,transparent 1px),linear-gradient(90deg,#c8d4df08 1px,transparent 1px);background-size:64px 64px;mask-image:radial-gradient(ellipse at 50% 50%,#000 15%,transparent 76%)}
 #expertise .expertise-ambient{position:absolute;left:calc(50% - 380px);top:24%;width:760px;height:640px;background:radial-gradient(ellipse,#cf643b27 0%,#d56c3211 38%,transparent 68%);opacity:.9;pointer-events:none}
-#expertise .expertise-outline{position:absolute;width:660px;height:410px;left:calc(50% - 330px);top:30%;border:1px solid #b0b9c410;transform:rotate(-13deg);border-radius:48%;animation:expertise-outline-drift 18s ease-in-out infinite alternate;animation-play-state:paused}
-#expertise .outline-two{width:800px;height:490px;left:calc(50% - 400px);top:27%;transform:rotate(16deg);animation-delay:-9s;border-color:#ef89570b}
 #expertise .expertise-particle{position:absolute;width:2px;height:2px;background:#edb195;border-radius:50%;opacity:.2;animation:expertise-particle-drift 12s ease-in-out infinite alternate;animation-play-state:paused}
 #expertise .particle-0{left:11%;top:30%}#expertise .particle-1{left:29%;top:57%;animation-delay:-3s}#expertise .particle-2{left:76%;top:20%;animation-delay:-5s}#expertise .particle-3{left:91%;top:61%;animation-delay:-7s}#expertise .particle-4{left:67%;top:83%;animation-delay:-9s}#expertise .particle-5{left:20%;top:84%;animation-delay:-11s}
-#expertise[data-inview=true] .expertise-outline,#expertise[data-inview=true] .expertise-particle{animation-play-state:running}
-@keyframes expertise-outline-drift{to{translate:0 18px}}
+#expertise[data-inview=true] .expertise-particle{animation-play-state:running}
 @keyframes expertise-particle-drift{to{transform:translate(14px,-20px);opacity:.55}}
 
 #expertise .expertise-heading{text-align:center;max-width:1100px;margin:0 auto 18px}
@@ -64,10 +60,6 @@
 #expertise .expertise-explore svg{transition:transform .4s}
 #expertise .expertise-explore:hover svg{transform:translate(3px,-3px)}
 #expertise .expertise-step-controls{display:none}
-#expertise .expertise-progress{display:flex;justify-content:center;align-items:center;gap:12px;margin:22px auto 0;color:#c0c8ce;font-size:9px;letter-spacing:.1em;font-variant-numeric:tabular-nums}
-#expertise .expertise-progress>div{display:flex;gap:5px}
-#expertise .expertise-progress>div>span{width:20px;height:2px;background:#43494e;transition:background .6s}
-#expertise .expertise-progress>div>span.is-active{background:var(--expertise-orange)}
 #expertise .expertise-touch-hint{display:none}
 
 @media(min-width:1400px){#expertise .expertise-visual{top:88px;height:310px}#expertise .expertise-hotspot{font-size:16px;max-width:260px}}
@@ -109,15 +101,15 @@
   #expertise .expertise-visual{width:100%;aspect-ratio:4/3;margin-top:14px}
   #expertise .expertise-image-caption{left:15px;right:15px;bottom:16px;font-size:7px}
   #expertise .expertise-image-caption>span{display:none}
-  #expertise .expertise-hotspots{gap:24px;margin-top:18px;padding-bottom:8px}
-  #expertise .expertise-hotspot{max-width:215px;font-size:13px}
+  #expertise .expertise-hotspots{gap:0;margin-top:18px;padding:12px 0 8px;scroll-padding-inline:0;scroll-snap-type:x mandatory}
+  #expertise .expertise-hotspot{flex:0 0 100%;box-sizing:border-box;max-width:none;min-width:0;padding:12px 12px 16px;font-size:14px;scroll-snap-align:center;scroll-snap-stop:always}
+  #expertise .expertise-hotspot-label{min-width:0;white-space:normal;overflow-wrap:break-word}
   #expertise .expertise-selected{margin-top:24px}
   #expertise .expertise-selected-heading{min-height:62px;gap:16px}
   #expertise .expertise-selected h3{font-size:20px;line-height:1.4}
   #expertise .expertise-description-inner{font-size:15px;line-height:1.8}
   #expertise .expertise-description-mask{min-height:108px;margin:16px 0 12px}
   #expertise .expertise-touch-hint{font-size:10px}
-  #expertise .expertise-outline{opacity:.5}
 }
 @media(max-width:359px){#expertise .expertise-description-mask{min-height:135px}#expertise .expertise-selected h3{font-size:18px}#expertise .expertise-step-controls{gap:5px}#expertise .expertise-step-controls>button{width:30px;height:30px}}
 @media(prefers-reduced-motion:reduce){

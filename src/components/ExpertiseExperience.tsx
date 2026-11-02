@@ -27,6 +27,8 @@ const glowPositions = [[-160, -90], [160, -90], [-180, 0], [180, 0], [-140, 90],
 
 export function ExpertiseExperience() {
   const [active, setActive] = useState(0);
+  const [focusWithin, setFocusWithin] = useState(false);
+  const [pointerReading, setPointerReading] = useState(false);
   const reduced = useReducedMotion();
   const rootRef = useRef<HTMLElement>(null);
   const arenaRef = useRef<HTMLDivElement>(null);
@@ -37,12 +39,44 @@ export function ExpertiseExperience() {
   const transitionRef = useRef<gsap.core.Timeline | null>(null);
   const swipeStart = useRef<{ x: number; y: number } | null>(null);
   const activeRef = useRef(0);
+  const visibleRef = useRef(false);
+  const manualUntilRef = useRef(0);
   const item = EXPERTISE_CATEGORIES[active];
-  const choose = useCallback((index: number) => {
+  const choose = useCallback((index: number, source: 'manual' | 'scroll' | 'automatic' = 'manual') => {
     const next = (index + EXPERTISE_CATEGORIES.length) % EXPERTISE_CATEGORIES.length;
+    if (source === 'manual') manualUntilRef.current = Date.now() + 6500;
     activeRef.current = next;
     setActive(next);
   }, []);
+
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
+    const observer = new IntersectionObserver(entries => {
+      visibleRef.current = entries.some(entry => entry.isIntersecting && entry.intersectionRatio >= .25);
+    }, { threshold: [0, .25, .5] });
+    observer.observe(root);
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (reduced || focusWithin || pointerReading) return;
+    const timer = setInterval(() => {
+      if (visibleRef.current && !document.hidden && Date.now() >= manualUntilRef.current) {
+        choose(activeRef.current + 1, 'automatic');
+      }
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [choose, reduced, focusWithin, pointerReading]);
+
+  useEffect(() => {
+    if (!window.matchMedia('(max-width: 1199px), (hover: none), (pointer: coarse)').matches) return;
+    const track = tabsRef.current;
+    const tab = buttonRefs.current[active];
+    if (!track || !tab) return;
+    const left = tab.getBoundingClientRect().left - track.getBoundingClientRect().left + track.scrollLeft - (track.clientWidth - tab.offsetWidth) / 2;
+    track.scrollTo({ left, behavior: reduced ? 'instant' : 'smooth' });
+  }, [active, reduced]);
 
   useLayoutEffect(() => {
     const root = rootRef.current;
@@ -52,7 +86,7 @@ export function ExpertiseExperience() {
     const media = gsap.matchMedia();
     media.add({
       motion: '(prefers-reduced-motion: no-preference)',
-      wide: '(min-width: 1200px) and (min-height: 850px)',
+      wide: '(min-width: 1200px) and (min-height: 850px) and (hover: hover) and (pointer: fine)',
       pointer: '(hover: hover) and (pointer: fine)',
     }, match => {
       if (!match.conditions?.motion) return;
@@ -65,8 +99,6 @@ export function ExpertiseExperience() {
           autoAlpha: 1, y: 0, duration: .8, ease: 'power2.out',
           scrollTrigger: { trigger: root, start: 'top 76%', once: true },
         });
-        gsap.to(root.querySelector('.expertise-grid'), { y: 24, ease: 'none',
-          scrollTrigger: { trigger: root, start: 'top bottom', end: 'bottom top', scrub: true } });
         ScrollTrigger.create({ trigger: root, start: 'top bottom', end: 'bottom top',
           onToggle: self => { root.dataset.inview = String(self.isActive); } });
         if (match.conditions?.wide) {
@@ -77,7 +109,7 @@ export function ExpertiseExperience() {
             anticipatePin: 1, invalidateOnRefresh: true,
             onUpdate: self => {
               const next = Math.min(EXPERTISE_CATEGORIES.length - 1, Math.round(self.progress * (EXPERTISE_CATEGORIES.length - 1)));
-              if (next !== lastScrollIndex && self.isActive) { lastScrollIndex = next; choose(next); }
+              if (next !== lastScrollIndex && self.isActive) { lastScrollIndex = next; choose(next, 'scroll'); }
             },
           });
         }
@@ -141,13 +173,6 @@ export function ExpertiseExperience() {
     return () => { timeline.kill(); };
   }, [active, reduced]);
 
-  useEffect(() => {
-    if (!window.matchMedia('(max-width: 1199px)').matches) return;
-    const tab = buttonRefs.current[active];
-    const rail = tabsRef.current;
-    if (tab && rail) rail.scrollTo({ left: tab.offsetLeft - rail.clientWidth / 2 + tab.offsetWidth / 2, behavior: reduced ? 'instant' : 'smooth' });
-  }, [active, reduced]);
-
   const keyNavigate = (event: React.KeyboardEvent<HTMLButtonElement>, index: number) => {
     let next: number | undefined;
     if (event.key === 'ArrowRight' || event.key === 'ArrowDown') next = index + 1;
@@ -161,8 +186,8 @@ export function ExpertiseExperience() {
     buttonRefs.current[bounded]?.focus({ preventScroll: true });
   };
 
-  return <section id="expertise" className="expertise-experience expertise-section" ref={rootRef} aria-labelledby="expertise-heading">
-    <div className="expertise-atmosphere" aria-hidden="true"><div className="expertise-grid"/><div className="expertise-ambient"/><div className="expertise-outline outline-one"/><div className="expertise-outline outline-two"/>{[0,1,2,3,4,5].map(i => <span className={`expertise-particle particle-${i}`} key={i}/>)}</div>
+  return <section id="expertise" className="expertise-experience expertise-section" ref={rootRef} aria-labelledby="expertise-heading" onFocusCapture={() => setFocusWithin(true)} onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setFocusWithin(false); }}>
+    <div className="expertise-atmosphere" aria-hidden="true"><div className="expertise-ambient"/>{[0,1,2,3,4,5].map(i => <span className={`expertise-particle particle-${i}`} key={i}/>)}</div>
     <div className="expertise-inner">
       <header className="expertise-heading"><span className="eyebrow">02 / OUR EXPERTISE</span><h2 id="expertise-heading"><span className="expertise-heading-line"><span>Engineering</span></span>{' '}<span className="expertise-heading-line"><span>Every Possibility.</span></span></h2><p className="expertise-support">Integrated Engineering, EPC, Renewable Energy &amp; Electrical Asset Management Solutions.</p></header>
       <div className="expertise-console">
@@ -175,18 +200,16 @@ export function ExpertiseExperience() {
             if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.4) choose(activeRef.current + (dx < 0 ? 1 : -1));
           }}>
             <div className="expertise-depth-layer depth-back" aria-hidden="true"/><div className="expertise-depth-layer depth-mid" aria-hidden="true"/>
-            <div className="expertise-image-window">{EXPERTISE_CATEGORIES.map((category, i) => <img key={category.num} ref={element => { imageRefs.current[i] = element; }} src={photos['/src/assets' + category.image] ?? category.image} alt={category.title} aria-hidden={active !== i} loading="lazy" decoding="async" width="960" height="600" style={{ opacity: i === 0 ? 1 : 0 }}/>) }<div className="expertise-photo-shade"/><span className="expertise-image-caption" aria-hidden="true">ACCUMAX CONTROLS <span>ENGINEERING IN MOTION</span></span></div>
+            <div className="expertise-image-window">{EXPERTISE_CATEGORIES.map((category, i) => <img key={category.num} ref={element => { imageRefs.current[i] = element; }} src={photos['/src/assets' + category.image] ?? category.image} alt={category.title} aria-hidden={active !== i} loading="lazy" decoding="async" width="960" height="600" style={{ opacity: i === 0 ? 1 : 0 }}/>) }<div className="expertise-photo-shade"/></div>
             <span className="expertise-corner corner-tl" aria-hidden="true"/><span className="expertise-corner corner-br" aria-hidden="true"/>
           </div>
           <div className="expertise-hotspots" role="tablist" aria-label="Engineering expertise" ref={tabsRef}>{EXPERTISE_CATEGORIES.map((category, i) => <button type="button" role="tab" id={`expertise-tab-${category.num}`} aria-controls="expertise-selected" aria-selected={active === i} tabIndex={active === i ? 0 : -1} className={`expertise-hotspot hotspot-${i}${active === i ? ' is-active' : ''}`} key={category.num} ref={element => { buttonRefs.current[i] = element; }} onClick={() => choose(i)} onPointerEnter={event => { if (event.pointerType === 'mouse' && window.matchMedia('(hover: hover)').matches) choose(i); }} onFocus={() => choose(i)} onKeyDown={event => keyNavigate(event, i)}><span className="expertise-node" aria-hidden="true"/><span className="expertise-hotspot-label">{category.title}</span></button>)}</div>
         </div>
-        <div className="expertise-selected" id="expertise-selected" role="tabpanel" aria-labelledby={`expertise-tab-${item.num}`} tabIndex={0}>
+        <div className="expertise-selected" id="expertise-selected" role="tabpanel" aria-labelledby={`expertise-tab-${item.num}`} tabIndex={0} onPointerEnter={event => { if (event.pointerType === 'mouse') setPointerReading(true); }} onPointerLeave={() => setPointerReading(false)}>
           <div className="expertise-selected-heading"><h3>{item.title}</h3><div className="expertise-step-controls"><button type="button" aria-label="Previous expertise" onClick={() => choose(active - 1)}><ArrowLeft size={18}/></button><button type="button" aria-label="Next expertise" onClick={() => choose(active + 1)}><ArrowRight size={18}/></button></div></div>
           <div className="expertise-description-mask"><p className="expertise-description-inner">{item.short}</p></div>
           <Link className="expertise-explore" to={destination[item.num] ?? '/contact?service=' + encodeURIComponent(item.title)}>Explore Expertise <ArrowUpRight size={18}/></Link>
         </div>
-        <div className="expertise-progress" aria-hidden="true"><span>{item.num}</span><div>{EXPERTISE_CATEGORIES.map((category, i) => <span key={category.num} className={active === i ? 'is-active' : ''}/>)}</div><span>07</span></div>
-        <p className="expertise-touch-hint">Swipe the image or select a service to explore.</p>
       </div>
     </div>
   </section>;
