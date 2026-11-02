@@ -435,9 +435,13 @@ function Story() {
   useEffect(() => {
     if (reduced) return;
     const mm = gsap.matchMedia();
-    mm.add("(min-width: 1000px) and (min-height: 650px) and (hover: hover) and (pointer: fine)", () => {
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      const section = ref.current;
+      if (!section) return;
+      section.classList.add("story--animated");
       const ctx = gsap.context(() => {
         const panels = gsap.utils.toArray<HTMLElement>(".story-panel");
+        gsap.set(panels[0], { autoAlpha: 1, y: 0 });
         gsap.set(panels.slice(1), { autoAlpha: 0, y: 35 });
         const tl = gsap.timeline({
           scrollTrigger: {
@@ -457,7 +461,10 @@ function Story() {
           tl.to({}, { duration: 0.6 });
         });
       }, ref);
-      return () => ctx.revert();
+      return () => {
+        ctx.revert();
+        section.classList.remove("story--animated");
+      };
     });
     return () => mm.revert();
   }, [reduced]);

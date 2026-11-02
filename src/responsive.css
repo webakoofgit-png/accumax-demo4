@@ -58,12 +58,30 @@
   .industry-windows .iw-topline>span:last-child{flex-shrink:0}
 }
 @media(hover:none),(pointer:coarse),(max-height:649px){
-  .story{height:auto;min-height:0;padding:54px max(5.2vw,22px)}
-  .story-photo{inset:0;opacity:.18}
-  .story-label{position:relative;top:auto;left:auto;margin-bottom:36px}
-  .story .story-panel{position:relative;top:auto;left:auto;right:auto;visibility:visible!important;opacity:1!important;transform:none!important;margin:38px 0}
-  .story .story-panel h2{font-size:clamp(40px,9vw,100px);margin:14px 0;overflow-wrap:break-word}
-  .story-bottom{position:relative;left:auto;bottom:auto}
+  .story:not(.story--animated){height:auto;min-height:0;padding:54px max(5.2vw,22px)}
+}
+@media(max-width:999px),(hover:none),(pointer:coarse),(max-height:649px){
+  .story.story--animated{height:100svh;min-height:0;padding:0}
+  .story--animated .story-photo{position:absolute;inset:0;opacity:.3}
+  .story--animated .story-label{position:absolute;top:100px;left:6%;right:6%;margin:0;font-size:8px;line-height:1.6}
+  .story--animated .story-panel{position:absolute;top:36%;left:6%;right:6%;margin:0}
+  .story--animated .story-panel h2{font-size:clamp(38px,13vw,110px);line-height:1.12;margin:20px 0;overflow-wrap:normal}
+  .story--animated .story-panel p{font-size:14px;line-height:1.7;max-width:34ch}
+  .story--animated .story-bottom{position:absolute;left:6%;bottom:32px;font-size:8px}
+}
+@media(max-height:540px){
+  .story--animated .story-label{top:80px}
+  .story--animated .story-panel{top:32%}
+  .story--animated .story-panel h2{font-size:clamp(32px,8vw,60px);margin:10px 0}
+  .story--animated .story-panel p{font-size:12px;max-width:54ch;margin:8px 0}
+  .story--animated .story-bottom{bottom:18px}
+}
+@media(max-width:999px) and (min-height:541px){
+  .story.story--animated{height:clamp(420px,68svh,560px)}
+  .story--animated .story-label{top:32px}
+  .story--animated .story-panel{top:29%}
+  .story--animated .story-panel h2{margin:16px 0}
+  .story--animated .story-bottom{bottom:26px}
 }
 @media(max-height:540px){
   .mobile-menu{padding-top:66px;padding-bottom:20px}

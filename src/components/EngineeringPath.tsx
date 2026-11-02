@@ -42,11 +42,12 @@ export function EngineeringPath() {
       scenes.forEach(scene => { scene.removeAttribute('aria-hidden'); scene.inert = false; });
     };
 
-    media.add({ motion: '(prefers-reduced-motion: no-preference)', pointer: '(hover: hover) and (pointer: fine)' }, match => {
+    media.add({ motion: '(prefers-reduced-motion: no-preference)', pointer: '(hover: hover) and (pointer: fine)', compact: '(max-width: 900px)' }, match => {
       if (!match.conditions?.motion) return;
 
       section.dataset.enhanced = 'true';
       const context = gsap.context(() => {
+        const compact = Boolean(match.conditions?.compact);
         gsap.set(scenes, { autoAlpha: 0 });
         gsap.set(scenes[0], { autoAlpha: 1 });
         scenes.slice(1, 6).forEach(scene => gsap.set(scene.querySelectorAll('.ke-glyph'), { yPercent: letter => letter % 2 ? -115 : 115 }));
@@ -88,10 +89,10 @@ export function EngineeringPath() {
         });
         ScrollTrigger.create({
           id: 'kinetic-engineering', trigger: surface, animation: sequence,
-          start: () => `top ${parseFloat(getComputedStyle(section).getPropertyValue('--ke-pin-top')) || 76}px`,
-          end: () => '+=' + (window.matchMedia('(max-width: 900px), (hover: none), (pointer: coarse)').matches ? Math.max(1800, surface.offsetHeight * 3.7) : Math.max(2400, window.innerHeight * 3.4)),
-          pin: true, pinSpacing: true, scrub: .65, anticipatePin: 1, invalidateOnRefresh: true,
-          snap: {
+          start: () => compact ? 'top 80%' : `top ${parseFloat(getComputedStyle(section).getPropertyValue('--ke-pin-top')) || 76}px`,
+          end: () => compact ? 'bottom 20%' : '+=' + Math.max(2400, window.innerHeight * 3.4),
+          pin: !compact, pinSpacing: !compact, scrub: compact ? .2 : .65, anticipatePin: 1, invalidateOnRefresh: true,
+          snap: compact ? undefined : {
             // Only settle unfinished letter transitions. Readable holds never pull the scroll back.
             snapTo: (value, self) => {
               const time = value * duration;

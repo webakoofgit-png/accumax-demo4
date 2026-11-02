@@ -38,10 +38,10 @@
 @media(max-width:900px){#engineering-path .ke-surface{padding-top:36px;padding-bottom:30px}#engineering-path .ke-header{margin-bottom:24px}#engineering-path .ke-process{padding:32px 0}#engineering-path .ke-description{font-size:14px;max-width:34ch;margin-top:16px}}
 @media(max-width:380px){#engineering-path .ke-word{font-size:10.8vw}}
 @media(max-width:900px){
-  #engineering-path[data-enhanced=true] .ke-surface{height:min(clamp(360px,62svh,480px),calc(100svh - var(--ke-pin-top)));padding-top:24px;padding-bottom:24px;background-position:68% center}
+  #engineering-path[data-enhanced=true] .ke-surface{height:min(clamp(300px,46svh,380px),calc(100svh - var(--ke-pin-top)));padding-top:22px;padding-bottom:22px;background-position:68% center}
   #engineering-path[data-enhanced=true] .ke-header{margin-bottom:0}
-  #engineering-path[data-enhanced=true] .ke-topline{margin-top:28px}
-  #engineering-path[data-enhanced=true] .ke-composition{margin:22px 0 12px}
+  #engineering-path[data-enhanced=true] .ke-topline{margin-top:18px}
+  #engineering-path[data-enhanced=true] .ke-composition{margin:18px 0 6px}
   #engineering-path[data-enhanced=true] .ke-word{font-size:clamp(38px,12.5vw,112px);margin-top:0}
   #engineering-path[data-enhanced=true] .ke-description{margin-top:20px;max-width:100%;white-space:normal;font-size:14px;line-height:1.65}
   #engineering-path[data-enhanced=true] .ke-finale h3{font-size:clamp(32px,7.8vw,70px);margin-top:0}
