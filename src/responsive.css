@@ -1,4 +1,21 @@
 /* Shared mobile/tablet safeguards; desktop composition stays in the section styles. */
+/* Compact document flow is the fallback for reduced motion. */
+@media(max-width:640px){
+  .home-page .story:not(.story--animated){height:auto;min-height:0;padding:32px 22px}
+  .home-page .story:not(.story--animated) .story-label{margin:0 0 24px}
+  .home-page .story:not(.story--animated) .story-panel{position:relative;inset:auto;margin:0;padding:24px 0}
+  .home-page .story:not(.story--animated) .story-panel+.story-panel{border-top:1px solid #ffffff24}
+  .home-page .story:not(.story--animated) .story-panel h2{font-size:clamp(36px,11vw,52px);line-height:1.12;margin:12px 0}
+  .home-page .story:not(.story--animated) .story-panel p{margin:0;max-width:34ch}
+  .home-page .story:not(.story--animated) .story-bottom{display:none}
+  #engineering-path:not([data-enhanced]) .ke-surface{padding:32px 22px;background-position:68% center}
+  #engineering-path:not([data-enhanced]) .ke-header{margin-bottom:12px}
+  #engineering-path:not([data-enhanced]) .ke-process{padding:24px 0;border-bottom:1px solid #1a1d1b1a}
+  #engineering-path:not([data-enhanced]) .ke-mobile-index{margin-bottom:10px}
+  #engineering-path:not([data-enhanced]) .ke-word{font-size:clamp(32px,10.5vw,60px)}
+  #engineering-path:not([data-enhanced]) .ke-description{margin:12px 0 0;max-width:100%}
+  #engineering-path:not([data-enhanced]) .ke-finale{padding:28px 0 0}
+}
 @media(max-width:1199px){
   main{min-width:0}
   main[data-route]:not([data-route="/"]){padding-top:92px}
@@ -83,6 +100,19 @@
   .story--animated .story-panel h2{margin:16px 0}
   .story--animated .story-bottom{bottom:26px}
 }
+/* Fill the area under the phone header while a scroll scene is pinned.
+   A shorter pinned scene exposes its empty spacer below the background. */
+@media(max-width:640px){
+  .home-page .story.story--animated{height:calc(100svh - 64px);min-height:0}
+  .home-page .story--animated .story-label{top:28px}
+  .home-page .story--animated .story-panel{top:30%}
+  .home-page .story--animated .story-bottom{bottom:28px}
+  #engineering-path[data-enhanced=true] .ke-composition{flex:1;height:auto;margin:18px 0}
+  #engineering-path[data-enhanced=true] .ke-surface:after{margin-top:0}
+  #engineering-path[data-enhanced=true] .ke-surface{height:clamp(340px,52svh,440px);max-height:calc(100svh - 64px);padding-block:22px}
+  #engineering-path[data-enhanced=true] .ke-topline{margin-top:14px}
+  #engineering-path[data-enhanced=true] .ke-surface:after{padding-top:12px}
+}
 @media(max-height:540px){
   .mobile-menu{padding-top:66px;padding-bottom:20px}
   .mobile-menu a{font-size:20px;padding:10px 0}
@@ -99,4 +129,28 @@
   #expertise .expertise-visual{position:relative;left:auto;top:auto;width:min(100%,820px);height:auto;aspect-ratio:16/9;margin:20px auto 0}
   #expertise .expertise-hotspots{position:relative;inset:auto;display:flex;gap:24px;overflow-x:auto;max-width:100%;margin-top:24px}
   #expertise .expertise-hotspot{position:relative;inset:auto;translate:none;flex:0 0 auto;padding:16px 0;max-width:240px;font-size:15px}
+}
+
+/* A compact, branded enquiry sheet with a persistent close control on phones. */
+@media(max-width:760px){
+  dialog.enquiry-popup{width:calc(100% - 28px);max-width:460px;max-height:calc(100dvh - 28px);border:1px solid #e4e5e2;border-radius:16px;background:#fff;box-shadow:0 24px 80px #07131e40;scroll-padding-top:84px}
+  .enquiry-popup .enquiry-popup-shell{display:block}
+  .enquiry-popup .enquiry-popup-visual,.enquiry-popup .enquiry-popup-content>.enquiry-popup-close{display:none}
+  .enquiry-popup .enquiry-popup-mobile-header{position:sticky;top:0;z-index:3;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:16px 22px;background:#fff;border-bottom:1px solid #eeefeb}
+  .enquiry-popup-mobile-header>img{width:140px;height:auto;object-fit:contain}
+  .enquiry-popup .enquiry-popup-mobile-close{display:grid;place-items:center;flex-shrink:0;width:40px;height:40px;padding:0;border:1px solid #e6e7e3;border-radius:50%;background:#f6f7f4;color:#48534f}
+  .enquiry-popup .enquiry-popup-mobile-close:focus-visible{outline:2px solid var(--brand);outline-offset:3px}
+  .enquiry-popup .enquiry-popup-content{padding:24px 22px 20px}
+  .enquiry-popup #enquiry-popup-title{font-size:28px;font-weight:600;line-height:1.2;letter-spacing:-.04em;white-space:normal;color:#202b2d}
+  .enquiry-popup #enquiry-popup-title>span{color:var(--brand)}
+  .enquiry-popup #enquiry-popup-intro{font-size:14px;line-height:1.6;color:#69716d;margin:10px 0 24px;max-width:34ch}
+  .enquiry-popup .enquiry-popup-content form{gap:18px}
+  .enquiry-popup .enquiry-popup-content .enquiry-popup-row{grid-template-columns:minmax(0,1fr);gap:18px}
+  .enquiry-popup .enquiry-popup-content form label{gap:7px;font-size:13px;font-weight:600;color:#353e39;line-height:1.5}
+  .enquiry-popup .enquiry-popup-content :is(input,select,textarea){min-height:46px;border:1px solid #dfe3dc;background:#fff;border-radius:8px;padding:11px 12px;font-size:16px;font-weight:400;line-height:1.5;color:#202b25;box-shadow:none}
+  .enquiry-popup .enquiry-popup-content :is(input,textarea)::placeholder{color:#8b928b;opacity:1}
+  .enquiry-popup .enquiry-popup-content :is(input,select,textarea):focus{border-color:var(--brand);box-shadow:0 0 0 3px #a8180010}
+  .enquiry-popup .enquiry-popup-content textarea{min-height:96px;max-height:160px}
+  .enquiry-popup .enquiry-popup-content .enquiry-popup-submit{min-height:48px;margin:2px 0 0;padding:12px 16px;border-radius:8px;background:var(--brand);border-color:var(--brand);font-size:14px;font-weight:600;box-shadow:none}
+  .enquiry-popup .enquiry-popup-delivery-note{display:block;font-size:11px;line-height:1.6;text-align:center;color:#7c837b;margin:-7px 0 0}
 }

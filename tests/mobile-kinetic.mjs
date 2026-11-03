@@ -27,7 +27,7 @@ try {
     new MutationObserver(() => { if (dialog.open) dialog.close(); }).observe(dialog, { attributes: true, attributeFilter: ['open'] });
     if (dialog.open) dialog.close();
   });
-  assert.equal(await section.locator('.pin-spacer > .ke-surface').count(), 1);
+  assert.equal(await page.locator(width <= 640 ? '.pin-spacer > .engineering-scroll-scene' : '#engineering-path .pin-spacer > .ke-surface').count(), 1);
   const metadata = await page.evaluate(async () => {
     const url = performance.getEntriesByType('resource').find(entry => entry.name.includes('/gsap_ScrollTrigger.js')).name;
     const { ScrollTrigger } = await import(url);

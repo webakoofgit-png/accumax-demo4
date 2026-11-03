@@ -1,0 +1,94 @@
+/* Fit desktop sections below the fixed navigation without clipping content.
+   Smaller screens retain the natural, readable document flow. */
+@media (min-width: 1200px) and (min-height: 740px) {
+  .home-page {
+    --section-view: calc(100svh - 88px);
+    --section-space: clamp(24px, 4svh, 48px);
+  }
+
+  .home-page > section {
+    scroll-margin-top: 88px;
+  }
+
+  .home-page > .section,
+  .home-page #expertise.expertise-experience,
+  .home-page .industries-home.section {
+    padding-block: var(--section-space);
+  }
+
+  .home-page .section-heading,
+  .home-page .home-contact-heading,
+  .home-page .clients-heading {
+    margin-bottom: 24px;
+    padding-bottom: 18px;
+  }
+
+  .home-page .section-heading h2,
+  .home-page .home-contact-heading h2,
+  .home-page .clients-heading h2,
+  .home-page .about-copy h2 {
+    font-size: clamp(32px, 4.8svh, 54px);
+  }
+
+  .home-page .about-photo {
+    height: min(62svh, 560px);
+    aspect-ratio: auto;
+  }
+
+  .home-page .about-copy p { margin-block: 16px; }
+
+  .home-page #expertise .expertise-heading > .eyebrow { margin-bottom: 12px; }
+  .home-page #expertise .expertise-heading h2 { font-size: clamp(36px, 5svh, 58px); }
+  .home-page #expertise .expertise-support { margin-top: 12px; }
+  .home-page #expertise .expertise-arena { height: clamp(250px, 37svh, 420px); }
+  .home-page #expertise .expertise-visual {
+    top: 18%;
+    height: 64%;
+  }
+  .home-page #expertise :is(.hotspot-0, .hotspot-1) { top: 2%; }
+  .home-page #expertise :is(.hotspot-2, .hotspot-3) { top: 38%; }
+  .home-page #expertise :is(.hotspot-4, .hotspot-5) { top: 72%; }
+  .home-page #expertise .hotspot-6 { top: 87%; }
+  .home-page #expertise .expertise-description-mask { margin-block: 8px; }
+
+  .home-page .image-break { height: min(68svh, 650px); }
+
+  .home-page .projects-section .perspective-card-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+  }
+  .home-page .projects-section .perspective-service-card {
+    height: clamp(220px, calc((var(--section-view) - 2 * var(--section-space) - 154px) / 2), 340px);
+  }
+  .home-page .projects-section .perspective-service-body { padding: 14px; }
+  .home-page .projects-section .perspective-service-body h3 { font-size: 21px; }
+  #main .home-page .perspective-service-body p {
+    font-size: 14px;
+    line-height: 1.5;
+    margin: 8px 0 12px;
+  }
+  .home-page .projects-section .perspective-service-footer { padding-top: 10px; }
+  .home-page .projects-section .perspective-service-arrow { width: 28px; height: 28px; }
+
+  .home-page .industries-home .iw-stage {
+    height: clamp(240px, calc(var(--section-view) - 2 * var(--section-space) - 276px), 500px);
+    min-height: 0;
+    aspect-ratio: auto;
+  }
+
+  .home-page .why h2 {
+    font-size: clamp(38px, 6svh, 70px);
+    margin-bottom: 32px;
+  }
+  .home-page .strengths { margin-left: 0; }
+  .home-page .strengths h3 { margin-top: 18px; }
+
+  .home-page .home-contact-heading { gap: 12px; }
+  .home-page .home-contact-heading .eyebrow { margin-bottom: 12px; }
+  .home-page .home-contact-image {
+    height: clamp(150px, 27svh, 330px);
+    aspect-ratio: auto;
+  }
+  .home-page .home-contact-card h3 { margin-top: 16px; font-size: clamp(24px, 3.5svh, 32px); }
+  .home-page .home-contact-card p { margin: 12px 0 18px; }
+}

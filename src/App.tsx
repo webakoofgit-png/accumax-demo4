@@ -446,10 +446,11 @@ function Story() {
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: ref.current,
-            start: "top top",
+            start: () => window.matchMedia('(max-width: 640px)').matches ? "top 64px" : "top top",
             end: "+=850",
             scrub: 1,
             pin: true,
+            invalidateOnRefresh: true,
           },
         });
         panels.forEach((p, i) => {
@@ -606,6 +607,15 @@ function CounterBar() {
   );
 }
 function ProjectsSection() {
+  const [revealedCard, setRevealedCard] = useState<string | null>(null);
+  useEffect(() => {
+    if (!revealedCard) return;
+    const dismiss = (event: PointerEvent) => {
+      if (!(event.target instanceof Element) || !event.target.closest('.perspective-service-card')) setRevealedCard(null);
+    };
+    document.addEventListener('pointerdown', dismiss, { passive: true });
+    return () => document.removeEventListener('pointerdown', dismiss);
+  }, [revealedCard]);
   return (
     <section className="section projects-section">
       <div className="section-heading">
@@ -618,11 +628,20 @@ function ProjectsSection() {
       <div className="perspective-card-grid">
         {SERVICES.map((s) => (
           <Link
-            className="perspective-service-card"
+            className={`perspective-service-card${revealedCard === s.slug ? ' is-revealed' : ''}`}
             key={s.slug}
             to={"/services/" + s.slug}
+            onClick={(event) => {
+              if (event.detail > 0 && window.matchMedia('(hover: none), (pointer: coarse)').matches && revealedCard !== s.slug) {
+                event.preventDefault();
+                setRevealedCard(s.slug);
+              }
+            }}
+            onBlur={() => setRevealedCard(null)}
+            onKeyDown={(event) => { if (event.key === 'Escape') setRevealedCard(null); }}
           >
             <div className="perspective-service-media"><Img src={PERSPECTIVE_IMAGES[s.slug] ?? s.image} alt={s.title} /></div>
+            <span className="perspective-touch-hint" aria-hidden="true">Tap to explore <ArrowUpRight size={16}/></span>
             <span className="perspective-service-watermark" aria-hidden="true">
               <Img src={COMPANY.logo} alt="" />
             </span>
@@ -735,6 +754,7 @@ function Home() {
       <Story />
       <AboutBlock />
       <ExpertiseExperience />
+      <div className="engineering-scroll-scene">
       <EngineeringPath />
       <section className="image-break">
         <Img
@@ -753,6 +773,7 @@ function Home() {
           </Link>
         </div>
       </section>
+      </div>
       <ProjectsSection />
       <CounterBar />
       <section className="section industries-home">

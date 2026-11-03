@@ -16,13 +16,11 @@ async function openHome(page: Page) {
   await page.evaluate(() => document.fonts.ready);
 }
 async function progressTo(page: Page, progress: number) {
-  await page.locator('#engineering-path').evaluate((element, value) => {
-    const top = parseFloat(getComputedStyle(element).getPropertyValue('--ke-pin-top')) || 76;
-    const start = scrollY + element.getBoundingClientRect().top - top;
-    const surface = element.querySelector<HTMLElement>('.ke-surface')!;
-    const compact = matchMedia('(max-width: 900px), (hover: none), (pointer: coarse)').matches;
-    const distance = compact ? Math.max(1800, surface.offsetHeight * 3.7) : Math.max(2400, innerHeight * 3.4);
-    window.scrollTo({ top: start + distance * value, behavior: 'instant' });
+  await page.evaluate(async value => {
+    const resource = performance.getEntriesByType('resource').find(entry => entry.name.includes('/gsap_ScrollTrigger.js'))!;
+    const { ScrollTrigger } = await import(/* @vite-ignore */ resource.name);
+    const trigger = ScrollTrigger.getById('kinetic-engineering');
+    window.scrollTo({ top: trigger.start + (trigger.end - trigger.start) * value, behavior: 'instant' });
   }, progress);
 }
 
@@ -31,7 +29,7 @@ test('upstream layout changes never pin engineering over the expertise section',
   await openHome(page);
   const section = page.locator('#engineering-path');
   await expect(page.locator('.project-showcase-category,.perspective-service-meta')).toHaveCount(0);
-  expect(await section.evaluate(element => element.previousElementSibling?.id)).toBe('expertise');
+  expect(await section.evaluate(element => element.closest('.engineering-scroll-scene')?.previousElementSibling?.id)).toBe('expertise');
   const original = await page.locator('#expertise').evaluate(element => getComputedStyle(element).paddingBottom);
   await page.locator('#expertise').evaluate(element => {
     element.style.paddingBottom = `${parseFloat(getComputedStyle(element).paddingBottom) + 600}px`;
@@ -106,7 +104,8 @@ for (const width of [320, 390, 768]) {
     await openHome(page);
     const section = page.locator('#engineering-path');
     await expect(section).toHaveAttribute('data-enhanced', 'true');
-    await expect(section.locator('.pin-spacer')).toHaveCount(1);
+    if (width <= 640) await expect(page.locator('.pin-spacer > .engineering-scroll-scene')).toHaveCount(1);
+    else await expect(section.locator('.pin-spacer')).toHaveCount(1);
     expect(await section.locator('.ke-process .ke-description').allTextContents()).toEqual(descriptions);
     const checkpoints = [.06, .22, .36, .5, .64, .79];
     for (let index = 0; index < checkpoints.length; index++) {
@@ -116,6 +115,13 @@ for (const width of [320, 390, 768]) {
       await expect(scene).toHaveCSS('opacity', '1');
       await expect.poll(() => scene.locator('.ke-glyph').evaluateAll(elements => elements.every(element => Math.abs(new DOMMatrix(getComputedStyle(element).transform).m42) < 1))).toBeTruthy();
       expect(await scene.locator('.ke-word').evaluate(element => element.scrollWidth <= element.clientWidth + 2 && element.getBoundingClientRect().right <= innerWidth)).toBeTruthy();
+      if (width <= 640) {
+        expect(await page.locator('.engineering-scroll-scene').evaluate(element => {
+          const surface = element.querySelector('.ke-surface')!.getBoundingClientRect();
+          const next = element.querySelector('.image-break')!.getBoundingClientRect();
+          return Math.abs(next.top - surface.bottom) < 2 && next.top < innerHeight - 120;
+        })).toBeTruthy();
+      }
     }
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy();
     await page.locator('.enquiry-popup').evaluate((element: HTMLDialogElement) => element.close());

@@ -32,3 +32,33 @@ for (const width of [390, 1440]) {
     expect(errors).toEqual([]);
   });
 }
+
+test.describe('touch card overlay', () => {
+  test.use({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+  test('first tap reveals red overlay, outside tap dismisses, second tap opens service', async ({ page }) => {
+    await page.goto('/');
+    await expect(page.locator('.site-preloader')).toHaveCount(0);
+    await page.locator('.enquiry-popup').evaluate((dialog: HTMLDialogElement) => {
+      new MutationObserver(() => { if (dialog.open) dialog.close(); }).observe(dialog, { attributes: true, attributeFilter: ['open'] });
+      if (dialog.open) dialog.close();
+    });
+    const cards = page.locator('.perspective-service-card');
+    const first = cards.first();
+    await first.scrollIntoViewIfNeeded();
+    await expect(first.locator('.perspective-touch-hint')).toBeVisible();
+    await expect(first.locator('.perspective-service-body')).toHaveCSS('opacity', '0');
+    await expect.poll(() => first.evaluate(element => getComputedStyle(element, ':after').opacity)).toBe('0');
+    await first.tap();
+    await expect(first.locator('.perspective-touch-hint')).toHaveCSS('opacity', '0');
+    await expect(page).toHaveURL(/\/$/);
+    await expect(first.locator('.perspective-service-body')).toHaveCSS('opacity', '1');
+    await expect.poll(() => first.evaluate(element => getComputedStyle(element, ':after').opacity)).toBe('1');
+    await page.locator('.projects-section h2').tap();
+    await expect(first.locator('.perspective-service-body')).toHaveCSS('opacity', '0');
+    await cards.nth(1).tap();
+    await expect(cards.nth(1).locator('.perspective-service-body')).toHaveCSS('opacity', '1');
+    await expect(first.locator('.perspective-service-body')).toHaveCSS('opacity', '0');
+    await cards.nth(1).tap();
+    await expect(page).toHaveURL(/\/services\/scada-relay-testing$/);
+  });
+});

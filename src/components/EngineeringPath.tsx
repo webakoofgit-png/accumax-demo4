@@ -42,7 +42,7 @@ export function EngineeringPath() {
       scenes.forEach(scene => { scene.removeAttribute('aria-hidden'); scene.inert = false; });
     };
 
-    media.add({ motion: '(prefers-reduced-motion: no-preference)', pointer: '(hover: hover) and (pointer: fine)', compact: '(max-width: 900px)' }, match => {
+    media.add({ motion: '(prefers-reduced-motion: no-preference)', pointer: '(hover: hover) and (pointer: fine)', compact: '(max-width: 900px)', phone: '(max-width: 640px)' }, match => {
       if (!match.conditions?.motion) return;
 
       section.dataset.enhanced = 'true';
@@ -71,7 +71,9 @@ export function EngineeringPath() {
             id: 'kinetic-engineering', trigger: surface, animation: sequence,
             start: () => `top ${parseFloat(getComputedStyle(section).getPropertyValue('--ke-pin-top')) || 64}px`,
             end: () => '+=' + Math.max(2800, window.innerHeight * 3.5),
-            pin: true, pinSpacing: true, scrub: .45, anticipatePin: 1, invalidateOnRefresh: true,
+            // Keep the next image attached to the shorter phone scene while it pins.
+            pin: match.conditions?.phone ? section.closest<HTMLElement>('.engineering-scroll-scene') ?? surface : surface,
+            pinSpacing: true, scrub: .45, anticipatePin: 1, invalidateOnRefresh: true,
             onRefresh: self => { sequence.progress(self.progress); syncStage(); },
             onUpdate: syncStage,
           });
@@ -177,8 +179,8 @@ export function EngineeringPath() {
       });
     };
     const layout = new ResizeObserver(refresh);
-    for (const sibling of Array.from(section.parentElement?.children ?? [])) {
-      if (sibling === section) break;
+    for (const sibling of Array.from(section.closest('.home-page')?.children ?? [])) {
+      if (sibling === section || sibling.contains(section)) break;
       if (sibling instanceof HTMLElement && !sibling.classList.contains('pin-spacer')) layout.observe(sibling);
     }
     document.fonts.ready.then(refresh);

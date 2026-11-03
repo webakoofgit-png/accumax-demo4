@@ -51,6 +51,10 @@ export function EnquiryPopup() {
       if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) dialog.current?.close();
     } }}>
     <div className="enquiry-popup-shell">
+    <div className="enquiry-popup-mobile-header">
+      <img src={companyLogo} alt="Accumax Controls Private Limited"/>
+      <button type="button" className="enquiry-popup-mobile-close" aria-label="Close enquiry form" onClick={() => dialog.current?.close()}><X size={20}/></button>
+    </div>
     <aside className="enquiry-popup-visual" aria-label="Accumax engineering">
       <img src={projectPhoto} alt="" loading="lazy"/>
       <div className="enquiry-popup-brand"><img src={companyLogo} alt="Accumax Controls Private Limited"/></div>
@@ -59,7 +63,7 @@ export function EnquiryPopup() {
     <div className="enquiry-popup-content">
       <button type="button" className="enquiry-popup-close" aria-label="Close enquiry form" onClick={() => dialog.current?.close()}><X size={22}/></button>
       <h2 id="enquiry-popup-title">Project <span>enquiry.</span></h2>
-      <p id="enquiry-popup-intro">Tell us what you need.</p>
+      <p id="enquiry-popup-intro">Tell us about your project. Our team will help you take the next step.</p>
       <form onSubmit={event => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -76,6 +80,7 @@ export function EnquiryPopup() {
         </div>
         <label><span className="enquiry-popup-label-text">Project requirements<span aria-hidden="true">*</span></span><textarea name="message" required rows={3} maxLength={3000} placeholder="Tell us what you’re planning…"/></label>
         <button className="enquiry-popup-submit" type="submit">Send enquiry <ArrowUpRight size={18}/></button>
+        <p className="enquiry-popup-delivery-note">Opens your email app with your enquiry details.</p>
       </form>
     </div>
     </div>
