@@ -620,17 +620,6 @@ function ProjectsSection() {
   const track = useRef<HTMLDivElement>(null);
   const resumeAt = useRef(0);
   const reducedMotion = useReducedMotion();
-  const [canScroll, setCanScroll] = useState({ back: false, next: true });
-  useEffect(() => {
-    const element = track.current;
-    if (!element) return;
-    const update = () => setCanScroll({ back: element.scrollLeft > 2, next: element.scrollLeft + element.clientWidth < element.scrollWidth - 2 });
-    const resize = new ResizeObserver(update);
-    resize.observe(element);
-    element.addEventListener('scroll', update, { passive: true });
-    update();
-    return () => { resize.disconnect(); element.removeEventListener('scroll', update); };
-  }, []);
   useEffect(() => {
     const element = track.current;
     if (!element || reducedMotion) return;
@@ -649,24 +638,12 @@ function ProjectsSection() {
     }, 3500);
     return () => { observer.disconnect(); window.clearInterval(timer); };
   }, [reducedMotion]);
-  const slide = (direction: number) => {
-    const element = track.current;
-    const card = element?.firstElementChild as HTMLElement | null;
-    if (!element || !card) return;
-    resumeAt.current = Date.now() + 6500;
-    const gap = parseFloat(getComputedStyle(element).columnGap) || 0;
-    element.scrollBy({ left: direction * (card.offsetWidth + gap), behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
-  };
   return (
     <section className="section projects-section">
       <div className="section-heading">
         <div>
           <span className="eyebrow">05 / PROJECT PERSPECTIVES</span>
           <h2 className="section-title">Expertise <em>in action</em></h2>
-        </div>
-        <div className="perspective-controls" aria-label="Browse expertise cards">
-          <button type="button" aria-label="Previous expertise cards" aria-controls="perspective-cards" disabled={!canScroll.back} onClick={() => slide(-1)}><ArrowRight size={26} className="perspective-previous"/></button>
-          <button type="button" aria-label="Next expertise cards" aria-controls="perspective-cards" disabled={!canScroll.next} onClick={() => slide(1)}><ArrowRight size={26}/></button>
         </div>
       </div>
       <div className="perspective-card-grid" id="perspective-cards" ref={track} role="region" aria-label="Engineering expertise cards" tabIndex={0}
@@ -889,7 +866,7 @@ function Home() {
         <div className="home-contact-heading">
           <div>
             <span className="eyebrow">09 / LET&apos;S CONNECT</span>
-            <h2 className="section-title">Let&apos;s discuss<br /><em>your next project</em></h2>
+            <h2 className="section-title">Let&apos;s discuss <em>your next project</em></h2>
           </div>
         </div>
         <div className="home-contact-grid">

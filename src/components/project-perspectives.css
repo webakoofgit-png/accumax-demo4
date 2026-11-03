@@ -45,8 +45,9 @@
   .projects-section .section-heading h2{font-size:34px}
   .perspective-controls{gap:0;margin-left:auto}
   .perspective-controls button{width:40px;height:44px}
-  .projects-section .perspective-card-grid{grid-auto-columns:86%;gap:10px}
+  .projects-section .perspective-card-grid{grid-auto-columns:100%;gap:10px;scroll-snap-type:x mandatory}
+  .projects-section .perspective-service-card{scroll-snap-stop:always}
   .projects-section .perspective-service-media{aspect-ratio:1/1.05;max-height:360px}
   .projects-section .perspective-service-body h3{font-size:23px}
 }
-@media(prefers-reduced-motion:reduce){.projects-section .perspective-card-grid{scroll-behavior:auto;scroll-snap-type:none}.projects-section .perspective-service-card *{transition:none!important}}
+@media(prefers-reduced-motion:reduce){.projects-section .perspective-card-grid{scroll-behavior:auto}.projects-section .perspective-service-card *{transition:none!important}}

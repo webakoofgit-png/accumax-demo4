@@ -1,5 +1,8 @@
 /* Shared typography for the homepage's main section headings. */
 .home-page .home-contact-heading::after{content:none;display:none}
+.home-page .projects-section .section-heading{border-bottom:0}
+.home-page .projects-section .section-heading::after{content:none;display:none}
+#main .home-page .industries-home h2.section-title em{margin-inline-start:.25em}
 .home-page .why.section::after,
 .home-page .clients.section::after{
   content:'';
