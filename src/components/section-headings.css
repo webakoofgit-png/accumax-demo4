@@ -1,7 +1,16 @@
 /* Shared typography for the homepage's main section headings. */
+.home-page .home-contact-heading::after{content:none;display:none}
+.home-page .why.section::after,
+.home-page .clients.section::after{
+  content:'';
+  display:block;
+  height:1px;
+  margin-top:32px;
+  background:var(--line,#deded6);
+}
 #main .home-page h2.section-title{
   font-family:'Manrope',Arial,sans-serif;
-  font-size:clamp(36px,4.5vw,66px);
+  font-size:clamp(36px,4.2vw,60px);
   font-weight:600;
   line-height:1.1;
   letter-spacing:-.055em;
@@ -15,6 +24,10 @@
 }
 #main .home-page :is(#expertise,.image-break) h2.section-title{color:#f5f5f1}
 #main .home-page :is(#expertise,.image-break) h2.section-title :is(em,.heading-muted){color:#b1b4ac}
+@media(min-width:701px){
+  #main .home-page .projects-section h2.section-title{white-space:nowrap}
+  #main .home-page .industries-home h2.section-title{max-width:none;white-space:nowrap}
+}
 @media(max-width:640px){
   #main .home-page h2.section-title{font-size:clamp(30px,8.5vw,42px)}
 }

@@ -662,7 +662,7 @@ function ProjectsSection() {
       <div className="section-heading">
         <div>
           <span className="eyebrow">05 / PROJECT PERSPECTIVES</span>
-          <h2 className="section-title">Expertise<br /><em>in action.</em></h2>
+          <h2 className="section-title">Expertise <em>in action</em></h2>
         </div>
         <div className="perspective-controls" aria-label="Browse expertise cards">
           <button type="button" aria-label="Previous expertise cards" aria-controls="perspective-cards" disabled={!canScroll.back} onClick={() => slide(-1)}><ArrowRight size={26} className="perspective-previous"/></button>
@@ -731,8 +731,8 @@ function AboutBlock() {
       <div className="about-copy">
         <span className="eyebrow">01 / A CONNECTED PERSPECTIVE</span>
         <h2 className="section-title">
-          <span className="motion-line"><span>Big-picture thinking.</span></span>
-          <em className="motion-line"><span>Ground-level expertise.</span></em>
+          <span className="motion-line"><span>Big-picture thinking</span></span>
+          <em className="motion-line"><span>Ground-level expertise</span></em>
         </h2>
         <p>
           Accumax Controls is a Pune-based engineering, technology and export
@@ -808,7 +808,7 @@ function Home() {
           <h2 className="section-title">
             Where technical expertise
             <br />
-            <em>meets execution.</em>
+            <em>meets execution</em>
           </h2>
           <Link className="text-link" to="/services">
             See what we do <ArrowUpRight />
@@ -822,7 +822,7 @@ function Home() {
         <div className="section-heading">
           <div>
             <span className="eyebrow">06 / INDUSTRIES WE SERVE</span>
-            <h2 className="section-title">Different industries.<br /><em>One ambition.</em></h2>
+            <h2 className="section-title">Different industries <em>One ambition</em></h2>
           </div>
           <Button to="/industries">All industries</Button>
         </div>
@@ -831,9 +831,9 @@ function Home() {
       <section className="section why">
         <span className="eyebrow">07 / WHY ACCUMAX</span>
         <h2 className="section-title">
-          Built for complexity.
-          <br />
-          <em>Focused on reliability.</em>
+          Built for complexity
+          {" "}
+          <em>Focused on reliability</em>
         </h2>
         <div className="strengths">
           {[
@@ -864,7 +864,7 @@ function Home() {
       <section className="clients section">
         <div className="clients-heading">
           <span className="eyebrow">08 / CONNECTIONS BUILT ON TRUST</span>
-          <h2 className="section-title">Trusted by<br /><em>industry leaders</em></h2>
+          <h2 className="section-title">Trusted by <em>industry leaders</em></h2>
         </div>
         <div className="marquee">
           <div>
@@ -889,12 +889,8 @@ function Home() {
         <div className="home-contact-heading">
           <div>
             <span className="eyebrow">09 / LET&apos;S CONNECT</span>
-            <h2 className="section-title">Let&apos;s discuss<br /><em>your next project.</em></h2>
+            <h2 className="section-title">Let&apos;s discuss<br /><em>your next project</em></h2>
           </div>
-          <p>
-            From engineering requirements to equipment supply, connect with the
-            right team to move your project forward.
-          </p>
         </div>
         <div className="home-contact-grid">
           <Link className="home-contact-card" to="/contact">

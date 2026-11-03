@@ -1,5 +1,6 @@
 .home-page .industries-home{padding-top:64px;padding-bottom:64px;background:#faf9f6;border-top:0}
 .home-page .industries-home .section-heading{border-bottom:0}
+.home-page .industries-home .section-heading::after{content:none;display:none}
 .home-page .industries-home::after{content:none}
 .home-page .industries-home.section{height:auto;min-height:0;padding-bottom:6px;margin-bottom:0}
 .home-page .industries-home.section + .why.section{display:block;height:auto;min-height:0;padding-top:36px;margin-top:0}
