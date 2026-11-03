@@ -7,4 +7,5 @@ import './style.css';
 import './motion/homepage-motion.css';
 import './responsive.css';
 import './home-viewport.css';
+import './components/section-headings.css';
 ReactDOM.createRoot(document.getElementById('root')!).render(<React.StrictMode><HelmetProvider><BrowserRouter><App/></BrowserRouter></HelmetProvider></React.StrictMode>);

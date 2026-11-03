@@ -80,6 +80,16 @@ const PERSPECTIVE_IMAGES: Record<string, string> = {
     "/home page img/04  PROJECT PERSPECTIVES/Solar & EV Station.png",
   trading: "/home page img/04  PROJECT PERSPECTIVES/Trading.png",
 };
+const PERSPECTIVE_CAPTIONS: Record<string, string> = {
+  "epc-projects": "Power infrastructure, end to end.",
+  "scada-relay-testing": "Automation, protection and relay testing.",
+  export: "Substation equipment, delivered worldwide.",
+  "substation-testing-commissioning": "Testing and commissioning across voltage levels.",
+  "fabrication-civil-work": "Civil works and structural fabrication.",
+  "gis-erection-supervision": "GIS installation and site supervision.",
+  "solar-ev-station": "Solar power and EV charging infrastructure.",
+  trading: "Equipment and materials for your project.",
+};
 const Img = ({
   src,
   alt,
@@ -607,52 +617,84 @@ function CounterBar() {
   );
 }
 function ProjectsSection() {
-  const [revealedCard, setRevealedCard] = useState<string | null>(null);
+  const track = useRef<HTMLDivElement>(null);
+  const resumeAt = useRef(0);
+  const reducedMotion = useReducedMotion();
+  const [canScroll, setCanScroll] = useState({ back: false, next: true });
   useEffect(() => {
-    if (!revealedCard) return;
-    const dismiss = (event: PointerEvent) => {
-      if (!(event.target instanceof Element) || !event.target.closest('.perspective-service-card')) setRevealedCard(null);
-    };
-    document.addEventListener('pointerdown', dismiss, { passive: true });
-    return () => document.removeEventListener('pointerdown', dismiss);
-  }, [revealedCard]);
+    const element = track.current;
+    if (!element) return;
+    const update = () => setCanScroll({ back: element.scrollLeft > 2, next: element.scrollLeft + element.clientWidth < element.scrollWidth - 2 });
+    const resize = new ResizeObserver(update);
+    resize.observe(element);
+    element.addEventListener('scroll', update, { passive: true });
+    update();
+    return () => { resize.disconnect(); element.removeEventListener('scroll', update); };
+  }, []);
+  useEffect(() => {
+    const element = track.current;
+    if (!element || reducedMotion) return;
+    let visible = false;
+    const observer = new IntersectionObserver(([entry]) => { visible = entry.intersectionRatio >= .25; }, { threshold: .25 });
+    observer.observe(element);
+    const timer = window.setInterval(() => {
+      if (!visible || document.hidden || Date.now() < resumeAt.current || document.querySelector('dialog[open]')) return;
+      if (element.closest('.projects-section')?.contains(document.activeElement)) return;
+      if (matchMedia('(hover: hover)').matches && element.matches(':hover')) return;
+      const card = element.firstElementChild as HTMLElement | null;
+      if (!card) return;
+      const step = card.offsetWidth + (parseFloat(getComputedStyle(element).columnGap) || 0);
+      const atEnd = element.scrollLeft + element.clientWidth >= element.scrollWidth - 2;
+      element.scrollTo({ left: atEnd ? 0 : element.scrollLeft + step, behavior: 'smooth' });
+    }, 3500);
+    return () => { observer.disconnect(); window.clearInterval(timer); };
+  }, [reducedMotion]);
+  const slide = (direction: number) => {
+    const element = track.current;
+    const card = element?.firstElementChild as HTMLElement | null;
+    if (!element || !card) return;
+    resumeAt.current = Date.now() + 6500;
+    const gap = parseFloat(getComputedStyle(element).columnGap) || 0;
+    element.scrollBy({ left: direction * (card.offsetWidth + gap), behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' });
+  };
   return (
     <section className="section projects-section">
       <div className="section-heading">
         <div>
-          <span className="eyebrow">04 / PROJECT PERSPECTIVES</span>
-          <h2>Expertise in action.</h2>
+          <span className="eyebrow">05 / PROJECT PERSPECTIVES</span>
+          <h2 className="section-title">Expertise<br /><em>in action.</em></h2>
         </div>
-        <Button to="/projects">Explore projects</Button>
+        <div className="perspective-controls" aria-label="Browse expertise cards">
+          <button type="button" aria-label="Previous expertise cards" aria-controls="perspective-cards" disabled={!canScroll.back} onClick={() => slide(-1)}><ArrowRight size={26} className="perspective-previous"/></button>
+          <button type="button" aria-label="Next expertise cards" aria-controls="perspective-cards" disabled={!canScroll.next} onClick={() => slide(1)}><ArrowRight size={26}/></button>
+        </div>
       </div>
-      <div className="perspective-card-grid">
+      <div className="perspective-card-grid" id="perspective-cards" ref={track} role="region" aria-label="Engineering expertise cards" tabIndex={0}
+        onPointerDown={() => { resumeAt.current = Date.now() + 6500; }}
+        onPointerUp={() => { resumeAt.current = Date.now() + 6500; }}
+        onPointerCancel={() => { resumeAt.current = Date.now() + 6500; }}>
         {SERVICES.map((s) => (
           <Link
-            className={`perspective-service-card${revealedCard === s.slug ? ' is-revealed' : ''}`}
+            className="perspective-service-card"
             key={s.slug}
             to={"/services/" + s.slug}
-            onClick={(event) => {
-              if (event.detail > 0 && window.matchMedia('(hover: none), (pointer: coarse)').matches && revealedCard !== s.slug) {
-                event.preventDefault();
-                setRevealedCard(s.slug);
-              }
-            }}
-            onBlur={() => setRevealedCard(null)}
-            onKeyDown={(event) => { if (event.key === 'Escape') setRevealedCard(null); }}
           >
-            <div className="perspective-service-media"><Img src={PERSPECTIVE_IMAGES[s.slug] ?? s.image} alt={s.title} /></div>
-            <span className="perspective-touch-hint" aria-hidden="true">Tap to explore <ArrowUpRight size={16}/></span>
-            <span className="perspective-service-watermark" aria-hidden="true">
-              <Img src={COMPANY.logo} alt="" />
-            </span>
+            <div className="perspective-service-media">
+              <Img src={PERSPECTIVE_IMAGES[s.slug] ?? s.image} alt={s.title} />
+              <div className="perspective-image-overlay" aria-hidden="true">
+                <span className="perspective-overlay-watermark"><Img src={COMPANY.logo} alt="" /></span>
+                <div className="perspective-overlay-copy"><strong>{s.title}</strong><p>{s.short}</p></div>
+              </div>
+              <span className="perspective-service-arrow" aria-hidden="true"><ArrowUpRight size={22} /></span>
+            </div>
             <div className="perspective-service-body">
               <h3>{s.title}</h3>
-              <p>{s.short}</p>
-              <span className="perspective-service-footer"><span>Explore expertise</span><span className="perspective-service-arrow" aria-hidden="true"><ArrowUpRight size={20}/></span></span>
+              <p>{PERSPECTIVE_CAPTIONS[s.slug] ?? s.short}</p>
             </div>
           </Link>
         ))}
       </div>
+      <div className="perspective-bottom"><Button to="/projects">Explore all projects</Button></div>
     </section>
   );
 }
@@ -687,8 +729,8 @@ function AboutBlock() {
         <span>ENGINEERING WITH PURPOSE, SINCE DAY ONE.</span>
       </div>
       <div className="about-copy">
-        <span className="eyebrow">A CONNECTED PERSPECTIVE</span>
-        <h2>
+        <span className="eyebrow">01 / A CONNECTED PERSPECTIVE</span>
+        <h2 className="section-title">
           <span className="motion-line"><span>Big-picture thinking.</span></span>
           <em className="motion-line"><span>Ground-level expertise.</span></em>
         </h2>
@@ -762,11 +804,11 @@ function Home() {
           alt="Power transmission infrastructure"
         />
         <div>
-          <span className="eyebrow">THE CONNECTION THAT MATTERS</span>
-          <h2>
+          <span className="eyebrow">04 / THE CONNECTION THAT MATTERS</span>
+          <h2 className="section-title">
             Where technical expertise
             <br />
-            meets execution.
+            <em>meets execution.</em>
           </h2>
           <Link className="text-link" to="/services">
             See what we do <ArrowUpRight />
@@ -779,8 +821,8 @@ function Home() {
       <section className="section industries-home">
         <div className="section-heading">
           <div>
-            <span className="eyebrow">05 / INDUSTRIES WE SERVE</span>
-            <h2>Different industries. One ambition.</h2>
+            <span className="eyebrow">06 / INDUSTRIES WE SERVE</span>
+            <h2 className="section-title">Different industries.<br /><em>One ambition.</em></h2>
           </div>
           <Button to="/industries">All industries</Button>
         </div>
@@ -788,7 +830,7 @@ function Home() {
       </section>
       <section className="section why">
         <span className="eyebrow">07 / WHY ACCUMAX</span>
-        <h2>
+        <h2 className="section-title">
           Built for complexity.
           <br />
           <em>Focused on reliability.</em>
@@ -822,7 +864,7 @@ function Home() {
       <section className="clients section">
         <div className="clients-heading">
           <span className="eyebrow">08 / CONNECTIONS BUILT ON TRUST</span>
-          <h2>Trusted by industry leaders</h2>
+          <h2 className="section-title">Trusted by<br /><em>industry leaders</em></h2>
         </div>
         <div className="marquee">
           <div>
@@ -847,7 +889,7 @@ function Home() {
         <div className="home-contact-heading">
           <div>
             <span className="eyebrow">09 / LET&apos;S CONNECT</span>
-            <h2>Let&apos;s discuss your next project.</h2>
+            <h2 className="section-title">Let&apos;s discuss<br /><em>your next project.</em></h2>
           </div>
           <p>
             From engineering requirements to equipment supply, connect with the

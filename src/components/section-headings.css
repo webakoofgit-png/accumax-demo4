@@ -1,0 +1,20 @@
+/* Shared typography for the homepage's main section headings. */
+#main .home-page h2.section-title{
+  font-family:'Manrope',Arial,sans-serif;
+  font-size:clamp(36px,4.5vw,66px);
+  font-weight:600;
+  line-height:1.1;
+  letter-spacing:-.055em;
+  text-transform:none;
+  white-space:normal;
+  color:#242522;
+}
+#main .home-page h2.section-title :is(em,.heading-muted){
+  font:inherit;
+  color:#898b81;
+}
+#main .home-page :is(#expertise,.image-break) h2.section-title{color:#f5f5f1}
+#main .home-page :is(#expertise,.image-break) h2.section-title :is(em,.heading-muted){color:#b1b4ac}
+@media(max-width:640px){
+  #main .home-page h2.section-title{font-size:clamp(30px,8.5vw,42px)}
+}

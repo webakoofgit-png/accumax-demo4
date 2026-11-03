@@ -192,7 +192,7 @@ export function EngineeringPath() {
     <h2 id="kinetic-engineering-title" className="ke-sr-only">Kinetic engineering — six stages, one continuous motion.</h2>
     <div className="ke-surface" ref={stage}>
 
-      <header className="ke-header"><span className="eyebrow">06 / FROM INTENT TO INFRASTRUCTURE</span></header>
+      <header className="ke-header"><span className="eyebrow">03 / FROM INTENT TO INFRASTRUCTURE</span></header>
       <div className="ke-topline" aria-hidden="true"><span className="ke-counter-label"><span className="ke-counter-window"><span className="ke-counter-track">{ENGINEERING_STAGES.map((_, index) => <span key={index}>{String(index + 1).padStart(2, '0')}</span>)}</span></span><span className="ke-counter-total">/ 06</span></span></div>
       <div className="ke-composition">
         <div className="ke-type-plane">{ENGINEERING_STAGES.map((item, index) => <article className="ke-scene ke-process" key={item.title}>

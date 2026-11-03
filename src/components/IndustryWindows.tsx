@@ -69,15 +69,6 @@ export function IndustryWindows() {
     return () => { window.clearInterval(timer); observer.disconnect(); };
   }, [choose, reduced, loading, active]);
 
-  useEffect(() => {
-    if (!window.matchMedia('(max-width: 700px)').matches) return;
-    const track = root.current?.querySelector<HTMLElement>('.iw-selector');
-    const tab = root.current?.querySelector<HTMLElement>(`#industry-selector-${active}`);
-    if (!track || !tab) return;
-    const left = tab.getBoundingClientRect().left - track.getBoundingClientRect().left + track.scrollLeft - (track.clientWidth - tab.offsetWidth) / 2;
-    track.scrollTo({ left, behavior: reduced ? 'instant' : 'smooth' });
-  }, [active, reduced]);
-
   useLayoutEffect(() => {
     if (!root.current) return;
     const context = gsap.context(() => {
@@ -141,26 +132,30 @@ export function IndustryWindows() {
         <img className="iw-photo" src={source(index)} alt="" loading={index === 0 ? 'eager' : 'lazy'} decoding="async" width={index === 0 ? 1920 : 550} height={index === 0 ? 1088 : 400}/>
       </div>)}</div>
       <div className="iw-shade"/>
-      <div className="iw-topline"><span>ACCUMAX / INDUSTRY PERSPECTIVES</span><span>{String(active + 1).padStart(2, '0')} <span className="iw-total">/ 06</span></span></div>
+      <div className="iw-topline"><span><i /> ENGINEERING ACROSS INDUSTRIES</span><span>{String(active + 1).padStart(2, '0')} <span className="iw-total">/ 06</span></span></div>
       <div className="iw-copy" key={active}>
+        <span className="iw-photo-label">BUILT AROUND YOUR WORLD</span>
         <h3>{lines.map(line => <span className="iw-title-line" key={line}><span>{line}</span></span>)}</h3>
+        <p>{industry.applications}.</p>
       </div>
       <div className="iw-progress" aria-hidden="true"><span/></div>
     </div>
-    <div className="iw-details"><Link className="iw-cta" to={'/contact?industry=' + encodeURIComponent(industry.name)}>Discuss your project <ArrowUpRight size={18}/></Link></div>
-    <div className="iw-selector" role="tablist" aria-label="Industries we serve">{industries.map((item, index) => <button type="button" role="tab" id={`industry-selector-${index}`} aria-controls="industry-window" aria-selected={active === index} tabIndex={active === index ? 0 : -1} key={item.name}
+    <div className="iw-directory">
+    <div className="iw-selector" role="tablist" aria-label="Industries we serve" aria-orientation="vertical">{industries.map((item, index) => <button type="button" role="tab" id={`industry-selector-${index}`} aria-controls="industry-window" aria-selected={active === index} tabIndex={active === index ? 0 : -1} key={item.name}
       onClick={() => { void choose(index); }}
       onKeyDown={event => {
         let next = index;
-        if (event.key === 'ArrowRight') next = (index + 1) % industries.length;
-        else if (event.key === 'ArrowLeft') next = (index + industries.length - 1) % industries.length;
+        if (event.key === 'ArrowRight' || event.key === 'ArrowDown') next = (index + 1) % industries.length;
+        else if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') next = (index + industries.length - 1) % industries.length;
         else if (event.key === 'Home') next = 0;
         else if (event.key === 'End') next = industries.length - 1;
         else return;
         event.preventDefault();
         root.current?.querySelector<HTMLButtonElement>(`#industry-selector-${next}`)?.focus({ preventScroll: true });
         void choose(next);
-      }}><span className="iw-tab-index">{String(index + 1).padStart(2, '0')}</span><span>{item.name}</span><ArrowRight size={14}/></button>)}</div>
+      }}><span className="iw-tab-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><span className="iw-tab-copy"><span>{item.name}</span>{active === index && <small>{item.applications}</small>}</span><ArrowRight size={18}/></button>)}</div>
+    <div className="iw-details"><Link className="iw-cta" to={'/contact?industry=' + encodeURIComponent(industry.name)}>Discuss your project <ArrowUpRight size={20}/></Link></div>
+    </div>
     <span className="iw-accessible-status" role="status">{loading ? 'Loading industry image' : industry.name + ': ' + industry.applications}</span>
   </div>;
 }

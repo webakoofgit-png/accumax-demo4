@@ -10,6 +10,13 @@
 .home-page .hero-banner .hero-actions>a:hover svg{transform:translate(4px,-3px)}
 .home-page .about-photo{overflow:hidden;aspect-ratio:1}
 .home-page .about-photo>img{height:100%;width:100%;object-fit:cover}
+.about-editorial-image{overflow:hidden}
+/* Independent scale preserves the existing scroll transforms and image fades. */
+@media(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
+  :is(.home-page .about-photo,.about-editorial-image,.home-page .image-break,#expertise .expertise-image-window,.industry-windows .iw-stage) img{scale:1;transition:scale .65s cubic-bezier(.22,1,.36,1)}
+  :is(.home-page .about-photo,.home-page .image-break,#expertise .expertise-image-window,.industry-windows .iw-stage):hover img{scale:1.035}
+  .about-editorial-image:hover img{scale:1.05}
+}
 .home-page .about-copy h2 .motion-line{line-height:1.15}
 .home-page .section-heading,.home-page .clients-heading,.home-page .home-contact-heading{position:relative;padding-bottom:24px}
 .home-page .section-heading:after,.home-page .clients-heading:after,.home-page .home-contact-heading:after{content:'';position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--line);transform:scaleX(var(--divider-progress,1));transform-origin:left}

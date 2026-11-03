@@ -1,5 +1,7 @@
 /* Fit desktop sections below the fixed navigation without clipping content.
    Smaller screens retain the natural, readable document flow. */
+.home-page .why .strengths { margin-left: 0; }
+
 @media (min-width: 1200px) and (min-height: 740px) {
   .home-page {
     --section-view: calc(100svh - 88px);
@@ -53,23 +55,6 @@
 
   .home-page .image-break { height: min(68svh, 650px); }
 
-  .home-page .projects-section .perspective-card-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 16px;
-  }
-  .home-page .projects-section .perspective-service-card {
-    height: clamp(220px, calc((var(--section-view) - 2 * var(--section-space) - 154px) / 2), 340px);
-  }
-  .home-page .projects-section .perspective-service-body { padding: 14px; }
-  .home-page .projects-section .perspective-service-body h3 { font-size: 21px; }
-  #main .home-page .perspective-service-body p {
-    font-size: 14px;
-    line-height: 1.5;
-    margin: 8px 0 12px;
-  }
-  .home-page .projects-section .perspective-service-footer { padding-top: 10px; }
-  .home-page .projects-section .perspective-service-arrow { width: 28px; height: 28px; }
-
   .home-page .industries-home .iw-stage {
     height: clamp(240px, calc(var(--section-view) - 2 * var(--section-space) - 276px), 500px);
     min-height: 0;
@@ -80,7 +65,6 @@
     font-size: clamp(38px, 6svh, 70px);
     margin-bottom: 32px;
   }
-  .home-page .strengths { margin-left: 0; }
   .home-page .strengths h3 { margin-top: 18px; }
 
   .home-page .home-contact-heading { gap: 12px; }
@@ -91,4 +75,28 @@
   }
   .home-page .home-contact-card h3 { margin-top: 16px; font-size: clamp(24px, 3.5svh, 32px); }
   .home-page .home-contact-card p { margin: 12px 0 18px; }
+}
+
+/* Give Why Accumax its own desktop view beneath the fixed navigation. */
+@media (min-width: 1000px) {
+  .home-page .why.section {
+    min-height: calc(100svh - 64px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: clamp(28px, 5svh, 64px);
+    scroll-margin-top: 64px;
+  }
+
+  .home-page .why h2 {
+    font-size: clamp(40px, 8svh, 86px);
+    line-height: 1.12;
+    margin: 28px 0 clamp(28px, 6svh, 60px);
+  }
+
+  .home-page .why .strengths {
+    width: 100%;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: clamp(24px, 4vw, 65px);
+  }
 }

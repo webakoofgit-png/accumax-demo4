@@ -95,10 +95,6 @@ export function ExpertiseExperience() {
           yPercent: 0, duration: 1, stagger: .12, ease: 'power3.out',
           scrollTrigger: { trigger: root, start: 'top 82%', once: true },
         });
-        gsap.fromTo(root.querySelector('.expertise-support'), { autoAlpha: 0, y: 15 }, {
-          autoAlpha: 1, y: 0, duration: .8, ease: 'power2.out',
-          scrollTrigger: { trigger: root, start: 'top 76%', once: true },
-        });
         ScrollTrigger.create({ trigger: root, start: 'top bottom', end: 'bottom top',
           onToggle: self => { root.dataset.inview = String(self.isActive); } });
         if (match.conditions?.wide) {
@@ -189,7 +185,7 @@ export function ExpertiseExperience() {
   return <section id="expertise" className="expertise-experience expertise-section" ref={rootRef} aria-labelledby="expertise-heading" onFocusCapture={() => setFocusWithin(true)} onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setFocusWithin(false); }}>
     <div className="expertise-atmosphere" aria-hidden="true"><div className="expertise-ambient"/>{[0,1,2,3,4,5].map(i => <span className={`expertise-particle particle-${i}`} key={i}/>)}</div>
     <div className="expertise-inner">
-      <header className="expertise-heading"><span className="eyebrow">02 / OUR EXPERTISE</span><h2 id="expertise-heading"><span className="expertise-heading-line"><span>Engineering</span></span>{' '}<span className="expertise-heading-line"><span>Every Possibility.</span></span></h2><p className="expertise-support">Integrated Engineering, EPC, Renewable Energy &amp; Electrical Asset Management Solutions.</p></header>
+      <header className="expertise-heading"><span className="eyebrow">02 / OUR EXPERTISE</span><h2 id="expertise-heading" className="section-title"><span className="expertise-heading-line"><span>Engineering</span></span><br /><span className="expertise-heading-line heading-muted"><span>Every Possibility.</span></span></h2></header>
       <div className="expertise-console">
         <div className="expertise-arena" ref={arenaRef}>
           <svg className="expertise-connections" viewBox="0 0 1400 490" preserveAspectRatio="none" aria-hidden="true">{connections.map((path, i) => <path key={path} d={path} pathLength="1" className={active === i ? 'is-active' : ''}/>)}</svg>
