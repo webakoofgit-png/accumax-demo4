@@ -128,7 +128,7 @@ footer .footer-office-map .office-map{margin-top:0}
   .home-page #expertise .expertise-heading{margin-bottom:28px}
   .home-page #expertise .expertise-heading>.eyebrow{margin-bottom:8px}
   .home-page #expertise .expertise-arena{height:clamp(220px,calc(100svh - 394px),516px)}
-  .home-page #expertise .expertise-visual{left:28%;top:0;width:44%;height:86%}
+  .home-page #expertise .expertise-visual{left:28%;top:0;width:44%;height:calc(100% - 68px)}
   .home-page #expertise .expertise-hotspot{max-width:16%;padding:8px 10px;font-size:16px}
   .home-page #expertise :is(.hotspot-0,.hotspot-1){top:0}
   .home-page #expertise :is(.hotspot-2,.hotspot-3){top:34%}
@@ -136,9 +136,9 @@ footer .footer-office-map .office-map{margin-top:0}
   .home-page #expertise .hotspot-0,.home-page #expertise .hotspot-2,.home-page #expertise .hotspot-4{left:0}
   .home-page #expertise .hotspot-1,.home-page #expertise .hotspot-3,.home-page #expertise .hotspot-5{right:0}
   .home-page #expertise .hotspot-6{top:auto;bottom:0;max-width:320px}
-  .home-page #expertise .expertise-selected{margin-top:12px;padding-top:10px}
+  .home-page #expertise .expertise-selected{max-width:960px;margin-top:16px;padding-top:16px}
   .home-page #expertise .expertise-selected h3{font-size:22px}
-  .home-page #expertise .expertise-description-mask{min-height:48px;margin:6px 0 8px}
+  .home-page #expertise .expertise-description-mask{min-height:0;margin:10px 0 20px}
   .home-page #expertise .expertise-description-inner{font-size:16px;line-height:1.5}
 }
 @media(min-width:641px) and (max-width:1199px){
