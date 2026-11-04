@@ -21,6 +21,13 @@
   box-shadow: 0 8px 26px #0004;
 }
 
+.floating-whatsapp > svg {
+  display: block;
+  width: 30px;
+  height: 30px;
+  pointer-events: none;
+}
+
 .floating-whatsapp:focus-visible {
   outline: 3px solid #22291f;
   outline-offset: 4px;

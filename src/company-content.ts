@@ -8,9 +8,47 @@ export const COMPANY_PROFILE = {
   values: ['Integrity', 'Environment, Health & Safety', 'Quality', 'Teamwork', 'Trust'],
 };
 
+export const ABOUT_CONTENT = {
+  introduction: 'Accumax Controls Pvt. Ltd. is a Pune-based engineering, technology and equipment supply company focused on the power sector. We bring together the technical expertise, site execution and sourcing support needed to develop and maintain electrical infrastructure.',
+  delivery: 'Our work connects engineering, procurement and construction with substation installation, automation, testing and commissioning. From GIS and AIS substations to E-House solutions, solar projects and EV charging, we consider the equipment, protection systems and site requirements together.',
+  partnership: 'Support continues beyond installation through annual maintenance, system audits and equipment supply. Clear specifications, coordinated project interfaces and safe working practices guide our approach, whether the requirement is a complete project, specialist site support or a defined material package.',
+  capabilities: [
+    {
+      title: 'Substations & project execution',
+      text: 'GIS and AIS substations, E-House solutions and EPC coordination, supported by civil and electrical works, custom steel fabrication and GIS installation supervision.',
+      to: '/services/epc-projects',
+    },
+    {
+      title: 'Automation & protection',
+      text: 'SCADA and Substation Automation Systems connect monitoring with control. Relay programming, protection setting calculations and system audits support the electrical protection scope.',
+      to: '/services/scada-relay-testing',
+    },
+    {
+      title: 'Testing & commissioning',
+      text: 'Testing and commissioning for substation equipment, automation and E-House systems, with primary injection, secondary injection and end-to-end relay testing within the agreed scope.',
+      to: '/services/substation-testing-commissioning',
+    },
+    {
+      title: 'Solar & EV infrastructure',
+      text: 'Solar generation and EV charging planned around the site. Inverter systems, charging loads, storage options and grid interfaces are considered against the operating requirements.',
+      to: '/services/solar-ev-station',
+    },
+    {
+      title: 'Maintenance & technical support',
+      text: 'Annual maintenance support for electrical installations and substations. Discuss the equipment, operating conditions, maintenance schedule and system audit requirements with our team.',
+      to: '/contact?service=Operations%2C%20Maintenance%20%26%20AMC',
+    },
+    {
+      title: 'Equipment supply & exports',
+      text: 'Import, export and trading of substation components, testing kits, panels, cables and accessories, alongside site tools, safety equipment, construction materials and FRP products.',
+      to: '/services/export',
+    },
+  ],
+};
+
 export const PAGE_DESCRIPTIONS: Record<string, string> = {
   '/': 'Accumax Controls, Pune: GIS and AIS substations, EPC, automation, relay testing, solar and EV infrastructure, equipment exports and trading.',
-  '/about': 'Meet Accumax Controls: power-sector engineering, technology and exports guided by quality, safety, integrity, teamwork and trust.',
+  '/about': 'Meet Accumax Controls, Pune: connected expertise in EPC, GIS and AIS substations, automation, commissioning, maintenance, renewable energy and equipment exports.',
   '/services': 'Explore EPC, SCADA and relay testing, exports, substation commissioning, fabrication and civil works, GIS supervision, solar, EV stations and trading.',
   '/industries': 'Electrical engineering and equipment supply for utilities, data centres, manufacturing, process industries, transport and institutions.',
   '/projects': 'Explore applications of Accumax engineering services across substation infrastructure, protection, renewable energy and EV charging.',

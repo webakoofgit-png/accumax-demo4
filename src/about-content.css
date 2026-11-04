@@ -1,0 +1,75 @@
+.about-capabilities {
+  background: #f3f3ec;
+}
+
+.about-capabilities-heading {
+  max-width: 780px;
+  margin-bottom: 28px;
+}
+
+.about-capabilities-heading h2 {
+  font-size: clamp(30px, 3.4vw, 46px);
+  line-height: 1.15;
+  letter-spacing: -.045em;
+  margin: 14px 0;
+}
+
+.about-capabilities-heading p {
+  margin: 0;
+}
+
+.about-capabilities-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.about-capability-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 26px;
+  border: 1px solid #dce0d2;
+  border-radius: 8px;
+  background: #fafaf6;
+}
+
+.about-capability-card h3 {
+  font-size: 23px;
+  line-height: 1.25;
+  letter-spacing: -.025em;
+  margin: 0 0 14px;
+}
+
+.about-capability-card p {
+  font-size: 16px;
+  line-height: 1.7;
+  margin: 0 0 20px;
+  color: #555c4d;
+}
+
+.about-capability-card .site-cta {
+  margin-top: auto;
+}
+
+.about-capability-card a:focus-visible {
+  outline: 2px solid var(--brand);
+  outline-offset: 4px;
+}
+
+@media (max-width: 1000px) {
+  .about-capabilities-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .about-capabilities-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .about-capability-card {
+    padding: 22px;
+  }
+}

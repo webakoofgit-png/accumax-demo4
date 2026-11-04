@@ -96,7 +96,8 @@ export function useHomepageMotion(rootRef: RefObject<HTMLDivElement>) {
         });
 
         all('.home-contact-card').forEach((card, i) => {
-          const timeline = gsap.timeline({ delay: i * .06, scrollTrigger: { trigger: card, start: 'top 88%', once: true } });
+          const timeline = gsap.timeline({ delay: i * .1, scrollTrigger: { trigger: card, start: 'top 88%', once: true } });
+          timeline.timeScale(.7);
           timeline.fromTo(card.querySelector('.home-contact-image'), { clipPath: 'inset(0 100% 0 0)' }, { clipPath: 'inset(0 0% 0 0)', duration: 1, ease: 'power3.inOut' })
             .fromTo(card.querySelectorAll('.motion-line>span'), { yPercent: 110 }, { yPercent: 0, duration: .75, stagger: .08, ease: 'power3.out' }, .25)
             .fromTo(card.querySelectorAll('p,.home-contact-link'), { autoAlpha: 0, y: 14 }, { autoAlpha: 1, y: 0, duration: .65, stagger: .08 }, .45);
