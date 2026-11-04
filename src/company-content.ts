@@ -1,8 +1,8 @@
 /** Editorial summaries of accumaxcontrols.com and its Vision Mission Values PDF. */
 export const COMPANY_PROFILE = {
-  introduction: 'Accumax Controls Pvt. Ltd. is an engineering, technology and export company focused on the power sector. Based in Pune, we bring together substation infrastructure, renewable energy, testing and equipment supply.',
-  capabilities: 'Our capabilities cover GIS and AIS substations, civil and electrical works, substation automation, annual maintenance and E-House solutions. We also support system audits, protective relay programming and protection setting calculations.',
-  supply: 'Our import and export range includes PPE, substation components, construction tools, building materials and FRP products, alongside electrical panels, cable accessories, trays, supports, lighting equipment and poles.',
+  introduction: 'Power infrastructure needs clear thinking and precise execution. Based in Pune, Accumax Controls brings engineering, site services and equipment supply together for substations, industrial power systems, solar projects and EV charging.',
+  capabilities: 'From GIS and AIS substations to automation, testing and commissioning, we connect the systems that keep power moving. Our scope also includes E-House solutions, annual maintenance, system audits, relay programming and protection settings.',
+  supply: 'Our import and export offering connects project teams with substation equipment, testing kits, panels, cables and installation accessories. Tools, safety equipment, construction materials and FRP products support the wider site requirement.',
   mission: 'Deliver customer satisfaction through dependable service, product quality, responsive support and safe working practices. Provide practical, cost-conscious electrical solutions with clear communication throughout planning and execution.',
   vision: 'Become a preferred partner for energy projects through skilled engineering teams, suitable materials and specialist tools that meet customer expectations.',
   values: ['Integrity', 'Environment, Health & Safety', 'Quality', 'Teamwork', 'Trust'],

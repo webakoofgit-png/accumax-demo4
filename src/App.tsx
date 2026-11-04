@@ -302,7 +302,7 @@ function Footer() {
             Start a conversation
           </Button>
         </div>
-        <p>Connect with our team to discuss your project requirements.</p>
+        <p>From a first brief to a defined scope, let&apos;s plan the engineering, site work and equipment your project needs.</p>
         <a href={COMPANY.whatsapp} target="_blank" rel="noreferrer">
           Enquire on WhatsApp ?
         </a>
@@ -365,7 +365,7 @@ function Footer() {
               <strong>Webakoof</strong>
             </a>
           </span>
-          <span>ENGINEERING ? EQUIPMENT ? EXECUTION</span>
+          <span>{COMPANY.tagline}</span>
           <button
             onClick={() =>
               window.scrollTo({
@@ -729,19 +729,17 @@ function Home() {
             <span className="live-dot" /> ENGINEERING · INFRASTRUCTURE ·
             INNOVATION
           </span>
-          <h1>
-            {["Powering", "Progress."].map((word) => (
+          <h1 aria-label={COMPANY.tagline}>
+            {["Expedite", "Efficiency"].map((word) => (
               <span className="hero-line" key={word}><span>{word}</span></span>
             ))}
             <span className="hero-outline">
-              <span className="hero-line"><span>Engineering</span></span>
-              <span className="hero-line"><span>Possibilities.</span></span>
+              <span className="hero-line"><span>with</span></span>
+              <span className="hero-line"><span>Excellence</span></span>
             </span>
           </h1>
           <p>
-            {COMPANY.tagline}
-            <br />
-            Substations, automation, testing and equipment exports.
+            From substations to solar and EV charging, connect your next project with the engineering behind it.
           </p>
           <div className="hero-actions">
             <Button to="/services">Explore expertise</Button>
@@ -797,18 +795,18 @@ function Home() {
           {[
             [
               "01",
-              "An integrated perspective",
-              "GIS, AIS, SAS and E-House solutions connect equipment, controls and site execution.",
+              "One connected project view",
+              "Bring substation equipment, automation and site work into the same plan, with clear interfaces between each discipline.",
             ],
             [
               "02",
-              "Protection expertise",
-              "Relay programming, setting calculations and system audits support the protection scope.",
+              "Protection with a purpose",
+              "Relay programming, setting calculations and system audits help teams assess how their electrical protection responds.",
             ],
             [
               "03",
-              "Beyond supply",
-              "Equipment exports and engineering services bring material and technical needs together.",
+              "Equipment meets engineering",
+              "Discuss product specifications alongside installation needs, so sourcing decisions support the work ahead.",
             ],
           ].map((s) => (
             <Reveal key={s[0]}>
@@ -859,7 +857,7 @@ function Home() {
               />
             </div>
             <h3><span className="motion-line"><span>Engineering</span></span><span className="motion-line"><span>enquiries</span></span></h3>
-            <p>Share your requirements with our engineering team.</p>
+            <p>Planning a new installation or upgrading an existing system? Share your scope, site and schedule.</p>
             <span className="home-contact-link">
               Submit your enquiry <ArrowRight size={18} />
             </span>
@@ -873,7 +871,7 @@ function Home() {
             </div>
             <h3><span className="motion-line"><span>Equipment &amp;</span></span><span className="motion-line"><span>export support</span></span></h3>
             <p>
-              Explore testing kits, substation equipment and supply options.
+              Send your equipment list, specifications and destination to discuss the right supply scope.
             </p>
             <span className="home-contact-link">
               Explore export services <ArrowRight size={18} />
@@ -884,7 +882,7 @@ function Home() {
               <Img src="/images/team1.jpg" alt="Accumax Controls team" />
             </div>
             <h3><span className="motion-line"><span>Let’s work</span></span><span className="motion-line"><span>together</span></span></h3>
-            <p>Connect with Accumax about your next project.</p>
+            <p>Bring your project brief. We will help define the engineering, site or supply support you need.</p>
             <span className="home-contact-link">
               Get in touch <ArrowRight size={18} />
             </span>
@@ -1065,7 +1063,7 @@ function PerspectiveSection() {
         className="perspective-copy"
         tabIndex={0}
         role="region"
-        aria-label="Scroll through engineering, exports, mission, vision and values"
+        aria-label="Scroll through engineering, exports and values"
       >
         <div>
           <h3>Engineering</h3>
@@ -1081,14 +1079,6 @@ function PerspectiveSection() {
             substation equipment, tools, building materials and electrical
             goods.
           </p>
-        </div>
-        <div>
-          <h3>Our Mission</h3>
-          <p>{COMPANY_PROFILE.mission}</p>
-        </div>
-        <div>
-          <h3>Our Vision</h3>
-          <p>{COMPANY_PROFILE.vision}</p>
         </div>
         <div>
           <h3>Our Values</h3>
@@ -1131,6 +1121,18 @@ function About() {
             />
             {/* <figcaption>ENGINEERING WITH PURPOSE, SINCE DAY ONE.</figcaption> */}
           </figure>
+        </div>
+      </section>
+      <section className="section about-purpose" aria-label="Our mission and vision">
+        <div className="about-purpose-grid">
+          <article className="about-purpose-card" aria-labelledby="about-mission-title">
+            <h2 id="about-mission-title">Our Mission</h2>
+            <p>{COMPANY_PROFILE.mission}</p>
+          </article>
+          <article className="about-purpose-card" aria-labelledby="about-vision-title">
+            <h2 id="about-vision-title">Our Vision</h2>
+            <p>{COMPANY_PROFILE.vision}</p>
+          </article>
         </div>
       </section>
       <PerspectiveSection />
@@ -1187,17 +1189,14 @@ function ServiceDetail() {
       <section className="section two-col">
         <div>
           <span className="eyebrow">{s.num} / EXPERTISE</span>
-          <h2>
-            Scope built around
-            <br />
-            your requirements.
-          </h2>
+          <h2>{s.headline}</h2>
           <Button to={"/contact?service=" + encodeURIComponent(s.title)}>
             Discuss this service
           </Button>
         </div>
         <div>
           <p>{s.intro}</p>
+          <h3 className="service-scope-heading">What we cover</h3>
           <ul className="capabilities">
             {s.capabilities.map((c) => (
               <li key={c}>
@@ -1208,8 +1207,17 @@ function ServiceDetail() {
           </ul>
           <div className="service-detail-copy">
             {s.details.map(detail => <div key={detail.title}><h3>{detail.title}</h3><p>{detail.text}</p></div>)}
-            <div><h3>Applications</h3><p>{s.applications}</p></div>
+            <div><h3>Where it fits</h3><p>{s.applications}</p></div>
           </div>
+          <aside className="service-enquiry-brief" aria-labelledby="service-brief-title">
+            <span className="eyebrow">LET&apos;S DEFINE YOUR SCOPE</span>
+            <h3 id="service-brief-title">A useful first conversation starts here.</h3>
+            <p>Share what you have available:</p>
+            <ul>{s.enquiryItems.map(item => <li key={item}>{item}</li>)}</ul>
+            <Link className="text-link" to={"/contact?service=" + encodeURIComponent(s.title)}>
+              Tell us about your project <ArrowUpRight size={18} />
+            </Link>
+          </aside>
           <p className="fine">
             Indicative scope. Final technical requirements, equipment
             suitability and deliverables are agreed for each enquiry.
@@ -1586,7 +1594,7 @@ function Quality() {
       <PageTop
         label="Quality & Safety"
         title="Standards that shape the work."
-        description="Quality, customer requirements and safe working conditions form the basis of the company’s published policy."
+        description="Clear specifications. Consistent checks. Safer working practices. Quality starts with how the work is planned."
         image="/images/hero-testing.jpg"
       />
       <section className="section policy-list">
@@ -1864,7 +1872,7 @@ export default function App() {
                 <PageTop
                   label="Services"
                   title="Expertise, connected."
-                  description="EPC projects, SCADA and relay testing, substation commissioning, GIS supervision, civil works, solar and EV infrastructure, exports and trading."
+                  description="Build, connect, test and maintain your power infrastructure. Explore services for new projects, existing installations and equipment supply."
                 />
                 <section className="section">
                   <ServicesList />

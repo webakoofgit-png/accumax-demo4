@@ -1,14 +1,18 @@
 ﻿ACCUMAX CONTROLS PVT. LTD. — SERVICE INDEX
 Service overview based on the company's published information.
 
-01 EPC Projects - Coordinated engineering, procurement, construction and handover.
-02 SCADA & Relay Testing - Monitoring, automation, relay programming, settings and protection testing.
-03 Export - Substation equipment, testing kits, tools, PPE, electrical goods and FRP products.
-04 Substation Testing & Commissioning - GIS, AIS, SAS and E-House systems across voltage levels.
-05 Fabrication & Civil Work - Custom steel fabrication and substation civil works.
-06 GIS Erection & Supervision - Assembly, gas handling, installation checks, testing and handover.
-07 Solar & EV Station - Solar generation, EV charging, storage options and grid interfaces.
-08 Trading - Electrical equipment, installation accessories, tools and construction materials.
+01 EPC Projects - Connect design, equipment procurement, civil and electrical construction, installation and handover in one project scope.
+02 SCADA & Relay Testing - Monitoring and control integration, substation automation, relay programming, protection settings and injection/end-to-end testing.
+03 Export - Source substation equipment, testing kits, panels, cables, installation accessories, tools, PPE and FRP products to your specification.
+04 Substation Testing & Commissioning - Coordinate GIS, AIS, automation and E-House commissioning with system audits and protection checks.
+05 Fabrication & Civil Work - Customised steel fabrication and substation civil works coordinated with electrical installation requirements.
+06 GIS Erection & Supervision - Module alignment, SF6 handling, connections, testing supervision, operator guidance and handover documentation.
+07 Solar & EV Station - Plan solar generation and EV charging with storage, load management and grid options reviewed for the site.
+08 Trading - Source electrical equipment, installation accessories, site tools and construction materials around your bill of materials.
+
+START THE CONVERSATION
+Share your site location, technical brief or equipment list, required scope and target schedule.
+For supply enquiries, include quantities, specifications and delivery requirements.
 
 Discuss project-specific scope, standards and deliverables with the company.
 info@accumaxcontrols.com

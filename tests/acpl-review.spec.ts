@@ -11,7 +11,7 @@ for (const width of [390, 1200, 1440]) {
       new MutationObserver(() => { if (dialog.open) dialog.close(); }).observe(dialog, { attributes: true, attributeFilter: ['open'] });
       if (dialog.open) dialog.close();
     });
-    await expect(page.locator('.hero-copy')).toContainText('Expedite Efficiency with Excellence');
+    await expect(page.getByRole('heading', { level: 1, name: 'Expedite Efficiency with Excellence', exact: true })).toBeVisible();
     await expect(page.locator('.opening-video')).toBeAttached();
     await page.getByRole('button', { name: 'Pause opening film' }).click();
     await expect(page.locator('.opening-video')).toHaveJSProperty('paused', true);
