@@ -1118,6 +1118,18 @@ function About() {
           </figure>
         </div>
       </section>
+      <section className="section about-purpose" aria-label="Our mission and vision">
+        <div className="about-purpose-grid">
+          <article className="about-purpose-card" aria-labelledby="about-mission-title">
+            <h2 id="about-mission-title">Our Mission</h2>
+            <p>{COMPANY_PROFILE.mission}</p>
+          </article>
+          <article className="about-purpose-card" aria-labelledby="about-vision-title">
+            <h2 id="about-vision-title">Our Vision</h2>
+            <p>{COMPANY_PROFILE.vision}</p>
+          </article>
+        </div>
+      </section>
       <section className="section about-capabilities" aria-labelledby="about-capabilities-title">
         <div className="about-capabilities-heading">
           <span className="eyebrow">KEY CAPABILITIES</span>
@@ -1134,18 +1146,6 @@ function About() {
               </Link>
             </article>
           ))}
-        </div>
-      </section>
-      <section className="section about-purpose" aria-label="Our mission and vision">
-        <div className="about-purpose-grid">
-          <article className="about-purpose-card" aria-labelledby="about-mission-title">
-            <h2 id="about-mission-title">Our Mission</h2>
-            <p>{COMPANY_PROFILE.mission}</p>
-          </article>
-          <article className="about-purpose-card" aria-labelledby="about-vision-title">
-            <h2 id="about-vision-title">Our Vision</h2>
-            <p>{COMPANY_PROFILE.vision}</p>
-          </article>
         </div>
       </section>
       <PerspectiveSection />
