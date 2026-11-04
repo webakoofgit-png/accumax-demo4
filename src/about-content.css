@@ -85,6 +85,8 @@
 }
 
 .about-capability-card h3 {
+  --heading-primary: #242522;
+  --heading-muted: #242522;
   font-size: 23px;
   line-height: 1.25;
   letter-spacing: -.025em;
@@ -94,6 +96,7 @@
 .about-capability-card p {
   font-size: 16px;
   line-height: 1.7;
+  text-align: justify;
   margin: 0 0 20px;
   color: #555c4d;
 }

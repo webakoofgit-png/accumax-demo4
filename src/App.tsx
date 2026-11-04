@@ -1135,7 +1135,6 @@ function About() {
         <div className="about-capabilities-heading">
           <span className="eyebrow">KEY CAPABILITIES</span>
           <Heading as="h2" id="about-capabilities-title">The expertise behind your power infrastructure.</Heading>
-          <p>From project planning to ongoing operation, explore the disciplines we bring together.</p>
         </div>
         <div className="about-capabilities-grid">
           {ABOUT_CONTENT.capabilities.map(capability => (
