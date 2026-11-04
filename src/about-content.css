@@ -2,6 +2,14 @@
   margin-bottom: 28px;
 }
 
+.about-editorial .about-title-muted {
+  color: var(--brand, #a81800);
+}
+
+.about-editorial .about-title-muted .heading-tone-muted {
+  color: var(--brand, #a81800);
+}
+
 .about-editorial-copy {
   padding-top: 0;
 }
@@ -12,6 +20,11 @@
 
 .about-editorial-copy h2 {
   margin-bottom: 20px;
+  color: #242522;
+}
+
+.about-editorial-copy h2 .about-heading-muted {
+  color: #898b81;
 }
 
 @media (min-width: 641px) {
@@ -24,18 +37,24 @@
     position: absolute;
     inset: 0;
     width: 100%;
-    height: 100%;
+    height: 90%;
     object-fit: cover;
   }
 }
 
 .about-capabilities {
-  background: #f3f3ec;
+  background: var(--paper, #faf9f6);
 }
 
 .about-capabilities-heading {
   max-width: 780px;
   margin-bottom: 28px;
+}
+
+.about-capabilities-heading > .eyebrow {
+  font: 600 12px/1.6 'DM Sans', sans-serif;
+  letter-spacing: .16em;
+  color: #62675d;
 }
 
 .about-capabilities-heading h2 {

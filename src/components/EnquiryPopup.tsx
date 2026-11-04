@@ -1,3 +1,4 @@
+import { Heading } from './Heading';
 import { useEffect, useRef } from 'react';
 import { ArrowUpRight, X } from 'lucide-react';
 import { COMPANY, SERVICES } from '../data';
@@ -58,11 +59,11 @@ export function EnquiryPopup() {
     <aside className="enquiry-popup-visual" aria-label="Accumax engineering">
       <img src={projectPhoto} alt="" loading="lazy"/>
       <div className="enquiry-popup-brand"><img src={companyLogo} alt="Accumax Controls Private Limited"/></div>
-      <div className="enquiry-popup-visual-copy"><h3>Your vision.<br/><em>Our expertise.</em></h3></div>
+      <div className="enquiry-popup-visual-copy"><Heading as="h3">Your vision.<br/><em>Our expertise.</em></Heading></div>
     </aside>
     <div className="enquiry-popup-content">
       <button type="button" className="enquiry-popup-close" aria-label="Close enquiry form" onClick={() => dialog.current?.close()}><X size={22}/></button>
-      <h2 id="enquiry-popup-title">Project <span>enquiry.</span></h2>
+      <Heading as="h2" id="enquiry-popup-title">Project <span>enquiry.</span></Heading>
       <p id="enquiry-popup-intro">Tell us about your project. Our team will help you take the next step.</p>
       <form onSubmit={event => {
         event.preventDefault();

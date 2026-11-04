@@ -1,3 +1,4 @@
+import { Heading } from './Heading';
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight, ArrowRight } from 'lucide-react';
@@ -135,7 +136,7 @@ export function IndustryWindows() {
       <div className="iw-topline"><span><i /> ENGINEERING ACROSS INDUSTRIES</span><span>{String(active + 1).padStart(2, '0')} <span className="iw-total">/ 06</span></span></div>
       <div className="iw-copy" key={active}>
         <span className="iw-photo-label">BUILT AROUND YOUR WORLD</span>
-        <h3>{lines.map(line => <span className="iw-title-line" key={line}><span>{line}</span></span>)}</h3>
+        <Heading as="h3">{lines.map(line => <span className="iw-title-line" key={line}><span>{line}</span></span>)}</Heading>
         <p>{industry.applications}.</p>
       </div>
       <div className="iw-progress" aria-hidden="true"><span/></div>

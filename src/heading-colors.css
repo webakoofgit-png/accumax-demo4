@@ -1,0 +1,23 @@
+/* Shared two-tone palette; each heading retains its existing typography. */
+.two-tone-heading {
+  --heading-primary: #242522;
+  --heading-muted: #898b81;
+}
+
+.two-tone-heading .heading-tone-primary {
+  color: var(--heading-primary);
+}
+
+.two-tone-heading .heading-tone-muted {
+  color: var(--heading-muted);
+}
+
+:is(.hero-banner, .story, #expertise, .image-break, .about-purpose, .iw-stage, .enquiry-popup-visual) .two-tone-heading {
+  --heading-primary: #f7f6f2;
+  --heading-muted: #b1b4ac;
+}
+
+.contact-band .two-tone-heading {
+  --heading-primary: #fff;
+  --heading-muted: #f0d4c9;
+}

@@ -1,3 +1,4 @@
+import { Heading } from './components/Heading';
 import aboutPerspective from "./assets/home page img/_A CONNECTED PERSPECTIVE.png";
 import homeBanner from "./assets/home banners/banner1.png";
 import { OpeningFilm } from "./components/OpeningFilm";
@@ -292,7 +293,7 @@ function Footer() {
       <section className="contact-band section">
         <span className="eyebrow">LET'S ENGINEER WHAT'S NEXT</span>
         <div>
-          <h2>Have an engineering challenge?</h2>
+          <Heading as="h2">Have an engineering challenge?</Heading>
         </div>
         <p>From a first brief to a defined scope, let&apos;s plan the engineering, site work and equipment your project needs.</p>
         <div className="contact-band-actions">
@@ -420,7 +421,7 @@ function ServicesList() {
           >
             <Link to={"/services/" + s.slug}>
               <span>{s.num}</span>
-              <h3>{s.title}</h3>
+              <Heading as="h3">{s.title}</Heading>
               <ArrowUpRight />
             </Link>
             <div className="service-mobile">
@@ -486,7 +487,7 @@ function Story() {
         (t, i) => (
           <div className="story-panel" key={t} aria-hidden={active !== i}>
             <span className="eyebrow">0{i + 1} / OUR APPROACH</span>
-            <h2>{t}</h2>
+            <Heading as="h2">{t}</Heading>
             <p>
               {
                 [
@@ -522,7 +523,7 @@ function ProjectCards({ all = false }: { all?: boolean }) {
             </span>
             <span>LOCATION · TO BE VERIFIED</span>
           </div>
-          <h3>{p.title}</h3>
+          <Heading as="h3">{p.title}</Heading>
           <span className="text-link site-cta">
             View project <ArrowUpRight size={15} />
           </span>
@@ -637,7 +638,7 @@ function ProjectsSection() {
       <div className="section-heading">
         <div>
           <span className="eyebrow">03 / PROJECT PERSPECTIVES</span>
-          <h2 className="section-title">Expertise <em>in action</em></h2>
+          <Heading as="h2" className="section-title">Expertise <em>in action</em></Heading>
         </div>
       </div>
       <div className="perspective-card-grid" id="perspective-cards" ref={track} role="region" aria-label="Engineering expertise cards" tabIndex={0}
@@ -658,7 +659,7 @@ function ProjectsSection() {
               <span className="perspective-service-arrow" aria-hidden="true"><ArrowUpRight size={22} /></span>
             </div>
             <div className="perspective-service-body">
-              <h3>{s.title}</h3>
+              <Heading as="h3">{s.title}</Heading>
               <p>{PERSPECTIVE_CAPTIONS[s.slug] ?? s.short}</p>
             </div>
           </Link>
@@ -682,7 +683,7 @@ function Industries({ full = false }: { full?: boolean }) {
           onBlur={() => setActive(-1)}
         >
           <span className="eyebrow">{String(i + 1).padStart(2, "0")}</span>
-          <h3>{v.name}</h3>
+          <Heading as="h3">{v.name}</Heading>
           <p>{v.applications}</p>
           <ArrowUpRight />
           {active === i && <Img src={v.image} alt="" />}
@@ -700,10 +701,10 @@ function AboutBlock() {
       </div>
       <div className="about-copy">
         <span className="eyebrow">01 / A CONNECTED PERSPECTIVE</span>
-        <h2 className="section-title">
+        <Heading as="h2" className="section-title">
           <span className="motion-line"><span>Big-picture thinking</span></span>
           <em className="motion-line"><span>Ground-level expertise</span></em>
-        </h2>
+        </Heading>
         <p>{COMPANY_PROFILE.introduction}</p>
         <p>{COMPANY_PROFILE.capabilities}</p>
         <Link className="button about-story-button" to="/about">
@@ -729,9 +730,9 @@ function Home() {
             <span className="live-dot" /> ENGINEERING · INFRASTRUCTURE ·
             INNOVATION
           </span>
-          <h1 className="hero-single-line" aria-label={COMPANY.tagline}>
+          <Heading as="h1" className="hero-single-line" aria-label={COMPANY.tagline}>
             <span className="hero-line"><span>{COMPANY.tagline}</span></span>
-          </h1>
+          </Heading>
           <p>
             From substations to solar and EV charging, connect your next project with the engineering behind it.
           </p>
@@ -757,7 +758,7 @@ function Home() {
         <div className="section-heading">
           <div>
             <span className="eyebrow">05 / INDUSTRIES WE SERVE</span>
-            <h2 className="section-title">Different industries <em>One ambition</em></h2>
+            <Heading as="h2" className="section-title">Different industries <em>One ambition</em></Heading>
           </div>
         </div>
         <IndustryWindows />
@@ -769,11 +770,11 @@ function Home() {
         />
         <div>
           <span className="eyebrow">06 / THE CONNECTION THAT MATTERS</span>
-          <h2 className="section-title">
+          <Heading as="h2" className="section-title">
             Where technical expertise
             <br />
             <em>meets execution</em>
-          </h2>
+          </Heading>
           <Link className="text-link site-cta" to="/services">
             See what we do <ArrowUpRight />
           </Link>
@@ -781,11 +782,11 @@ function Home() {
       </section>
       <section className="section why">
         <span className="eyebrow">07 / WHY ACCUMAX</span>
-        <h2 className="section-title">
+        <Heading as="h2" className="section-title">
           Built for complexity
           {" "}
           <em>Focused on reliability</em>
-        </h2>
+        </Heading>
         <div className="strengths">
           {[
             [
@@ -806,7 +807,7 @@ function Home() {
           ].map((s) => (
             <Reveal key={s[0]}>
               <span className="eyebrow">{s[0]}</span>
-              <h3>{s[1]}</h3>
+              <Heading as="h3">{s[1]}</Heading>
               <p>{s[2]}</p>
             </Reveal>
           ))}
@@ -815,7 +816,7 @@ function Home() {
       <section className="clients section">
         <div className="clients-heading">
           <span className="eyebrow">08 / CONNECTIONS BUILT ON TRUST</span>
-          <h2 className="section-title">Trusted by <em>industry leaders</em></h2>
+          <Heading as="h2" className="section-title">Trusted by <em>industry leaders</em></Heading>
         </div>
         <div className="marquee">
           <div>
@@ -840,7 +841,7 @@ function Home() {
         <div className="home-contact-heading">
           <div>
             <span className="eyebrow">09 / LET&apos;S CONNECT</span>
-            <h2 className="section-title">Let&apos;s discuss <em>your next project</em></h2>
+            <Heading as="h2" className="section-title">Let&apos;s discuss <em>your next project</em></Heading>
           </div>
         </div>
         <div className="home-contact-grid">
@@ -851,7 +852,7 @@ function Home() {
                 alt="Engineer testing electrical protection equipment"
               />
             </div>
-            <h3><span className="motion-line"><span>Engineering</span></span><span className="motion-line"><span>enquiries</span></span></h3>
+            <Heading as="h3"><span className="motion-line"><span>Engineering</span></span><span className="motion-line"><span>enquiries</span></span></Heading>
             <p>Planning a new installation or upgrading an existing system? Share your scope, site and schedule.</p>
             <span className="home-contact-link site-cta">
               Submit your enquiry <ArrowRight size={18} />
@@ -864,7 +865,7 @@ function Home() {
                 alt="Equipment prepared for export"
               />
             </div>
-            <h3><span className="motion-line"><span>Equipment &amp;</span></span><span className="motion-line"><span>export support</span></span></h3>
+            <Heading as="h3"><span className="motion-line"><span>Equipment &amp;</span></span><span className="motion-line"><span>export support</span></span></Heading>
             <p>
               Send your equipment list, specifications and destination to discuss the right supply scope.
             </p>
@@ -876,7 +877,7 @@ function Home() {
             <div className="home-contact-image">
               <Img src="/images/team1.jpg" alt="Accumax Controls team" />
             </div>
-            <h3><span className="motion-line"><span>Let’s work</span></span><span className="motion-line"><span>together</span></span></h3>
+            <Heading as="h3"><span className="motion-line"><span>Let’s work</span></span><span className="motion-line"><span>together</span></span></Heading>
             <p>Bring your project brief. We will help define the engineering, site or supply support you need.</p>
             <span className="home-contact-link site-cta">
               Get in touch <ArrowRight size={18} />
@@ -907,7 +908,7 @@ function PageTop({
       </div>
       <div>
         <span className="eyebrow">ACCUMAX / {label.toUpperCase()}</span>
-        <h1>{title}</h1>
+        <Heading as="h1">{title}</Heading>
         <p>{description}</p>
       </div>
       {image && <Img src={image} alt={label} eager />}
@@ -1048,11 +1049,11 @@ function PerspectiveSection() {
     >
       <div className="perspective-intro">
         <span className="eyebrow">OUR PERSPECTIVE</span>
-        <h2 id="perspective-title">
+        <Heading as="h2" id="perspective-title">
           Understand the system.
           <br />
           <em>Respect every detail.</em>
-        </h2>
+        </Heading>
       </div>
       <div
         className="perspective-copy"
@@ -1061,14 +1062,14 @@ function PerspectiveSection() {
         aria-label="Scroll through engineering, exports and values"
       >
         <div>
-          <h3>Engineering</h3>
+          <Heading as="h3">Engineering</Heading>
           <p>
             Accumax Controls works across substation infrastructure, GIS, AIS,
             SAS, AMC, E-House solutions and testing and commissioning.
           </p>
         </div>
         <div>
-          <h3>Export &amp; supply</h3>
+          <Heading as="h3">Export &amp; supply</Heading>
           <p>
             Alongside engineering services, the company exports testing kits,
             substation equipment, tools, building materials and electrical
@@ -1076,7 +1077,7 @@ function PerspectiveSection() {
           </p>
         </div>
         <div>
-          <h3>Our Values</h3>
+          <Heading as="h3">Our Values</Heading>
           <p>{COMPANY_PROFILE.values.join(' · ')}.</p>
         </div>
       </div>
@@ -1090,17 +1091,17 @@ function About() {
         className="section about-editorial"
         aria-labelledby="about-title"
       >
-        <h1 id="about-title">
+        <Heading as="h1" id="about-title">
           About <span className="about-title-muted">Accumax</span>
-        </h1>
+        </Heading>
         <div className="about-editorial-layout">
           <div className="about-editorial-copy">
             <span className="eyebrow">A CONNECTED PERSPECTIVE</span>
-            <h2>
+            <Heading as="h2">
               Big-picture thinking.
               <br />
-              Ground-level expertise.
-            </h2>
+              <span className="about-heading-muted">Ground-level expertise.</span>
+            </Heading>
             <p>{ABOUT_CONTENT.introduction}</p>
             <p>{ABOUT_CONTENT.delivery}</p>
             <p>{ABOUT_CONTENT.partnership}</p>
@@ -1121,11 +1122,11 @@ function About() {
       <section className="section about-purpose" aria-label="Our mission and vision">
         <div className="about-purpose-grid">
           <article className="about-purpose-card" aria-labelledby="about-mission-title">
-            <h2 id="about-mission-title">Our Mission</h2>
+            <Heading as="h2" id="about-mission-title">Our Mission</Heading>
             <p>{COMPANY_PROFILE.mission}</p>
           </article>
           <article className="about-purpose-card" aria-labelledby="about-vision-title">
-            <h2 id="about-vision-title">Our Vision</h2>
+            <Heading as="h2" id="about-vision-title">Our Vision</Heading>
             <p>{COMPANY_PROFILE.vision}</p>
           </article>
         </div>
@@ -1133,13 +1134,13 @@ function About() {
       <section className="section about-capabilities" aria-labelledby="about-capabilities-title">
         <div className="about-capabilities-heading">
           <span className="eyebrow">KEY CAPABILITIES</span>
-          <h2 id="about-capabilities-title">The expertise behind your power infrastructure.</h2>
+          <Heading as="h2" id="about-capabilities-title">The expertise behind your power infrastructure.</Heading>
           <p>From project planning to ongoing operation, explore the disciplines we bring together.</p>
         </div>
         <div className="about-capabilities-grid">
           {ABOUT_CONTENT.capabilities.map(capability => (
             <article className="about-capability-card" key={capability.title}>
-              <h3>{capability.title}</h3>
+              <Heading as="h3">{capability.title}</Heading>
               <p>{capability.text}</p>
               <Link className="site-cta" to={capability.to} aria-label={`${capability.to.startsWith('/contact') ? 'Discuss requirements' : 'Explore service'}: ${capability.title}`}>
                 {capability.to.startsWith('/contact') ? 'Discuss requirements' : 'Explore service'}
@@ -1166,7 +1167,7 @@ function ExpertiseList({ animated = false }: { animated?: boolean }) {
         <details className="expertise-entry" key={item.num}>
           <summary>
             <span className="eyebrow">{item.num}</span>
-            <h3>{item.title}</h3>
+            <Heading as="h3">{item.title}</Heading>
             {animated && <span className="expertise-peek" aria-hidden="true"><Img src={item.image} alt=""/></span>}
             <ArrowUpRight />
           </summary>
@@ -1202,14 +1203,14 @@ function ServiceDetail() {
       <section className="section two-col">
         <div>
           <span className="eyebrow">{s.num} / EXPERTISE</span>
-          <h2>{s.headline}</h2>
+          <Heading as="h2">{s.headline}</Heading>
           <Button to={"/contact?service=" + encodeURIComponent(s.title)}>
             Discuss this service
           </Button>
         </div>
         <div>
           <p>{s.intro}</p>
-          <h3 className="service-scope-heading">What we cover</h3>
+          <Heading as="h3" className="service-scope-heading">What we cover</Heading>
           <ul className="capabilities">
             {s.capabilities.map((c) => (
               <li key={c}>
@@ -1219,12 +1220,12 @@ function ServiceDetail() {
             ))}
           </ul>
           <div className="service-detail-copy">
-            {s.details.map(detail => <div key={detail.title}><h3>{detail.title}</h3><p>{detail.text}</p></div>)}
-            <div><h3>Where it fits</h3><p>{s.applications}</p></div>
+            {s.details.map(detail => <div key={detail.title}><Heading as="h3">{detail.title}</Heading><p>{detail.text}</p></div>)}
+            <div><Heading as="h3">Where it fits</Heading><p>{s.applications}</p></div>
           </div>
           <aside className="service-enquiry-brief" aria-labelledby="service-brief-title">
             <span className="eyebrow">LET&apos;S DEFINE YOUR SCOPE</span>
-            <h3 id="service-brief-title">A useful first conversation starts here.</h3>
+            <Heading as="h3" id="service-brief-title">A useful first conversation starts here.</Heading>
             <p>Share what you have available:</p>
             <ul>{s.enquiryItems.map(item => <li key={item}>{item}</li>)}</ul>
             <Link className="text-link site-cta" to={"/contact?service=" + encodeURIComponent(s.title)}>
@@ -1261,7 +1262,7 @@ function ProjectDetail() {
           <span className="sample inline">
             SAMPLE PROFILE · NOT A COMPLETION CLAIM
           </span>
-          <h2>{p.category}</h2>
+          <Heading as="h2">{p.category}</Heading>
           <p>
             Location: awaiting verification.
             <br />
@@ -1269,7 +1270,7 @@ function ProjectDetail() {
           </p>
         </div>
         <div>
-          <h3>Illustrative scope</h3>
+          <Heading as="h3">Illustrative scope</Heading>
           <ul className="capabilities">
             {p.scope.map((s) => (
               <li key={s}>
@@ -1381,7 +1382,7 @@ function Contact({ career = false }: { career?: boolean }) {
           <span className="eyebrow">
             {career ? "WORK WITH ACCUMAX" : "DIRECT CONNECTIONS"}
           </span>
-          <h2>{career ? "Build what matters." : "Let’s connect."}</h2>
+          <Heading as="h2">{career ? "Build what matters." : "Let’s connect."}</Heading>
           <a className="contact-line" href={"mailto:" + COMPANY.emails[0]}>
             <Mail />
             {COMPANY.emails[0]}
@@ -1434,9 +1435,9 @@ function Contact({ career = false }: { career?: boolean }) {
             <span className="eyebrow">
               {career ? "YOUR INTRODUCTION" : "YOUR PROJECT BRIEF"}
             </span>
-            <h3 id="enquiry-heading">
+            <Heading as="h3" id="enquiry-heading">
               {career ? "Introduce yourself" : "Tell us about your project"}
-            </h3>
+            </Heading>
             <p>
               {career
                 ? "Share your experience and the role you are interested in."
@@ -1616,16 +1617,16 @@ function Quality() {
           <Reveal key={p}>
             <span className="eyebrow">0{i + 1}</span>
             <ShieldCheck />
-            <h3>{p}</h3>
+            <Heading as="h3">{p}</Heading>
           </Reveal>
         ))}
       </section>
       <section className="section two-col">
-        <h2>
+        <Heading as="h2">
           Before work starts.
           <br />
           Until handover.
-        </h2>
+        </Heading>
         <div>
           <p>
             Accumax's quality commitments include continuous improvement,
@@ -1655,21 +1656,21 @@ function Catalogue() {
         <div className="catalogue-cover">
           <Img src={COMPANY.logo} alt="Accumax Controls" />
           <span className="eyebrow">ACCUMAX / SERVICE OVERVIEW</span>
-          <h2>
+          <Heading as="h2">
             Engineering
             <br />
             connections.
-          </h2>
+          </Heading>
           <div className="cover-lines" />
           <p>ENGINEERING · EQUIPMENT · EXECUTION</p>
         </div>
         <div>
           <span className="eyebrow">EXPLORE OUR SCOPE</span>
-          <h2>
+          <Heading as="h2">
             Start with the
             <br />
             right information.
-          </h2>
+          </Heading>
           <p>
             Download a printable service index, or contact the team for the
             latest official company catalogue and project-specific technical
@@ -1707,11 +1708,11 @@ function Videos() {
         </div>
         <div>
           <span className="eyebrow">VIDEO LIBRARY</span>
-          <h2>
+          <Heading as="h2">
             See the detail.
             <br />
             Understand the process.
-          </h2>
+          </Heading>
           <p>
             Request a company presentation covering GIS and AIS substations,
             automation, testing, solar and EV charging. Our team can discuss the
@@ -1727,11 +1728,11 @@ function NotFound() {
   return (
     <section className="section not-found">
       <span className="eyebrow">404 / CONNECTION NOT FOUND</span>
-      <h1>
+      <Heading as="h1">
         Let’s get you
         <br />
         back on track.
-      </h1>
+      </Heading>
       <Button to="/">Return home</Button>
     </section>
   );

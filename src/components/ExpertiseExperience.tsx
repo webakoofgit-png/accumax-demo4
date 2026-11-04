@@ -1,3 +1,4 @@
+import { Heading } from './Heading';
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
@@ -225,7 +226,7 @@ export function ExpertiseExperience() {
   return <section id="expertise" className="expertise-experience expertise-section" ref={rootRef} aria-labelledby="expertise-heading" onFocusCapture={() => setFocusWithin(true)} onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setFocusWithin(false); }}>
     <div className="expertise-atmosphere" aria-hidden="true"><div className="expertise-ambient"/>{[0,1,2,3,4,5].map(i => <span className={`expertise-particle particle-${i}`} key={i}/>)}</div>
     <div className="expertise-inner">
-      <header className="expertise-heading"><span className="eyebrow">02 / OUR EXPERTISE</span><h2 id="expertise-heading" className="section-title"><span className="expertise-heading-line"><span>Engineering</span></span>{' '}<span className="expertise-heading-line heading-muted"><span>Every Possibility</span></span></h2></header>
+      <header className="expertise-heading"><span className="eyebrow">02 / OUR EXPERTISE</span><Heading as="h2" id="expertise-heading" className="section-title"><span className="expertise-heading-line"><span>Engineering</span></span>{' '}<span className="expertise-heading-line heading-muted"><span>Every Possibility</span></span></Heading></header>
       <div className="expertise-console">
         <div className="expertise-arena" ref={arenaRef}>
           <svg className="expertise-connections" ref={connectionsRef} preserveAspectRatio="none" aria-hidden="true">{EXPERTISE_CATEGORIES.map((category, i) => <path key={category.num} pathLength="1" className={active === i ? 'is-active' : ''}/>)}</svg>
@@ -241,7 +242,7 @@ export function ExpertiseExperience() {
           <div className="expertise-hotspots" role="tablist" aria-label="Engineering expertise" ref={tabsRef}>{EXPERTISE_CATEGORIES.map((category, i) => <button type="button" role="tab" id={`expertise-tab-${category.num}`} aria-controls="expertise-selected" aria-selected={active === i} tabIndex={active === i ? 0 : -1} className={`expertise-hotspot hotspot-${i}${active === i ? ' is-active' : ''}`} key={category.num} ref={element => { buttonRefs.current[i] = element; }} onClick={() => choose(i)} onPointerEnter={event => { if (event.pointerType === 'mouse' && window.matchMedia('(hover: hover)').matches) choose(i); }} onFocus={() => choose(i)} onKeyDown={event => keyNavigate(event, i)}><span className="expertise-node" aria-hidden="true"/><span className="expertise-hotspot-label">{category.title}</span></button>)}</div>
         </div>
         <div className="expertise-selected" id="expertise-selected" role="tabpanel" aria-labelledby={`expertise-tab-${item.num}`} tabIndex={0} onPointerEnter={event => { if (event.pointerType === 'mouse') setPointerReading(true); }} onPointerLeave={() => setPointerReading(false)}>
-          <div className="expertise-selected-heading"><h3>{item.title}</h3><div className="expertise-step-controls"><button type="button" aria-label="Previous expertise" onClick={() => choose(active - 1)}><ArrowLeft size={18}/></button><button type="button" aria-label="Next expertise" onClick={() => choose(active + 1)}><ArrowRight size={18}/></button></div></div>
+          <div className="expertise-selected-heading"><Heading as="h3">{item.title}</Heading><div className="expertise-step-controls"><button type="button" aria-label="Previous expertise" onClick={() => choose(active - 1)}><ArrowLeft size={18}/></button><button type="button" aria-label="Next expertise" onClick={() => choose(active + 1)}><ArrowRight size={18}/></button></div></div>
           <div className="expertise-description-mask"><p className="expertise-description-inner">{item.short}</p></div>
           <Link className="expertise-explore site-cta" to={destination[item.num] ?? '/contact?service=' + encodeURIComponent(item.title)}>Explore Expertise <ArrowUpRight size={18}/></Link>
         </div>
