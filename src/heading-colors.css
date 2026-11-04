@@ -1,4 +1,18 @@
 /* Shared two-tone palette; each heading retains its existing typography. */
+#root :is(#main, footer, .contact-band, .enquiry-popup) .eyebrow {
+  color: var(--brand, #a81800);
+}
+
+#root #main :is(.hero-banner, .story, .expertise-experience, .kinetic-engineering, .image-break) .eyebrow {
+  color: #fff;
+}
+
+#root :is(#main, footer, .contact-band, .enquiry-popup).contact-band > .eyebrow {
+  color: #fff;
+  padding: 0;
+  background: transparent;
+}
+
 .two-tone-heading {
   --heading-primary: #242522;
   --heading-muted: #898b81;

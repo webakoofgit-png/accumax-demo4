@@ -54,8 +54,8 @@ export const PAGE_DESCRIPTIONS: Record<string, string> = {
   '/projects': 'Explore applications of Accumax engineering services across substation infrastructure, protection, renewable energy and EV charging.',
   '/quality-safety': 'Accumax quality commitments: customer specifications, field quality plans, continuous improvement, safe working conditions and teamwork.',
   '/contact': 'Contact Accumax Controls in Pune to discuss engineering, commissioning, maintenance, electrical equipment and export requirements.',
-  '/careers': 'Introduce your engineering discipline and site experience to the Accumax Controls team in Pune.',
+  '/careers': 'Explore career disciplines at Accumax Controls, Pune. Introduce your qualifications and experience, and prepare a career application with your resume attached.',
   '/catalogue': 'Browse the Accumax service index and request equipment specifications, technical documents and the current company catalogue.',
   '/gallery': 'Explore the Accumax image archive of electrical equipment, substations, engineering environments and power infrastructure.',
-  '/videos': 'Request an Accumax company presentation or technical discussion about substations, automation, testing, solar and EV infrastructure.',
+  '/videos': 'Watch the Accumax Controls video archive featuring electrical equipment and engineering work, with videos from the official company website.',
 };

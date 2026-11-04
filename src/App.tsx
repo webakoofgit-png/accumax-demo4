@@ -1,4 +1,6 @@
 import { Heading } from './components/Heading';
+import { Careers } from './components/Careers';
+import { VideoGallery } from './components/VideoGallery';
 import aboutPerspective from "./assets/home page img/_A CONNECTED PERSPECTIVE.png";
 import homeBanner from "./assets/home banners/banner1.png";
 import { OpeningFilm } from "./components/OpeningFilm";
@@ -41,7 +43,6 @@ import {
   Mail,
   Phone,
   MapPin,
-  Play,
   Zap,
   ShieldCheck,
   Settings2,
@@ -152,6 +153,7 @@ const HEADER_LINKS = [
   ['Industry Solutions', '/industries'],
   ['Featured Works', '/projects'],
   ['Ideas & Insights', '/gallery'],
+  ['Careers', '/careers'],
   ['Get in Touch', '/contact'],
 ] as const;
 function Header() {
@@ -349,11 +351,15 @@ function Footer() {
           </div>
         </div>
         <div className="footer-office-map">
+          <div className="footer-location-details">
+            <span className="eyebrow">OUR OFFICE</span>
+            <a className="footer-map-label" href={COMPANY.mapsUrl} target="_blank" rel="noreferrer" aria-label="View Accumax Controls office on Google Maps">
+              <MapPin size={24} aria-hidden="true" />
+              <span><strong>{COMPANY.short}</strong><small>Saudamini Commercial Complex, Kothrud, Pune</small></span>
+            </a>
+            <a className="site-cta" href={COMPANY.mapsUrl} target="_blank" rel="noreferrer">Get directions</a>
+          </div>
           <iframe className="office-map" title="Accumax Controls office location in Kothrud, Pune" src={COMPANY.mapsEmbed} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
-          <a className="footer-map-label" href={COMPANY.mapsUrl} target="_blank" rel="noreferrer" aria-label="View Accumax Controls office on Google Maps">
-            <MapPin size={28} aria-hidden="true" />
-            <span><strong>{COMPANY.short}</strong><small>Saudamini Commercial Complex, Kothrud, Pune</small></span>
-          </a>
         </div>
         <div className="footer-word">
           ACCUMAX<span>&reg;</span>
@@ -1285,13 +1291,8 @@ function ProjectDetail() {
   );
 }
 function Gallery() {
-  const [filter, setFilter] = useState("All");
+  const [filter, setFilter] = useState<'Photos' | 'Videos'>('Photos');
   const [selected, setSelected] = useState<number | null>(null);
-  const items = GALLERY.filter(
-    (_, i) =>
-      filter === "All" ||
-      (filter === "Infrastructure" ? i % 2 === 0 : i % 2 !== 0),
-  );
   useEffect(() => {
     const f = (e: KeyboardEvent) => {
       if (e.key === "Escape") setSelected(null);
@@ -1306,32 +1307,35 @@ function Gallery() {
         title="A closer look at the work."
         description="Equipment, engineering environments and infrastructure from the company image archive."
       />
-      <section className="section">
-        <div className="filters">
-          {["All", "Infrastructure", "Equipment"].map((f) => (
+      <section className="section gallery-section">
+        <header className="gallery-heading">
+          <span className="eyebrow">IDEAS &amp; INSIGHTS</span>
+          <Heading as="h2">A closer look at the work.</Heading>
+        </header>
+        <div className="filters" role="group" aria-label="Gallery media filters">
+          {(['Photos', 'Videos'] as const).map((f) => (
             <button
+              type="button"
               className={filter === f ? "active" : ""}
+              aria-pressed={filter === f}
               key={f}
-              onClick={() => setFilter(f)}
+              onClick={() => { setSelected(null); setFilter(f); }}
             >
               {f}
             </button>
           ))}
         </div>
-        <div className="gallery-grid">
-          {items.map((s, i) => (
+        {filter === 'Photos' ? <div className="gallery-grid">
+          {GALLERY.map((s, i) => (
             <button
               key={s}
               onClick={() => setSelected(i)}
-              aria-label={"Enlarge engineering photograph " + (i + 1)}
+              aria-label={"Enlarge engineering photograph " + (GALLERY.indexOf(s) + 1)}
             >
-              <Img src={s} alt={"Accumax engineering archive " + (i + 1)} />
-              <span>
-                FIELD NOTES / {String(i + 1).padStart(2, "0")} <Plus />
-              </span>
+              <Img src={s} alt={"Accumax engineering archive " + (GALLERY.indexOf(s) + 1)} />
             </button>
           ))}
-        </div>
+        </div> : <VideoGallery />}
       </section>
       {selected !== null && (
         <div
@@ -1349,7 +1353,7 @@ function Gallery() {
             <X />
           </button>
           <Img
-            src={items[selected]}
+            src={GALLERY[selected]}
             alt="Enlarged company archive photograph"
           />
         </div>
@@ -1401,14 +1405,6 @@ function Contact({ career = false }: { career?: boolean }) {
           </div>
           <a className="text-link site-cta office-directions" href={COMPANY.mapsUrl} target="_blank" rel="noreferrer">Get directions <ArrowUpRight size={18} /></a>
           <iframe className="office-map" title="Find the Accumax Controls office" src={COMPANY.mapsEmbed} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
-          <a
-            className="text-link site-cta"
-            href={COMPANY.whatsapp}
-            target="_blank"
-            rel="noreferrer"
-          >
-            WhatsApp enquiry <ArrowUpRight size={18} />
-          </a>
           {career && (
             <p className="fine">
               Share your CV, engineering discipline and site experience with our
@@ -1442,9 +1438,6 @@ function Contact({ career = false }: { career?: boolean }) {
                 ? "Share your experience and the role you are interested in."
                 : "Share a few details so our team can understand your requirements."}
             </p>
-            <span className="required-note">
-              <span aria-hidden="true">*</span> Required fields
-            </span>
           </div>
           <div className="form-row">
             <label>
@@ -1696,29 +1689,12 @@ function Videos() {
         title="Engineering, in motion."
         description="Explore substation engineering, testing, renewable energy and equipment supply with the Accumax team."
       />
-      <section className="section video-section">
-        <div className="video-cover">
-          <Img
-            src="/images/gallery/4.jpg"
-            alt="Electrical substation installation"
-          />
-          <Play size={54} />
-          <span>COMPANY FILMS · PUBLISHING PENDING</span>
-        </div>
-        <div>
+      <section className="section gallery-section">
+        <header className="gallery-heading">
           <span className="eyebrow">VIDEO LIBRARY</span>
-          <Heading as="h2">
-            See the detail.
-            <br />
-            Understand the process.
-          </Heading>
-          <p>
-            Request a company presentation covering GIS and AIS substations,
-            automation, testing, solar and EV charging. Our team can discuss the
-            services relevant to your project and the information needed to define its scope.
-          </p>
-          <Button to="/contact">Request a presentation</Button>
-        </div>
+          <Heading as="h2">Engineering, in motion.</Heading>
+        </header>
+        <VideoGallery />
       </section>
     </>
   );
@@ -1931,7 +1907,7 @@ export default function App() {
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/videos" element={<Videos />} />
           <Route path="/catalogue" element={<Catalogue />} />
-          <Route path="/careers" element={<Contact career />} />
+          <Route path="/careers" element={<Careers />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
