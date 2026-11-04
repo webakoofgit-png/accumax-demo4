@@ -225,7 +225,7 @@ export function ExpertiseExperience() {
   return <section id="expertise" className="expertise-experience expertise-section" ref={rootRef} aria-labelledby="expertise-heading" onFocusCapture={() => setFocusWithin(true)} onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setFocusWithin(false); }}>
     <div className="expertise-atmosphere" aria-hidden="true"><div className="expertise-ambient"/>{[0,1,2,3,4,5].map(i => <span className={`expertise-particle particle-${i}`} key={i}/>)}</div>
     <div className="expertise-inner">
-      <header className="expertise-heading"><span className="eyebrow">02 / OUR EXPERTISE</span><h2 id="expertise-heading" className="section-title"><span className="expertise-heading-line"><span>Engineering</span></span><br /><span className="expertise-heading-line heading-muted"><span>Every Possibility</span></span></h2></header>
+      <header className="expertise-heading"><span className="eyebrow">02 / OUR EXPERTISE</span><h2 id="expertise-heading" className="section-title"><span className="expertise-heading-line"><span>Engineering</span></span>{' '}<span className="expertise-heading-line heading-muted"><span>Every Possibility</span></span></h2></header>
       <div className="expertise-console">
         <div className="expertise-arena" ref={arenaRef}>
           <svg className="expertise-connections" ref={connectionsRef} preserveAspectRatio="none" aria-hidden="true">{EXPERTISE_CATEGORIES.map((category, i) => <path key={category.num} pathLength="1" className={active === i ? 'is-active' : ''}/>)}</svg>
