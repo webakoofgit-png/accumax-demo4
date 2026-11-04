@@ -13,8 +13,8 @@ for (const width of [390, 1200, 1440]) {
     });
     await expect(page.getByRole('heading', { level: 1, name: 'Expedite Efficiency with Excellence', exact: true })).toBeVisible();
     await expect(page.locator('.opening-video')).toBeAttached();
-    await page.getByRole('button', { name: 'Pause opening film' }).click();
-    await expect(page.locator('.opening-video')).toHaveJSProperty('paused', true);
+    await expect(page.locator('.opening-playback')).toHaveCount(0);
+    await expect(page.locator('.opening-video')).toHaveJSProperty('paused', false);
     await expect(page.locator('#expertise .pin-spacer')).toHaveCount(0);
     await expect(page.locator('.story .story-panel')).toHaveCount(4);
     await expect(page.locator('.story')).toHaveClass(/story--animated/);
@@ -39,13 +39,13 @@ for (const width of [390, 1200, 1440]) {
   });
 }
 
-test('reduced motion keeps the opening static and engineering stages readable', async ({ page }) => {
+test('banner autoplays while reduced motion keeps engineering stages readable', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.emulateMedia({ reducedMotion: 'reduce' });
   await page.goto('/');
   await expect(page.locator('.site-preloader')).toHaveCount(0);
-  await expect(page.locator('.opening-video')).toHaveJSProperty('paused', true);
-  await expect(page.locator('.opening-video')).not.toHaveAttribute('src');
+  await expect(page.locator('.opening-video')).toHaveJSProperty('paused', false);
+  await expect(page.locator('.opening-video')).toHaveAttribute('src', /\.mp4/);
   await expect(page.locator('#engineering-path .ke-process')).toHaveCount(6);
   await expect(page.locator('#engineering-path')).toHaveAttribute('data-enhanced', 'true');
   await expect(page.locator('#engineering-path .ke-process').first()).toBeVisible();

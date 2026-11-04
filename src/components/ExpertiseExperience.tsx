@@ -243,7 +243,7 @@ export function ExpertiseExperience() {
         <div className="expertise-selected" id="expertise-selected" role="tabpanel" aria-labelledby={`expertise-tab-${item.num}`} tabIndex={0} onPointerEnter={event => { if (event.pointerType === 'mouse') setPointerReading(true); }} onPointerLeave={() => setPointerReading(false)}>
           <div className="expertise-selected-heading"><h3>{item.title}</h3><div className="expertise-step-controls"><button type="button" aria-label="Previous expertise" onClick={() => choose(active - 1)}><ArrowLeft size={18}/></button><button type="button" aria-label="Next expertise" onClick={() => choose(active + 1)}><ArrowRight size={18}/></button></div></div>
           <div className="expertise-description-mask"><p className="expertise-description-inner">{item.short}</p></div>
-          <Link className="expertise-explore" to={destination[item.num] ?? '/contact?service=' + encodeURIComponent(item.title)}>Explore Expertise <ArrowUpRight size={18}/></Link>
+          <Link className="expertise-explore site-cta" to={destination[item.num] ?? '/contact?service=' + encodeURIComponent(item.title)}>Explore Expertise <ArrowUpRight size={18}/></Link>
         </div>
       </div>
     </div>

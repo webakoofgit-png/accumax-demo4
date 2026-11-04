@@ -123,7 +123,6 @@ const Button = ({
 }) => (
   <Link className={`button ${light ? "light" : ""}`} to={to}>
     {children}
-    <ArrowUpRight size={18} />
   </Link>
 );
 function Reveal({
@@ -293,19 +292,14 @@ function Footer() {
       <section className="contact-band section">
         <span className="eyebrow">LET'S ENGINEER WHAT'S NEXT</span>
         <div>
-          <h2>
-            Have an engineering
-            <br />
-            challenge?
-          </h2>
-          <Button to="/contact" light>
-            Start a conversation
-          </Button>
+          <h2>Have an engineering challenge?</h2>
         </div>
         <p>From a first brief to a defined scope, let&apos;s plan the engineering, site work and equipment your project needs.</p>
-        <a href={COMPANY.whatsapp} target="_blank" rel="noreferrer">
-          Enquire on WhatsApp ?
-        </a>
+        <div className="contact-band-actions">
+          <a className="site-cta light" href={COMPANY.whatsapp} target="_blank" rel="noreferrer">
+            Enquire on WhatsApp
+          </a>
+        </div>
       </section>
       <footer className="section">
         <div className="footer-grid">
@@ -353,7 +347,13 @@ function Footer() {
             <a href={COMPANY.mapsUrl} target="_blank" rel="noreferrer">View on Google Maps <ArrowUpRight size={16} /></a>
           </div>
         </div>
-        <iframe className="office-map" title="Accumax Controls office location in Kothrud, Pune" src={COMPANY.mapsEmbed} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+        <div className="footer-office-map">
+          <iframe className="office-map" title="Accumax Controls office location in Kothrud, Pune" src={COMPANY.mapsEmbed} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+          <a className="footer-map-label" href={COMPANY.mapsUrl} target="_blank" rel="noreferrer" aria-label="View Accumax Controls office on Google Maps">
+            <MapPin size={28} aria-hidden="true" />
+            <span><strong>{COMPANY.short}</strong><small>Saudamini Commercial Complex, Kothrud, Pune</small></span>
+          </a>
+        </div>
         <div className="footer-word">
           ACCUMAX<span>&reg;</span>
         </div>
@@ -523,7 +523,7 @@ function ProjectCards({ all = false }: { all?: boolean }) {
             <span>LOCATION · TO BE VERIFIED</span>
           </div>
           <h3>{p.title}</h3>
-          <span className="text-link">
+          <span className="text-link site-cta">
             View project <ArrowUpRight size={15} />
           </span>
         </Link>
@@ -636,7 +636,7 @@ function ProjectsSection() {
     <section className="section projects-section">
       <div className="section-heading">
         <div>
-          <span className="eyebrow">05 / PROJECT PERSPECTIVES</span>
+          <span className="eyebrow">03 / PROJECT PERSPECTIVES</span>
           <h2 className="section-title">Expertise <em>in action</em></h2>
         </div>
       </div>
@@ -706,8 +706,8 @@ function AboutBlock() {
         </h2>
         <p>{COMPANY_PROFILE.introduction}</p>
         <p>{COMPANY_PROFILE.capabilities}</p>
-        <Link className="text-link" to="/about">
-          Discover our story <ArrowUpRight size={18} />
+        <Link className="button about-story-button" to="/about">
+          Discover our story
         </Link>
         <span className="outline-word" aria-hidden="true">
           AC
@@ -729,22 +729,18 @@ function Home() {
             <span className="live-dot" /> ENGINEERING · INFRASTRUCTURE ·
             INNOVATION
           </span>
-          <h1 aria-label={COMPANY.tagline}>
-            {["Expedite", "Efficiency"].map((word) => (
-              <span className="hero-line" key={word}><span>{word}</span></span>
-            ))}
-            <span className="hero-outline">
-              <span className="hero-line"><span>with</span></span>
-              <span className="hero-line"><span>Excellence</span></span>
-            </span>
+          <h1 className="hero-single-line" aria-label={COMPANY.tagline}>
+            <span className="hero-line"><span>{COMPANY.tagline}</span></span>
           </h1>
           <p>
             From substations to solar and EV charging, connect your next project with the engineering behind it.
           </p>
           <div className="hero-actions">
-            <Button to="/services">Explore expertise</Button>
-            <Link className="text-link" to="/contact">
-              Start a project <ArrowUpRight size={17} />
+            <Link className="button hero-action hero-action-primary" to="/services">
+              Explore expertise
+            </Link>
+            <Link className="button hero-action hero-action-secondary" to="/contact">
+              Start a project
             </Link>
           </div>
         </div>
@@ -760,10 +756,9 @@ function Home() {
       <section className="section industries-home">
         <div className="section-heading">
           <div>
-            <span className="eyebrow">06 / INDUSTRIES WE SERVE</span>
+            <span className="eyebrow">05 / INDUSTRIES WE SERVE</span>
             <h2 className="section-title">Different industries <em>One ambition</em></h2>
           </div>
-          <Button to="/industries">All industries</Button>
         </div>
         <IndustryWindows />
       </section>
@@ -773,13 +768,13 @@ function Home() {
           alt="Power transmission infrastructure"
         />
         <div>
-          <span className="eyebrow">04 / THE CONNECTION THAT MATTERS</span>
+          <span className="eyebrow">06 / THE CONNECTION THAT MATTERS</span>
           <h2 className="section-title">
             Where technical expertise
             <br />
             <em>meets execution</em>
           </h2>
-          <Link className="text-link" to="/services">
+          <Link className="text-link site-cta" to="/services">
             See what we do <ArrowUpRight />
           </Link>
         </div>
@@ -858,7 +853,7 @@ function Home() {
             </div>
             <h3><span className="motion-line"><span>Engineering</span></span><span className="motion-line"><span>enquiries</span></span></h3>
             <p>Planning a new installation or upgrading an existing system? Share your scope, site and schedule.</p>
-            <span className="home-contact-link">
+            <span className="home-contact-link site-cta">
               Submit your enquiry <ArrowRight size={18} />
             </span>
           </Link>
@@ -873,7 +868,7 @@ function Home() {
             <p>
               Send your equipment list, specifications and destination to discuss the right supply scope.
             </p>
-            <span className="home-contact-link">
+            <span className="home-contact-link site-cta">
               Explore export services <ArrowRight size={18} />
             </span>
           </Link>
@@ -883,7 +878,7 @@ function Home() {
             </div>
             <h3><span className="motion-line"><span>Let’s work</span></span><span className="motion-line"><span>together</span></span></h3>
             <p>Bring your project brief. We will help define the engineering, site or supply support you need.</p>
-            <span className="home-contact-link">
+            <span className="home-contact-link site-cta">
               Get in touch <ArrowRight size={18} />
             </span>
           </Link>
@@ -1109,7 +1104,7 @@ function About() {
             <p>{COMPANY_PROFILE.introduction}</p>
             <p>{COMPANY_PROFILE.capabilities}</p>
             <p>{COMPANY_PROFILE.supply}</p>
-            <Link className="perspective-simple-link" to="/services">
+            <Link className="perspective-simple-link site-cta" to="/services">
               Our capabilities <ArrowUpRight size={18} />
             </Link>
           </div>
@@ -1165,7 +1160,7 @@ function ExpertiseList({ animated = false }: { animated?: boolean }) {
                   <li key={point}>{point}</li>
                 ))}
               </ul>
-              {animated && <Link className="text-link expertise-service-link" to={destinations[item.num] ?? '/contact?service=' + encodeURIComponent(item.title)}>Discuss this expertise <ArrowUpRight size={16}/></Link>}
+              {animated && <Link className="text-link site-cta expertise-service-link" to={destinations[item.num] ?? '/contact?service=' + encodeURIComponent(item.title)}>Discuss this expertise <ArrowUpRight size={16}/></Link>}
             </div>
             <Img src={item.image} alt={item.title} />
           </div>
@@ -1214,7 +1209,7 @@ function ServiceDetail() {
             <h3 id="service-brief-title">A useful first conversation starts here.</h3>
             <p>Share what you have available:</p>
             <ul>{s.enquiryItems.map(item => <li key={item}>{item}</li>)}</ul>
-            <Link className="text-link" to={"/contact?service=" + encodeURIComponent(s.title)}>
+            <Link className="text-link site-cta" to={"/contact?service=" + encodeURIComponent(s.title)}>
               Tell us about your project <ArrowUpRight size={18} />
             </Link>
           </aside>
@@ -1386,10 +1381,10 @@ function Contact({ career = false }: { career?: boolean }) {
             <MapPin />
             <p>{COMPANY.address}</p>
           </div>
-          <a className="text-link office-directions" href={COMPANY.mapsUrl} target="_blank" rel="noreferrer">Get directions <ArrowUpRight size={18} /></a>
+          <a className="text-link site-cta office-directions" href={COMPANY.mapsUrl} target="_blank" rel="noreferrer">Get directions <ArrowUpRight size={18} /></a>
           <iframe className="office-map" title="Find the Accumax Controls office" src={COMPANY.mapsEmbed} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
           <a
-            className="text-link"
+            className="text-link site-cta"
             href={COMPANY.whatsapp}
             target="_blank"
             rel="noreferrer"
@@ -1578,7 +1573,7 @@ function Contact({ career = false }: { career?: boolean }) {
               <p>
                 Review your details and send the enquiry from your email app.
               </p>
-              <a className="text-link" href={draft}>
+              <a className="text-link site-cta" href={draft}>
                 Open email draft <ArrowUpRight size={17} />
               </a>
             </div>
@@ -1923,6 +1918,12 @@ export default function App() {
         </Routes>
       </motion.main>
       <Footer />
+      <a className="floating-whatsapp" href={COMPANY.whatsapp} target="_blank" rel="noreferrer" aria-label="Chat with Accumax Controls on WhatsApp" title="Chat on WhatsApp">
+        <svg viewBox="0 0 32 32" width="32" height="32" fill="none" aria-hidden="true">
+          <path d="M27.5 15.7a11.5 11.5 0 0 1-17.1 10.1L4 27.5l1.8-6.2A11.5 11.5 0 1 1 27.5 15.7Z" stroke="currentColor" strokeWidth="2" strokeLinejoin="round" />
+          <path d="M11.5 9.5c-.4-.9-.8-.9-1.2-.9h-.8c-.4 0-.8.2-1 .6-.7.8-1.1 1.8-1 2.9 0 1.7 1.2 3.4 1.4 3.6.2.2 2.4 3.8 5.9 5.2 2.9 1.2 3.5 1 4.1.9.6-.1 2-1 2.3-1.9.3-.9.3-1.6.2-1.8-.1-.2-.3-.3-.7-.5l-2.3-1.1c-.3-.2-.6-.2-.8.2l-1.1 1.3c-.2.2-.4.3-.8.1-1.1-.4-2.1-1-2.9-1.8-.7-.7-1.2-1.4-1.7-2.2-.2-.4 0-.6.2-.8l.6-.7.4-.7c.1-.2.1-.5 0-.7l-.8-1.7Z" fill="currentColor" />
+        </svg>
+      </a>
     </>
   );
 }

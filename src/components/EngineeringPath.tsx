@@ -46,7 +46,7 @@ export function EngineeringPath() {
   return <section id="engineering-path" className="kinetic-engineering" ref={root} data-enhanced="true" data-active={active} aria-labelledby="kinetic-engineering-title">
     <h2 id="kinetic-engineering-title" className="ke-sr-only">Kinetic engineering — six stages, one continuous motion.</h2>
     <div className="ke-surface">
-      <header className="ke-header"><span className="eyebrow">03 / FROM INTENT TO INFRASTRUCTURE</span></header>
+      <header className="ke-header"><span className="eyebrow">04 / FROM INTENT TO INFRASTRUCTURE</span></header>
       <div className="ke-topline" aria-hidden="true"><span className="ke-counter-label"><span className="ke-counter-window"><span className="ke-counter-track"><span>{String(Math.min(active + 1, last)).padStart(2, '0')}</span></span></span><span className="ke-counter-total">/ 06</span></span></div>
       <div className="ke-composition" onPointerDown={event => { swipe.current = { x: event.clientX, y: event.clientY }; }} onPointerCancel={() => { swipe.current = null; }} onPointerUp={event => {
         const start = swipe.current; swipe.current = null;

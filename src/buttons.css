@@ -1,0 +1,151 @@
+/* Shared style for calls to action throughout the website. */
+.floating-whatsapp {
+  position: fixed;
+  right: max(24px, env(safe-area-inset-right));
+  bottom: max(24px, env(safe-area-inset-bottom));
+  z-index: 90;
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  border: 2px solid #ffffffcc;
+  border-radius: 50%;
+  background: #25d366;
+  color: #fff;
+  box-shadow: 0 6px 22px #0003;
+  transition: background .2s, box-shadow .2s;
+}
+
+.floating-whatsapp:hover {
+  background: #1ebe5d;
+  box-shadow: 0 8px 26px #0004;
+}
+
+.floating-whatsapp:focus-visible {
+  outline: 3px solid #22291f;
+  outline-offset: 4px;
+}
+
+@media (max-width: 640px) {
+  .floating-whatsapp {
+    width: 54px;
+    height: 54px;
+    right: max(16px, env(safe-area-inset-right));
+    bottom: max(16px, env(safe-area-inset-bottom));
+  }
+}
+
+#root :is(#main, footer, .contact-band, .enquiry-popup) :is(.button, .site-cta, .enquiry-popup-submit) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  align-self: flex-start;
+  gap: 0;
+  width: fit-content;
+  min-width: min(160px, 100%);
+  max-width: 100%;
+  min-height: 48px;
+  padding: 14px 28px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  background: var(--brand, #a81800);
+  color: #fff;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: 0;
+  text-align: center;
+  text-transform: none;
+  text-decoration: none;
+  white-space: normal;
+  box-shadow: 0 5px 16px #a8180020;
+  transition: background .25s, box-shadow .25s;
+}
+
+#root :is(#main, footer, .contact-band, .enquiry-popup) :is(.button, .site-cta, .enquiry-popup-submit) > svg {
+  display: none;
+}
+
+#root :is(#main, footer, .contact-band, .enquiry-popup) :is(.button, .site-cta, .enquiry-popup-submit):hover {
+  background: #c42108;
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 7px 20px #a8180030;
+}
+
+#root :is(#main, footer, .contact-band, .enquiry-popup) :is(.button, .site-cta, .enquiry-popup-submit):focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+  box-shadow: 0 0 0 6px #a8180066;
+}
+
+#root :is(#main, footer, .contact-band, .enquiry-popup) :is(.button, .site-cta).light {
+  background: #fff;
+  color: var(--brand, #a81800);
+  border-color: #fff;
+  box-shadow: 0 5px 16px #0002;
+}
+
+#root :is(#main, footer, .contact-band, .enquiry-popup) :is(.button, .site-cta).light:hover {
+  background: #f4eee8;
+  color: var(--brand, #a81800);
+  border-color: #f4eee8;
+  box-shadow: 0 7px 20px #0003;
+}
+
+#root .contact-band > .contact-band-actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 14px;
+  margin: 20px 0 0;
+}
+
+#root .contact-band .contact-band-actions > :is(.button, .site-cta) {
+  margin: 0;
+}
+
+@media (max-width: 480px) {
+  #root .contact-band > .contact-band-actions {
+    gap: 8px;
+  }
+
+  #root :is(#main, .contact-band) .contact-band-actions > :is(.button, .site-cta) {
+    flex: 1;
+    min-width: 0;
+    padding-inline: 10px;
+    font-size: 11px;
+    white-space: nowrap;
+  }
+}
+
+/* Keep the banner's secondary action outlined. */
+#root #main .hero-banner .hero-action-secondary {
+  background: #ffffff12;
+  border-color: #ffffff80;
+  box-shadow: none;
+  backdrop-filter: blur(8px);
+}
+
+#root #main .hero-banner .hero-action-secondary:hover {
+  background: #fff;
+  border-color: #fff;
+  color: #242522;
+  box-shadow: none;
+}
+
+@media (max-width: 640px) {
+  #root :is(#main, footer, .contact-band, .enquiry-popup) :is(.button, .site-cta, .enquiry-popup-submit) {
+    min-height: 46px;
+    padding: 12px 24px;
+    font-size: 13px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #root :is(.button, .site-cta, .enquiry-popup-submit) {
+    transition: none;
+  }
+}

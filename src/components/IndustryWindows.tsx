@@ -154,7 +154,7 @@ export function IndustryWindows() {
         root.current?.querySelector<HTMLButtonElement>(`#industry-selector-${next}`)?.focus({ preventScroll: true });
         void choose(next);
       }}><span className="iw-tab-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><span className="iw-tab-copy"><span>{item.name}</span>{active === index && <small>{item.applications}</small>}</span><ArrowRight size={18}/></button>)}</div>
-    <div className="iw-details"><Link className="iw-cta" to={'/contact?industry=' + encodeURIComponent(industry.name)}>Discuss your project <ArrowUpRight size={20}/></Link></div>
+    <div className="iw-details"><Link className="iw-cta site-cta" to={'/contact?industry=' + encodeURIComponent(industry.name)}>Discuss your project <ArrowUpRight size={20}/></Link></div>
     </div>
     <span className="iw-accessible-status" role="status">{loading ? 'Loading industry image' : industry.name + ': ' + industry.applications}</span>
   </div>;

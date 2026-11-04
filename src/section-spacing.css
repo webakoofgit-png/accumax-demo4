@@ -7,6 +7,10 @@
   --section-space: clamp(32px, 3.2vw, 48px);
 }
 
+#main .home-page .counter-bar + .engineering-scroll-scene {
+  margin-top: clamp(20px, 2vw, 32px);
+}
+
 #main .section,
 #main .home-page > .section {
   padding-block: var(--section-space);

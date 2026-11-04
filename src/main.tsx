@@ -10,4 +10,5 @@ import './home-viewport.css';
 import './components/section-headings.css';
 import './review-updates.css';
 import './section-spacing.css';
+import './buttons.css';
 ReactDOM.createRoot(document.getElementById('root')!).render(<React.StrictMode><HelmetProvider><BrowserRouter><App/></BrowserRouter></HelmetProvider></React.StrictMode>);
