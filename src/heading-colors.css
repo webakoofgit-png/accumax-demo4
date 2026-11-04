@@ -21,3 +21,9 @@
   --heading-primary: #fff;
   --heading-muted: #f0d4c9;
 }
+
+#main .home-page .hero-banner h1.hero-single-line {
+  --heading-primary: #fff;
+  --heading-muted: #fff;
+  text-shadow: 0 3px 20px #000b;
+}
