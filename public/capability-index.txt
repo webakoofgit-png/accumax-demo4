@@ -1,14 +1,14 @@
 ﻿ACCUMAX CONTROLS PVT. LTD. — SERVICE INDEX
-Demo capability overview — not an official technical datasheet.
+Service overview based on the company's published information.
 
-01 EPC Projects
-02 SCADA & Relay Testing
-03 Export
-04 Substation Testing & Commissioning
-05 Fabrication & Civil Work
-06 GIS Erection & Supervision
-07 Solar & EV Station
-08 Trading
+01 EPC Projects - Coordinated engineering, procurement, construction and handover.
+02 SCADA & Relay Testing - Monitoring, automation, relay programming, settings and protection testing.
+03 Export - Substation equipment, testing kits, tools, PPE, electrical goods and FRP products.
+04 Substation Testing & Commissioning - GIS, AIS, SAS and E-House systems across voltage levels.
+05 Fabrication & Civil Work - Custom steel fabrication and substation civil works.
+06 GIS Erection & Supervision - Assembly, gas handling, installation checks, testing and handover.
+07 Solar & EV Station - Solar generation, EV charging, storage options and grid interfaces.
+08 Trading - Electrical equipment, installation accessories, tools and construction materials.
 
 Discuss project-specific scope, standards and deliverables with the company.
 info@accumaxcontrols.com

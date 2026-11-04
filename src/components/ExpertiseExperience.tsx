@@ -17,12 +17,6 @@ const destination: Record<string, string> = {
   '06': '/services/substation-testing-commissioning',
   '07': '/services/export',
 };
-const connections = [
-  'M 235 70 H 365 L 470 155', 'M 1165 70 H 1040 L 930 155',
-  'M 230 235 H 370 L 470 240', 'M 1170 235 H 1030 L 930 240',
-  'M 255 385 H 365 L 470 330', 'M 1145 385 H 1040 L 930 330',
-  'M 700 458 V 395 L 700 350',
-];
 const glowPositions = [[-160, -90], [160, -90], [-180, 0], [180, 0], [-140, 90], [140, 90], [0, 130]];
 
 export function ExpertiseExperience() {
@@ -33,6 +27,7 @@ export function ExpertiseExperience() {
   const rootRef = useRef<HTMLElement>(null);
   const arenaRef = useRef<HTMLDivElement>(null);
   const visualRef = useRef<HTMLDivElement>(null);
+  const connectionsRef = useRef<SVGSVGElement>(null);
   const tabsRef = useRef<HTMLDivElement>(null);
   const imageRefs = useRef<Array<HTMLImageElement | null>>([]);
   const buttonRefs = useRef<Array<HTMLButtonElement | null>>([]);
@@ -48,6 +43,63 @@ export function ExpertiseExperience() {
     activeRef.current = next;
     setActive(next);
   }, []);
+
+  const measureConnections = useCallback(() => {
+    const arena = arenaRef.current;
+    const visual = visualRef.current;
+    const svg = connectionsRef.current;
+    if (!arena || !visual || !svg || getComputedStyle(svg).display === 'none') return;
+    const bounds = arena.getBoundingClientRect();
+    const photo = visual.getBoundingClientRect();
+    const left = photo.left - bounds.left, right = photo.right - bounds.left;
+    const top = photo.top - bounds.top, bottom = photo.bottom - bounds.top;
+    svg.setAttribute('viewBox', `0 0 ${bounds.width} ${bounds.height}`);
+    const clamp = (value: number, min: number, max: number) => Math.max(min, Math.min(max, value));
+    svg.querySelectorAll('path').forEach((path, index) => {
+      const button = buttonRefs.current[index];
+      if (!button) return;
+      const tab = button.getBoundingClientRect();
+      let d: string;
+      if (index === 6) {
+        const x = tab.left + tab.width / 2 - bounds.left;
+        const y = tab.top - bounds.top;
+        const endX = clamp(x, left + 24, right - 24);
+        const endY = bottom - 16;
+        d = `M ${x} ${y} V ${(y + endY) / 2} L ${endX} ${endY}`;
+      } else {
+        const onLeft = index % 2 === 0;
+        const x = (onLeft ? tab.right : tab.left) - bounds.left;
+        const y = tab.top + tab.height / 2 - bounds.top;
+        // End under the photograph so a slight perspective tilt never opens a gap.
+        const endX = onLeft ? left + 16 : right - 16;
+        const endY = clamp(y, top + 24, bottom - 24);
+        d = `M ${x} ${y} H ${(x + endX) / 2} L ${endX} ${endY}`;
+      }
+      path.setAttribute('d', d);
+    });
+  }, []);
+
+  useLayoutEffect(() => {
+    let alive = true;
+    let frame = 0;
+    const refresh = () => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => { if (alive) measureConnections(); });
+    };
+    const observer = new ResizeObserver(refresh);
+    [arenaRef.current, visualRef.current, ...buttonRefs.current].forEach(element => {
+      if (element) observer.observe(element);
+    });
+    measureConnections();
+    document.fonts.ready.then(refresh);
+    window.addEventListener('resize', refresh);
+    window.addEventListener('accumax:ready', refresh);
+    return () => {
+      alive = false; observer.disconnect(); cancelAnimationFrame(frame);
+      window.removeEventListener('resize', refresh);
+      window.removeEventListener('accumax:ready', refresh);
+    };
+  }, [measureConnections]);
 
   useEffect(() => {
     const root = rootRef.current;
@@ -97,25 +149,13 @@ export function ExpertiseExperience() {
         });
         ScrollTrigger.create({ trigger: root, start: 'top bottom', end: 'bottom top',
           onToggle: self => { root.dataset.inview = String(self.isActive); } });
-        if (match.conditions?.wide) {
-          let lastScrollIndex = -1;
-          ScrollTrigger.create({
-            trigger: root.querySelector('.expertise-console'), start: 'top 88px',
-            end: () => '+=' + Math.min(840, window.innerHeight), pin: true,
-            anticipatePin: 1, invalidateOnRefresh: true,
-            onUpdate: self => {
-              const next = Math.min(EXPERTISE_CATEGORIES.length - 1, Math.round(self.progress * (EXPERTISE_CATEGORIES.length - 1)));
-              if (next !== lastScrollIndex && self.isActive) { lastScrollIndex = next; choose(next, 'scroll'); }
-            },
-          });
-        }
       }, root);
       let resetTilt = () => {};
       let moveTilt = (_event: PointerEvent) => {};
       if (match.conditions?.pointer) {
         context.add(() => {
-          const rx = gsap.quickTo(visual, 'rotationX', { duration: .8, ease: 'power3.out' });
-          const ry = gsap.quickTo(visual, 'rotationY', { duration: .8, ease: 'power3.out' });
+          const rx = gsap.quickTo(visual, 'rotationX', { duration: .8, ease: 'power3.out', onUpdate: measureConnections });
+          const ry = gsap.quickTo(visual, 'rotationY', { duration: .8, ease: 'power3.out', onUpdate: measureConnections });
           moveTilt = event => {
             if (event.pointerType !== 'mouse') return;
             const rect = arena.getBoundingClientRect();
@@ -145,7 +185,7 @@ export function ExpertiseExperience() {
     images.forEach(image => image.addEventListener('load', refresh));
     const settle = setTimeout(refresh, 0);
     return () => { clearTimeout(settle); cancelAnimationFrame(frame); window.removeEventListener('accumax:ready', refresh); images.forEach(image => image.removeEventListener('load', refresh)); media.revert(); };
-  }, [choose]);
+  }, [choose, measureConnections]);
 
   useLayoutEffect(() => {
     const root = rootRef.current;
@@ -188,7 +228,7 @@ export function ExpertiseExperience() {
       <header className="expertise-heading"><span className="eyebrow">02 / OUR EXPERTISE</span><h2 id="expertise-heading" className="section-title"><span className="expertise-heading-line"><span>Engineering</span></span><br /><span className="expertise-heading-line heading-muted"><span>Every Possibility</span></span></h2></header>
       <div className="expertise-console">
         <div className="expertise-arena" ref={arenaRef}>
-          <svg className="expertise-connections" viewBox="0 0 1400 490" preserveAspectRatio="none" aria-hidden="true">{connections.map((path, i) => <path key={path} d={path} pathLength="1" className={active === i ? 'is-active' : ''}/>)}</svg>
+          <svg className="expertise-connections" ref={connectionsRef} preserveAspectRatio="none" aria-hidden="true">{EXPERTISE_CATEGORIES.map((category, i) => <path key={category.num} pathLength="1" className={active === i ? 'is-active' : ''}/>)}</svg>
           <div className="expertise-visual" ref={visualRef} onPointerDown={event => { swipeStart.current = { x: event.clientX, y: event.clientY }; }} onPointerCancel={() => { swipeStart.current = null; }} onPointerUp={event => {
             const start = swipeStart.current; swipeStart.current = null;
             if (!start) return;

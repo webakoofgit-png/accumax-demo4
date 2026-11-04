@@ -45,7 +45,6 @@
 .home-page .project-showcase-card{isolation:isolate}
 .home-page .project-showcase-copy{opacity:1;transform:none;right:68px}
 .home-page .project-showcase-arrow{opacity:1;transform:none}
-.home-page .project-showcase-watermark{opacity:.12;transform:none}
 .home-page .project-showcase-card:after{opacity:1}
 .home-page .project-showcase-copy>span{line-height:1.7}
 .home-page .project-showcase-category{font-variant-numeric:tabular-nums}
@@ -123,7 +122,6 @@ html{scroll-behavior:smooth;scroll-padding-top:104px}
   .home-page .project-showcase-copy>span{font-size:16px}
   .home-page .project-showcase-category{left:65%;top:36px;padding:0;background:none;color:#d0d7cd;font-size:10px}
   .home-page .project-showcase-arrow{right:4%;bottom:22px;width:34px;height:34px}
-  .home-page .project-showcase-watermark{left:12%;top:22%;width:36%;opacity:.1}
 }
 @media(max-width:760px){
   .home-page .expertise-motion summary{grid-template-columns:30px minmax(0,1fr) 20px;gap:12px;min-height:84px}
@@ -144,13 +142,11 @@ html{scroll-behavior:smooth;scroll-padding-top:104px}
 /* Pointer hover reveals the red treatment; touch retains readable content. */
 .home-page .project-showcase-card:after{inset:0;opacity:0;background:linear-gradient(180deg,rgba(168,24,0,.3),rgba(168,24,0,.62) 52%,rgba(126,18,0,.96));transition:opacity .45s}
 .home-page .project-showcase-copy{opacity:0;transform:translateY(14px);transition:opacity .4s,transform .45s cubic-bezier(.22,1,.36,1)}
-.home-page .project-showcase-watermark{opacity:0;transition:opacity .45s}
 .home-page .project-showcase-arrow{opacity:0;transition:opacity .35s,transform .35s}
 .home-page .project-showcase-card:hover:after,.home-page .project-showcase-card:focus-visible:after,.home-page .project-showcase-card:focus-within:after{opacity:1}
 .home-page .project-showcase-card:hover .project-showcase-copy,.home-page .project-showcase-card:focus-visible .project-showcase-copy,.home-page .project-showcase-card:focus-within .project-showcase-copy{opacity:1;transform:translateY(0)}
-.home-page .project-showcase-card:hover .project-showcase-watermark,.home-page .project-showcase-card:focus-visible .project-showcase-watermark{opacity:.16}
 .home-page .project-showcase-card:hover .project-showcase-arrow,.home-page .project-showcase-card:focus-visible .project-showcase-arrow{opacity:1}
-@media(hover:none),(pointer:coarse){.home-page .project-showcase-card:after,.home-page .project-showcase-copy,.home-page .project-showcase-arrow{opacity:1}.home-page .project-showcase-copy{transform:none}.home-page .project-showcase-watermark{opacity:.12}}
+@media(hover:none),(pointer:coarse){.home-page .project-showcase-card:after,.home-page .project-showcase-copy,.home-page .project-showcase-arrow{opacity:1}.home-page .project-showcase-copy{transform:none}}
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .header .site-mega a{animation:none}

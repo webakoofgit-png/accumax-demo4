@@ -335,11 +335,6 @@ p{font-size:16px}
 .bento-clients h3{margin:0}
 @media(max-width:999px){.bento{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.bento>div,.bento .bento-quality,.bento .bento-number{grid-column:auto;min-height:270px;padding:28px}.bento .bento-clients{grid-column:1/-1;min-height:180px}.bento h3{font-size:28px}}
 @media(max-width:640px){.bento{grid-template-columns:1fr;gap:16px;margin-top:28px}.bento>div,.bento .bento-quality,.bento .bento-number{grid-column:auto;min-height:250px;padding:28px}.bento .bento-clients{grid-column:auto;min-height:190px}.bento h3{font-size:28px}.bento-wide>svg{top:28px;right:26px}}
-/* Brand watermark above the red image overlay, clear of the card copy. */
-.project-showcase-watermark{position:absolute;z-index:1;top:25%;left:12%;width:76%;pointer-events:none;opacity:0;transform:translateY(8px);transition:opacity .35s,transform .35s}
-.project-showcase-watermark img{width:100%;height:auto;object-fit:contain;filter:brightness(0) invert(1)}
-.project-showcase-card:hover .project-showcase-watermark,.project-showcase-card:focus-visible .project-showcase-watermark{opacity:.18;transform:translateY(0)}
-@media(max-width:950px){.project-showcase-watermark{opacity:.18;transform:none}}
 
 /* Project approach arranged around the company logo. */
 .process.process-brand{background:#efeee8;color:#242522;padding:76px max(6vw,24px) 86px}
@@ -473,7 +468,7 @@ main[data-route]>.page-top+.section{padding-top:48px}
 .perspective-copy:focus-visible{outline:2px solid var(--brand);outline-offset:5px}
 
 /* Consistent, readable body copy across the site. */
-.about-copy p{text-align:justify}
+.about-copy p{max-width:100%;text-align:justify}
 :root{--body-copy-size:18px}
 #main p:not(.fine),footer p,.contact-band p{font-size:var(--body-copy-size);line-height:1.8}
 #main .capabilities li,#main .expertise-detail li{font-size:var(--body-copy-size);line-height:1.8}

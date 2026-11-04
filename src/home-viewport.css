@@ -77,21 +77,46 @@
   .home-page .home-contact-card p { margin: 12px 0 18px; }
 }
 
-/* Give Why Accumax its own desktop view beneath the fixed navigation. */
+/* Keep the complete expertise experience visible on shorter desktop screens. */
+@media (min-width: 1200px) and (min-height: 600px) {
+  .home-page #expertise.expertise-experience {
+    padding-block: 16px;
+    scroll-margin-top: 72px;
+  }
+  .home-page #expertise .expertise-heading { margin-bottom: 12px; }
+  .home-page #expertise .expertise-heading > .eyebrow { margin-bottom: 10px; }
+  #main .home-page #expertise h2.section-title {
+    font-size: clamp(36px, 5.5svh, 48px);
+    line-height: 1.06;
+  }
+  .home-page #expertise .expertise-arena { height: clamp(260px, calc(100svh - 440px), 420px); }
+  .home-page #expertise .expertise-visual { top: 18%; height: 59%; }
+  .home-page #expertise :is(.hotspot-0, .hotspot-1) { top: 0; }
+  .home-page #expertise :is(.hotspot-2, .hotspot-3) { top: 35%; }
+  .home-page #expertise :is(.hotspot-4, .hotspot-5) { top: 66%; }
+  .home-page #expertise .hotspot-6 { top: 84%; }
+  .home-page #expertise .expertise-hotspot { padding: 9px 12px; font-size: 14px; }
+  .home-page #expertise .expertise-selected { margin-top: 14px; padding-top: 12px; }
+  .home-page #expertise .expertise-selected h3 { font-size: 19px; }
+  .home-page #expertise .expertise-description-mask { min-height: 48px; margin: 8px 0 10px; }
+  .home-page #expertise .expertise-description-inner { font-size: 14px; line-height: 1.6; }
+  .home-page #expertise .expertise-explore { padding: 9px 18px; }
+}
+
 @media (min-width: 1000px) {
   .home-page .why.section {
-    min-height: calc(100svh - 64px);
+    min-height: 0;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding-block: clamp(28px, 5svh, 64px);
+    justify-content: flex-start;
+    padding-block: var(--section-space, 40px);
     scroll-margin-top: 64px;
   }
 
   .home-page .why h2 {
     font-size: clamp(40px, 8svh, 86px);
     line-height: 1.12;
-    margin: 28px 0 clamp(28px, 6svh, 60px);
+    margin: 20px 0 28px;
   }
 
   .home-page .why .strengths {

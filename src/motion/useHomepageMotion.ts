@@ -40,7 +40,7 @@ export function useHomepageMotion(rootRef: RefObject<HTMLDivElement>) {
           { autoAlpha: 1, y: 0, duration: .8, stagger, ease: 'power3.out', scrollTrigger: { trigger, start: 'top 90%', once: true } });
 
         const hero = root.querySelector<HTMLElement>('.hero-banner');
-        const heroImage = hero?.querySelector('img');
+        const heroImage = hero?.querySelector('.opening-montage, video, img');
         if (hero && heroImage) {
           const entrance = gsap.timeline({ paused: true, defaults: { ease: 'power3.out' } });
           entrance.fromTo(heroImage, { clipPath: 'inset(0 0 100% 0)', scale: 1.12 },

@@ -1,11 +1,13 @@
 import aboutPerspective from "./assets/home page img/_A CONNECTED PERSPECTIVE.png";
 import homeBanner from "./assets/home banners/banner1.png";
+import { OpeningFilm } from "./components/OpeningFilm";
 import { useHomepageMotion } from "./motion/useHomepageMotion";
 import { ExpertiseExperience } from "./components/ExpertiseExperience";
 import { IndustryWindows } from "./components/IndustryWindows";
 import { EnquiryPopup } from "./components/EnquiryPopup";
 import { EngineeringPath } from "./components/EngineeringPath";
 import { CustomCursor } from "./components/CustomCursor";
+import { COMPANY_PROFILE, PAGE_DESCRIPTIONS } from "./company-content";
 import "./components/project-perspectives.css";
 import "./components/story-colors.css";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
@@ -26,6 +28,7 @@ import {
 } from "framer-motion";
 import {
   ArrowUpRight,
+  ArrowLeft,
   ArrowRight,
   ArrowUp,
   Menu,
@@ -213,7 +216,7 @@ function Header() {
               target="_blank"
               rel="noreferrer"
             >
-              <Instagram size={18} />
+              <Instagram size={23} />
             </a>
             <a
               href="https://www.facebook.com/share/19o5XUanBS/"
@@ -221,7 +224,7 @@ function Header() {
               target="_blank"
               rel="noreferrer"
             >
-              <Facebook size={18} />
+              <Facebook size={23} />
             </a>
             <a
               href="https://www.linkedin.com/company/accumaxcontrols/"
@@ -229,7 +232,7 @@ function Header() {
               target="_blank"
               rel="noreferrer"
             >
-              <Linkedin size={18} />
+              <Linkedin size={23} />
             </a>
           </span>
           <button
@@ -309,7 +312,7 @@ function Footer() {
           <div>
             <Img src={COMPANY.logo} alt="Accumax Controls" />
             <p>
-              Engineering. Infrastructure. Innovation.
+              {COMPANY.tagline}
               <br />
               Pune, India. Connected to the world.
             </p>
@@ -347,8 +350,10 @@ function Footer() {
             <a href={"mailto:" + COMPANY.emails[0]}>{COMPANY.emails[0]}</a>
             <a href="tel:+919920177441">{COMPANY.phones[0]}</a>
             <p>{COMPANY.address}</p>
+            <a href={COMPANY.mapsUrl} target="_blank" rel="noreferrer">View on Google Maps <ArrowUpRight size={16} /></a>
           </div>
         </div>
+        <iframe className="office-map" title="Accumax Controls office location in Kothrud, Pune" src={COMPANY.mapsEmbed} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
         <div className="footer-word">
           ACCUMAX<span>&reg;</span>
         </div>
@@ -360,7 +365,7 @@ function Footer() {
               <strong>Webakoof</strong>
             </a>
           </span>
-          <span>DEMO 04 · INDUSTRIAL MOTION STUDIO</span>
+          <span>ENGINEERING ? EQUIPMENT ? EXECUTION</span>
           <button
             onClick={() =>
               window.scrollTo({
@@ -441,50 +446,37 @@ function ServicesList() {
 }
 function Story() {
   const ref = useRef<HTMLElement>(null);
+  const [active, setActive] = useState(0);
+  const swipe = useRef<{ x: number; y: number } | null>(null);
+  const photos = [
+    ['/images/gallery/3.jpg', 'Substation engineering and project planning'],
+    ['/images/hero-testing.jpg', 'Electrical protection and relay testing'],
+    ['/images/gallery/13.jpg', 'Substation protection and control systems'],
+    ['/images/products/solar-and-ev-station.jpg', 'Solar power and EV charging infrastructure'],
+  ];
+  const choose = (index: number) => setActive((index + 4) % 4);
   const reduced = useReducedMotion();
-  useEffect(() => {
-    if (reduced) return;
-    const mm = gsap.matchMedia();
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
-      const section = ref.current;
-      if (!section) return;
-      section.classList.add("story--animated");
-      const ctx = gsap.context(() => {
-        const panels = gsap.utils.toArray<HTMLElement>(".story-panel");
-        gsap.set(panels[0], { autoAlpha: 1, y: 0 });
-        gsap.set(panels.slice(1), { autoAlpha: 0, y: 35 });
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: ref.current,
-            start: () => window.matchMedia('(max-width: 640px)').matches ? "top 64px" : "top top",
-            end: "+=850",
-            scrub: 1,
-            pin: true,
-            invalidateOnRefresh: true,
-          },
-        });
-        panels.forEach((p, i) => {
-          if (i)
-            tl.to(panels[i - 1], { autoAlpha: 0, y: -35 }).to(p, {
-              autoAlpha: 1,
-              y: 0,
-            });
-          tl.to({}, { duration: 0.6 });
-        });
-      }, ref);
-      return () => {
-        ctx.revert();
-        section.classList.remove("story--animated");
-      };
-    });
-    return () => mm.revert();
-  }, [reduced]);
+  useLayoutEffect(() => {
+    if (!ref.current) return;
+    const context = gsap.context(() => {
+      const panels = Array.from(ref.current!.querySelectorAll('.story-panel'));
+      gsap.set(panels, { autoAlpha: 0, y: 0 });
+      gsap.set(panels[active], { autoAlpha: 1 });
+      if (!reduced) gsap.fromTo(panels[active], { y: 25, opacity: 0 }, { y: 0, opacity: 1, duration: .55, ease: 'power2.out' });
+    }, ref);
+    return () => context.revert();
+  }, [active, reduced]);
   return (
-    <section className="story" ref={ref}>
+    <section className="story story--animated story--carousel" ref={ref} data-active={active} aria-label="The principles behind every connection" onPointerDown={event => { swipe.current = { x: event.clientX, y: event.clientY }; }} onPointerCancel={() => { swipe.current = null; }} onPointerUp={event => {
+      const start = swipe.current; swipe.current = null;
+      if (!start) return;
+      const dx = event.clientX - start.x, dy = event.clientY - start.y;
+      if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.4) choose(active + (dx < 0 ? 1 : -1));
+    }}>
       <div className="story-photo">
         <Img
-          src="/images/hero-testing.jpg"
-          alt="Electrical infrastructure testing"
+          src={photos[active][0]}
+          alt={photos[active][1]}
         />
       </div>
       <div className="story-label eyebrow">
@@ -492,7 +484,7 @@ function Story() {
       </div>
       {["Engineering", "Precision", "Reliability", "Progress,\nby design."].map(
         (t, i) => (
-          <div className="story-panel" key={t}>
+          <div className="story-panel" key={t} aria-hidden={active !== i}>
             <span className="eyebrow">0{i + 1} / OUR APPROACH</span>
             <h2>{t}</h2>
             <p>
@@ -508,9 +500,7 @@ function Story() {
           </div>
         ),
       )}
-      <span className="story-bottom">
-        SCROLL TO EXPLORE <ArrowRight size={15} />
-      </span>
+      <div className="story-bottom story-controls"><button type="button" aria-label="Previous approach" onClick={() => choose(active - 1)}><ArrowLeft size={20} /></button><button type="button" aria-label="Next approach" onClick={() => choose(active + 1)}><ArrowRight size={20} /></button><span aria-live="polite" aria-atomic="true">0{active + 1} / 04</span></div>
     </section>
   );
 }
@@ -545,10 +535,12 @@ function CounterItem({
   value,
   label,
   delay = 0,
+  suffix = "+",
 }: {
   value: number;
   label: string;
   delay?: number;
+  suffix?: string;
 }) {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLSpanElement>(null);
@@ -583,11 +575,11 @@ function CounterItem({
     };
   }, [value, delay]);
   return (
-    <div className="counter-item" aria-label={`${value}+ ${label}`}>
+    <div className="counter-item" aria-label={`${value}${suffix} ${label}`}>
       <span className="counter-stat">
         <span className="counter-number" aria-hidden="true">
           <span ref={ref}>{count.toLocaleString("en-IN")}</span>
-          <span className="counter-plus">+</span>
+          <span className="counter-plus">{suffix}</span>
         </span>
       </span>
       <span className="counter-label">{label}</span>
@@ -603,14 +595,16 @@ function CounterBar() {
         {
           value: 100,
           label: "Experienced Staff",
+          suffix: "%",
         },
-        { value: 10, label: "Win Awards" },
+        { value: 10, label: "Awards Won" },
       ].map((item, index) => (
         <CounterItem
           key={item.label}
           value={item.value}
           label={item.label}
           delay={index * 140}
+          suffix={item.suffix}
         />
       ))}
     </section>
@@ -659,7 +653,6 @@ function ProjectsSection() {
             <div className="perspective-service-media">
               <Img src={PERSPECTIVE_IMAGES[s.slug] ?? s.image} alt={s.title} />
               <div className="perspective-image-overlay" aria-hidden="true">
-                <span className="perspective-overlay-watermark"><Img src={COMPANY.logo} alt="" /></span>
                 <div className="perspective-overlay-copy"><strong>{s.title}</strong><p>{s.short}</p></div>
               </div>
               <span className="perspective-service-arrow" aria-hidden="true"><ArrowUpRight size={22} /></span>
@@ -711,15 +704,8 @@ function AboutBlock() {
           <span className="motion-line"><span>Big-picture thinking</span></span>
           <em className="motion-line"><span>Ground-level expertise</span></em>
         </h2>
-        <p>
-          Accumax Controls is a Pune-based engineering, technology and export
-          company working in the energy sector.
-        </p>
-        <p>
-          Our work connects GIS and AIS infrastructure, substation civil and
-          electrical works, automation, testing and commissioning, solar and EV
-          stations.
-        </p>
+        <p>{COMPANY_PROFILE.introduction}</p>
+        <p>{COMPANY_PROFILE.capabilities}</p>
         <Link className="text-link" to="/about">
           Discover our story <ArrowUpRight size={18} />
         </Link>
@@ -736,12 +722,7 @@ function Home() {
   return (
     <div className="home-page" ref={homeRef}>
       <section className="hero hero-banner">
-        <Img
-          className="hero-banner-image"
-          src={homeBanner}
-          alt="Electrical substation and power transmission lines at sunset"
-          eager
-        />
+        <OpeningFilm poster={homeBanner} />
         <div className="hero-banner-shade" />
         <div className="hero-copy">
           <span className="eyebrow">
@@ -758,9 +739,9 @@ function Home() {
             </span>
           </h1>
           <p>
-            Precision in every connection.
+            {COMPANY.tagline}
             <br />
-            Engineering expertise for a world that never stops.
+            Substations, automation, testing and equipment exports.
           </p>
           <div className="hero-actions">
             <Button to="/services">Explore expertise</Button>
@@ -773,8 +754,21 @@ function Home() {
       <Story />
       <AboutBlock />
       <ExpertiseExperience />
+      <ProjectsSection />
+      <CounterBar />
       <div className="engineering-scroll-scene">
-      <EngineeringPath />
+        <EngineeringPath />
+      </div>
+      <section className="section industries-home">
+        <div className="section-heading">
+          <div>
+            <span className="eyebrow">06 / INDUSTRIES WE SERVE</span>
+            <h2 className="section-title">Different industries <em>One ambition</em></h2>
+          </div>
+          <Button to="/industries">All industries</Button>
+        </div>
+        <IndustryWindows />
+      </section>
       <section className="image-break">
         <Img
           src="/images/transmission-wide.jpg"
@@ -791,19 +785,6 @@ function Home() {
             See what we do <ArrowUpRight />
           </Link>
         </div>
-      </section>
-      </div>
-      <ProjectsSection />
-      <CounterBar />
-      <section className="section industries-home">
-        <div className="section-heading">
-          <div>
-            <span className="eyebrow">06 / INDUSTRIES WE SERVE</span>
-            <h2 className="section-title">Different industries <em>One ambition</em></h2>
-          </div>
-          <Button to="/industries">All industries</Button>
-        </div>
-        <IndustryWindows />
       </section>
       <section className="section why">
         <span className="eyebrow">07 / WHY ACCUMAX</span>
@@ -1084,7 +1065,7 @@ function PerspectiveSection() {
         className="perspective-copy"
         tabIndex={0}
         role="region"
-        aria-label="Scroll through engineering, export and our mission"
+        aria-label="Scroll through engineering, exports, mission, vision and values"
       >
         <div>
           <h3>Engineering</h3>
@@ -1103,11 +1084,15 @@ function PerspectiveSection() {
         </div>
         <div>
           <h3>Our Mission</h3>
-          <p>
-            To deliver reliable, sustainable and efficient solutions for the
-            power industry through engineering expertise, innovation and a
-            commitment to safety and customer satisfaction.
-          </p>
+          <p>{COMPANY_PROFILE.mission}</p>
+        </div>
+        <div>
+          <h3>Our Vision</h3>
+          <p>{COMPANY_PROFILE.vision}</p>
+        </div>
+        <div>
+          <h3>Our Values</h3>
+          <p>{COMPANY_PROFILE.values.join(' · ')}.</p>
         </div>
       </div>
     </section>
@@ -1131,27 +1116,17 @@ function About() {
               <br />
               Ground-level expertise.
             </h2>
-            <p>
-              Accumax Controls Pvt. Ltd. delivers engineering, technology and
-              export solutions for the power sector. Our expertise spans GIS and
-              AIS substations, solar projects, EV charging infrastructure,
-              substation civil and electrical works, SAS, AMC and E-House
-              solutions.
-            </p>
-            <p>
-              We support testing and commissioning across voltage levels, system
-              audits, protective relay programming and protection setting
-              calculations. Our export and import offering includes PPE,
-              substation components, tools, building materials and FRP products.
-            </p>
+            <p>{COMPANY_PROFILE.introduction}</p>
+            <p>{COMPANY_PROFILE.capabilities}</p>
+            <p>{COMPANY_PROFILE.supply}</p>
             <Link className="perspective-simple-link" to="/services">
               Our capabilities <ArrowUpRight size={18} />
             </Link>
           </div>
           <figure className="about-editorial-image">
             <Img
-              src={aboutPerspective}
-              alt="Accumax engineering operations"
+              src="/images/about-01.jpg"
+              alt="Electrical substation infrastructure supported by Accumax"
               eager
             />
             {/* <figcaption>ENGINEERING WITH PURPOSE, SINCE DAY ONE.</figcaption> */}
@@ -1231,6 +1206,10 @@ function ServiceDetail() {
               </li>
             ))}
           </ul>
+          <div className="service-detail-copy">
+            {s.details.map(detail => <div key={detail.title}><h3>{detail.title}</h3><p>{detail.text}</p></div>)}
+            <div><h3>Applications</h3><p>{s.applications}</p></div>
+          </div>
           <p className="fine">
             Indicative scope. Final technical requirements, equipment
             suitability and deliverables are agreed for each enquiry.
@@ -1399,6 +1378,8 @@ function Contact({ career = false }: { career?: boolean }) {
             <MapPin />
             <p>{COMPANY.address}</p>
           </div>
+          <a className="text-link office-directions" href={COMPANY.mapsUrl} target="_blank" rel="noreferrer">Get directions <ArrowUpRight size={18} /></a>
+          <iframe className="office-map" title="Find the Accumax Controls office" src={COMPANY.mapsEmbed} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
           <a
             className="text-link"
             href={COMPANY.whatsapp}
@@ -1409,8 +1390,8 @@ function Contact({ career = false }: { career?: boolean }) {
           </a>
           {career && (
             <p className="fine">
-              No vacancies are currently published in this demo. Email your CV
-              for the company to review; this is an expression of interest.
+              Share your CV, engineering discipline and site experience with our
+              team. Include your preferred role and availability in your message.
             </p>
           )}
         </div>
@@ -1625,12 +1606,14 @@ function Quality() {
         </h2>
         <div>
           <p>
-            Project-specific quality plans, applicable codes and customer
-            specifications define the inspection and testing requirements.
+            Accumax's quality commitments include continuous improvement,
+            customer specifications, applicable codes and field quality plans
+            for electrical, firefighting, MEP and instrumentation works.
           </p>
           <p>
-            Discuss your EHS requirements and documentation expectations with
-            the team before mobilising.
+            The company promotes safe working conditions, teamwork, employee
+            empowerment and supplier development. Share the standards and EHS
+            requirements applicable to your project when discussing the scope.
           </p>
           <Button to="/contact">Discuss project standards</Button>
         </div>
@@ -1649,7 +1632,7 @@ function Catalogue() {
       <section className="section catalogue">
         <div className="catalogue-cover">
           <Img src={COMPANY.logo} alt="Accumax Controls" />
-          <span className="eyebrow">CAPABILITY OVERVIEW / DEMO EDITION</span>
+          <span className="eyebrow">ACCUMAX / SERVICE OVERVIEW</span>
           <h2>
             Engineering
             <br />
@@ -1674,7 +1657,8 @@ function Catalogue() {
             Download service index <Download size={18} />
           </a>
           <p className="fine">
-            Plain-text demo overview. It is not an official technical datasheet.
+            Service summary based on the company's published information.
+            Request product-specific documents and the current catalogue from the team.
           </p>
           <Button to="/contact">Request official catalogue</Button>
         </div>
@@ -1688,7 +1672,7 @@ function Videos() {
       <PageTop
         label="Videos"
         title="Engineering, in motion."
-        description="A space for verified company films and project walkthroughs."
+        description="Explore substation engineering, testing, renewable energy and equipment supply with the Accumax team."
       />
       <section className="section video-section">
         <div className="video-cover">
@@ -1707,9 +1691,9 @@ function Videos() {
             Understand the process.
           </h2>
           <p>
-            No verified public video files were available for this demo. Request
-            a technical walkthrough or company presentation directly from the
-            team.
+            Request a company presentation covering GIS and AIS substations,
+            automation, testing, solar and EV charging. Our team can discuss the
+            services relevant to your project and the information needed to define its scope.
           </p>
           <Button to="/contact">Request a presentation</Button>
         </div>
@@ -1750,6 +1734,8 @@ function Seo() {
   const title = s?.title || p?.title || titles[pathname] || "Page Not Found";
   const description =
     s?.short ||
+    p?.note ||
+    PAGE_DESCRIPTIONS[pathname] ||
     `Explore ${title.toLowerCase()} at Accumax Controls, Pune. Engineering services, energy infrastructure, testing and equipment exports.`;
   const base = import.meta.env.VITE_SITE_URL;
   return (
@@ -1821,7 +1807,7 @@ function SitePreloader() {
     {visible && <motion.div className="site-preloader" role="status" aria-label="Loading Accumax Controls" initial={false} exit={reduced ? { opacity: 0 } : { y: '100%' }} transition={{ duration: reduced ? .15 : .7, ease: [.76, 0, .24, 1] }}>
       <motion.div className="site-preloader-content" initial={reduced ? false : { opacity: 0, y: -30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: .55, ease: 'easeOut' }}>
         <Img src={COMPANY.logo} alt="Accumax Controls" eager />
-        <p>Engineering. Infrastructure. Innovation.</p>
+        <p>{COMPANY.tagline}</p>
         <div className="site-preloader-track" aria-hidden="true"><motion.span initial={{ scaleX: 0 }} animate={{ scaleX: 1 }} transition={{ duration: reduced ? .15 : 1, ease: 'easeInOut' }}/></div>
       </motion.div>
     </motion.div>}
@@ -1878,7 +1864,7 @@ export default function App() {
                 <PageTop
                   label="Services"
                   title="Expertise, connected."
-                  description="Eight disciplines. One coordinated engineering perspective."
+                  description="EPC projects, SCADA and relay testing, substation commissioning, GIS supervision, civil works, solar and EV infrastructure, exports and trading."
                 />
                 <section className="section">
                   <ServicesList />
@@ -1894,7 +1880,7 @@ export default function App() {
                 <PageTop
                   label="Industries"
                   title="Powering different worlds."
-                  description="Engineering applications across the industries featured on the Accumax company website."
+                  description="Power-sector engineering for utilities, data centres, manufacturing, transport, process industries and institutional facilities."
                   image="/images/portfolio/i7.jpg"
                 />
                 <section className="section">

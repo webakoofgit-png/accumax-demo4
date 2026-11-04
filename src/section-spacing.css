@@ -1,0 +1,59 @@
+/* Consistent content spacing across desktop, tablet and mobile. */
+#main {
+  --section-space: clamp(32px, 3.2vw, 48px);
+}
+
+#main .home-page {
+  --section-space: clamp(32px, 3.2vw, 48px);
+}
+
+#main .section,
+#main .home-page > .section {
+  padding-block: var(--section-space);
+}
+
+#main .section-heading,
+#main .home-page :is(.section-heading, .clients-heading, .home-contact-heading) {
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+}
+
+#main .home-page .why.section {
+  min-height: 0;
+  justify-content: flex-start;
+}
+
+#main .home-page .why h2 {
+  margin-block: 20px 28px;
+}
+
+#main .home-page :is(.why, .clients).section::after {
+  margin-top: 24px;
+}
+
+#main .home-page #expertise.expertise-experience {
+  padding-block: min(var(--section-space), 32px);
+}
+
+@media (min-width: 1200px) and (min-height: 600px) {
+  #main .home-page #expertise.expertise-experience {
+    padding-block: 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  #main,
+  #main .home-page {
+    --section-space: 28px;
+  }
+
+  #main .section-heading,
+  #main .home-page :is(.section-heading, .clients-heading, .home-contact-heading) {
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+  }
+
+  #main .home-page .why h2 {
+    margin-block: 16px 24px;
+  }
+}

@@ -1,6 +1,6 @@
 #engineering-path.kinetic-engineering{--ke-paper:#f5f3ed;--ke-ink:#1a1d1b;--ke-accent:#b43d20;--ke-pin-top:76px;background:var(--ke-paper);color:var(--ke-ink);position:relative;isolation:isolate}
 #engineering-path .ke-sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
-#engineering-path .ke-surface{position:relative;isolation:isolate;padding:42px max(5.2vw,24px) 34px;background:var(--ke-paper) url('../assets/background.png') center/cover no-repeat;overflow:clip}
+#engineering-path .ke-surface{position:relative;isolation:isolate;padding:42px max(5.2vw,24px) 34px;background:linear-gradient(90deg,#0b172bd9,#0b172b73 65%,#0b172b40),url('../assets/Industrial Substation at Sunset.png') center/cover no-repeat;overflow:clip}
 #engineering-path .ke-header{display:flex;justify-content:space-between;align-items:center;gap:24px}
 #engineering-path .ke-header .eyebrow{font-size:12px;font-weight:600;color:#242522;margin:0}
 #engineering-path .ke-topline{display:none}

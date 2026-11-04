@@ -1,10 +1,12 @@
-/** Company scope and contact details checked against accumaxcontrols.com. Detailed service scopes and sample project profiles require company review. */
+/** Service copy adapted from accumaxcontrols.com; see docs/official-content-review.md for sources and unresolved details. */
 
 export const COMPANY = {
   name: "Accumax Controls Pvt. Ltd.",
   short: "Accumax Controls",
-  tagline: "Control Center of Engineering Excellence",
-  address: "Saudamini Commercial Complex, Building: C-2, Office: 401, 402, Fourth Floor, Survey No. 101/1, Right Bhusari Colony, Near Chandani Chowk, Paud Road, Kothrud, Pune: 411 038, Maharashtra, India",
+  tagline: "Expedite Efficiency with Excellence",
+  address: "Offices 401–402, C-2, Saudamini Commercial Complex, Kothrud, Pune 411038, Maharashtra, India",
+  mapsUrl: "https://www.google.com/maps/search/?api=1&query=Saudamini+Commercial+Complex+Kothrud+Pune+411038",
+  mapsEmbed: "https://maps.google.com/maps?q=Saudamini%20Commercial%20Complex%20Kothrud%20Pune%20411038&output=embed",
   phones: ["+91 99201 77441", "+91 73502 00025"],
   emails: ["info@accumaxcontrols.com"],
   whatsapp: "https://wa.link/yypj14",
@@ -21,145 +23,227 @@ export type Service = {
   image: string;
   intro: string;
   capabilities: string[];
+  details: { title: string; text: string }[];
+  applications: string;
 };
 
 export const SERVICES: Service[] = [
   {
-    slug: "epc-projects",
-    num: "01",
-    title: "EPC Projects",
-    short: "Turnkey engineering, procurement and construction for power infrastructure.",
-    image: "/images/products/epc-hero.jpg",
-    intro:
-      "We take substations and industrial power systems from first design review to energised handover under a single line of responsibility. Engineering, procurement and construction are coordinated as one scope, so owners deal with one accountable partner instead of a fragmented supply chain.",
-    capabilities: [
-      "Turnkey execution from design to handover",
-      "Single point of responsibility for cost and schedule",
-      "Procurement of primary and secondary plant",
-      "Civil, electrical and fire-fighting coordination",
-      "Quality plans aligned to customer specifications and codes",
-      "Sectors: data centres, industry, power generation, infrastructure",
+    "slug": "epc-projects",
+    "num": "01",
+    "title": "EPC Projects",
+    "image": "/images/products/epc-hero.jpg",
+    "short": "Engineering, procurement and construction coordinated from design through project handover.",
+    "intro": "Accumax brings engineering, material procurement and construction together for power, industrial and infrastructure projects. A coordinated EPC scope connects design decisions, sourcing and site delivery through one project framework.",
+    "capabilities": [
+      "Engineering and design coordination",
+      "Procurement and material sourcing",
+      "Construction and installation coordination",
+      "Turnkey project delivery and handover",
+      "Quality control against agreed specifications",
+      "Project planning and execution support"
     ],
+    "details": [
+      {
+        "title": "One coordinated project scope",
+        "text": "Combining engineering, procurement and construction helps align resources, interfaces and schedules. The EPC approach provides a clear point of coordination for the owner, from initial design through delivery."
+      },
+      {
+        "title": "Quality throughout execution",
+        "text": "Project quality plans, customer requirements and applicable safety and performance standards guide the work. Scope, responsibilities and handover expectations are established for the individual project."
+      }
+    ],
+    "applications": "Data centres, industrial facilities, oil and gas, power generation, substations and infrastructure projects."
   },
   {
-    slug: "scada-relay-testing",
-    num: "02",
-    title: "SCADA & Relay Testing",
-    short: "Automation, protection programming and relay testing across all voltage levels.",
-    image: "/images/products/scada-and-relay-testing.jpg",
-    intro:
-      "Protection schemes are only as strong as their settings. Our engineers programme numerical relays, calculate protection settings, test SCADA integrations and audit existing systems so that the network trips exactly when it should â€” and only then.",
-    capabilities: [
-      "Relay programming and configuration",
+    "slug": "scada-relay-testing",
+    "num": "02",
+    "title": "SCADA & Relay Testing",
+    "image": "/images/products/scada-and-relay-testing.jpg",
+    "short": "Real-time monitoring, substation automation and testing of electrical protection schemes.",
+    "intro": "SCADA connects system monitoring with remote control, while relay testing checks how protection responds to electrical faults. Accumax supports these complementary disciplines alongside relay programming, protection settings and system audits.",
+    "capabilities": [
+      "SCADA monitoring and control integration",
+      "Substation Automation Systems (SAS)",
+      "Protective relay programming",
       "Protection setting calculations",
-      "SCADA and substation automation (SAS) integration",
-      "System audits of existing protection schemes",
       "Primary and secondary injection testing",
-      "Commissioning support across all voltage levels",
+      "End-to-end protection scheme testing"
     ],
+    "details": [
+      {
+        "title": "Monitoring and operational visibility",
+        "text": "SCADA combines field hardware and software to collect operating data, support fault identification and enable remote supervision. It helps operators understand changing conditions across substations and industrial power systems."
+      },
+      {
+        "title": "Protection testing methods",
+        "text": "Primary injection checks the response of the wider protection system. Secondary injection uses simulated signals to test relays, while end-to-end testing checks coordination between protection points."
+      }
+    ],
+    "applications": "Electrical utilities, substations, industrial networks, power generation and infrastructure facilities."
   },
   {
-    slug: "export",
-    num: "03",
-    title: "Export",
-    short: "Trusted export of substation equipment, tools, materials and FRP products.",
-    image: "/images/products/export-projects.jpg",
-    intro:
-      "As a globally trusted exporter, we supply technical expertise alongside hard goods: testing kits, substation equipment, construction tools, building materials, FRP products, panels, end-termination material, trays, supports, fasteners, light fittings, cables and lighting poles.",
-    capabilities: [
-      "Testing kits and technical instruments",
-      "Substation equipment and components",
-      "Electrical panels and end-termination material",
+    "slug": "export",
+    "num": "03",
+    "title": "Export",
+    "image": "/images/products/export-projects.jpg",
+    "short": "Export and import support for electrical equipment, site materials, tools and engineered products.",
+    "intro": "Accumax combines engineering knowledge with the supply of equipment and materials for energy projects. The published product range includes substation components, testing kits, PPE, construction tools, electrical goods, building materials and FRP products.",
+    "capabilities": [
+      "Substation equipment and testing kits",
+      "Electrical panels and cable end terminations",
       "Cable trays, supports and fasteners",
-      "FRP products, light fittings, cables and poles",
-      "PPE and construction consumables",
+      "PPE and construction tools",
+      "Building materials and FRP products",
+      "Light fittings, cables and lighting poles"
     ],
+    "details": [
+      {
+        "title": "Equipment and installation materials",
+        "text": "The supply range brings together electrical equipment and the accessories used around it, including panels, terminations, cable supports and lighting products. Requirements can be discussed alongside the engineering scope."
+      },
+      {
+        "title": "Specify the required product",
+        "text": "Share the equipment description, quantity, technical specification and intended application with the team. These details help establish the supply scope for your project."
+      }
+    ],
+    "applications": "Power-sector projects, substation installations, construction works and industrial electrical infrastructure."
   },
   {
-    slug: "substation-testing-commissioning",
-    num: "04",
-    title: "Substation Testing & Commissioning",
-    short: "Testing and commissioning of all voltage level systems, GIS and AIS.",
-    image: "/images/products/substation-t-and-c.jpg",
-    intro:
-      "From GIS and AIS bays to protection panels, we test and commission every voltage level to specification â€” verifying insulation, protection behaviour and control logic before the first energisation and documenting every result for the owner.",
-    capabilities: [
-      "GIS and AIS testing & commissioning",
-      "Transformer, switchgear and cable testing",
-      "Protection and metering verification",
-      "Pre-energisation checks and punch-list closure",
-      "E-House and SAS commissioning",
-      "Documented test records and handover packs",
+    "slug": "substation-testing-commissioning",
+    "num": "04",
+    "title": "Substation Testing & Commissioning",
+    "image": "/images/products/substation-t-and-c.jpg",
+    "short": "Testing and commissioning support for GIS, AIS and electrical systems across voltage levels.",
+    "intro": "Accumax provides testing and commissioning services for power infrastructure, supported by expertise in GIS, AIS, substation automation and E-House solutions. System audits, relay programming and protection settings connect the equipment scope with its control and protection requirements.",
+    "capabilities": [
+      "GIS and AIS testing and commissioning",
+      "Electrical systems across voltage levels",
+      "Substation Automation Systems (SAS)",
+      "E-House commissioning support",
+      "Protective relay programming and settings",
+      "System audits and protection checks"
     ],
+    "details": [
+      {
+        "title": "Equipment, automation and protection",
+        "text": "Commissioning brings together the substation equipment and its automation and protection interfaces. The work is defined around the installation, customer requirements and the systems included in the agreed scope."
+      },
+      {
+        "title": "Plan the commissioning scope",
+        "text": "Discuss the equipment list, voltage levels, protection arrangements and project schedule with the team. This establishes the testing requirements and coordination needed for the installation."
+      }
+    ],
+    "applications": "GIS and AIS substations, industrial power systems, E-Houses and substation automation projects."
   },
   {
-    slug: "fabrication-civil-work",
-    num: "05",
-    title: "Fabrication & Civil Work",
-    short: "Substation civil works, mechanical fabrication and site infrastructure.",
-    image: "/images/products/material-and-mech-fabrication-and-civil.jpg",
-    intro:
-      "A substation is only as reliable as its foundations. We execute the civil works and mechanical fabrication around the electrical scope â€” equipment foundations, cable trenches, structures, enclosures and site buildings â€” built to interface cleanly with the electrical package.",
-    capabilities: [
-      "Equipment foundations and cable trenches",
-      "Structural fabrication and galvanised supports",
-      "Control room and E-House construction",
-      "Fire-fighting and MEP works",
-      "Earthing and lightning protection installation",
-      "Site development and access roads",
+    "slug": "fabrication-civil-work",
+    "num": "05",
+    "title": "Fabrication & Civil Work",
+    "image": "/images/products/material-and-mech-fabrication-and-civil.jpg",
+    "short": "Custom steel fabrication and civil works coordinated with substation and electrical project requirements.",
+    "intro": "Accumax supports customised steel fabrication and substation civil works as part of its power-sector offering. Civil, mechanical and electrical requirements are considered together so that the construction scope supports the wider installation.",
+    "capabilities": [
+      "Custom steel fabrication",
+      "Substation civil works",
+      "Coordination with electrical installation requirements",
+      "Material sourcing and construction planning",
+      "Project quality and safety coordination",
+      "Site execution and handover support"
     ],
+    "details": [
+      {
+        "title": "Fabrication around the installation",
+        "text": "Custom fabrication connects material selection and construction with the needs of the electrical project. The required steelwork and civil scope are established from the project specifications."
+      },
+      {
+        "title": "Coordinated construction",
+        "text": "A combined project approach helps align design, procurement and construction activities. Customer specifications and agreed quality requirements guide the fabrication and civil works."
+      }
+    ],
+    "applications": "Substations, industrial facilities, energy projects and infrastructure developments."
   },
   {
-    slug: "gis-erection-supervision",
-    num: "06",
-    title: "GIS Erection & Supervision",
-    short: "Gas-insulated switchgear erection with expert site supervision.",
-    image: "/images/products/gis-direction-and-supervision.jpg",
-    intro:
-      "GIS demands millimetre-level discipline. Our erection teams handle unloading, assembly, gasket work and gas handling under experienced supervision, so every bay is built to the manufacturer's tolerances and tested before handover.",
-    capabilities: [
-      "GIS bay unloading, assembly and alignment",
-      "SF6 gas handling, filling and monitoring",
-      "Busbar and inter-bay connection work",
-      "Manufacturer-tolerance supervision",
-      "Interface with testing and commissioning teams",
-      "AMC and post-commissioning support",
+    "slug": "gis-erection-supervision",
+    "num": "06",
+    "title": "GIS Erection & Supervision",
+    "image": "/images/products/gis-direction-and-supervision.jpg",
+    "short": "GIS installation supervision, assembly, gas handling, testing and commissioning coordination.",
+    "intro": "Gas-insulated substations bring high-voltage components into a compact installation. Accumax supports GIS erection and supervision, coordinating assembly, installation, testing and handover with the project requirements.",
+    "capabilities": [
+      "GIS module positioning, assembly and alignment",
+      "SF6 filling and leakage checks",
+      "Cable terminations and busbar connections",
+      "Insulation, contact resistance and withstand testing",
+      "Protection coordination and SCADA interfaces",
+      "Operator training and handover documentation"
     ],
+    "details": [
+      {
+        "title": "Installation and testing supervision",
+        "text": "Supervision covers component positioning, assembly and the interfaces between gas handling, electrical connections and testing. The installation is checked against the applicable project and utility requirements."
+      },
+      {
+        "title": "Safety and handover",
+        "text": "Risk assessments, safe gas handling and quality inspections support execution. Commissioning coordination, operator guidance and reporting help prepare the installation for handover."
+      }
+    ],
+    "applications": "High-voltage GIS substations and power distribution installations for utilities and industry."
   },
   {
-    slug: "solar-ev-station",
-    num: "07",
-    title: "Solar & EV Station",
-    short: "Solar power projects and EV charging infrastructure, end to end.",
-    image: "/images/products/solar-and-ev-station.jpg",
-    intro:
-      "The grid is changing and we build for it. From rooftop and ground-mounted solar plants to EV charging stations with the electrical backbone to support them, we deliver renewable and mobility infrastructure ready for the next decade of load growth.",
-    capabilities: [
-      "Rooftop and ground-mounted solar plants",
-      "EV charging station design and installation",
-      "Inverters, transformers and grid interfaces",
-      "Solar evacuation and net-metering support",
-      "Charging load management infrastructure",
-      "Operation and maintenance support",
+    "slug": "solar-ev-station",
+    "num": "07",
+    "title": "Solar & EV Station",
+    "image": "/images/products/solar-and-ev-station.jpg",
+    "short": "Solar power and EV charging infrastructure supported by experience on projects across India.",
+    "intro": "Accumax works in solar power and EV station infrastructure across India. The service connects renewable generation with electrical charging requirements, bringing together the systems needed for a practical solar and mobility installation.",
+    "capabilities": [
+      "Solar photovoltaic generation systems",
+      "Inverter and electrical conversion systems",
+      "EV charging infrastructure",
+      "Battery storage integration options",
+      "Smart charging and load management",
+      "Grid connection and net-metering requirements"
     ],
+    "details": [
+      {
+        "title": "Connecting solar generation with charging",
+        "text": "A solar-powered charging installation combines PV panels, inverters and charging equipment. Battery storage may support energy availability, depending on the site and system design."
+      },
+      {
+        "title": "Design around the application",
+        "text": "Charging demand, grid access and the available solar resource shape the solution. Discuss charger requirements, storage, load balancing and net metering with the team for your site."
+      }
+    ],
+    "applications": "Commercial premises, industrial sites and EV charging facilities with solar generation opportunities."
   },
   {
-    slug: "trading",
-    num: "08",
-    title: "Trading",
-    short: "Sourcing and supply of electrical and industrial materials, importer & exporter.",
-    image: "/images/products/trading.jpg",
-    intro:
-      "We trade in the materials that keep projects moving â€” as importer and exporter of electrical panels, substation components, trays, fasteners, fittings and building materials, with the sourcing network to meet aggressive project schedules.",
-    capabilities: [
-      "Importer and exporter of electrical goods",
-      "Substation components and spares",
-      "Cable trays, supports and fasteners",
-      "Light fittings and lighting poles",
-      "Building materials for electrical works",
-      "Supplier development and quality vetting",
+    "slug": "trading",
+    "num": "08",
+    "title": "Trading",
+    "image": "/images/products/trading.jpg",
+    "short": "Sourcing and supply of electrical products and construction materials for project requirements.",
+    "intro": "Accumax supports material sourcing alongside its engineering and import-export activities. The product range connects substation components and electrical installation goods with tools, safety products and construction materials.",
+    "capabilities": [
+      "Electrical products and substation components",
+      "Panels and cable accessories",
+      "Cable trays, structural supports and fasteners",
+      "Lighting products, cables and poles",
+      "Construction tools and building materials",
+      "PPE and FRP products"
     ],
-  },
+    "details": [
+      {
+        "title": "Materials for the wider project",
+        "text": "Sourcing considers the equipment and supporting materials needed around the electrical installation. Product requirements can be discussed together with the engineering or construction scope."
+      },
+      {
+        "title": "Start with your specification",
+        "text": "Provide the product description, quantities, preferred specification and intended use. The team can then discuss the supply requirement and its place in the project schedule."
+      }
+    ],
+    "applications": "Electrical installations, substation projects, industrial facilities and construction works."
+  }
 ];
 
 export type Industry = {
@@ -177,115 +261,31 @@ export type ExpertiseCategory = {
 };
 
 export const EXPERTISE_CATEGORIES: ExpertiseCategory[] = [
-  {
-    num: '01',
-    title: 'EPC & Project Execution',
-    short: 'End-to-end Engineering, Procurement and Construction (EPC) solutions for industrial, commercial and infrastructure projects.',
-    image: '/images/products/epc-hero.jpg',
-    points: [
-      'Electrical EPC, industrial electrification and MEP works.',
-      'Power distribution systems, substations, HT/LT installations and cabling.',
-      'Electrical infrastructure for data centres, automotive, process industries, metro rail and manufacturing plants.',
-      'Design engineering, procurement, installation, testing, commissioning and project management.',
-      'LV panels, MCCs, PCCs, control panels and electrical system retrofitting.',
-    ],
-  },
-  {
-    num: '02',
-    title: 'Solar & Renewable Energy',
-    short: 'Comprehensive solar power solutions, from feasibility assessment to commissioning and long-term asset performance.',
-    image: '/images/products/solar-and-ev-station.jpg',
-    points: [
-      'Ground-mounted and rooftop solar PV EPC projects.',
-      'Captive and open-access solar power project development support.',
-      'Feasibility studies, DPRs, design engineering and project management consultancy (PMC).',
-      'DC/AC electrical systems, evacuation infrastructure and grid connectivity.',
-      'Solar plant testing, commissioning, O&M and performance monitoring.',
-    ],
-  },
-  {
-    num: '03',
-    title: 'Substations, GIS & AIS Switchgear',
-    short: 'Specialized engineering and execution services for high-voltage substations and power transmission infrastructure.',
-    image: '/images/products/gis-direction-and-supervision.jpg',
-    points: [
-      'GIS and AIS substations, switchyards and associated electrical works up to 400 kV.',
-      'Substation engineering, equipment installation, erection supervision and commissioning.',
-      'GIS installation, gas handling, cable terminations and associated testing.',
-      'Protection, control, SCADA and Substation Automation Systems (SAS).',
-      'Substation retrofitting, upgrades and reliability improvement.',
-    ],
-  },
-  {
-    num: '04',
-    title: 'Operations, Maintenance & AMC',
-    short: 'Preventive, predictive and corrective maintenance services for reliable electrical and industrial operations.',
-    image: '/images/products/substation-t-and-c.jpg',
-    points: [
-      'Annual Maintenance Contracts (AMC) for electrical installations and MEP systems.',
-      'HT/LT switchgear, transformers, substations and distribution equipment maintenance.',
-      'Electrical system audits, condition assessment and preventive maintenance.',
-      'Breakdown support, fault identification, rectification and equipment refurbishment.',
-      'Solar plant O&M and performance optimization.',
-    ],
-  },
-  {
-    num: '05',
-    title: 'Live Electrical Panel Cleaning',
-    short: 'Specialized online/live electrical panel cleaning solutions designed to minimize production interruptions.',
-    image: '/images/products/scada-and-relay-testing.jpg',
-    points: [
-      'Cleaning of energized electrical panels using specialized non-conductive cleaning chemicals.',
-      'Applications for MCCs, PCCs, control panels, distribution boards and industrial electrical equipment.',
-      'Removal of dust, oil, grease and industrial contaminants.',
-      'Planned cleaning programs supporting electrical reliability and preventive maintenance.',
-      'Supply of NKW 99 OPP and NWK 747 cleaning chemicals, on-site services and customer maintenance-team training.',
-    ],
-  },
-  {
-    num: '06',
-    title: 'Electrical Testing & Commissioning',
-    short: 'Integrated testing, protection engineering and commissioning services for electrical power systems.',
-    image: '/images/products/substation-t-and-c.jpg',
-    points: [
-      'Testing and commissioning of MV/EHV switchgear, transformers, cables and substations.',
-      'Numerical relay testing, protection coordination and relay setting configuration.',
-      'SCADA, SAS, communication systems and control circuit testing.',
-      'GIS/AIS equipment testing, cable fault location and rectification.',
-      'Transformer oil filtration, diagnostic testing and electrical system troubleshooting.',
-    ],
-  },
-  {
-    num: '07',
-    title: 'Exports & Engineered Products',
-    short: 'International sourcing and supply of electrical, industrial and infrastructure products.',
-    image: '/images/products/export-projects.jpg',
-    points: [
-      'Substation and transmission-line equipment, electrical enclosures and cable accessories.',
-      'PPE, industrial safety products, construction tools and measuring instruments.',
-      'FRP enclosures, cable trays, handrails, cabinets and engineered structures.',
-      'Structural steel, lighting poles, earthing materials and electrical installation accessories.',
-      'Industrial MEP materials and customized engineering products.',
-    ],
-  },
+  { num: '01', title: 'EPC & Project Execution', short: SERVICES[0].short, image: SERVICES[0].image, points: SERVICES[0].capabilities },
+  { num: '02', title: 'Solar & Renewable Energy', short: SERVICES[6].short, image: SERVICES[6].image, points: SERVICES[6].capabilities },
+  { num: '03', title: 'Substations, GIS & AIS Switchgear', short: SERVICES[5].short, image: SERVICES[5].image, points: SERVICES[5].capabilities },
+  { num: '04', title: 'Operations, Maintenance & AMC', short: 'Annual maintenance support for electrical installations and substation systems.', image: '/images/products/substation-t-and-c.jpg', points: ['Annual Maintenance Contracts for electrical installations.', 'Maintenance planning around the equipment and operating requirements.', 'System audits, protection settings and commissioning coordination.', 'Discuss the site scope, service schedule and support requirements with the team.'] },
+  { num: '05', title: 'Live Electrical Panel Cleaning', short: 'Discuss electrical panel cleaning requirements, equipment suitability and site conditions with our team.', image: '/images/products/scada-and-relay-testing.jpg', points: ['Share panel and equipment details for a scope review.', 'Confirm operating conditions and site safety requirements.', 'Discuss cleaning methods, access and maintenance planning with the team.'] },
+  { num: '06', title: 'Electrical Testing & Commissioning', short: SERVICES[3].short, image: SERVICES[3].image, points: [...SERVICES[3].capabilities, 'Primary, secondary injection and end-to-end relay testing.'] },
+  { num: '07', title: 'Exports & Engineered Products', short: SERVICES[2].short, image: SERVICES[2].image, points: SERVICES[2].capabilities },
 ];
 export const INDUSTRIES: Industry[] = [
-  { name: "Power Utilities", image: "/images/portfolio/i7.jpg", applications: "Substations, protection systems, network audits" },
-  { name: "Data Centers", image: "/images/portfolio/i16.jpg", applications: "Reliable power distribution, E-House solutions" },
-  { name: "Automobiles", image: "/images/portfolio/i1.jpg", applications: "Plant electrification, EV charging infrastructure" },
-  { name: "Refineries", image: "/images/portfolio/i4.jpg", applications: "Hazardous-area electrical works, testing" },
-  { name: "Chemical Industries", image: "/images/portfolio/i2.jpg", applications: "Process power systems, substation civil works" },
-  { name: "Pharmaceutical", image: "/images/portfolio/i8.jpg", applications: "Clean-power distribution, AMC support" },
-  { name: "Food & Beverage", image: "/images/portfolio/i3.jpg", applications: "Plant power systems, lighting and panels" },
-  { name: "Cement Industries", image: "/images/portfolio/i10.jpg", applications: "Heavy-drive power systems, substations" },
-  { name: "Metro", image: "/images/portfolio/i11.jpg", applications: "Traction and auxiliary substation works" },
-  { name: "Defence", image: "/images/portfolio/i12.jpg", applications: "Secure power infrastructure, testing" },
-  { name: "EV Stations", image: "/images/portfolio/i13.jpg", applications: "Charging infrastructure end to end" },
-  { name: "Textile Industries", image: "/images/portfolio/i14.jpg", applications: "Plant electrification, power quality" },
-  { name: "Mining Industry", image: "/images/portfolio/i15.jpg", applications: "Rugged distribution, mobile substations" },
-  { name: "Plastic Industries", image: "/images/portfolio/i17.jpg", applications: "Process power, panels and switchgear" },
-  { name: "Educational", image: "/images/portfolio/i5.jpg", applications: "Campus electrification, safety upgrades" },
-  { name: "Pulp & Paper", image: "/images/portfolio/i9.jpg", applications: "Continuous-process power reliability" },
+  { name: "Power Utilities", image: "/images/portfolio/i7.jpg", applications: "GIS and AIS substations, protection testing and automation" },
+  { name: "Data Centers", image: "/images/portfolio/i16.jpg", applications: "Electrical EPC, substation systems and E-House solutions" },
+  { name: "Automobiles", image: "/images/portfolio/i1.jpg", applications: "Industrial electrical infrastructure and EV charging" },
+  { name: "Refineries", image: "/images/portfolio/i4.jpg", applications: "Electrical infrastructure, SCADA and protection testing" },
+  { name: "Chemical Industries", image: "/images/portfolio/i2.jpg", applications: "Substation infrastructure and electrical project support" },
+  { name: "Pharmaceutical", image: "/images/portfolio/i8.jpg", applications: "Electrical EPC, testing and maintenance support" },
+  { name: "Food & Beverage", image: "/images/portfolio/i3.jpg", applications: "Industrial electrical systems and equipment supply" },
+  { name: "Cement Industries", image: "/images/portfolio/i10.jpg", applications: "Substations, electrical works and commissioning" },
+  { name: "Metro", image: "/images/portfolio/i11.jpg", applications: "Power infrastructure, substations and electrical works" },
+  { name: "Defence", image: "/images/portfolio/i12.jpg", applications: "Electrical infrastructure, equipment supply and testing" },
+  { name: "EV Stations", image: "/images/portfolio/i13.jpg", applications: "Solar generation, charging infrastructure and load management" },
+  { name: "Textile Industries", image: "/images/portfolio/i14.jpg", applications: "Electrical installation, substation and AMC requirements" },
+  { name: "Mining Industry", image: "/images/portfolio/i15.jpg", applications: "Substation infrastructure, electrical systems and testing" },
+  { name: "Plastic Industries", image: "/images/portfolio/i17.jpg", applications: "Electrical installation, automation and equipment supply" },
+  { name: "Educational", image: "/images/portfolio/i5.jpg", applications: "Electrical infrastructure, maintenance and equipment supply" },
+  { name: "Pulp & Paper", image: "/images/portfolio/i9.jpg", applications: "Industrial electrical systems, testing and maintenance" },
 ];
 
 /** Company scope and contact details checked against accumaxcontrols.com. Detailed service scopes and sample project profiles require company review. */

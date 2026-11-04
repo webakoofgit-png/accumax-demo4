@@ -1,0 +1,135 @@
+/* ACPL review, 03 November 2026. Exact previously shared palette is pending. */
+:root{--brand:#a81800;--paper:#faf9f6;--ink:#242522;--line:#dedbd4}
+.service-detail-copy{display:grid;gap:24px;margin:32px 0}
+.service-detail-copy h3{font-size:clamp(22px,2vw,30px);line-height:1.25;margin-bottom:12px}
+.service-detail-copy p{margin:0}
+.home-page{--motion-accent:var(--brand)}
+.home-page .story.story--carousel{display:grid;grid-template-rows:auto minmax(min-content,1fr) auto;row-gap:32px;height:auto;min-height:max(520px,calc(100svh - 64px));padding:40px 6% 30px;touch-action:pan-y}
+.home-page .story.story--carousel .story-panel{position:relative;grid-row:2;align-self:center;min-width:0;top:auto;left:auto;right:auto;margin:0}
+.home-page .story.story--carousel .story-panel[aria-hidden=true]{display:none}
+.home-page .story.story--carousel .story-panel h2{font-size:clamp(40px,10vw,150px);line-height:1.07}
+.home-page .story.story--carousel .story-label{position:relative;grid-row:1;left:auto;right:auto;top:auto;margin:0}
+.home-page .story.story--carousel .story-controls{position:relative;grid-row:3;left:auto;bottom:auto;display:flex;align-items:center;gap:14px;margin:0}
+.story-controls button{display:grid;place-items:center;width:44px;height:44px;border:1px solid #ffffff80;border-radius:50%;color:#fff}
+.story-controls button:hover{background:#ffffff18}
+.story-controls button:focus-visible{outline:2px solid #f4a26a;outline-offset:4px}
+/* Keep the animated stage copy readable over the sunset substation photo. */
+#engineering-path.kinetic-engineering{--ke-paper:#1c2d36;--ke-ink:#fff;--ke-accent:#f4a26a}
+#engineering-path .ke-header .eyebrow,#engineering-path .ke-word{color:#fff}
+#engineering-path .ke-description,#engineering-path .ke-final-line:last-child{color:#e1e7e7}
+#engineering-path .ke-counter-label,#engineering-path .ke-counter-total,#engineering-path .ke-mobile-index{color:#d1dbdf}
+#engineering-path[data-enhanced=true] .ke-surface:after{color:#d1dbdf}
+#engineering-path .ke-final-dot{color:#f4a26a}
+/* Stage controls animate independently of the page's normal vertical scroll. */
+#engineering-path[data-enhanced=true] .ke-surface{min-height:460px;max-height:none}
+#engineering-path[data-enhanced=true] .ke-surface:after{content:none;display:none}
+#engineering-path .ke-composition{touch-action:pan-y}
+#engineering-path .ke-controls{display:flex;align-items:center;gap:12px;margin-top:auto;padding-top:12px}
+#engineering-path .ke-controls>button{display:grid;place-items:center;flex-shrink:0;width:44px;height:44px;border:1px solid #ffffff80;border-radius:50%;color:#fff;background:#0b172b40}
+#engineering-path .ke-controls>button:disabled{opacity:.3;cursor:default}
+#engineering-path .ke-controls>button:not(:disabled):hover{background:#ffffff20}
+#engineering-path .ke-stage-dots{display:flex;flex-wrap:wrap;gap:2px;margin-left:8px}
+#engineering-path .ke-stage-dots button{display:grid;place-items:center;width:28px;height:44px;padding:0}
+#engineering-path .ke-stage-dots button:before{content:'';width:7px;height:7px;border-radius:50%;background:#ffffff60}
+#engineering-path .ke-stage-dots button[aria-pressed=true]:before{background:#fff;box-shadow:0 0 0 3px #ffffff25}
+#engineering-path .ke-controls button:focus-visible{outline:2px solid #f4a26a;outline-offset:3px}
+@media(max-width:900px){
+  #engineering-path[data-enhanced=true] .ke-surface{height:auto;min-height:480px;max-height:none}
+  #engineering-path[data-enhanced=true] .ke-composition{flex:0 0 auto;height:240px;margin:18px 0 12px}
+}
+.header .header-socials{gap:14px}
+.header .header-socials a{display:grid;place-items:center;width:36px;height:40px}
+.header .header-socials svg{width:23px;height:23px;flex-shrink:0}
+.office-map{display:block;width:100%;height:240px;margin-top:24px;border:1px solid var(--line);border-radius:12px;background:#eceae5}
+footer .office-map{height:230px;margin-top:36px}
+.office-directions{margin-top:18px}
+.footer-grid>div:last-child>a:last-child{display:flex;align-items:center;gap:8px}
+.opening-montage{position:absolute;inset:0;overflow:hidden}
+.hero .opening-frame{opacity:0;transition:opacity 1s ease;object-fit:cover}
+.hero .opening-frame.is-active{opacity:1}
+.hero .opening-video{object-fit:cover}
+.opening-playback{position:absolute;z-index:4;right:max(5.2vw,22px);bottom:28px;display:flex;align-items:center;gap:9px;padding:10px 16px;min-height:44px;border:1px solid #ffffff66;border-radius:30px;background:#17171780;color:#fff;font-size:12px;backdrop-filter:blur(8px)}
+.review-controls{display:flex;align-items:center;gap:12px;margin-top:24px}
+.review-controls button{display:grid;place-items:center;flex-shrink:0;width:44px;height:44px;border:1px solid currentColor;border-radius:50%;background:transparent;color:inherit;transition:background .2s,color .2s}
+.review-controls button:hover{background:var(--brand);border-color:var(--brand);color:#fff}
+.review-controls>span{font-size:12px;line-height:1.5;color:inherit;opacity:.75}
+.approach-section{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(28px,5vw,80px);align-items:center;padding:48px max(5.2vw,22px);background:#22291f;color:#fff}
+.approach-image{position:relative;min-width:0;height:440px;overflow:hidden;touch-action:pan-y;border-radius:4px}
+.approach-image img{width:100%;height:100%;object-fit:cover;animation:review-image-in .4s ease}
+.approach-image>span{position:absolute;bottom:18px;left:20px;padding:8px 12px;background:#242522d9;color:#fff;font-size:12px;letter-spacing:.12em}
+.approach-content{min-width:0}
+.approach-content>.eyebrow{font-size:11px;letter-spacing:.15em;color:#f4b8a6;line-height:1.7}
+.approach-content h2{font-size:clamp(32px,3.5vw,54px);line-height:1.1;letter-spacing:-.05em;margin:16px 0 24px}
+.approach-tabs{display:flex;flex-wrap:wrap;gap:8px}
+.approach-tabs button{padding:10px 12px;border:1px solid #ffffff40;border-radius:3px;color:#fff;background:transparent;font-size:12px;min-height:44px}
+.approach-tabs button[aria-selected=true]{background:var(--brand);border-color:#df6c52}
+.approach-panel{min-height:170px;margin-top:24px}
+.approach-panel h3{font-size:clamp(26px,2.5vw,38px);line-height:1.2;letter-spacing:-.04em}
+#main .approach-panel p{margin:14px 0 0;color:#e1dcd6;font-size:17px;line-height:1.75;max-width:48ch}
+.engineering-steps{padding:48px max(5.2vw,22px);background:#f2efea;color:var(--ink)}
+.engineering-steps header h2{font-size:clamp(32px,4vw,56px);font-weight:500;letter-spacing:-.05em;line-height:1.12;margin:16px 0 28px}
+.engineering-steps header em{font-style:normal;color:#74706b}
+.engineering-step-tabs{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));border-top:1px solid #ccc5bd;border-bottom:1px solid #ccc5bd}
+.engineering-step-tabs button{min-width:0;padding:18px 12px;text-align:left;font-size:15px;line-height:1.5;border-bottom:3px solid transparent}
+.engineering-step-tabs button>span{display:block;color:#81776e;font-size:11px;margin-bottom:6px;letter-spacing:.1em}
+.engineering-step-tabs button[aria-selected=true]{border-bottom-color:var(--brand);background:#a8180009;color:var(--brand)}
+.engineering-step-panel{display:grid;grid-template-columns:140px minmax(0,1fr);gap:32px;align-items:start;padding:32px 0 8px;min-height:265px;touch-action:pan-y}
+.engineering-step-number{font-size:clamp(66px,8vw,110px);line-height:1;letter-spacing:-.08em;color:var(--brand)}
+.engineering-step-panel h3{font-size:clamp(32px,4vw,54px);line-height:1.1;letter-spacing:-.05em;margin:0 0 14px}
+#main .engineering-step-panel p{max-width:70ch;font-size:17px;line-height:1.7;margin:8px 0;color:#605c56}
+.engineering-step-panel .text-link{margin-top:16px}
+.home-page #expertise.expertise-experience{--expertise-orange:#f3a18b;--expertise-muted:#cbc3bb;background:#22291f;padding-block:36px}
+.home-page #expertise .expertise-heading-line:last-child{color:#c7beb6}
+.home-page #expertise .expertise-ambient{background:radial-gradient(ellipse,#a818001c,transparent 65%)}
+.home-page #expertise .expertise-hotspot.is-active{border-color:#d8715b}
+/* Give the expertise photograph a larger card, including on short desktops. */
+@media(min-width:1200px){
+  .home-page #expertise .expertise-arena{height:clamp(600px,76svh,800px)}
+  .home-page #expertise .expertise-visual{left:21%;top:6%;width:58%;height:80%}
+  .home-page #expertise .expertise-hotspot{max-width:16%}
+  .home-page #expertise .hotspot-0,.home-page #expertise .hotspot-2,.home-page #expertise .hotspot-4{left:0}
+  .home-page #expertise .hotspot-1,.home-page #expertise .hotspot-3,.home-page #expertise .hotspot-5{right:0}
+  .home-page #expertise .hotspot-6{top:90%;max-width:320px}
+}
+@media(min-width:641px) and (max-width:1199px){
+  .home-page #expertise .expertise-visual{width:94%;aspect-ratio:6/5}
+}
+@media(max-width:640px){.home-page #expertise .expertise-visual{width:96%;aspect-ratio:1/1}}
+.home-page .projects-section.section{padding-block:40px}
+.home-page .projects-section .section-heading{margin-bottom:24px;padding-bottom:0}
+.home-page .projects-section .perspective-bottom{margin-top:24px}
+.home-page .industries-home .industry-windows{grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);align-items:start}
+.home-page .industries-home .industry-windows .iw-stage{height:560px;min-height:0}
+.industry-windows{--iw-accent:var(--brand)}
+.industry-windows .iw-selector button[aria-selected=true]{background:#a8180009;border-left-color:var(--brand)}
+.industry-matrix>a>img{width:min(42vw,560px);height:330px;object-fit:cover;z-index:3;pointer-events:none;border-radius:8px;box-shadow:0 20px 50px #0003}
+.ac-comet-cursor .ac-comet-trail,.ac-comet-cursor .ac-comet-arrow{display:none!important}
+.ac-comet-cursor .ac-comet-core,.ac-comet-cursor[data-mode] .ac-comet-core{width:28px;height:30px;left:-7px;top:-4px;border:0;border-radius:0;opacity:1;background:transparent url('./assets/images/logo.png') left center/100px auto no-repeat;box-shadow:none;filter:drop-shadow(0 1px 1px #ffffffb3);transition:transform .2s}
+.ac-comet-cursor[data-mode=button] .ac-comet-core,.ac-comet-cursor[data-mode=link] .ac-comet-core{transform:scale(1.15)}
+.ac-comet-cursor .ac-comet-view{left:27px;top:7px;color:var(--brand);background:#fff;padding:3px;border-radius:3px}
+:is(.review-controls,.approach-tabs,.engineering-step-tabs,.opening-playback) :focus-visible,.opening-playback:focus-visible{outline:2px solid #e68d70;outline-offset:4px}
+@keyframes review-image-in{from{opacity:.35}to{opacity:1}}
+@media(max-width:1100px){.header .header-socials{gap:10px}.header .header-socials a{width:32px}.engineering-step-tabs button{font-size:13px;padding:14px 8px}.home-page .industries-home .industry-windows .iw-stage{height:500px}}
+@media(min-width:1200px) and (max-width:1350px){.header .primary-nav{font-size:14px;gap:14px;margin-inline:14px}.header>a:first-child img{width:155px}.header .header-socials{gap:8px}}
+@media(max-width:760px){
+  .approach-section{grid-template-columns:1fr;padding-block:32px;gap:24px}
+  .approach-image{height:300px}
+  .approach-panel{min-height:155px}
+  .approach-content h2{margin-bottom:20px}
+  #main .approach-panel p,#main .engineering-step-panel p{font-size:16px}
+  .engineering-steps{padding:32px 22px}
+  .engineering-step-tabs{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .engineering-step-tabs button{font-size:13px;padding:12px 8px}
+  .engineering-step-panel{grid-template-columns:58px minmax(0,1fr);gap:16px;min-height:310px;padding-top:24px}
+  .engineering-step-number{font-size:54px}
+  .review-controls>span{font-size:11px}
+  .opening-playback{bottom:18px;right:22px;padding:8px 12px}
+  .home-page .industries-home .industry-windows{grid-template-columns:1fr}
+  .home-page .industries-home .industry-windows .iw-stage{height:430px}
+  .industry-matrix>a>img{display:block;position:relative;inset:auto;grid-column:1/-1;grid-row:auto;width:100%;height:260px;transform:none;margin-top:12px}
+  .header .header-socials{gap:6px}
+  .header .header-socials a{width:29px;height:40px}
+  .header .header-socials svg{width:22px;height:22px}
+}
+@media(max-width:380px){.header>a:first-child img{width:112px}.header .header-right{gap:6px}.header .header-socials{gap:2px}.header .header-socials a{width:27px}.approach-tabs button{font-size:11px;padding:8px}.engineering-step-tabs button{font-size:12px}}
+@media(prefers-reduced-motion:reduce){.opening-frame,.approach-image img{animation:none;transition:none}}

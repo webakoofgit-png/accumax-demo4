@@ -16,8 +16,6 @@
 .projects-section .perspective-service-media>img{width:100%;height:100%;object-fit:cover;filter:none;transition:transform .7s cubic-bezier(.22,1,.36,1)}
 .projects-section .perspective-image-overlay{position:absolute;inset:0;display:flex;align-items:flex-end;padding:24px;isolation:isolate;background:linear-gradient(180deg,#0000004d,#000000aa 40%,#000000f5);opacity:0;transition:opacity .4s;pointer-events:none}
 .projects-section .perspective-service-arrow{position:absolute;top:16px;right:16px;display:grid;place-items:center;width:44px;height:44px;border:1px solid #ffffff80;border-radius:50%;background:#00000080;color:#fff;pointer-events:none}
-.projects-section .perspective-overlay-watermark{position:absolute;z-index:-1;top:16%;left:16%;width:68%;opacity:.16}
-.projects-section .perspective-overlay-watermark img{width:100%;height:auto;object-fit:contain;filter:brightness(0) invert(1)}
 .projects-section .perspective-overlay-copy{transform:translateY(10px);transition:transform .4s cubic-bezier(.22,1,.36,1)}
 .projects-section .perspective-overlay-copy strong{display:block;color:#fff;font-size:clamp(22px,2vw,30px);font-weight:600;line-height:1.2;letter-spacing:-.035em}
 #main .projects-section .perspective-overlay-copy p{color:#fff;font-size:15px;line-height:1.65;margin:12px 0 0}
