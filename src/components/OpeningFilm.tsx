@@ -3,7 +3,7 @@ import { useReducedMotion } from 'framer-motion';
 import installation from '../assets/images/gallery/9.jpg';
 import testing from '../assets/images/hero-testing.jpg';
 import solar from '../assets/images/products/solar-and-ev-station.jpg';
-import film from '../assets/home banners/home page banner video.mp4';
+import film from '../assets/home banners/home-banner-web.mp4';
 
 export function OpeningFilm({ poster }: { poster: string }) {
   const reduced = useReducedMotion();
