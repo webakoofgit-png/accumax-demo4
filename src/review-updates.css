@@ -1,5 +1,7 @@
 /* ACPL review, 03 November 2026. Exact previously shared palette is pending. */
 :root{--brand:#a81800;--paper:#faf9f6;--ink:#242522;--line:#dedbd4}
+#main .home-page .image-break>img{filter:brightness(1.12) saturate(1.08);object-position:right center}
+#main .home-page .image-break>div{background:linear-gradient(90deg,#07100bf2 0%,#07100bdb 34%,#07100b66 60%,#07100b00 100%)}
 #main[data-route="/projects"]{padding-top:69px}
 #main .project-listing.section{padding-top:24px}
 .project-listing-heading{margin-bottom:28px}
@@ -40,7 +42,7 @@
 #root .contact-band h2{font-size:clamp(16px,4.6vw,74px);line-height:1.15;letter-spacing:-.045em;white-space:nowrap}
 #main .home-page .hero-banner .hero-copy{width:100%;padding-inline:max(20px,5.2vw);text-align:center}
 #main .home-page .hero-banner .hero-copy>.eyebrow{justify-content:center}
-#main .home-page .hero-banner::before{background:linear-gradient(90deg,#060d1499,#060d148c 50%,#060d1499)}
+#main .home-page .hero-banner::before{background:linear-gradient(90deg,#060d1466,#060d1460 50%,#060d1466)}
 #main .home-page .hero-banner h1.hero-single-line{font-size:clamp(12px,3.9vw,72px);font-weight:700;line-height:1.15;white-space:nowrap;letter-spacing:-.045em;color:#fff;text-shadow:0 3px 20px #0009}
 #main .home-page .hero-banner .hero-copy>p{margin-inline:auto;max-width:780px;color:#fff;text-shadow:0 2px 8px #0009}
 #main .home-page .hero-banner .hero-actions{justify-content:center;gap:14px;flex-wrap:wrap}
@@ -130,7 +132,7 @@ footer .footer-bottom{padding-top:14px;gap:12px}
 .opening-montage{position:absolute;inset:0;overflow:hidden}
 .hero .opening-frame{opacity:0;transition:opacity 1s ease;object-fit:cover}
 .hero .opening-frame.is-active{opacity:1}
-.hero .opening-video{object-fit:cover}
+.hero .opening-video{object-fit:cover;filter:brightness(1.04) contrast(1.02) saturate(1.08)}
 .opening-playback{position:absolute;z-index:4;right:max(5.2vw,22px);bottom:28px;display:flex;align-items:center;gap:9px;padding:10px 16px;min-height:44px;border:1px solid #ffffff66;border-radius:30px;background:#17171780;color:#fff;font-size:12px;backdrop-filter:blur(8px)}
 .review-controls{display:flex;align-items:center;gap:12px;margin-top:24px}
 .review-controls button{display:grid;place-items:center;flex-shrink:0;width:44px;height:44px;border:1px solid currentColor;border-radius:50%;background:transparent;color:inherit;transition:background .2s,color .2s}
@@ -305,8 +307,8 @@ dialog.enquiry-popup { border-radius:18px;background:#fafbf8;border-color:#e1e5d
     position:absolute;left:50%;top:32px;transform:translateX(-50%);
     display:flex;align-items:center;justify-content:center;
     width:min(240px,calc(100% - 48px));max-width:none;
-    padding:18px 22px;border-radius:10px;background:#fffffff2;
-    box-shadow:0 8px 28px #00000020;
+    padding:18px 22px;border-radius:0;background:transparent;
+    box-shadow:none;
   }
   .enquiry-popup .enquiry-popup-brand img { width:196px;height:auto;object-fit:contain; }
   .enquiry-popup .enquiry-popup-visual-copy { margin:0; }

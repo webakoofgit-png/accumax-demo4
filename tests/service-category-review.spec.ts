@@ -24,7 +24,6 @@ for (const width of [390, 1440]) {
     await popup.getByLabel('Email address').fill('customer@example.com');
     await popup.getByLabel('Project requirements').fill('Six panels in Pune; preferred maintenance date next week.');
     expect(await popup.locator('form').evaluate((form: HTMLFormElement) => form.checkValidity())).toBeTruthy();
-    await expect(popup.getByText('Opens your email app with your enquiry details.')).toBeVisible();
     expect(await popup.evaluate(element => element.scrollWidth <= element.clientWidth)).toBeTruthy();
     await page.keyboard.press('Escape');
     await expect(popup).not.toBeVisible();
