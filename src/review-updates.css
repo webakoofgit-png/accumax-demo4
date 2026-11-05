@@ -1,5 +1,11 @@
 /* ACPL review, 03 November 2026. Exact previously shared palette is pending. */
 :root{--brand:#a81800;--paper:#faf9f6;--ink:#242522;--line:#dedbd4}
+#main[data-route="/projects"]{padding-top:69px}
+#main .project-listing.section{padding-top:24px}
+.project-listing-heading{margin-bottom:28px}
+.project-listing-heading>.eyebrow{font-weight:600;letter-spacing:.16em}
+.project-listing-heading h1{font-family:'Manrope',Arial,sans-serif;font-size:clamp(36px,4.2vw,60px);font-weight:600;line-height:1.1;letter-spacing:-.055em;margin:10px 0 0}
+@media(max-width:640px){#main[data-route="/projects"]{padding-top:64px}.project-listing-heading h1{font-size:clamp(30px,8.5vw,42px)}}
 #main .contact-layout .contact-phone-line{column-gap:14px}
 #main .contact-layout .contact-phone-numbers{display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
 #main .contact-layout .contact-phone-numbers a{font:inherit}

@@ -63,6 +63,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   COMPANY,
   SERVICES,
+  SERVICE_OPTIONS,
   INDUSTRIES,
   PROJECTS,
   GALLERY,
@@ -1336,6 +1337,7 @@ function Contact({ career = false }: { career?: boolean }) {
   const [prepared, setPrepared] = useState(false);
   const [draft, setDraft] = useState("");
   const query = new URLSearchParams(useLocation().search);
+  const requestedInterest = query.get("service") || query.get("industry") || "";
   return (
     <>
       <PageTop
@@ -1485,30 +1487,13 @@ function Contact({ career = false }: { career?: boolean }) {
             <select
               name="interest"
               required
-              defaultValue={query.get("service") || query.get("industry") || ""}
+              defaultValue={requestedInterest}
             >
               <option value="" disabled>
-                {career ? "Select an area" : "Select a service or industry"}
+                Select a service
               </option>
-              {(career
-                ? [
-                    "Engineering",
-                    "Testing & Commissioning",
-                    "Site Execution",
-                    "Procurement & Export",
-                  ]
-                : SERVICES.map((s) => s.title).concat(
-                    "Operations, Maintenance & AMC",
-                    INDUSTRIES.map((i) => i.name),
-                  )
-              ).map((s) => (
-                <option key={s}>{s}</option>
-              ))}
-              {!career && (
-                <option value="General enquiry">
-                  General enquiry / help me choose
-                </option>
-              )}
+              {requestedInterest && !SERVICE_OPTIONS.includes(requestedInterest) && <option value={requestedInterest}>{requestedInterest}</option>}
+              {SERVICE_OPTIONS.map(title => <option key={title}>{title}</option>)}
             </select>
           </label>
           <label>
@@ -1866,7 +1851,11 @@ export default function App() {
                   title="The shape of possibility."
                   description="Illustrative scope profiles using company archive photographs. Project names, locations and completion details require company verification."
                 />
-                <section className="section">
+                <section className="section project-listing" aria-labelledby="projects-title">
+                  <header className="project-listing-heading">
+                    <span className="eyebrow">FEATURED WORKS</span>
+                    <Heading as="h1" id="projects-title">The shape of possibility.</Heading>
+                  </header>
                   <ProjectCards all />
                 </section>
               </>

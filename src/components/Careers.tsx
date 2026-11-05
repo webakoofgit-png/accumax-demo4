@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { Check, FileText, Mail, Upload, X } from 'lucide-react';
 import { Heading } from './Heading';
-import { COMPANY } from '../data';
+import { COMPANY, SERVICE_OPTIONS } from '../data';
 import teamPhoto from '../assets/images/team1.jpg';
-import { applicationEmail, CAREER_AREAS, CAREER_EXPERIENCE, resumeError, type CareerApplication } from '../careers/application';
+import { applicationEmail, CAREER_EXPERIENCE, resumeError, type CareerApplication } from '../careers/application';
 import './careers.css';
 
 const Required = () => <span className="career-required" aria-hidden="true">*</span>;
@@ -49,12 +49,12 @@ export function Careers() {
         <p>Our work connects engineering, equipment and execution across substations, automation, renewable energy and electrical infrastructure.</p>
         <p>Whether you are starting out or bringing site experience, share your background and the discipline you would like to work in.</p>
         <Heading as="h3">Areas you can contribute</Heading>
-        <ul className="career-disciplines">{CAREER_AREAS.filter(area => area !== 'Other').map(area => <li key={area}><Check size={16} aria-hidden="true" />{area}</li>)}</ul>
+        <ul className="career-disciplines">{SERVICE_OPTIONS.map(area => <li key={area}><Check size={16} aria-hidden="true" />{area}</li>)}</ul>
         <div className="career-direct-contact"><Mail size={20} aria-hidden="true" /><div><strong>Prefer to email us?</strong><a href={`mailto:${COMPANY.emails[0]}?subject=Career%20application`}>{COMPANY.emails[0]}</a><small>Include your introduction and attach your resume.</small></div></div>
       </aside>
 
       <form id="career-application" className="career-form" ref={formRef} onSubmit={prepare} onChange={() => { setDraft(''); setError(''); }} aria-labelledby="career-form-title">
-        <div className="career-form-heading"><span className="eyebrow">CAREER APPLICATION</span><Heading as="h2" id="career-form-title">Tell us about yourself.</Heading><small><Required /> Required fields</small></div>
+        <div className="career-form-heading"><span className="eyebrow">CAREER APPLICATION</span><Heading as="h2" id="career-form-title">Tell us about yourself.</Heading></div>
         <fieldset disabled={busy}>
           <legend><span>01</span> Personal details</legend>
           <div className="career-field-grid">
@@ -68,7 +68,7 @@ export function Careers() {
           <legend><span>02</span> Your background</legend>
           <div className="career-field-grid">
             <label htmlFor="career-education">Education / qualification <Required /><input id="career-education" name="education" placeholder="e.g. Diploma / BE in Electrical Engineering" required maxLength={160} /></label>
-            <label htmlFor="career-interest">Area of interest <Required /><select id="career-interest" name="interest" required defaultValue=""><option value="" disabled>Select a discipline</option>{CAREER_AREAS.map(area => <option key={area}>{area}</option>)}</select></label>
+            <label htmlFor="career-interest">Area of interest <Required /><select id="career-interest" name="interest" required defaultValue=""><option value="" disabled>Select a service</option>{SERVICE_OPTIONS.map(area => <option key={area}>{area}</option>)}</select></label>
             <label htmlFor="career-experience">Total experience <Required /><select id="career-experience" name="experience" required defaultValue=""><option value="" disabled>Select your experience</option>{CAREER_EXPERIENCE.map(value => <option key={value}>{value}</option>)}</select></label>
             <label htmlFor="career-notice">Availability / notice period <span className="career-optional">(optional)</span><select id="career-notice" name="notice" defaultValue=""><option value="">Select availability</option>{['Immediate', 'Within 15 days', 'Within 30 days', 'Within 60 days', 'Within 90 days', 'To be discussed'].map(value => <option key={value}>{value}</option>)}</select></label>
           </div>

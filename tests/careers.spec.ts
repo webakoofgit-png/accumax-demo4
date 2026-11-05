@@ -27,7 +27,8 @@ for (const width of [390, 1200, 1440]) {
     await form.getByLabel('Phone number').fill('+91 98765 43210');
     await form.getByLabel('Current location').fill('Pune, Maharashtra');
     await form.getByLabel('Education / qualification').fill('BE Electrical Engineering');
-    await form.getByLabel('Area of interest').selectOption('Testing & Commissioning');
+    expect((await form.locator('#career-interest option').allTextContents()).slice(1)).toEqual((await page.locator('.enquiry-popup select[name="service"] option').allTextContents()).slice(1));
+    await form.getByLabel('Area of interest').selectOption('Substation Testing & Commissioning');
     await form.getByLabel('Total experience').selectOption('1–3 years');
     await form.getByLabel('Availability / notice period').selectOption('Within 30 days');
     await form.getByLabel('Tell us about your skills and interests').fill('Relay testing and site commissioning experience.');
@@ -57,5 +58,10 @@ for (const width of [390, 1200, 1440]) {
     expect(errors).toEqual([]);
     await form.getByLabel('Full name').fill('Updated Candidate');
     await expect(form.getByRole('status')).toHaveCount(0);
+    await page.goto('/contact');
+    expect((await page.locator('select[name="interest"] option').allTextContents()).slice(1)).toEqual((await page.locator('.enquiry-popup select[name="service"] option').allTextContents()).slice(1));
+    await page.goto('/contact?industry=Data%20Centers');
+    await expect(page.locator('select[name="interest"]')).toHaveValue('Data Centers');
+
   });
 }

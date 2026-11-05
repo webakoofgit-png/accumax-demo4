@@ -32,6 +32,7 @@ export type Service = {
 };
 
 export const SERVICES: Service[] = SERVICE_CONTENT;
+export const SERVICE_OPTIONS = SERVICES.map(service => service.title);
 
 export type Industry = {
   name: string;
@@ -103,7 +104,6 @@ export const INDUSTRIES: Industry[] = [
   { name: "Food & Beverage", image: "/images/portfolio/i3.jpg", applications: "Industrial electrical systems and equipment supply" },
   { name: "Cement Industries", image: "/images/portfolio/i10.jpg", applications: "Substations, electrical works and commissioning" },
   { name: "Metro", image: "/images/portfolio/i11.jpg", applications: "Power infrastructure, substations and electrical works" },
-  { name: "Defence", image: "/images/portfolio/i12.jpg", applications: "Electrical infrastructure, equipment supply and testing" },
   { name: "EV Stations", image: "/images/portfolio/i13.jpg", applications: "Solar generation, charging infrastructure and load management" },
   { name: "Textile Industries", image: "/images/portfolio/i14.jpg", applications: "Electrical installation, substation and AMC requirements" },
   { name: "Mining Industry", image: "/images/portfolio/i15.jpg", applications: "Substation infrastructure, electrical systems and testing" },
