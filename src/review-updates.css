@@ -81,15 +81,18 @@
 /* Stage controls animate independently of the page's normal vertical scroll. */
 #engineering-path[data-enhanced=true] .ke-surface{min-height:460px;max-height:none}
 #engineering-path[data-enhanced=true] .ke-surface:after{content:none;display:none}
-#engineering-path .ke-composition{touch-action:pan-y}
+#engineering-path .ke-composition{touch-action:pan-y;user-select:none;cursor:grab}
+#engineering-path .ke-composition:active{cursor:grabbing}
 #engineering-path .ke-controls{display:flex;align-items:center;gap:12px;margin-top:auto;padding-top:12px}
 #engineering-path .ke-controls>button{display:grid;place-items:center;flex-shrink:0;width:44px;height:44px;border:1px solid #ffffff80;border-radius:50%;color:#fff;background:#0b172b40}
 #engineering-path .ke-controls>button:disabled{opacity:.3;cursor:default}
 #engineering-path .ke-controls>button:not(:disabled):hover{background:#ffffff20}
-#engineering-path .ke-stage-dots{display:flex;flex-wrap:wrap;gap:2px;margin-left:8px}
-#engineering-path .ke-stage-dots button{display:grid;place-items:center;width:28px;height:44px;padding:0}
-#engineering-path .ke-stage-dots button:before{content:'';width:7px;height:7px;border-radius:50%;background:#ffffff60}
-#engineering-path .ke-stage-dots button[aria-pressed=true]:before{background:#fff;box-shadow:0 0 0 3px #ffffff25}
+#engineering-path .ke-stage-tiles{display:flex;gap:8px;min-width:0;overflow-x:auto;overscroll-behavior-x:contain;scrollbar-width:thin;scrollbar-color:#ffffff80 transparent;padding:4px;margin-left:8px}
+#engineering-path .ke-stage-tiles button{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:6px;flex:0 0 auto;min-width:94px;min-height:66px;padding:10px 12px;border:1px solid #ffffff50;border-radius:5px;background:#0b172b80;color:#fff;font-size:11px;line-height:1.3;text-align:left;transition:background .2s,border-color .2s}
+#engineering-path .ke-stage-tiles .ke-tile-number{font-size:10px;letter-spacing:.1em;color:#d1dbdf}
+#engineering-path .ke-stage-tiles button:hover{background:#ffffff20;border-color:#ffffffb3}
+#engineering-path .ke-stage-tiles button[aria-pressed=true]{background:#fff;border-color:#fff;color:#1c2d36}
+#engineering-path .ke-stage-tiles button[aria-pressed=true] .ke-tile-number{color:#a81800}
 #engineering-path .ke-controls button:focus-visible{outline:2px solid #f4a26a;outline-offset:3px}
 @media(max-width:900px){
   #engineering-path[data-enhanced=true] .ke-surface{height:auto;min-height:480px;max-height:none}

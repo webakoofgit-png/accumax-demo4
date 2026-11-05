@@ -11,7 +11,7 @@
 /* Slim, ABB-inspired utility header */
 .header{top:3px;left:0;width:100%;height:69px;padding:0 3.2vw;background:#fff;border:1px solid #ecebe8;border-radius:0;box-shadow:none;backdrop-filter:none;transition:height .25s}
 .header.compact{top:3px;height:62px}
-.header>a:first-child img{width:150px;max-height:44px;object-fit:contain;object-position:left center}
+.header>a:first-child img{width:150px;max-height:44px;object-fit:contain;object-position:left center;transform:scale(1.1);transform-origin:left center}
 .header-right{height:100%;display:flex;align-items:center;gap:24px}
 .explore-toggle{display:flex;align-items:center;gap:12px;font-size:13px;font-weight:600;padding:12px 0;margin-right:10px}
 .explore-toggle svg{stroke-width:1.8}

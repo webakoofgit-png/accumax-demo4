@@ -52,3 +52,67 @@ test('reduced motion and swipes switch stages without a scroll sequence', async 
   await expect(section.getByRole('heading', { name: 'Plan', exact: true })).toBeVisible();
   await expect(page.locator('.pin-spacer')).toHaveCount(0);
 });
+
+test('dragging outside the panel switches stages and tiles stay synchronized', async ({ page }) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.goto('/');
+  await expect(page.locator('.site-preloader')).toHaveCount(0);
+  const section = page.locator('#engineering-path');
+  await section.scrollIntoViewIfNeeded();
+  const panel = await section.locator('.ke-composition').boundingBox();
+  if (!panel) throw new Error('Engineering panel missing');
+  const y = panel.y + panel.height / 2;
+  await page.mouse.move(panel.x + 180, y);
+  await page.mouse.down();
+  await page.mouse.move(panel.x - 20, y, { steps: 8 });
+  await page.mouse.up();
+  await expect(section).toHaveAttribute('data-active', '1');
+  await expect(section.getByRole('button', { name: 'Show Plan', exact: true })).toHaveAttribute('aria-pressed', 'true');
+  expect(await page.evaluate(() => window.getSelection()?.toString())).toBe('');
+  await section.getByRole('button', { name: 'Show Every connection', exact: true }).click();
+  await expect(section.getByRole('button', { name: 'Next engineering stage', exact: true })).toBeDisabled();
+  await section.getByRole('button', { name: 'Show Understand', exact: true }).click();
+  await expect(section.getByRole('button', { name: 'Previous engineering stage', exact: true })).toBeDisabled();
+});
+
+test('native touch swipes navigate both ways while vertical gestures scroll the page', async ({ browser }) => {
+  const context = await browser.newContext({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+  const page = await context.newPage();
+  await page.goto('/');
+  await expect(page.locator('.site-preloader')).toHaveCount(0);
+  await page.locator('.enquiry-popup').evaluate((dialog: HTMLDialogElement) => {
+    new MutationObserver(() => { if (dialog.open) dialog.close(); }).observe(dialog, { attributes: true, attributeFilter: ['open'] });
+    if (dialog.open) dialog.close();
+  });
+  const section = page.locator('#engineering-path');
+  await section.scrollIntoViewIfNeeded();
+  const panel = await section.locator('.ke-composition').boundingBox();
+  if (!panel) throw new Error('Engineering panel missing');
+  const session = await context.newCDPSession(page);
+  const gesture = async (x: number, y: number, dx: number, dy: number) => {
+    await session.send('Input.dispatchTouchEvent', { type: 'touchStart', touchPoints: [{ x, y }] });
+    for (let step = 1; step <= 6; step++) {
+      await session.send('Input.dispatchTouchEvent', { type: 'touchMove', touchPoints: [{ x: x + dx * step / 6, y: y + dy * step / 6 }] });
+    }
+    await session.send('Input.dispatchTouchEvent', { type: 'touchEnd', touchPoints: [] });
+  };
+  const y = panel.y + panel.height / 2;
+  await gesture(310, y, -210, 3);
+  await expect(section).toHaveAttribute('data-active', '1');
+  await gesture(100, y, 210, 3);
+  await expect(section).toHaveAttribute('data-active', '0');
+  const scrollBefore = await page.evaluate(() => scrollY);
+  await gesture(200, y, 3, -100);
+  await expect.poll(() => page.evaluate(() => scrollY)).toBeGreaterThan(scrollBefore + 30);
+  await expect(section).toHaveAttribute('data-active', '0');
+  const finalTile = section.getByRole('button', { name: 'Show Every connection', exact: true });
+  await finalTile.focus();
+  await page.keyboard.press('Enter');
+  await expect(finalTile).toHaveAttribute('aria-pressed', 'true');
+  const tiles = await section.locator('.ke-stage-tiles').boundingBox();
+  const tile = await finalTile.boundingBox();
+  expect(tile!.x).toBeGreaterThanOrEqual(tiles!.x);
+  expect(tile!.x + tile!.width).toBeLessThanOrEqual(tiles!.x + tiles!.width);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy();
+  await context.close();
+});
