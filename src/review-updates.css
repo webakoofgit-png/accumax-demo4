@@ -344,6 +344,7 @@ footer .footer-tagline-connection{display:block}
   font-size:var(--body-copy-size,18px);
   line-height:1.8;
 }
+#root footer .footer-grid .footer-address{color:#242522}
 footer .footer-grid .footer-logo-map {
   display:block;width:100%;max-width:360px;height:200px;
   margin:20px 0 0;border:1px solid #dcded4;border-radius:10px;

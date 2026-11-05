@@ -351,7 +351,7 @@ function Footer() {
             <span className="eyebrow">GET IN TOUCH</span>
             <a href={"mailto:" + COMPANY.emails[0]}>{COMPANY.emails[0]}</a>
             <a href="tel:+919920177441">{COMPANY.phones[0]}</a>
-            <p>{COMPANY.address}</p>
+            <p className="footer-address">{COMPANY.address}</p>
             <a href={COMPANY.mapsUrl} target="_blank" rel="noreferrer">View on Google Maps <ArrowUpRight size={16} /></a>
           </div>
         </div>
