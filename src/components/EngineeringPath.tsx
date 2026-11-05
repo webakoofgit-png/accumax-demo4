@@ -1,8 +1,17 @@
-import { useLayoutEffect, useRef, useState } from 'react';
+import { useLayoutEffect, useRef, useState, type CSSProperties } from 'react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { useReducedMotion } from 'framer-motion';
 import gsap from 'gsap';
 import './engineering-path.css';
+import understandImage from '../assets/Industrial Substation at Sunset.png';
+import planImage from '../assets/images/gallery/4.jpg';
+import engineerImage from '../assets/images/hero-testing.jpg';
+import executeImage from '../assets/images/gallery/12.jpg';
+import testImage from '../assets/images/gallery/9.jpg';
+import deliverImage from '../assets/images/gallery/13.jpg';
+import connectionImage from '../assets/images/transmission-wide.jpg';
+
+export const ENGINEERING_STAGE_IMAGES = [understandImage, planImage, engineerImage, executeImage, testImage, deliverImage, connectionImage] as const;
 
 export const ENGINEERING_STAGES = [
   { title: 'Understand', description: 'Define scope, interfaces and operating requirements.' },
@@ -55,7 +64,7 @@ export function EngineeringPath() {
 
   return <section id="engineering-path" className="kinetic-engineering" ref={root} data-enhanced="true" data-active={active} aria-labelledby="kinetic-engineering-title">
     <h2 id="kinetic-engineering-title" className="ke-sr-only">Kinetic engineering — six stages, one continuous motion.</h2>
-    <div className="ke-surface">
+    <div className="ke-surface" style={{ backgroundImage: `linear-gradient(90deg,#0b172bd9,#0b172b73 65%,#0b172b40),url("${ENGINEERING_STAGE_IMAGES[active]}")` }}>
       <header className="ke-header"><span className="eyebrow">04 / FROM INTENT TO INFRASTRUCTURE</span></header>
       <div className="ke-topline" aria-hidden="true"><span className="ke-counter-label"><span className="ke-counter-window"><span className="ke-counter-track"><span>{String(Math.min(active + 1, last)).padStart(2, '0')}</span></span></span><span className="ke-counter-total">/ 06</span></span></div>
       <div className="ke-composition" onPointerDown={event => {
@@ -78,7 +87,7 @@ export function EngineeringPath() {
         <article className="ke-scene ke-finale" aria-hidden={active !== last}><h3><span className="ke-final-line"><span>Every connection.</span></span><span className="ke-final-line"><span>Considered<span className="ke-final-dot">.</span></span></span></h3><p className="ke-description">A coordinated path from requirements to handover.</p></article>
         </div>
       </div>
-      <div className="ke-controls"><button type="button" aria-label="Previous engineering stage" disabled={active === 0} onClick={() => choose(active - 1)}><ArrowLeft size={20} /></button><button type="button" aria-label="Next engineering stage" disabled={active === last} onClick={() => choose(active + 1)}><ArrowRight size={20} /></button><div className="ke-stage-tiles" role="group" aria-label="Choose an engineering stage">{[...ENGINEERING_STAGES.map(item => item.title), 'Every connection'].map((title, index) => <button type="button" key={title} aria-label={`Show ${title}`} aria-pressed={active === index} onClick={() => choose(index)}><span className="ke-tile-number" aria-hidden="true">{index < last ? String(index + 1).padStart(2, '0') : '✓'}</span><span>{title}</span></button>)}</div></div>
+      <div className="ke-controls"><button type="button" aria-label="Previous engineering stage" disabled={active === 0} onClick={() => choose(active - 1)}><ArrowLeft size={20} /></button><button type="button" aria-label="Next engineering stage" disabled={active === last} onClick={() => choose(active + 1)}><ArrowRight size={20} /></button><div className="ke-stage-tiles" role="group" aria-label="Choose an engineering stage">{[...ENGINEERING_STAGES.map(item => item.title), 'Every connection'].map((title, index) => <button type="button" key={title} aria-label={`Show ${title}`} aria-pressed={active === index} style={{ '--step-thumbnail': `url("${ENGINEERING_STAGE_IMAGES[index]}")` } as CSSProperties} onPointerEnter={event => { if (event.pointerType === 'mouse' && window.matchMedia('(hover: hover) and (min-width: 901px)').matches) choose(index); }} onClick={() => choose(index)}><span className="ke-tile-number" aria-hidden="true">{index < last ? String(index + 1).padStart(2, '0') : '✓'}</span><span>{title}</span></button>)}</div></div>
       <span className="ke-sr-only" role="status" aria-live="polite" aria-atomic="true">{active < last ? `${active + 1} of ${last}: ${ENGINEERING_STAGES[active].title}. ${ENGINEERING_STAGES[active].description}` : 'Every connection. Considered. A coordinated path from requirements to handover.'}</span>
     </div>
   </section>;

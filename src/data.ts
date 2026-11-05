@@ -42,20 +42,57 @@ export type Industry = {
 export type ExpertiseCategory = {
   num: string;
   title: string;
+  slug: string;
+  relatedSlug?: string;
   short: string;
   image: string;
   points: string[];
 };
 
+const category = (num: string, title: string, slug: string): ExpertiseCategory => {
+  const service = SERVICES.find(item => item.slug === slug)!;
+  return { num, title, slug, short: service.short, image: service.image, points: service.capabilities };
+};
+
 export const EXPERTISE_CATEGORIES: ExpertiseCategory[] = [
-  { num: '01', title: 'EPC & Project Execution', short: SERVICES[0].short, image: SERVICES[0].image, points: SERVICES[0].capabilities },
-  { num: '02', title: 'Solar & Renewable Energy', short: SERVICES[6].short, image: SERVICES[6].image, points: SERVICES[6].capabilities },
-  { num: '03', title: 'Substations, GIS & AIS Switchgear', short: SERVICES[5].short, image: SERVICES[5].image, points: SERVICES[5].capabilities },
-  { num: '04', title: 'Operations, Maintenance & AMC', short: 'Annual maintenance support for electrical installations and substation systems.', image: '/images/products/substation-t-and-c.jpg', points: ['Annual Maintenance Contracts for electrical installations.', 'Maintenance planning around the equipment and operating requirements.', 'System audits, protection settings and commissioning coordination.', 'Discuss the site scope, service schedule and support requirements with the team.'] },
-  { num: '05', title: 'Live Electrical Panel Cleaning', short: 'Discuss electrical panel cleaning requirements, equipment suitability and site conditions with our team.', image: '/images/products/scada-and-relay-testing.jpg', points: ['Share panel and equipment details for a scope review.', 'Confirm operating conditions and site safety requirements.', 'Discuss cleaning methods, access and maintenance planning with the team.'] },
-  { num: '06', title: 'Electrical Testing & Commissioning', short: SERVICES[3].short, image: SERVICES[3].image, points: [...SERVICES[3].capabilities, 'Primary, secondary injection and end-to-end relay testing.'] },
-  { num: '07', title: 'Exports & Engineered Products', short: SERVICES[2].short, image: SERVICES[2].image, points: SERVICES[2].capabilities },
+  category('01', 'EPC', 'epc-projects'),
+  category('02', 'Panel Cleaning', 'panel-cleaning'),
+  category('03', 'Substation', 'substation-testing-commissioning'),
+  category('04', 'Relay', 'scada-relay-testing'),
+  category('05', 'Exports', 'export'),
+  category('06', 'Fabrication', 'fabrication-civil-work'),
+  category('07', 'Solar & EV', 'solar-ev-station'),
+  {
+    ...category('08', 'GIS & Trading', 'gis-erection-supervision'),
+    relatedSlug: 'trading',
+    short: 'GIS erection and supervision, alongside electrical equipment, tools and installation material supply.',
+    points: [...SERVICES.find(item => item.slug === 'gis-erection-supervision')!.capabilities,
+      ...SERVICES.find(item => item.slug === 'trading')!.capabilities],
+  },
 ];
+/** Original seven points used by the homepage expertise experience. */
+export const HOME_EXPERTISE_CATEGORIES: ExpertiseCategory[] = [
+  category('01', 'EPC & Project Execution', 'epc-projects'),
+  category('02', 'Solar & Renewable Energy', 'solar-ev-station'),
+  category('03', 'Substations, GIS & AIS Switchgear', 'gis-erection-supervision'),
+  {
+    num: '04', title: 'Operations, Maintenance & AMC', slug: '',
+    short: 'Annual maintenance support for electrical installations and substation systems.',
+    image: '/images/products/substation-t-and-c.jpg',
+    points: ['Annual Maintenance Contracts for electrical installations.', 'Maintenance planning around the equipment and operating requirements.', 'System audits, protection settings and commissioning coordination.', 'Discuss the site scope, service schedule and support requirements with the team.'],
+  },
+  {
+    ...category('05', 'Live Electrical Panel Cleaning', 'panel-cleaning'),
+    short: 'Discuss electrical panel cleaning requirements, equipment suitability and site conditions with our team.',
+    points: ['Share panel and equipment details for a scope review.', 'Confirm operating conditions and site safety requirements.', 'Discuss cleaning methods, access and maintenance planning with the team.'],
+  },
+  {
+    ...category('06', 'Electrical Testing & Commissioning', 'substation-testing-commissioning'),
+    points: [...SERVICES.find(item => item.slug === 'substation-testing-commissioning')!.capabilities, 'Primary, secondary injection and end-to-end relay testing.'],
+  },
+  category('07', 'Exports & Engineered Products', 'export'),
+];
+
 export const INDUSTRIES: Industry[] = [
   { name: "Power Utilities", image: "/images/portfolio/i7.jpg", applications: "GIS and AIS substations, protection testing and automation" },
   { name: "Data Centers", image: "/images/portfolio/i16.jpg", applications: "Electrical EPC, substation systems and E-House solutions" },

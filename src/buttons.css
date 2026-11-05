@@ -156,3 +156,17 @@
     transition: none;
   }
 }
+/* A gentle text movement on the WhatsApp enquiry button. */
+.contact-band .whatsapp-cta-label {
+  display:inline-block;
+  transition:transform .25s ease;
+}
+.contact-band a:is(:hover,:focus-visible) .whatsapp-cta-label {
+  transform:translateX(4px);
+}
+@media(prefers-reduced-motion:reduce) {
+  .contact-band .whatsapp-cta-label {
+    transition:none;
+    transform:none!important;
+  }
+}

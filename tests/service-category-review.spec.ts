@@ -1,0 +1,63 @@
+import { test, expect } from '@playwright/test';
+
+const categories = ['EPC', 'Panel Cleaning', 'Substation', 'Relay', 'Exports', 'Fabrication', 'Solar & EV', 'GIS & Trading'];
+
+for (const width of [390, 1440]) {
+  test('categories and Panel Cleaning enquiry work at ' + width + 'px', async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    const errors: string[] = [];
+    page.on('pageerror', error => errors.push(error.message));
+    await page.goto('/services');
+    await expect(page.locator('.site-preloader')).toHaveCount(0);
+    await expect(page.locator('.service-list > div > a:first-child h3')).toHaveText(categories);
+    await expect(page.getByRole('link', { name: /Explore Trading/ }).first()).toHaveAttribute('href', '/services/trading');
+    const trigger = page.getByRole('button', { name: 'Enquire about Panel Cleaning', exact: true });
+    await trigger.click();
+    const popup = page.getByRole('dialog', { name: /Panel Cleaning enquiry/ });
+    await expect(popup).toBeVisible();
+    await expect(popup.getByLabel('Interested in')).toHaveValue('Panel Cleaning');
+    await expect(page.locator('body')).toHaveCSS('overflow', 'hidden');
+    expect(await popup.locator('form').evaluate((form: HTMLFormElement) => form.checkValidity())).toBeFalsy();
+    await popup.getByLabel('Full name').fill('Panel enquiry');
+    await popup.getByLabel('Phone number').fill('9920177441');
+    await popup.getByLabel('Email address').fill('customer@example.com');
+    await popup.getByLabel('Project requirements').fill('Six panels in Pune; preferred maintenance date next week.');
+    expect(await popup.locator('form').evaluate((form: HTMLFormElement) => form.checkValidity())).toBeTruthy();
+    await expect(popup.getByText('Opens your email app with your enquiry details.')).toBeVisible();
+    expect(await popup.evaluate(element => element.scrollWidth <= element.clientWidth)).toBeTruthy();
+    await page.keyboard.press('Escape');
+    await expect(popup).not.toBeVisible();
+    await expect(trigger).toBeFocused();
+    await expect(page.locator('body')).not.toHaveCSS('overflow', 'hidden');
+    await trigger.click();
+    await expect(popup).toBeVisible();
+    await popup.getByRole('button', { name: 'Close enquiry form', exact: true }).click();
+    await page.getByRole('link', { name: /02 Panel Cleaning/ }).click();
+    await expect(page).toHaveURL(/services\/panel-cleaning$/);
+    await expect(page.getByRole('heading', { level: 2, name: 'Plan panel care around your installation.' })).toBeVisible();
+    await page.getByRole('button', { name: 'Enquire about Panel Cleaning', exact: true }).first().click();
+    await expect(popup).toBeVisible();
+    await page.keyboard.press('Escape');
+    await page.goto('/');
+    await expect(page.locator('.site-preloader')).toHaveCount(0);
+    const label = page.locator('.hero-copy > .eyebrow');
+    expect(parseFloat(await label.evaluate(element => getComputedStyle(element).fontSize))).toBeGreaterThanOrEqual(14);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy();
+    const process = page.locator('#project-management-process');
+    await expect(process.getByRole('heading', { level: 2 })).toHaveText('Project Management Process');
+    await expect(page.locator('#expertise')).toHaveCount(0);
+    await expect(process.locator('.process-stages > button')).toHaveCount(5);
+    await expect(process.locator('.process-detail')).toHaveCount(6);
+    await process.getByRole('button', { name: /Review/ }).click();
+    await expect(process.getByRole('button', { name: /Review/ })).toHaveAttribute('aria-pressed', 'true');
+    await expect(process.locator('.process-detail.is-active h3')).toHaveText('Quality Control');
+    await process.getByRole('button', { name: /Execution/ }).click();
+    await expect(process.locator('.process-detail.is-active')).toHaveCount(2);
+    await expect(process.locator('.process-detail.is-active h3')).toHaveText(['Approval', 'Deployment']);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy();
+    await process.scrollIntoViewIfNeeded();
+    await page.screenshot({ path: 'test-results/service-review-' + width + '.png' });
+    expect(errors).toEqual([]);
+  });
+}

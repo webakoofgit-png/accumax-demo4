@@ -1,0 +1,19 @@
+#root #engineering-path .ke-stage-tiles button{
+  background-color:#172937;
+  background-image:linear-gradient(180deg,#07131e66,#07131edb),var(--step-thumbnail);
+  background-size:cover;
+  background-position:center;
+  color:#fff;
+  text-shadow:0 1px 5px #000b;
+  border-color:#ffffff70;
+  transition:border-color .25s,box-shadow .25s;
+}
+#root #engineering-path .ke-stage-tiles button .ke-tile-number{color:#e1e9ed}
+#root #engineering-path .ke-stage-tiles button:is(:hover,[aria-pressed=true]){
+  background-image:linear-gradient(180deg,#07131e26,#07131ebd),var(--step-thumbnail);
+  color:#fff;
+  border-color:#f3a18b;
+  box-shadow:inset 0 0 0 1px #f3a18b;
+}
+#root #engineering-path .ke-stage-tiles button[aria-pressed=true] .ke-tile-number{color:#fff}
+@media(prefers-reduced-motion:reduce){#root #engineering-path .ke-stage-tiles button{transition:none}}

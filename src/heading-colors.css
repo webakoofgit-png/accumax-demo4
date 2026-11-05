@@ -1,6 +1,7 @@
 /* Shared two-tone palette; each heading retains its existing typography. */
 #root :is(#main, footer, .contact-band, .enquiry-popup) .eyebrow {
   color: var(--brand, #a81800);
+  font-size: 14px;
 }
 
 #root #main :is(.hero-banner, .story, .expertise-experience, .kinetic-engineering, .image-break) .eyebrow {

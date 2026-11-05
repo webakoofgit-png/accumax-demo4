@@ -1,4 +1,24 @@
 /* Consistent content spacing across desktop, tablet and mobile. */
+#main .home-page .clients.section {
+  padding-bottom: 12px;
+}
+
+#main .home-page .clients.section + .home-contact.section {
+  padding-top: 16px;
+}
+
+#main .home-page > .engineering-scroll-scene + .industries-home.section {
+  margin-top: clamp(16px, 2vw, 24px);
+}
+
+#main .home-page .industries-home .section-heading .eyebrow {
+  margin-bottom: 0;
+}
+
+#main .home-page .industries-home .section-heading h2 {
+  margin-top: 10px;
+}
+
 #main {
   --section-space: clamp(32px, 3.2vw, 48px);
 }
@@ -25,6 +45,11 @@
 #main .home-page .why.section {
   min-height: 0;
   justify-content: flex-start;
+  padding-bottom: 16px;
+}
+
+#main .home-page .why.section + .clients.section {
+  padding-top: 20px;
 }
 
 #main .home-page .why h2 {
@@ -60,4 +85,96 @@
   #main .home-page .why h2 {
     margin-block: 16px 24px;
   }
+}
+
+/* Tighten the connected perspective label-to-heading gap. */
+#main .home-page .about-copy > .eyebrow {
+  font-size: 14px;
+}
+
+#main .home-page .about-copy > .eyebrow + h2 {
+  margin-top: 10px;
+}
+
+/* Give the connected perspective copy more room beside the photograph. */
+@media (min-width: 1000px) {
+  #main .home-page .about-block {
+    grid-template-columns: minmax(0, 42fr) minmax(0, 58fr);
+    column-gap: clamp(24px, 2.6vw, 40px);
+    padding-inline: clamp(24px, 3vw, 48px);
+  }
+  #main .home-page .about-copy { min-width: 0; }
+}
+@media (max-width: 640px) {
+  #main .home-page .about-block { row-gap: 24px; }
+}
+
+/* Keep the desktop industries overview within one screen. */
+@media (min-width: 1000px) {
+  #main .home-page .industries-home.section { padding-block:24px; }
+  #main .home-page .industries-home .section-heading { margin-bottom:28px;padding-bottom:0; }
+  #main .home-page .industries-home .industry-windows { gap:clamp(24px,3vw,44px);align-items:stretch; }
+  #main .home-page .industries-home .industry-windows .iw-stage {
+    height:auto;min-height:clamp(360px,calc(100svh - 250px),500px);align-self:stretch;
+  }
+  #main .home-page .industries-home .iw-directory { padding:0; }
+  #main .home-page .industries-home .iw-selector { flex:1; }
+  #main .home-page .industries-home .iw-selector button {
+    min-height:52px;padding:10px 16px;gap:14px;font-size:16px;flex:1 0 auto;
+  }
+  #main .home-page .industries-home .iw-tab-copy small { margin-top:5px;line-height:1.5;max-width:100%; }
+  #main .home-page .industries-home .iw-details { padding-top:12px;flex-shrink:0; }
+  #main .home-page .industries-home .iw-copy { bottom:32px;left:28px;right:28px; }
+  #main .home-page .industries-home .iw-photo-label { margin-bottom:10px; }
+  #main .home-page .industries-home .iw-copy h3 { font-size:clamp(32px,3.2vw,48px); }
+  #root #main .home-page .industries-home .iw-copy p { font-size:14px;line-height:1.55;margin-top:12px; }
+}
+
+@media (min-width:1000px) and (max-height:650px) {
+  #main .home-page .industries-home .iw-selector button {
+    min-height:46px;padding:8px 14px;gap:12px;
+  }
+}
+
+/* One consistent, compact gap between section labels and headings. */
+#root #main .eyebrow:has(+ :is(h1,h2,h3)) {
+  margin-bottom:0;
+}
+#root #main .eyebrow + :is(h1,h2,h3) {
+  margin-top:10px;
+}
+#root .contact-band > .eyebrow {
+  margin-bottom:0;
+}
+#root .contact-band > .eyebrow + div > h2 {
+  margin-top:10px;
+}
+
+/* Show all three contact cards in a single desktop view. */
+@media (min-width:1000px) {
+  #main .home-page .home-contact.section { padding-block:24px; }
+  #main .home-page .home-contact-heading { margin-bottom:16px;padding-bottom:0;gap:0; }
+  #main .home-page .home-contact-grid { gap:24px; }
+  #main .home-page .home-contact-image {
+    height:clamp(150px,min(30svh,calc(100svh - 450px)),280px);aspect-ratio:auto;
+  }
+  #main .home-page .home-contact-card h3 {
+    margin-top:14px;font-size:clamp(24px,2vw,30px);line-height:1.15;
+  }
+  #root #main .home-page .home-contact-card p { margin:8px 0 12px;line-height:1.6; }
+  #main .home-page .home-contact-link { margin-top:auto; }
+}
+@media (min-width:1000px) and (max-height:650px) {
+  #main .home-page .home-contact.section { padding-block:20px; }
+}
+
+/* Keep each contact-card title on one line. */
+#root #main .home-contact-card h3 {
+  white-space:nowrap;font-size:clamp(20px,1.8vw,28px);
+}
+#root #main .home-contact-card h3 > .motion-line {
+  display:inline-block;vertical-align:baseline;
+}
+@media(max-width:640px) {
+  #root #main .home-contact-card h3 { font-size:clamp(18px,5.8vw,24px); }
 }

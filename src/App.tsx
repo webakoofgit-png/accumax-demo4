@@ -1,18 +1,23 @@
 import { Heading } from './components/Heading';
+import { ClientLogoCarousel } from './components/ClientLogoCarousel';
+import { CompanyStats } from './components/CompanyStats';
+import { ProjectPerspectivesGrid } from './components/ProjectPerspectivesGrid';
+import logoMark from './assets/images/logo-mark.svg';
 import { Careers } from './components/Careers';
 import { VideoGallery } from './components/VideoGallery';
 import aboutPerspective from "./assets/home page img/_A CONNECTED PERSPECTIVE.png";
 import homeBanner from "./assets/home banners/banner1.png";
 import { OpeningFilm } from "./components/OpeningFilm";
 import { useHomepageMotion } from "./motion/useHomepageMotion";
-import { ExpertiseExperience } from "./components/ExpertiseExperience";
+import { ProjectManagementProcess } from "./components/ProjectManagementProcess";
 import { IndustryWindows } from "./components/IndustryWindows";
-import { EnquiryPopup } from "./components/EnquiryPopup";
+import { useEnquiry } from "./components/EnquiryPopup";
 import { EngineeringPath } from "./components/EngineeringPath";
 import { CustomCursor } from "./components/CustomCursor";
 import { ABOUT_CONTENT, COMPANY_PROFILE, PAGE_DESCRIPTIONS } from "./company-content";
 import "./components/project-perspectives.css";
 import "./components/story-colors.css";
+import "./components/engineering-step-thumbnails.css";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
   Link,
@@ -300,19 +305,19 @@ function Footer() {
         <p>From a first brief to a defined scope, let&apos;s plan the engineering, site work and equipment your project needs.</p>
         <div className="contact-band-actions">
           <a className="site-cta light" href={COMPANY.whatsapp} target="_blank" rel="noreferrer">
-            Enquire on WhatsApp
+            <span className="whatsapp-cta-label">Enquire on WhatsApp</span>
           </a>
         </div>
       </section>
       <footer className="section">
         <div className="footer-grid">
-          <div>
+          <div className="footer-brand-column">
             <Img src={COMPANY.logo} alt="Accumax Controls" />
-            <p>
-              {COMPANY.tagline}
-              <br />
-              Pune, India. Connected to the world.
+            <p className="footer-tagline">
+              <span className="footer-tagline-main">{COMPANY.tagline} Pune, India.</span>
+              <span className="footer-tagline-connection">Connected to the world.</span>
             </p>
+            <iframe className="office-map footer-logo-map" title="Accumax Controls office location in Kothrud, Pune" src={COMPANY.mapsEmbed} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
           </div>
           <div>
             <span className="eyebrow">EXPLORE</span>
@@ -350,17 +355,6 @@ function Footer() {
             <a href={COMPANY.mapsUrl} target="_blank" rel="noreferrer">View on Google Maps <ArrowUpRight size={16} /></a>
           </div>
         </div>
-        <div className="footer-office-map">
-          <div className="footer-location-details">
-            <span className="eyebrow">OUR OFFICE</span>
-            <a className="footer-map-label" href={COMPANY.mapsUrl} target="_blank" rel="noreferrer" aria-label="View Accumax Controls office on Google Maps">
-              <MapPin size={24} aria-hidden="true" />
-              <span><strong>{COMPANY.short}</strong><small>Saudamini Commercial Complex, Kothrud, Pune</small></span>
-            </a>
-            <a className="site-cta" href={COMPANY.mapsUrl} target="_blank" rel="noreferrer">Get directions</a>
-          </div>
-          <iframe className="office-map" title="Accumax Controls office location in Kothrud, Pune" src={COMPANY.mapsEmbed} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
-        </div>
         <div className="footer-word">
           ACCUMAX<span>&reg;</span>
         </div>
@@ -391,6 +385,7 @@ function Footer() {
   );
 }
 function ServicesList() {
+  const openEnquiry = useEnquiry();
   const [active, setActive] = useState(0);
   return (
     <div className="services-layout">
@@ -403,18 +398,18 @@ function ServicesList() {
             exit={{ opacity: 0 }}
           >
             <Img
-              src={SERVICES[Math.max(0, active)].image}
-              alt={SERVICES[Math.max(0, active)].title}
+              src={EXPERTISE_CATEGORIES[Math.max(0, active)].image}
+              alt={EXPERTISE_CATEGORIES[Math.max(0, active)].title}
             />
           </motion.div>
         </AnimatePresence>
         <span className="image-caption">
-          {SERVICES[Math.max(0, active)].num} / ENGINEERED FOR YOUR REQUIREMENTS
+          {EXPERTISE_CATEGORIES[Math.max(0, active)].num} / ENGINEERED FOR YOUR REQUIREMENTS
         </span>
-        <p>{SERVICES[Math.max(0, active)].short}</p>
+        <p>{EXPERTISE_CATEGORIES[Math.max(0, active)].short}</p>
       </div>
       <div className="service-list">
-        {SERVICES.map((s, i) => (
+        {EXPERTISE_CATEGORIES.map((s, i) => (
           <div
             className={active === i ? "selected" : ""}
             key={s.slug}
@@ -430,6 +425,8 @@ function ServicesList() {
               <Heading as="h3">{s.title}</Heading>
               <ArrowUpRight />
             </Link>
+            {s.slug === 'panel-cleaning' && <button type="button" className="text-link site-cta" onClick={() => openEnquiry('Panel Cleaning')}>Enquire about Panel Cleaning <ArrowUpRight size={16} /></button>}
+            {s.relatedSlug && <Link className="text-link site-cta" to={'/services/' + s.relatedSlug}>Explore Trading <ArrowUpRight size={16} /></Link>}
             <div className="service-mobile">
               <button
                 onClick={() => setActive(active === i ? -1 : i)}
@@ -651,7 +648,7 @@ function ProjectsSection() {
         onPointerDown={() => { resumeAt.current = Date.now() + 6500; }}
         onPointerUp={() => { resumeAt.current = Date.now() + 6500; }}
         onPointerCancel={() => { resumeAt.current = Date.now() + 6500; }}>
-        {SERVICES.map((s) => (
+        {SERVICES.filter(service => service.slug !== 'trading').map(service => service.slug === 'gis-erection-supervision' ? { ...service, title: 'GIS & Trading' } : service).map((s) => (
           <Link
             className="perspective-service-card"
             key={s.slug}
@@ -713,11 +710,12 @@ function AboutBlock() {
         </Heading>
         <p>{COMPANY_PROFILE.introduction}</p>
         <p>{COMPANY_PROFILE.capabilities}</p>
+        <p>{COMPANY_PROFILE.supply}</p>
         <Link className="button about-story-button" to="/about">
           Discover our story
         </Link>
-        <span className="outline-word" aria-hidden="true">
-          AC
+        <span className="about-brand-watermark" aria-hidden="true">
+          <img src={logoMark} alt="" />
         </span>
       </div>
     </section>
@@ -752,11 +750,11 @@ function Home() {
           </div>
         </div>
       </section>
-      <Story />
       <AboutBlock />
-      <ExpertiseExperience />
-      <ProjectsSection />
-      <CounterBar />
+      <Story />
+      <ProjectManagementProcess />
+      <ProjectPerspectivesGrid />
+      <CompanyStats />
       <div className="engineering-scroll-scene">
         <EngineeringPath />
       </div>
@@ -824,24 +822,7 @@ function Home() {
           <span className="eyebrow">08 / CONNECTIONS BUILT ON TRUST</span>
           <Heading as="h2" className="section-title">Trusted by <em>industry leaders</em></Heading>
         </div>
-        <div className="marquee">
-          <div>
-            {[...CLIENT_LOGOS, ...CLIENT_LOGOS].map((s, i) => (
-              <Img
-                key={i}
-                src={s}
-                className={
-                  /^c(?:[1-9]|1[0-9]|2[0-4])(?:-[^.]*)?\.jpg(?:$|\?)/i.test(
-                    decodeURIComponent(s.split("/").pop() ?? ""),
-                  )
-                    ? "framed-logo"
-                    : ""
-                }
-                alt={`Company client logo ${(i % CLIENT_LOGOS.length) + 1}`}
-              />
-            ))}
-          </div>
-        </div>
+        <ClientLogoCarousel />
       </section>
       <section className="home-contact section">
         <div className="home-contact-heading">
@@ -858,7 +839,7 @@ function Home() {
                 alt="Engineer testing electrical protection equipment"
               />
             </div>
-            <Heading as="h3"><span className="motion-line"><span>Engineering</span></span><span className="motion-line"><span>enquiries</span></span></Heading>
+            <Heading as="h3"><span className="motion-line"><span>Engineering</span></span>{' '}<span className="motion-line"><span>enquiries</span></span></Heading>
             <p>Planning a new installation or upgrading an existing system? Share your scope, site and schedule.</p>
             <span className="home-contact-link site-cta">
               Submit your enquiry <ArrowRight size={18} />
@@ -871,7 +852,7 @@ function Home() {
                 alt="Equipment prepared for export"
               />
             </div>
-            <Heading as="h3"><span className="motion-line"><span>Equipment &amp;</span></span><span className="motion-line"><span>export support</span></span></Heading>
+            <Heading as="h3"><span className="motion-line"><span>Equipment &amp;</span></span>{' '}<span className="motion-line"><span>export support</span></span></Heading>
             <p>
               Send your equipment list, specifications and destination to discuss the right supply scope.
             </p>
@@ -883,7 +864,7 @@ function Home() {
             <div className="home-contact-image">
               <Img src="/images/team1.jpg" alt="Accumax Controls team" />
             </div>
-            <Heading as="h3"><span className="motion-line"><span>Let’s work</span></span><span className="motion-line"><span>together</span></span></Heading>
+            <Heading as="h3"><span className="motion-line"><span>Let’s work</span></span>{' '}<span className="motion-line"><span>together</span></span></Heading>
             <p>Bring your project brief. We will help define the engineering, site or supply support you need.</p>
             <span className="home-contact-link site-cta">
               Get in touch <ArrowRight size={18} />
@@ -1159,13 +1140,6 @@ function About() {
   );
 }
 function ExpertiseList({ animated = false }: { animated?: boolean }) {
-  const destinations: Record<string, string> = {
-    '01': '/services/epc-projects',
-    '02': '/services/solar-ev-station',
-    '03': '/services/gis-erection-supervision',
-    '06': '/services/substation-testing-commissioning',
-    '07': '/services/export',
-  };
   return (
     <div className={`expertise-list${animated ? ' expertise-motion' : ''}`}>
       {EXPERTISE_CATEGORIES.map((item) => (
@@ -1184,7 +1158,7 @@ function ExpertiseList({ animated = false }: { animated?: boolean }) {
                   <li key={point}>{point}</li>
                 ))}
               </ul>
-              {animated && <Link className="text-link site-cta expertise-service-link" to={destinations[item.num] ?? '/contact?service=' + encodeURIComponent(item.title)}>Discuss this expertise <ArrowUpRight size={16}/></Link>}
+              {animated && <Link className="text-link site-cta expertise-service-link" to={'/services/' + item.slug}>Discuss this expertise <ArrowUpRight size={16}/></Link>}
             </div>
             <Img src={item.image} alt={item.title} />
           </div>
@@ -1195,6 +1169,7 @@ function ExpertiseList({ animated = false }: { animated?: boolean }) {
 }
 function ServiceDetail() {
   const { slug } = useParams();
+  const openEnquiry = useEnquiry();
   const s = SERVICES.find((x) => x.slug === slug);
   if (!s) return <NotFound />;
   return (
@@ -1209,9 +1184,7 @@ function ServiceDetail() {
         <div>
           <span className="eyebrow">{s.num} / EXPERTISE</span>
           <Heading as="h2">{s.headline}</Heading>
-          <Button to={"/contact?service=" + encodeURIComponent(s.title)}>
-            Discuss this service
-          </Button>
+          {s.slug === 'panel-cleaning' ? <button type="button" className="button" onClick={() => openEnquiry(s.title)}>Enquire about Panel Cleaning</button> : <Button to={"/contact?service=" + encodeURIComponent(s.title)}>Discuss this service</Button>}
         </div>
         <div>
           <p>{s.intro}</p>
@@ -1233,9 +1206,7 @@ function ServiceDetail() {
             <Heading as="h3" id="service-brief-title">A useful first conversation starts here.</Heading>
             <p>Share what you have available:</p>
             <ul>{s.enquiryItems.map(item => <li key={item}>{item}</li>)}</ul>
-            <Link className="text-link site-cta" to={"/contact?service=" + encodeURIComponent(s.title)}>
-              Tell us about your project <ArrowUpRight size={18} />
-            </Link>
+            {s.slug === 'panel-cleaning' ? <button type="button" className="text-link site-cta" onClick={() => openEnquiry(s.title)}>Tell us about your panels <ArrowUpRight size={18} /></button> : <Link className="text-link site-cta" to={"/contact?service=" + encodeURIComponent(s.title)}>Tell us about your project <ArrowUpRight size={18} /></Link>}
           </aside>
           <p className="fine">
             Indicative scope. Final technical requirements, equipment
@@ -1391,14 +1362,14 @@ function Contact({ career = false }: { career?: boolean }) {
             {COMPANY.emails[0]}
             <ArrowUpRight />
           </a>
-          <a className="contact-line" href="tel:+919920177441">
+          <div className="contact-line contact-phone-line">
             <Phone />
-            {COMPANY.phones[0]}
-          </a>
-          <a className="contact-line" href="tel:+917350200025">
-            <Phone />
-            {COMPANY.phones[1]}
-          </a>
+            <span className="contact-phone-numbers">
+              <a href="tel:+919920177441">{COMPANY.phones[0]}</a>
+              <span aria-hidden="true">/</span>
+              <a href="tel:+917350200025">{COMPANY.phones[1]}</a>
+            </span>
+          </div>
           <div className="contact-line">
             <MapPin />
             <p>{COMPANY.address}</p>
@@ -1527,7 +1498,7 @@ function Contact({ career = false }: { career?: boolean }) {
                     "Procurement & Export",
                   ]
                 : SERVICES.map((s) => s.title).concat(
-                    EXPERTISE_CATEGORIES[3].title,
+                    "Operations, Maintenance & AMC",
                     INDUSTRIES.map((i) => i.name),
                   )
               ).map((s) => (
@@ -1835,7 +1806,6 @@ export default function App() {
       <Seo />
       <SitePreloader />
       <CustomCursor />
-      <EnquiryPopup />
       <motion.div
         className="scroll-progress"
         style={{ scaleX: scrollYProgress }}

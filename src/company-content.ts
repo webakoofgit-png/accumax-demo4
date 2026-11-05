@@ -15,32 +15,32 @@ export const ABOUT_CONTENT = {
   capabilities: [
     {
       title: 'Substations & project execution',
-      text: 'GIS and AIS substations, E-House solutions and EPC coordination, supported by civil and electrical works, custom steel fabrication and GIS installation supervision.',
+      text: 'GIS and AIS substations, E-House solutions and EPC coordination, with civil works, steel fabrication, electrical installation and GIS supervision.',
       to: '/services/epc-projects',
     },
     {
       title: 'Automation & protection',
-      text: 'SCADA and Substation Automation Systems connect monitoring with control. Relay programming, protection setting calculations and system audits support the electrical protection scope.',
+      text: 'SCADA and substation automation connect monitoring and control, supported by relay programming, protection settings and system audits.',
       to: '/services/scada-relay-testing',
     },
     {
       title: 'Testing & commissioning',
-      text: 'Testing and commissioning for substation equipment, automation and E-House systems, with primary injection, secondary injection and end-to-end relay testing within the agreed scope.',
+      text: 'Testing and commissioning for substation equipment, automation and E-House systems, including primary injection, secondary injection and end-to-end relay testing.',
       to: '/services/substation-testing-commissioning',
     },
     {
       title: 'Solar & EV infrastructure',
-      text: 'Solar generation and EV charging planned around the site. Inverter systems, charging loads, storage options and grid interfaces are considered against the operating requirements.',
+      text: 'Solar generation and EV charging planned around site requirements, with inverter systems, storage, charging loads and grid interfaces considered together.',
       to: '/services/solar-ev-station',
     },
     {
       title: 'Maintenance & technical support',
-      text: 'Annual maintenance support for electrical installations and substations. Discuss the equipment, operating conditions, maintenance schedule and system audit requirements with our team.',
+      text: 'Annual maintenance for substations and electrical installations, covering equipment reviews, operating conditions, service schedules and system audit requirements.',
       to: '/contact?service=Operations%2C%20Maintenance%20%26%20AMC',
     },
     {
       title: 'Equipment supply & exports',
-      text: 'Import, export and trading of substation components, testing kits, panels, cables and accessories, alongside site tools, safety equipment, construction materials and FRP products.',
+      text: 'Import, export and trading of electrical equipment, testing kits, panels, cables and accessories, plus tools, safety equipment, construction materials and FRP products.',
       to: '/services/export',
     },
   ],

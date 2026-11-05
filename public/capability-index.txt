@@ -1,14 +1,14 @@
 ﻿ACCUMAX CONTROLS PVT. LTD. — SERVICE INDEX
 Service overview based on the company's published information.
 
-01 EPC Projects - Connect design, equipment procurement, civil and electrical construction, installation and handover in one project scope.
-02 SCADA & Relay Testing - Monitoring and control integration, substation automation, relay programming, protection settings and injection/end-to-end testing.
-03 Export - Source substation equipment, testing kits, panels, cables, installation accessories, tools, PPE and FRP products to your specification.
-04 Substation Testing & Commissioning - Coordinate GIS, AIS, automation and E-House commissioning with system audits and protection checks.
-05 Fabrication & Civil Work - Customised steel fabrication and substation civil works coordinated with electrical installation requirements.
-06 GIS Erection & Supervision - Module alignment, SF6 handling, connections, testing supervision, operator guidance and handover documentation.
-07 Solar & EV Station - Plan solar generation and EV charging with storage, load management and grid options reviewed for the site.
-08 Trading - Source electrical equipment, installation accessories, site tools and construction materials around your bill of materials.
+01 EPC - Connect design, equipment procurement, civil and electrical construction, installation and handover in one project scope.
+02 Panel Cleaning - Discuss electrical panel details, equipment suitability, site conditions, access and maintenance scheduling with our team.
+03 Substation - Coordinate GIS, AIS, automation and E-House testing and commissioning with system audits and protection checks.
+04 Relay - SCADA monitoring and control integration, substation automation, relay programming, protection settings and injection/end-to-end testing.
+05 Exports - Source substation equipment, testing kits, panels, cables, installation accessories, tools, PPE and FRP products to your specification.
+06 Fabrication - Customised steel fabrication and substation civil works coordinated with electrical installation requirements.
+07 Solar & EV - Plan solar generation and EV charging with storage, load management and grid options reviewed for the site.
+08 GIS & Trading - GIS erection and supervision, plus electrical equipment, installation accessories, site tools and construction material supply.
 
 START THE CONVERSATION
 Share your site location, technical brief or equipment list, required scope and target schedule.

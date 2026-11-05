@@ -16,6 +16,19 @@ export const SERVICE_CONTENT: Service[] = [
     enquiryItems: ['Project location and target completion date', 'Single-line diagram or initial technical brief', 'Engineering, procurement and construction scope', 'Customer specifications and site constraints'],
   },
   {
+    slug: 'panel-cleaning', num: '09', title: 'Panel Cleaning', image: '/images/products/scada-and-relay-testing.jpg',
+    headline: 'Plan panel care around your installation.',
+    short: 'Discuss electrical panel cleaning, equipment suitability and site requirements with our team.',
+    intro: 'Share your panel details and operating conditions so the team can review the cleaning scope, access and maintenance requirements. The method and work schedule are agreed around the equipment and site conditions.',
+    capabilities: ['Panel and equipment scope review', 'Site access and operating-condition review', 'Cleaning method and equipment suitability discussion', 'Maintenance and work scheduling coordination'],
+    details: [
+      { title: 'Start with the equipment', text: 'Tell us the panel type, quantity, condition and installation environment. These details help the team understand the cleaning requirement.' },
+      { title: 'Agree the site plan', text: 'Discuss isolation requirements, access, site procedures and the preferred maintenance window before work is scheduled.' },
+    ],
+    applications: 'Electrical panels in industrial facilities, commercial installations and substation environments.',
+    enquiryItems: ['Panel type, quantity and condition', 'Site location and operating environment', 'Access and isolation requirements', 'Preferred maintenance date or service schedule'],
+  },
+  {
     slug: 'scada-relay-testing', num: '02', title: 'SCADA & Relay Testing', image: '/images/products/scada-and-relay-testing.jpg',
     headline: 'See the system. Check the protection.',
     short: 'Connect real-time monitoring with relay testing, protection settings and substation automation.',
@@ -29,7 +42,7 @@ export const SERVICE_CONTENT: Service[] = [
     enquiryItems: ['Relay make, model and protection functions', 'Approved settings or coordination requirements', 'Single-line diagram and automation architecture', 'Testing scope, site access and outage window'],
   },
   {
-    slug: 'export', num: '03', title: 'Export', image: '/images/products/export-projects.jpg',
+    slug: 'export', num: '03', title: 'Exports', image: '/images/products/export-projects.jpg',
     headline: 'Source the right equipment for your project.',
     short: 'Electrical equipment, testing kits and installation materials sourced around your technical requirements.',
     intro: 'Bring your equipment list to a team that understands the installation around it. Accumax supports export and import requirements for power-sector equipment, electrical goods and construction materials.',
@@ -106,4 +119,5 @@ export const SERVICE_CONTENT: Service[] = [
     applications: 'Electrical installations, substation works, industrial facilities and construction projects.',
     enquiryItems: ['Bill of materials with item quantities', 'Product specifications and approved makes', 'Delivery location and required dates', 'Drawings or datasheets for specialist items'],
   },
+
 ];

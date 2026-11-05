@@ -116,3 +116,37 @@ test('native touch swipes navigate both ways while vertical gestures scroll the 
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy();
   await context.close();
 });
+
+for (const width of [390, 1440]) {
+  test('stage photographs match their thumbnails at ' + width + 'px', async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.goto('/');
+    await expect(page.locator('.site-preloader')).toHaveCount(0);
+    await page.locator('.enquiry-popup').evaluate((dialog: HTMLDialogElement) => {
+      new MutationObserver(() => { if (dialog.open) dialog.close(); }).observe(dialog, { attributes: true, attributeFilter: ['open'] });
+      if (dialog.open) dialog.close();
+    });
+    const section = page.locator('#engineering-path');
+    const surface = section.locator('.ke-surface');
+    const original = await surface.evaluate(element => getComputedStyle(element).backgroundImage);
+    expect(original.replaceAll('%20', ' ')).toContain('Industrial Substation at Sunset.png');
+    const buttons = section.locator('.ke-stage-tiles button');
+    const images: string[] = [];
+    for (let i = 0; i < 7; i++) {
+      const button = buttons.nth(i);
+      if (width === 1440) await button.hover();
+      else await button.click();
+      await expect(section).toHaveAttribute('data-active', String(i));
+      await expect(button).toHaveAttribute('aria-pressed', 'true');
+      const url = await button.evaluate(element => getComputedStyle(element).getPropertyValue('--step-thumbnail').trim());
+      const image = url.slice(5, -2);
+      images.push(image);
+      expect(await surface.evaluate(element => getComputedStyle(element).backgroundImage)).toContain(image);
+      expect(await page.evaluate(src => new Promise<boolean>(resolve => { const img = new Image(); img.onload = () => resolve(img.naturalWidth > 0); img.onerror = () => resolve(false); img.src = src; }), image)).toBeTruthy();
+    }
+    expect(new Set(images).size).toBe(7);
+    await buttons.first().click();
+    expect(await surface.evaluate(element => getComputedStyle(element).backgroundImage)).toBe(original);
+  });
+}

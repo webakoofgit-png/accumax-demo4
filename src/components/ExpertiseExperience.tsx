@@ -5,22 +5,17 @@ import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
 import { useReducedMotion } from 'framer-motion';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { EXPERTISE_CATEGORIES } from '../data';
+import { HOME_EXPERTISE_CATEGORIES as EXPERTISE_CATEGORIES } from '../data';
+import { useEnquiry } from './EnquiryPopup';
 import './expertise-experience.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const photos = import.meta.glob('/src/assets/images/products/*.{jpg,jpeg,png,webp}', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
-const destination: Record<string, string> = {
-  '01': '/services/epc-projects',
-  '02': '/services/solar-ev-station',
-  '03': '/services/gis-erection-supervision',
-  '06': '/services/substation-testing-commissioning',
-  '07': '/services/export',
-};
 const glowPositions = [[-160, -90], [160, -90], [-180, 0], [180, 0], [-140, 90], [140, 90], [0, 130]];
 
 export function ExpertiseExperience() {
+  const openEnquiry = useEnquiry();
   const [active, setActive] = useState(0);
   const [focusWithin, setFocusWithin] = useState(false);
   const [pointerReading, setPointerReading] = useState(false);
@@ -244,7 +239,8 @@ export function ExpertiseExperience() {
         <div className="expertise-selected" id="expertise-selected" role="tabpanel" aria-labelledby={`expertise-tab-${item.num}`} tabIndex={0} onPointerEnter={event => { if (event.pointerType === 'mouse') setPointerReading(true); }} onPointerLeave={() => setPointerReading(false)}>
           <div className="expertise-selected-heading"><Heading as="h3">{item.title}</Heading><div className="expertise-step-controls"><button type="button" aria-label="Previous expertise" onClick={() => choose(active - 1)}><ArrowLeft size={18}/></button><button type="button" aria-label="Next expertise" onClick={() => choose(active + 1)}><ArrowRight size={18}/></button></div></div>
           <div className="expertise-description-mask"><p className="expertise-description-inner">{item.short}</p></div>
-          <Link className="expertise-explore site-cta" to={destination[item.num] ?? '/contact?service=' + encodeURIComponent(item.title)}>Explore Expertise <ArrowUpRight size={18}/></Link>
+          {item.slug === 'panel-cleaning' ? <button type="button" className="expertise-explore site-cta" onClick={() => openEnquiry('Panel Cleaning')}>Enquire about Panel Cleaning <ArrowUpRight size={18}/></button> : <Link className="expertise-explore site-cta" to={item.slug ? '/services/' + item.slug : '/contact?service=' + encodeURIComponent(item.title)}>Explore Expertise <ArrowUpRight size={18}/></Link>}
+          {item.relatedSlug && <Link className="expertise-explore site-cta expertise-related" to={'/services/' + item.relatedSlug}>Explore Trading <ArrowUpRight size={18}/></Link>}
         </div>
       </div>
     </div>

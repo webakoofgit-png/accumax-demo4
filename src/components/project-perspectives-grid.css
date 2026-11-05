@@ -1,0 +1,27 @@
+.service-perspectives{background:#fff}
+#main .service-perspectives>.section-heading .eyebrow{margin-bottom:0}
+#main .service-perspectives>.section-heading h2{margin-top:10px}
+#main .service-perspectives>.section-heading{border-bottom:0;padding-bottom:0}
+#main .service-perspectives>.section-heading::before,
+#main .service-perspectives>.section-heading::after{display:none}
+#main .home-page .service-perspectives-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-auto-flow:row;gap:24px 16px;width:100%;min-width:0}
+#main .service-perspective-card{display:flex;flex-direction:column;position:relative;min-width:0;width:100%;height:auto;overflow:hidden;color:#242522;background:#e5e7d8;text-decoration:none}
+#main .service-perspective-card:nth-child(4n+2){background:#e2e6ed}
+#main .service-perspective-card:nth-child(4n+3){background:#e7d8c5}
+#main .service-perspective-card:nth-child(4n+4){background:#d3e3df}
+#main .service-perspective-photo{position:relative;isolation:isolate;width:100%;aspect-ratio:1/1.1;overflow:hidden}
+#main .service-perspective-photo>img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:cover;transition:transform .5s ease}
+#main .service-perspective-arrow{position:absolute;z-index:2;top:16px;right:16px;display:grid;place-items:center;width:42px;height:42px;border:1px solid #ffffff80;border-radius:50%;color:#fff;background:#10232c73;transition:background .25s}
+#main .service-perspective-overlay{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:24px 20px;background:linear-gradient(180deg,transparent 25%,#000c);color:#fff;opacity:0;transition:opacity .3s}
+#main .service-perspective-overlay>strong{font-family:'Manrope',Arial,sans-serif;font-size:clamp(20px,1.8vw,28px);font-weight:600;line-height:1.2;letter-spacing:-.04em}
+#root #main .service-perspective-overlay>p{font-size:14px;line-height:1.6;color:#fff;margin:12px 0 0}
+#main .service-perspective-card:is(:hover,:focus-visible) .service-perspective-photo>img{transform:scale(1.04)}
+#main .service-perspective-card:is(:hover,:focus-visible) .service-perspective-overlay{opacity:1}
+#main .service-perspective-card:focus-visible{outline:3px solid var(--brand);outline-offset:4px}
+#main .service-perspective-caption{position:relative;flex:1;padding:22px 20px 24px;min-width:0}
+#main .service-perspective-caption>h3{font-size:clamp(21px,1.7vw,27px);line-height:1.25;letter-spacing:-.045em}
+#root #main .service-perspective-caption>p{font-size:14px;line-height:1.7;margin:12px 0 0;color:#536267}
+.service-perspectives-bottom{display:flex;justify-content:center;margin-top:28px}
+@media(max-width:1000px){#main .home-page .service-perspectives-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 16px}}
+@media(max-width:600px){#main .home-page .service-perspectives-grid{grid-template-columns:minmax(0,1fr)}#main .service-perspective-photo{aspect-ratio:1.1/1}#main .service-perspective-caption>h3{font-size:24px}}
+@media(prefers-reduced-motion:reduce){#main .service-perspective-card *{transition:none!important}}

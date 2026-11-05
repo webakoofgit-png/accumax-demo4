@@ -1,5 +1,9 @@
 /* ACPL review, 03 November 2026. Exact previously shared palette is pending. */
 :root{--brand:#a81800;--paper:#faf9f6;--ink:#242522;--line:#dedbd4}
+#main .contact-layout .contact-phone-line{column-gap:14px}
+#main .contact-layout .contact-phone-numbers{display:inline-flex;align-items:center;gap:8px;white-space:nowrap}
+#main .contact-layout .contact-phone-numbers a{font:inherit}
+@media(max-width:480px){#main .contact-layout .contact-phone-numbers{gap:6px;font-size:clamp(12px,3.5vw,16px)}}
 #main[data-route="/gallery"],#main[data-route="/videos"]{padding-top:69px}
 #main .gallery-section.section{padding-top:24px}
 .gallery-heading{margin-bottom:28px}
@@ -218,3 +222,129 @@ footer .footer-bottom{padding-top:14px;gap:12px}
 }
 @media(max-width:380px){.header>a:first-child img{width:112px}.header .header-right{gap:6px}.header .header-socials{gap:2px}.header .header-socials a{width:27px}.approach-tabs button{font-size:11px;padding:8px}.engineering-step-tabs button{font-size:12px}}
 @media(prefers-reduced-motion:reduce){.opening-frame,.approach-image img{animation:none;transition:none}}
+
+/* Banner and service category review, November 2026. */
+#main .home-page .hero-banner .hero-copy > .eyebrow {
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:.45em;
+  font-size:clamp(14px,1.65vw,24px);
+  line-height:1.6;
+  letter-spacing:.12em;
+  font-weight:600;
+  text-wrap:balance;
+}
+#main .home-page .hero-banner h1.hero-single-line {
+  font-size:clamp(25px,4.5vw,80px);
+  white-space:normal;
+  text-wrap:balance;
+}
+.service-list > div > .site-cta { margin:0 0 20px 38px; }
+#expertise .expertise-related { margin-left:12px; }
+.enquiry-popup .enquiry-popup-delivery-note { display:block;font-size:12px;line-height:1.5;color:#64685f;margin:0; }
+@media(max-width:480px) {
+  #expertise .expertise-related { margin:12px 0 0; }
+}
+
+/* Centered enquiry branding and readable Approach copy. */
+dialog.enquiry-popup { border-radius:18px;background:#fafbf8;border-color:#e1e5dc;scroll-padding-top:92px; }
+.enquiry-popup .enquiry-popup-header {
+  position:sticky;top:0;z-index:3;grid-column:1 / -1;
+  display:grid;place-items:center;min-height:88px;padding:18px 68px;
+  background:#fff;border-bottom:1px solid #e6e9e1;
+}
+.enquiry-popup .enquiry-popup-header > img { width:164px;max-width:100%;height:auto;object-fit:contain; }
+.enquiry-popup .enquiry-popup-header-close {
+  position:absolute;right:20px;top:50%;transform:translateY(-50%);
+  display:grid;place-items:center;width:40px;height:40px;padding:0;
+  border:1px solid #dfe4da;border-radius:50%;background:#f4f6f0;color:#636e62;
+}
+.enquiry-popup .enquiry-popup-header-close:hover { background:#e8ede2; }
+.enquiry-popup .enquiry-popup-header-close:focus-visible { outline:2px solid var(--brand);outline-offset:3px; }
+.enquiry-popup .enquiry-popup-visual { min-height:0;justify-content:center;padding:36px;text-align:center; }
+.enquiry-popup .enquiry-popup-visual-copy { margin-top:0; }
+.enquiry-popup .enquiry-popup-visual .two-tone-heading { --heading-primary:#fafbf6;--heading-muted:#dce4d4; }
+.enquiry-popup .enquiry-popup-content { padding:30px 32px; }
+.enquiry-popup #enquiry-popup-title { white-space:normal;font-size:clamp(26px,2.5vw,34px);line-height:1.2;--heading-primary:#4c554e;--heading-muted:#767c71; }
+.enquiry-popup #enquiry-popup-title > span { color:#767c71; }
+.enquiry-popup #enquiry-popup-title > .heading-tone-primary { color:#4c554e; }
+.enquiry-popup #enquiry-popup-intro { color:#687066;font-size:15px;max-width:42ch;margin:12px 0 24px; }
+.enquiry-popup .enquiry-popup-content form label { color:#596159;font-size:14px; }
+.enquiry-popup .enquiry-popup-content :is(input,select,textarea) { color:#596159;background:#fff;border-color:#dce2d6;border-radius:8px; }
+.enquiry-popup .enquiry-popup-content :is(input,textarea)::placeholder { color:#73776f;opacity:1; }
+.enquiry-popup .enquiry-popup-delivery-note { color:#73776f;text-align:center; }
+#main .home-page .story.story--carousel .story-panel > .eyebrow { font-size:clamp(16px,1.4vw,20px);line-height:1.6;letter-spacing:.13em; }
+#main .home-page .story.story--carousel .story-panel p { font-size:clamp(20px,1.8vw,26px);line-height:1.65;color:#e1e6da;max-width:46ch;margin-top:22px; }
+#main .home-page .story.story--carousel .story-panel h2 { --heading-primary:#fafbf6;--heading-muted:#d0d6c7; }
+#main .home-page .story.story--carousel .story-label { color:#d0d6c7;font-size:clamp(11px,1vw,14px);line-height:1.7; }
+#main .home-page .story.story--carousel .story-controls > span { font-size:16px;color:#e1e6da; }
+@media(max-width:760px) {
+  .enquiry-popup .enquiry-popup-header { min-height:80px;padding:16px 60px; }
+  .enquiry-popup .enquiry-popup-header > img { width:148px; }
+  .enquiry-popup .enquiry-popup-header-close { right:14px; }
+  .enquiry-popup .enquiry-popup-content { padding:24px 22px; }
+}
+@media(max-height:540px) {
+  .enquiry-popup .enquiry-popup-header { min-height:64px;padding-block:10px; }
+  .enquiry-popup .enquiry-popup-header > img { width:130px; }
+  #main .home-page .story.story--carousel { row-gap:20px; }
+}
+
+/* Center desktop branding near the top of the photograph. */
+@media(min-width:761px) and (min-height:541px) {
+  .enquiry-popup .enquiry-popup-header { display:none; }
+  .enquiry-popup .enquiry-popup-visual { position:relative;justify-content:flex-end;min-height:540px; }
+  .enquiry-popup .enquiry-popup-brand {
+    position:absolute;left:50%;top:32px;transform:translateX(-50%);
+    display:flex;align-items:center;justify-content:center;
+    width:min(240px,calc(100% - 48px));max-width:none;
+    padding:18px 22px;border-radius:10px;background:#fffffff2;
+    box-shadow:0 8px 28px #00000020;
+  }
+  .enquiry-popup .enquiry-popup-brand img { width:196px;height:auto;object-fit:contain; }
+  .enquiry-popup .enquiry-popup-visual-copy { margin:0; }
+  .enquiry-popup .enquiry-popup-content { padding-top:54px; }
+  .enquiry-popup .enquiry-popup-close { position:absolute;top:14px;right:14px;float:none;margin:0; }
+}
+@media(max-height:540px) {
+  .enquiry-popup .enquiry-popup-content > .enquiry-popup-close { display:none; }
+}
+
+/* Use the logo's A symbol as a soft grey watermark. */
+.about-copy .about-brand-watermark {
+  position:absolute;right:0;bottom:-65px;
+  width:150px;aspect-ratio:1;overflow:hidden;
+  pointer-events:none;z-index:-1;
+}
+.about-copy .about-brand-watermark img {
+  display:block;width:100%;max-width:100%;height:100%;object-fit:contain;
+  opacity:.16;
+}
+
+/* Compact office map directly below the footer logo. */
+footer .footer-grid .footer-brand-column {
+  width:100%;max-width:360px;text-align:center;
+}
+footer .footer-grid .footer-brand-column > img {
+  margin-inline:auto;
+}
+footer .footer-grid .footer-brand-column > p {
+  text-align:center;
+}
+footer .footer-grid .footer-brand-column > .footer-tagline {
+  white-space:normal;
+  font-size:var(--body-copy-size,18px);
+}
+footer .footer-tagline-main{display:inline-block;white-space:nowrap}
+footer .footer-tagline-connection{display:block}
+@media(max-width:640px){footer .footer-tagline-main{white-space:normal}}
+/* Footer copy and links follow the site's shared body typography. */
+#root footer .footer-grid :is(p,a) {
+  font-size:var(--body-copy-size,18px);
+  line-height:1.8;
+}
+footer .footer-grid .footer-logo-map {
+  display:block;width:100%;max-width:360px;height:200px;
+  margin:20px 0 0;border:1px solid #dcded4;border-radius:10px;
+}

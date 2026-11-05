@@ -1,19 +1,31 @@
 import { Heading } from './Heading';
-import { useEffect, useRef } from 'react';
+import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from 'react';
 import { ArrowUpRight, X } from 'lucide-react';
 import { COMPANY, SERVICES } from '../data';
 import projectPhoto from '../assets/images/gallery/3.jpg';
 import companyLogo from '../assets/images/logo.png';
 import './enquiry-popup.css';
 
-export function EnquiryPopup() {
+const EnquiryContext = createContext<(service?: string) => void>(() => {});
+export const useEnquiry = () => useContext(EnquiryContext);
+
+export function EnquiryPopup({ children }: { children: ReactNode }) {
   const dialog = useRef<HTMLDialogElement>(null);
+
+  const [service, setService] = useState('');
+  const manuallyOpened = useRef(false);
+  const openEnquiry = (selectedService = '') => {
+    manuallyOpened.current = true;
+    setService(selectedService);
+    dialog.current?.showModal();
+  };
+  const panelCleaning = service === 'Panel Cleaning';
 
   useEffect(() => {
     let due = false;
     let shown = false;
     const show = () => {
-      if (!due || shown || !dialog.current || document.hidden) return;
+      if (!due || shown || manuallyOpened.current || !dialog.current || document.hidden) return;
       shown = true;
       dialog.current.showModal();
     };
@@ -46,15 +58,15 @@ export function EnquiryPopup() {
     };
   }, []);
 
-  return <dialog className="enquiry-popup" ref={dialog} aria-labelledby="enquiry-popup-title" aria-describedby="enquiry-popup-intro"
+  return <EnquiryContext.Provider value={openEnquiry}>{children}<dialog className="enquiry-popup" ref={dialog} aria-labelledby="enquiry-popup-title" aria-describedby="enquiry-popup-intro"
     onClick={event => { if (event.target === event.currentTarget) {
       const bounds = event.currentTarget.getBoundingClientRect();
       if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) dialog.current?.close();
     } }}>
     <div className="enquiry-popup-shell">
-    <div className="enquiry-popup-mobile-header">
+    <div className="enquiry-popup-header">
       <img src={companyLogo} alt="Accumax Controls Private Limited"/>
-      <button type="button" className="enquiry-popup-mobile-close" aria-label="Close enquiry form" onClick={() => dialog.current?.close()}><X size={20}/></button>
+      <button type="button" className="enquiry-popup-header-close" aria-label="Close enquiry form" onClick={() => dialog.current?.close()}><X size={20}/></button>
     </div>
     <aside className="enquiry-popup-visual" aria-label="Accumax engineering">
       <img src={projectPhoto} alt="" loading="lazy"/>
@@ -63,13 +75,13 @@ export function EnquiryPopup() {
     </aside>
     <div className="enquiry-popup-content">
       <button type="button" className="enquiry-popup-close" aria-label="Close enquiry form" onClick={() => dialog.current?.close()}><X size={22}/></button>
-      <Heading as="h2" id="enquiry-popup-title">Project <span>enquiry.</span></Heading>
-      <p id="enquiry-popup-intro">Tell us about your project. Our team will help you take the next step.</p>
+      <Heading as="h2" id="enquiry-popup-title">{panelCleaning ? 'Panel Cleaning ' : 'Project '}<span>enquiry.</span></Heading>
+      <p id="enquiry-popup-intro">{panelCleaning ? 'Share your panel details, site location and preferred schedule. Our team will help define the cleaning scope.' : 'Tell us about your project. Our team will help you take the next step.'}</p>
       <form onSubmit={event => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         const body = ['Name: ' + data.get('name'), 'Email: ' + data.get('email'), 'Phone: ' + data.get('phone'), 'Service: ' + (data.get('service') || 'General enquiry'), '', 'Requirements:', String(data.get('message'))].join('\n');
-        window.location.href = `mailto:${COMPANY.emails[0]}?subject=${encodeURIComponent('Engineering project enquiry')}&body=${encodeURIComponent(body)}`;
+        window.location.href = `mailto:${COMPANY.emails[0]}?subject=${encodeURIComponent(panelCleaning ? 'Panel Cleaning enquiry' : 'Engineering project enquiry')}&body=${encodeURIComponent(body)}`;
       }}>
         <div className="enquiry-popup-row">
           <label><span className="enquiry-popup-label-text">Full name<span aria-hidden="true">*</span></span><input name="name" autoComplete="name" required maxLength={100} placeholder="Your name"/></label>
@@ -77,13 +89,13 @@ export function EnquiryPopup() {
         </div>
         <div className="enquiry-popup-row">
           <label><span className="enquiry-popup-label-text">Email address<span aria-hidden="true">*</span></span><input name="email" type="email" autoComplete="email" required maxLength={200} placeholder="you@company.com"/></label>
-          <label>Interested in<select name="service" defaultValue=""><option value="">Select a service</option>{SERVICES.map(service => <option key={service.slug}>{service.title}</option>)}</select></label>
+          <label>Interested in<select name="service" value={service} onChange={event => setService(event.target.value)}><option value="">Select a service</option>{SERVICES.map(service => <option key={service.slug}>{service.title}</option>)}</select></label>
         </div>
-        <label><span className="enquiry-popup-label-text">Project requirements<span aria-hidden="true">*</span></span><textarea name="message" required rows={3} maxLength={3000} placeholder="Tell us what you’re planning…"/></label>
+        <label><span className="enquiry-popup-label-text">Project requirements<span aria-hidden="true">*</span></span><textarea name="message" required rows={3} maxLength={3000} placeholder={panelCleaning ? "Panel type, quantity, site location and preferred date" : "Tell us what you are planning"}/></label>
         <button className="enquiry-popup-submit" type="submit">Send enquiry <ArrowUpRight size={18}/></button>
         <p className="enquiry-popup-delivery-note">Opens your email app with your enquiry details.</p>
       </form>
     </div>
     </div>
-  </dialog>;
+  </dialog></EnquiryContext.Provider>;
 }

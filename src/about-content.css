@@ -89,14 +89,15 @@
 .about-capabilities-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 20px;
+  gap: 16px;
+  grid-auto-rows: 1fr;
 }
 
 .about-capability-card {
   display: flex;
   flex-direction: column;
   min-width: 0;
-  padding: 26px;
+  padding: 20px;
   border: 1px solid #dce0d2;
   border-radius: 8px;
   background: #fafaf6;
@@ -108,14 +109,14 @@
   font-size: 23px;
   line-height: 1.25;
   letter-spacing: -.025em;
-  margin: 0 0 14px;
+  margin: 0 0 10px;
 }
 
-.about-capability-card p {
+#root #main .about-capability-card p {
   font-size: 16px;
-  line-height: 1.7;
-  text-align: justify;
-  margin: 0 0 20px;
+  line-height: 1.6;
+  text-align: left;
+  margin: 0 0 16px;
   color: #555c4d;
 }
 
@@ -141,6 +142,6 @@
   }
 
   .about-capability-card {
-    padding: 22px;
+    padding: 20px;
   }
 }
