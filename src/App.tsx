@@ -1184,7 +1184,7 @@ function ServiceDetail() {
           <span className="eyebrow">{s.num} / EXPERTISE</span>
           <Heading as="h2">{s.slug === 'epc-projects' ? <>One project.<br/><em>Every stage<br/>connected.</em></> : s.headline}</Heading>
         </div>
-        <div className={s.slug === 'epc-projects' ? 'service-overview-intro service-overview-intro--epc' : 'service-overview-intro'}>
+        <div className="service-overview-intro">
           <p>{s.intro}</p>
           {s.slug === 'panel-cleaning' ? <button type="button" className="button" onClick={() => openEnquiry(s.title)}>Enquire about Panel Cleaning</button> : <Button to={"/contact?service=" + encodeURIComponent(s.title)}>Discuss this service</Button>}
         </div>

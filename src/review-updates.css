@@ -70,7 +70,7 @@
 .service-explore-more>.eyebrow{margin-bottom:24px}
 .service-preview>p{max-width:none;width:100%;margin:12px 0 0}
 #root #main .service-list h3{--heading-primary:#242522;--heading-muted:#242522;color:#242522}
-@media(min-width:641px){.service-overview-intro--epc{padding-top:40px}}
+@media(min-width:641px){.service-overview-intro{padding-top:40px}}
 .service-overview .service-scope-heading{margin-top:0}
 .service-overview-details>.service-detail-copy{margin-top:0}
 .service-enquiry-brief{padding:24px;background:#eeede7;border-top:2px solid var(--brand);margin:24px 0}
