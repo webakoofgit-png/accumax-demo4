@@ -66,13 +66,29 @@
 .service-detail-copy h3{font-size:clamp(22px,2vw,30px);line-height:1.25;margin-bottom:12px}
 .service-detail-copy p{margin:0}
 .service-scope-heading{font-size:22px;line-height:1.3;margin:24px 0 12px}
+.service-overview{row-gap:32px}
+.service-explore-more>.eyebrow{margin-bottom:24px}
+.service-preview>p{max-width:none;width:100%;margin:12px 0 0}
+#root #main .service-list h3{--heading-primary:#242522;--heading-muted:#242522;color:#242522}
+@media(min-width:641px){.service-overview-intro--epc{padding-top:40px}}
+.service-overview .service-scope-heading{margin-top:0}
+.service-overview-details>.service-detail-copy{margin-top:0}
 .service-enquiry-brief{padding:24px;background:#eeede7;border-top:2px solid var(--brand);margin:24px 0}
+.service-overview>.service-enquiry-brief{grid-column:1 / -1;width:100%;margin:0;padding:clamp(24px,3vw,40px);border:1px solid #deded6;border-top:2px solid var(--brand);border-radius:0}
 .service-enquiry-brief h3{font-size:clamp(22px,2vw,28px);line-height:1.25;margin:12px 0}
 .service-enquiry-brief p{margin:0 0 12px}
 .service-enquiry-brief ul{padding-left:20px;margin:0 0 20px;display:grid;gap:8px}
 .service-enquiry-brief li{font-size:16px;line-height:1.6;color:#44483f}
 .service-enquiry-brief .text-link{max-width:100%;gap:12px;white-space:normal}
 .service-enquiry-brief .text-link svg{flex-shrink:0}
+@media(min-width:761px){
+  .service-overview>.service-enquiry-brief{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px clamp(32px,5vw,80px);align-items:start}
+  .service-overview>.service-enquiry-brief>.eyebrow{grid-column:1;grid-row:1}
+  .service-overview>.service-enquiry-brief>h3{grid-column:1;grid-row:2;margin:0}
+  .service-overview>.service-enquiry-brief>p{grid-column:1;grid-row:3;margin:0}
+  .service-overview>.service-enquiry-brief>ul{grid-column:2;grid-row:1 / 5;align-self:center;margin:0;gap:16px}
+  .service-overview>.service-enquiry-brief>.site-cta{grid-column:1;grid-row:4;justify-self:start;margin-top:6px}
+}
 .home-page{--motion-accent:var(--brand)}
 .home-page .story.story--carousel{display:grid;grid-template-rows:auto minmax(min-content,1fr) auto;row-gap:32px;height:auto;min-height:max(520px,calc(100svh - 64px));padding:40px 6% 30px;touch-action:pan-y}
 .home-page .story.story--carousel .story-panel{position:relative;grid-row:2;align-self:center;min-width:0;top:auto;left:auto;right:auto;margin:0}
@@ -328,9 +344,9 @@ dialog.enquiry-popup { border-radius:18px;background:#fafbf8;border-color:#e1e5d
   .enquiry-popup .enquiry-popup-content > .enquiry-popup-close { display:none; }
 }
 
-/* Justify the Why Accumax descriptions at every screen size. */
-#main .home-page .strengths p {
-  text-align:justify;
+/* Keep paragraph alignment consistent across every page and viewport. */
+#root :is(main,footer,.contact-band,.enquiry-popup) p {
+  text-align:justify!important;
   text-align-last:start;
 }
 

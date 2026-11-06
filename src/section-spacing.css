@@ -20,11 +20,19 @@
 }
 
 #main {
-  --section-space: clamp(32px, 3.2vw, 48px);
+  --section-space: clamp(24px, 2.4vw, 36px);
 }
 
 #main .home-page {
-  --section-space: clamp(32px, 3.2vw, 48px);
+  --section-space: clamp(24px, 2.4vw, 36px);
+}
+
+main[data-route]:not([data-route="/"]) {
+  padding-top:76px;
+}
+
+#main[data-route] > .page-top + .section {
+  padding-top:24px;
 }
 
 #main .home-page .counter-bar + .engineering-scroll-scene {
@@ -73,8 +81,11 @@
 @media (max-width: 640px) {
   #main,
   #main .home-page {
-    --section-space: 28px;
+    --section-space: 22px;
   }
+
+  main[data-route]:not([data-route="/"]) { padding-top:64px; }
+  #main[data-route] > .page-top + .section { padding-top:20px; }
 
   #main .section-heading,
   #main .home-page :is(.section-heading, .clients-heading, .home-contact-heading) {

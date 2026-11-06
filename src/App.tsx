@@ -386,7 +386,6 @@ function Footer() {
   );
 }
 function ServicesList() {
-  const openEnquiry = useEnquiry();
   const [active, setActive] = useState(0);
   return (
     <div className="services-layout">
@@ -426,7 +425,6 @@ function ServicesList() {
               <Heading as="h3">{s.title}</Heading>
               <ArrowUpRight />
             </Link>
-            {s.slug === 'panel-cleaning' && <button type="button" className="text-link site-cta" onClick={() => openEnquiry('Panel Cleaning')}>Enquire about Panel Cleaning <ArrowUpRight size={16} /></button>}
             {s.relatedSlug && <Link className="text-link site-cta" to={'/services/' + s.relatedSlug}>Explore Trading <ArrowUpRight size={16} /></Link>}
             <div className="service-mobile">
               <button
@@ -1181,14 +1179,16 @@ function ServiceDetail() {
         description={s.short}
         image={s.image}
       />
-      <section className="section two-col">
+      <section className="section two-col service-overview">
         <div>
           <span className="eyebrow">{s.num} / EXPERTISE</span>
-          <Heading as="h2">{s.headline}</Heading>
+          <Heading as="h2">{s.slug === 'epc-projects' ? <>One project.<br/><em>Every stage<br/>connected.</em></> : s.headline}</Heading>
+        </div>
+        <div className={s.slug === 'epc-projects' ? 'service-overview-intro service-overview-intro--epc' : 'service-overview-intro'}>
+          <p>{s.intro}</p>
           {s.slug === 'panel-cleaning' ? <button type="button" className="button" onClick={() => openEnquiry(s.title)}>Enquire about Panel Cleaning</button> : <Button to={"/contact?service=" + encodeURIComponent(s.title)}>Discuss this service</Button>}
         </div>
-        <div>
-          <p>{s.intro}</p>
+        <div className="service-overview-scope">
           <Heading as="h3" className="service-scope-heading">What we cover</Heading>
           <ul className="capabilities">
             {s.capabilities.map((c) => (
@@ -1198,10 +1198,13 @@ function ServiceDetail() {
               </li>
             ))}
           </ul>
+        </div>
+        <div className="service-overview-details">
           <div className="service-detail-copy">
             {s.details.map(detail => <div key={detail.title}><Heading as="h3">{detail.title}</Heading><p>{detail.text}</p></div>)}
             <div><Heading as="h3">Where it fits</Heading><p>{s.applications}</p></div>
           </div>
+        </div>
           <aside className="service-enquiry-brief" aria-labelledby="service-brief-title">
             <span className="eyebrow">LET&apos;S DEFINE YOUR SCOPE</span>
             <Heading as="h3" id="service-brief-title">A useful first conversation starts here.</Heading>
@@ -1209,13 +1212,8 @@ function ServiceDetail() {
             <ul>{s.enquiryItems.map(item => <li key={item}>{item}</li>)}</ul>
             {s.slug === 'panel-cleaning' ? <button type="button" className="text-link site-cta" onClick={() => openEnquiry(s.title)}>Tell us about your panels <ArrowUpRight size={18} /></button> : <Link className="text-link site-cta" to={"/contact?service=" + encodeURIComponent(s.title)}>Tell us about your project <ArrowUpRight size={18} /></Link>}
           </aside>
-          <p className="fine">
-            Indicative scope. Final technical requirements, equipment
-            suitability and deliverables are agreed for each enquiry.
-          </p>
-        </div>
       </section>
-      <section className="section">
+      <section className="section service-explore-more">
         <span className="eyebrow">EXPLORE MORE</span>
         <ServicesList />
       </section>
