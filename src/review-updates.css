@@ -347,7 +347,7 @@ dialog.enquiry-popup { border-radius:18px;background:#fafbf8;border-color:#e1e5d
 @media(max-width:640px) {
   .about-copy .about-brand-watermark {
     position:relative;right:auto;bottom:auto;z-index:auto;
-    display:block;width:clamp(100px,30vw,150px);margin:20px 0 0 auto;
+    display:block;width:clamp(80px,24vw,100px);margin:8px 0 0 auto;
   }
 }
 

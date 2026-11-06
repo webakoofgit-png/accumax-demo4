@@ -106,7 +106,7 @@
   #main .home-page .about-copy { min-width: 0; }
 }
 @media (max-width: 640px) {
-  #main .home-page .about-block { row-gap: 24px; }
+  #main .home-page .about-block { row-gap: 24px;padding-bottom:20px; }
 }
 
 /* Keep the desktop industries overview within one screen. */
