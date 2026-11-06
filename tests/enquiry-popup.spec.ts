@@ -9,6 +9,17 @@ for (const width of [390, 1440]) {
     const popup = page.getByRole('dialog', { name: /Project enquiry/ });
     await expect(popup).not.toBeVisible();
     await expect(popup).toBeVisible({ timeout: 15000 });
+    const projectPhoto = popup.locator('.enquiry-popup-visual > img');
+    await expect(projectPhoto).toBeVisible();
+    await expect.poll(() => projectPhoto.evaluate((image: HTMLImageElement) => image.naturalWidth)).toBeGreaterThan(0);
+    if (width === 390) {
+      const visual = popup.locator('.enquiry-popup-visual');
+      const content = popup.locator('.enquiry-popup-content');
+      const visualBounds = await visual.boundingBox();
+      const contentBounds = await content.boundingBox();
+      expect(visualBounds!.height).toBeGreaterThanOrEqual(140);
+      expect(visualBounds!.y + visualBounds!.height).toBeLessThanOrEqual(contentBounds!.y);
+    }
     await expect(page.locator('body')).toHaveCSS('overflow', 'hidden');
     await expect(popup.getByLabel('Full name')).toHaveAttribute('required', '');
     await popup.getByLabel('Full name').fill('Test enquiry');

@@ -51,6 +51,8 @@ export function ProjectManagementProcess() {
         <Heading as="h2" id="project-process-title" className="section-title">Project <em>Management Process</em></Heading>
         <p>A clear path from the first brief to the final handover.</p>
       </header>
+      <div className="process-chart-scroll" role="region" aria-label="Project management flow chart" tabIndex={0}>
+      <div className="process-chart">
       <div className="process-stages" role="group" aria-label="Project management stages">
         {stages.map(({ title, icon: Icon }, index) => <motion.button key={title} type="button"
           aria-pressed={active === index} aria-controls="process-details" onClick={() => setActive(index)}
@@ -72,6 +74,8 @@ export function ProjectManagementProcess() {
           <div className="process-detail-label">{step.title}</div>
           <div className="process-detail-copy"><span className="process-detail-stage">0{step.stage + 1} / {stages[step.stage].title}</span><h3>{step.heading}</h3><p>{step.text}</p></div>
         </motion.article>)}
+      </div>
+      </div>
       </div>
     </div>
   </section>;

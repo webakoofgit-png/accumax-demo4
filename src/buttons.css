@@ -1,4 +1,26 @@
 /* Shared style for calls to action throughout the website. */
+/* The shared CTA uses a warm diamond gradient on every page. */
+.contact-band {
+  --cta-pattern:url('./assets/images/cta-diamonds-compact.svg');
+  isolation:isolate;
+  background-color:#a81800;
+  background-image:linear-gradient(100deg,#951500ad,#b51d04ad 55%,#a81800ad),var(--cta-pattern),linear-gradient(100deg,#951500,#b51d04 55%,#a81800);
+  background-position:center,right top,center;
+  background-size:cover,100% 100%,cover;
+  background-repeat:no-repeat,no-repeat,no-repeat;
+}
+.contact-band::before { content:none; }
+.contact-band::after {
+  content:none;
+}
+@media(max-width:640px) {
+  .contact-band {
+    --cta-pattern:url('./assets/images/cta-diamonds-mobile.svg');
+    background-size:cover,100% auto,cover;
+    background-repeat:no-repeat,repeat-y,no-repeat;
+  }
+}
+
 .floating-whatsapp {
   position: fixed;
   right: max(24px, env(safe-area-inset-right));
@@ -161,8 +183,14 @@
   display:inline-block;
   transition:transform .25s ease;
 }
-.contact-band a:is(:hover,:focus-visible) .whatsapp-cta-label {
+.contact-band a:is(:hover,:focus-visible,:active) .whatsapp-cta-label {
   transform:translateX(4px);
+}
+#root :is(#main, footer, .contact-band, .enquiry-popup) .site-cta.light:has(.whatsapp-cta-label):is(:focus-visible,:active) {
+  background:#f4eee8;
+  color:var(--brand,#a81800);
+  border-color:#f4eee8;
+  box-shadow:0 7px 20px #0003;
 }
 @media(prefers-reduced-motion:reduce) {
   .contact-band .whatsapp-cta-label {

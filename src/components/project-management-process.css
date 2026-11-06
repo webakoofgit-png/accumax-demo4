@@ -1,5 +1,7 @@
 .project-process{background:#fff;overflow:hidden;--process-blue:#368bd0;--process-orange:#ed6425;--process-gold:#eea400}
 .project-process-inner{max-width:1400px;margin-inline:auto}
+.process-chart-scroll{min-width:0}
+.process-chart-scroll:focus-visible{outline:2px solid var(--process-blue);outline-offset:5px}
 .project-process-heading{margin-bottom:38px}
 .project-process-heading>.eyebrow{margin-bottom:12px}
 .project-process-heading h2{font-size:clamp(36px,4.2vw,60px);line-height:1.1;letter-spacing:-.055em}
@@ -27,8 +29,26 @@
 @keyframes process-flow{to{stroke-dashoffset:-22}}
 @keyframes process-stage-flow{0%,100%{transform:translateX(-2px)}50%{transform:translateX(2px)}}
 @media(min-width:761px) and (max-width:1100px){.process-stages{gap:16px}.process-stages>button{padding:14px 10px;gap:7px}.process-stages>button>svg:not(.process-stage-arrow){width:20px}.process-stage-number{display:none}.process-stages .process-stage-arrow{width:14px;left:calc(100% + 2px)}.process-details{gap:12px}.process-detail-label{font-size:14px}.process-detail-copy{padding:20px 10px}.process-detail h3{font-size:16px}#root #main .project-process .process-detail p{font-size:13px}}
-@media(max-width:760px){.project-process-heading{margin-bottom:26px}.project-process-heading p{font-size:16px}.process-stages{display:flex;gap:14px;overflow-x:auto;padding:5px 3px 18px;scroll-snap-type:x proximity}.process-stages>button{flex:0 0 170px;scroll-snap-align:start;min-height:76px;padding:14px 12px}.process-stage-number{display:none}.process-stage-title{font-size:16px}.process-stages .process-stage-arrow{display:none}.process-connections{display:none}.process-details{grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:8px}.process-detail-copy{min-height:0;padding:22px 16px}.process-detail-label{font-size:16px;min-height:58px}}
-@media(max-width:380px){.process-details{grid-template-columns:minmax(0,1fr)}.process-detail-copy{text-align:left}.process-detail-label{justify-content:flex-start;padding-inline:18px}}
+@media(max-width:760px){
+  .project-process-heading{margin-bottom:20px}
+  .project-process-heading p{font-size:16px}
+  .process-chart-scroll{container-type:inline-size;width:100%}
+  .process-chart{width:100%;min-width:0;padding-block:2cqw}
+  .process-stages{gap:2cqw}
+  .process-stages>button{min-height:6cqw;padding:1.4cqw 1cqw;gap:.6cqw;border-width:1px;border-radius:1cqw}
+  .process-stage-number{display:none}
+  .process-stage-title{font-size:1.8cqw}
+  .process-stages>button>svg:not(.process-stage-arrow){width:3.4cqw;height:3.4cqw}
+  .process-stages .process-stage-arrow{left:calc(100% + .2cqw);top:calc(50% - .8cqw);width:1.6cqw;height:1.6cqw}
+  .process-connections{height:4cqw}
+  .process-connections>path{stroke-width:.75}
+  .process-details{gap:1.5cqw}
+  .process-detail-label{font-size:1.9cqw;min-height:6cqw;padding:1cqw .6cqw;border-radius:.8cqw}
+  .process-detail-copy{min-height:22cqw;margin-top:.8cqw;padding:2cqw 1cqw;border-radius:.8cqw}
+  .process-detail-stage{font-size:1.4cqw;letter-spacing:0;margin-bottom:1.4cqw}
+  .process-detail h3{font-size:2cqw;letter-spacing:-.02em}
+  #root #main .project-process .process-chart .process-detail p{font-size:1.8cqw;line-height:1.5;margin:1.4cqw 0 0}
+}
 @media(prefers-reduced-motion:reduce){.process-connections>path,.process-connections>path.is-active{animation:none;stroke-dasharray:none}.process-stages .process-stage-arrow{animation:none}.project-process *{transition:none!important}}
 /* Match the website's shared body text size on every screen. */
 #root #main .project-process :is(.project-process-heading p,.process-detail p){font-size:var(--body-copy-size,18px);line-height:1.8}

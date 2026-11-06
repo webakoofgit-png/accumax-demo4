@@ -106,6 +106,15 @@
 #engineering-path .ke-stage-tiles button[aria-pressed=true]{background:#fff;border-color:#fff;color:#1c2d36}
 #engineering-path .ke-stage-tiles button[aria-pressed=true] .ke-tile-number{color:#a81800}
 #engineering-path .ke-controls button:focus-visible{outline:2px solid #f4a26a;outline-offset:3px}
+@media(max-width:760px){
+  #engineering-path[data-enhanced=true] .ke-surface{height:auto;max-height:none;min-height:0}
+  #engineering-path[data-enhanced=true] .ke-composition{flex:0 0 auto;height:180px;min-height:180px;margin:20px 0}
+  #engineering-path[data-enhanced=true] .ke-surface:after{display:none}
+  #engineering-path .ke-controls{display:grid;grid-template-columns:44px 44px minmax(0,1fr);gap:12px;margin-top:0}
+  #engineering-path .ke-stage-tiles{grid-column:1 / -1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;overflow:visible;margin-left:0;padding:4px}
+  #engineering-path .ke-stage-tiles button{min-width:0;min-height:60px;padding:8px;font-size:11px;overflow-wrap:anywhere}
+  #engineering-path .ke-stage-tiles button:last-child{grid-column:1 / -1;min-height:48px;flex-direction:row;align-items:center;justify-content:center}
+}
 @media(max-width:900px){
   #engineering-path[data-enhanced=true] .ke-surface{height:auto;min-height:480px;max-height:none}
   #engineering-path[data-enhanced=true] .ke-composition{flex:0 0 auto;height:240px;margin:18px 0 12px}
@@ -319,6 +328,12 @@ dialog.enquiry-popup { border-radius:18px;background:#fafbf8;border-color:#e1e5d
   .enquiry-popup .enquiry-popup-content > .enquiry-popup-close { display:none; }
 }
 
+/* Justify the Why Accumax descriptions at every screen size. */
+#main .home-page .strengths p {
+  text-align:justify;
+  text-align-last:start;
+}
+
 /* Use the logo's A symbol as a soft grey watermark. */
 .about-copy .about-brand-watermark {
   position:absolute;right:0;bottom:-65px;
@@ -328,6 +343,12 @@ dialog.enquiry-popup { border-radius:18px;background:#fafbf8;border-color:#e1e5d
 .about-copy .about-brand-watermark img {
   display:block;width:100%;max-width:100%;height:100%;object-fit:contain;
   opacity:.16;
+}
+@media(max-width:640px) {
+  .about-copy .about-brand-watermark {
+    position:relative;right:auto;bottom:auto;z-index:auto;
+    display:block;width:clamp(100px,30vw,150px);margin:20px 0 0 auto;
+  }
 }
 
 /* Compact office map directly below the footer logo. */

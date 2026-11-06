@@ -135,7 +135,8 @@
 @media(max-width:760px){
   dialog.enquiry-popup{width:calc(100% - 28px);max-width:460px;max-height:calc(100dvh - 28px);border:1px solid #e4e5e2;border-radius:16px;background:#fff;box-shadow:0 24px 80px #07131e40;scroll-padding-top:84px}
   .enquiry-popup .enquiry-popup-shell{display:block}
-  .enquiry-popup .enquiry-popup-visual,.enquiry-popup .enquiry-popup-content>.enquiry-popup-close{display:none}
+  .enquiry-popup .enquiry-popup-visual{display:flex;height:clamp(140px,42vw,200px)}
+  .enquiry-popup .enquiry-popup-visual .enquiry-popup-brand,.enquiry-popup .enquiry-popup-content>.enquiry-popup-close{display:none}
   .enquiry-popup .enquiry-popup-mobile-header{position:sticky;top:0;z-index:3;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:16px 22px;background:#fff;border-bottom:1px solid #eeefeb}
   .enquiry-popup-mobile-header>img{width:140px;height:auto;object-fit:contain}
   .enquiry-popup .enquiry-popup-mobile-close{display:grid;place-items:center;flex-shrink:0;width:40px;height:40px;padding:0;border:1px solid #e6e7e3;border-radius:50%;background:#f6f7f4;color:#48534f}
