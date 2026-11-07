@@ -38,7 +38,7 @@
   transition: background-color .25s ease, box-shadow .25s ease, translate .25s ease;
 }
 
-.floating-whatsapp:hover {
+.floating-whatsapp:is(:hover, :focus-visible, :active) {
   background: #1ebe5d;
   box-shadow: 0 8px 26px #0004;
 }
@@ -98,8 +98,8 @@
   display: none;
 }
 
-#root :is(#main, footer, .contact-band, .enquiry-popup) :is(.button, .site-cta, .enquiry-popup-submit):where(:not(:disabled):not([aria-disabled="true"])):is(:hover, :focus-visible),
-#root #main :is(.project-card, .home-contact-card):is(:hover, :focus-visible) .site-cta {
+#root :is(#main, footer, .contact-band, .enquiry-popup) :is(.button, .site-cta, .enquiry-popup-submit):where(:not(:disabled):not([aria-disabled="true"])):is(:hover, :focus-visible, :active),
+#root #main :is(.project-card, .home-contact-card):is(:hover, :focus-visible, :active) .site-cta {
   background: #c42108;
   color: #fff;
   border-color: transparent;
@@ -119,7 +119,7 @@
   box-shadow: 0 5px 16px #0002;
 }
 
-#root :is(#main, footer, .contact-band, .enquiry-popup) :is(.button, .site-cta).light:is(:hover, :focus-visible) {
+#root :is(#main, footer, .contact-band, .enquiry-popup) :is(.button, .site-cta).light:is(:hover, :focus-visible, :active) {
   background: #f4eee8;
   color: var(--brand, #a81800);
   border-color: #f4eee8;
@@ -161,7 +161,7 @@
   backdrop-filter: blur(8px);
 }
 
-#root #main .hero-banner .hero-action-secondary:is(:hover, :focus-visible) {
+#root #main .hero-banner .hero-action-secondary:is(:hover, :focus-visible, :active) {
   background: #fff;
   border-color: #fff;
   color: #242522;
@@ -192,6 +192,14 @@
 #root :is(.button, .site-cta, .enquiry-popup-submit, .floating-whatsapp):not(:disabled):not([aria-disabled="true"]):active,
 #root #main :is(.project-card, .home-contact-card):active .site-cta {
   translate: 0 0 !important;
+}
+
+/* Touch devices show the desktop hover lift while the button is pressed. */
+@media (hover: none), (pointer: coarse) {
+  #root :is(.button, .site-cta, .enquiry-popup-submit, .floating-whatsapp):not(:disabled):not([aria-disabled="true"]):active,
+  #root #main :is(.project-card, .home-contact-card):active .site-cta {
+    translate: 0 -2px !important;
+  }
 }
 
 #root :is(.button, .site-cta, .enquiry-popup-submit):is(:disabled, [aria-disabled="true"]) {
