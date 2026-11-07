@@ -593,14 +593,14 @@ function CounterBar() {
   return (
     <section className="counter-bar" aria-label="Accumax at a glance">
       {[
-        { value: 500, label: "Projects Done" },
-        { value: 1380, label: "Happy Clients" },
+        { value: 501, label: "Projects Done" },
+        { value: 1381, label: "Happy Clients" },
         {
-          value: 100,
+          value: 99,
           label: "Experienced Staff",
           suffix: "%",
         },
-        { value: 10, label: "Awards Won" },
+        { value: 11, label: "Awards Won" },
       ].map((item, index) => (
         <CounterItem
           key={item.label}
@@ -1186,7 +1186,7 @@ function ServiceDetail() {
         </div>
         <div className="service-overview-intro">
           <p>{s.intro}</p>
-          {s.slug === 'panel-cleaning' ? <button type="button" className="button" onClick={() => openEnquiry(s.title)}>Enquire about Panel Cleaning</button> : <Button to={"/contact?service=" + encodeURIComponent(s.title)}>Discuss this service</Button>}
+          {s.slug === 'panel-cleaning' ? <button type="button" className="button" onClick={() => openEnquiry(s.title)}>Enquire about {s.title}</button> : <Button to={"/contact?service=" + encodeURIComponent(s.title)}>Discuss this service</Button>}
         </div>
         <div className="service-overview-scope">
           <Heading as="h3" className="service-scope-heading">What we cover</Heading>

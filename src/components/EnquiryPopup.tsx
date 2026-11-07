@@ -19,7 +19,7 @@ export function EnquiryPopup({ children }: { children: ReactNode }) {
     setService(selectedService);
     dialog.current?.showModal();
   };
-  const panelCleaning = service === 'Panel Cleaning';
+  const panelCleaning = service === 'Live Electric Panel Cleaning';
 
   useEffect(() => {
     let due = false;
@@ -75,13 +75,13 @@ export function EnquiryPopup({ children }: { children: ReactNode }) {
     </aside>
     <div className="enquiry-popup-content">
       <button type="button" className="enquiry-popup-close" aria-label="Close enquiry form" onClick={() => dialog.current?.close()}><X size={22}/></button>
-      <Heading as="h2" id="enquiry-popup-title">{panelCleaning ? 'Panel Cleaning ' : 'Project '}<span>enquiry.</span></Heading>
+      <Heading as="h2" id="enquiry-popup-title">{panelCleaning ? 'Live Electric Panel Cleaning ' : 'Project '}<span>enquiry.</span></Heading>
       <p id="enquiry-popup-intro">{panelCleaning ? 'Share your panel details, site location and preferred schedule. Our team will help define the cleaning scope.' : 'Tell us about your project. Our team will help you take the next step.'}</p>
       <form onSubmit={event => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         const body = ['Name: ' + data.get('name'), 'Email: ' + data.get('email'), 'Phone: ' + data.get('phone'), 'Service: ' + (data.get('service') || 'General enquiry'), '', 'Requirements:', String(data.get('message'))].join('\n');
-        window.location.href = `mailto:${COMPANY.emails[0]}?subject=${encodeURIComponent(panelCleaning ? 'Panel Cleaning enquiry' : 'Engineering project enquiry')}&body=${encodeURIComponent(body)}`;
+        window.location.href = `mailto:${COMPANY.emails[0]}?subject=${encodeURIComponent(panelCleaning ? 'Live Electric Panel Cleaning enquiry' : 'Engineering project enquiry')}&body=${encodeURIComponent(body)}`;
       }}>
         <div className="enquiry-popup-row">
           <label><span className="enquiry-popup-label-text">Full name<span aria-hidden="true">*</span></span><input name="name" autoComplete="name" required maxLength={100} placeholder="Your name"/></label>

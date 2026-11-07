@@ -16,7 +16,7 @@ export const SERVICE_CONTENT: Service[] = [
     enquiryItems: ['Project location and target completion date', 'Single-line diagram or initial technical brief', 'Engineering, procurement and construction scope', 'Customer specifications and site constraints'],
   },
   {
-    slug: 'panel-cleaning', num: '09', title: 'Panel Cleaning', image: '/images/products/scada-and-relay-testing.jpg',
+    slug: 'panel-cleaning', num: '09', title: 'Live Electric Panel Cleaning', image: '/images/products/scada-and-relay-testing.jpg',
     headline: 'Plan panel care around your installation.',
     short: 'Discuss electrical panel cleaning, equipment suitability and site requirements with our team.',
     intro: 'Share your panel details and operating conditions so the team can review the cleaning scope, access and maintenance requirements. The method and work schedule are agreed around the equipment and site conditions.',

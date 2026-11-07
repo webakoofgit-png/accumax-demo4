@@ -57,7 +57,7 @@ const category = (num: string, title: string, slug: string): ExpertiseCategory =
 
 export const EXPERTISE_CATEGORIES: ExpertiseCategory[] = [
   category('01', 'EPC', 'epc-projects'),
-  category('02', 'Panel Cleaning', 'panel-cleaning'),
+  category('02', 'Live Electric Panel Cleaning', 'panel-cleaning'),
   category('03', 'Substation', 'substation-testing-commissioning'),
   category('04', 'Relay', 'scada-relay-testing'),
   category('05', 'Exports', 'export'),
@@ -83,7 +83,7 @@ export const HOME_EXPERTISE_CATEGORIES: ExpertiseCategory[] = [
     points: ['Annual Maintenance Contracts for electrical installations.', 'Maintenance planning around the equipment and operating requirements.', 'System audits, protection settings and commissioning coordination.', 'Discuss the site scope, service schedule and support requirements with the team.'],
   },
   {
-    ...category('05', 'Live Electrical Panel Cleaning', 'panel-cleaning'),
+    ...category('05', 'Live Electric Panel Cleaning', 'panel-cleaning'),
     short: 'Discuss electrical panel cleaning requirements, equipment suitability and site conditions with our team.',
     points: ['Share panel and equipment details for a scope review.', 'Confirm operating conditions and site safety requirements.', 'Discuss cleaning methods, access and maintenance planning with the team.'],
   },

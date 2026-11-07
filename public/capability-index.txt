@@ -2,7 +2,7 @@
 Service overview based on the company's published information.
 
 01 EPC - Connect design, equipment procurement, civil and electrical construction, installation and handover in one project scope.
-02 Panel Cleaning - Discuss electrical panel details, equipment suitability, site conditions, access and maintenance scheduling with our team.
+02 Live Electric Panel Cleaning - Discuss electrical panel details, equipment suitability, site conditions, access and maintenance scheduling with our team.
 03 Substation - Coordinate GIS, AIS, automation and E-House testing and commissioning with system audits and protection checks.
 04 Relay - SCADA monitoring and control integration, substation automation, relay programming, protection settings and injection/end-to-end testing.
 05 Exports - Source substation equipment, testing kits, panels, cables, installation accessories, tools, PPE and FRP products to your specification.

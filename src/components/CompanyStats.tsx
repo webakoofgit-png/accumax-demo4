@@ -3,11 +3,11 @@ import { animate, motion, useInView, useMotionValue, useReducedMotion, useTransf
 import './company-stats.css';
 
 const stats = [
-  { value: 500, suffix: '+', label: 'Projects Done' },
-  { value: 1380, suffix: '+', label: 'Happy Clients' },
-  { value: 100, suffix: '%', label: 'Inhouse Testing Team' },
-  { value: 60, suffix: '+', label: 'Testing Kits' },
-  { value: 10, suffix: '+', label: 'Awards Won' },
+  { value: 501, suffix: '+', label: 'Projects Done' },
+  { value: 1381, suffix: '+', label: 'Happy Clients' },
+  { value: 99, suffix: '%', label: 'Inhouse Testing Team' },
+  { value: 61, suffix: '+', label: 'Testing Kits' },
+  { value: 11, suffix: '+', label: 'Awards Won' },
 ];
 
 function Stat({ value: total, suffix, label }: typeof stats[number]) {

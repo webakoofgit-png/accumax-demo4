@@ -35,7 +35,7 @@
   background: #25d366;
   color: #fff;
   box-shadow: 0 6px 22px #0003;
-  transition: background .2s, box-shadow .2s;
+  transition: background-color .25s ease, box-shadow .25s ease, translate .25s ease;
 }
 
 .floating-whatsapp:hover {
@@ -89,14 +89,17 @@
   text-decoration: none;
   white-space: normal;
   box-shadow: 0 5px 16px #a8180020;
-  transition: background .25s, box-shadow .25s;
+  /* Translate composes with the homepage's GSAP magnetic transforms. */
+  transform: none;
+  transition: background-color .25s ease, color .25s ease, border-color .25s ease, box-shadow .25s ease, translate .25s ease;
 }
 
 #root :is(#main, footer, .contact-band, .enquiry-popup) :is(.button, .site-cta, .enquiry-popup-submit) > svg {
   display: none;
 }
 
-#root :is(#main, footer, .contact-band, .enquiry-popup) :is(.button, .site-cta, .enquiry-popup-submit):hover {
+#root :is(#main, footer, .contact-band, .enquiry-popup) :is(.button, .site-cta, .enquiry-popup-submit):where(:not(:disabled):not([aria-disabled="true"])):is(:hover, :focus-visible),
+#root #main :is(.project-card, .home-contact-card):is(:hover, :focus-visible) .site-cta {
   background: #c42108;
   color: #fff;
   border-color: transparent;
@@ -116,7 +119,7 @@
   box-shadow: 0 5px 16px #0002;
 }
 
-#root :is(#main, footer, .contact-band, .enquiry-popup) :is(.button, .site-cta).light:hover {
+#root :is(#main, footer, .contact-band, .enquiry-popup) :is(.button, .site-cta).light:is(:hover, :focus-visible) {
   background: #f4eee8;
   color: var(--brand, #a81800);
   border-color: #f4eee8;
@@ -158,7 +161,7 @@
   backdrop-filter: blur(8px);
 }
 
-#root #main .hero-banner .hero-action-secondary:hover {
+#root #main .hero-banner .hero-action-secondary:is(:hover, :focus-visible) {
   background: #fff;
   border-color: #fff;
   color: #242522;
@@ -173,9 +176,55 @@
   }
 }
 
+/* GSAP writes inline translate:none; keep this lift independent of its transform. */
+/* Only lift on devices with a hover pointer; keyboard focus gets the same cue. */
+@media (hover: hover) and (pointer: fine) {
+  #root :is(.button, .site-cta, .enquiry-popup-submit, .floating-whatsapp):not(:disabled):not([aria-disabled="true"]):hover,
+  #root #main :is(.project-card, .home-contact-card):hover .site-cta {
+    translate: 0 -2px !important;
+  }
+}
+
+#root :is(.button, .site-cta, .enquiry-popup-submit, .floating-whatsapp):not(:disabled):not([aria-disabled="true"]):focus-visible {
+  translate: 0 -2px !important;
+}
+
+#root :is(.button, .site-cta, .enquiry-popup-submit, .floating-whatsapp):not(:disabled):not([aria-disabled="true"]):active,
+#root #main :is(.project-card, .home-contact-card):active .site-cta {
+  translate: 0 0 !important;
+}
+
+#root :is(.button, .site-cta, .enquiry-popup-submit):is(:disabled, [aria-disabled="true"]) {
+  cursor: not-allowed;
+  translate: none !important;
+}
+
+/* The journey uses an inline CTA rather than the shared pill. */
+#root #work-journey .journey-result-cta {
+  transition: color .25s ease, border-color .25s ease;
+}
+
+#root #work-journey .journey-result-cta:is(:hover, :focus-visible) {
+  color: var(--brand, #a81800);
+  border-color: currentColor;
+}
+
+#root #work-journey .journey-result-cta:focus-visible svg {
+  transform: translate(3px, -3px);
+}
+
 @media (prefers-reduced-motion: reduce) {
-  #root :is(.button, .site-cta, .enquiry-popup-submit) {
+  #root :is(.button, .site-cta, .enquiry-popup-submit, .floating-whatsapp):not(:disabled):not([aria-disabled="true"]):is(:hover, :focus-visible, :active),
+  #root :is(#main, footer, .contact-band, .enquiry-popup) :is(.button, .site-cta, .enquiry-popup-submit),
+  #root #main :is(.project-card, .home-contact-card):is(:hover, :focus-visible, :active) .site-cta,
+  #root .floating-whatsapp,
+  #root #work-journey .journey-result-cta {
     transition: none;
+    translate: none !important;
+  }
+
+  #root #work-journey .journey-result-cta:is(:hover, :focus-visible) svg {
+    transform: none;
   }
 }
 /* A gentle text movement on the WhatsApp enquiry button. */
