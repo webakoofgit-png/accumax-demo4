@@ -1,3 +1,4 @@
+import { FIELD_IMAGES, FIELD_GALLERY } from './field-images';
 import { SERVICE_CONTENT } from './service-content';
 
 /** Service copy adapted from accumaxcontrols.com; see docs/official-content-review.md for sources and unresolved details. */
@@ -79,7 +80,7 @@ export const HOME_EXPERTISE_CATEGORIES: ExpertiseCategory[] = [
   {
     num: '04', title: 'Operations, Maintenance & AMC', slug: '',
     short: 'Annual maintenance support for electrical installations and substation systems.',
-    image: '/images/products/substation-t-and-c.jpg',
+    image: FIELD_IMAGES.switchgearPanels,
     points: ['Annual Maintenance Contracts for electrical installations.', 'Maintenance planning around the equipment and operating requirements.', 'System audits, protection settings and commissioning coordination.', 'Discuss the site scope, service schedule and support requirements with the team.'],
   },
   {
@@ -132,7 +133,7 @@ export const PROJECTS: Project[] = [
     num: "01",
     category: "GIS Substation",
     title: "Gas-Insulated Switchgear Erection",
-    image: "/images/gallery/3.jpg",
+    image: FIELD_IMAGES.gisHall,
     note: SAMPLE_NOTE,
     scope: ["Bay assembly & alignment", "SF6 gas handling", "Testing & commissioning interface"],
   },
@@ -141,7 +142,7 @@ export const PROJECTS: Project[] = [
     num: "02",
     category: "AIS Substation",
     title: "Air-Insulated Substation EPC Package",
-    image: "/images/gallery/4.jpg",
+    image: FIELD_IMAGES.outdoorSubstation,
     note: SAMPLE_NOTE,
     scope: ["Civil & electrical works", "Primary plant erection", "Energisation support"],
   },
@@ -159,7 +160,7 @@ export const PROJECTS: Project[] = [
     num: "04",
     category: "Protection",
     title: "Relay Panel Testing & Commissioning",
-    image: "/images/gallery/9.jpg",
+    image: FIELD_IMAGES.relayTestKit,
     note: SAMPLE_NOTE,
     scope: ["Relay programming", "Setting calculations", "Secondary injection testing"],
   },
@@ -186,6 +187,7 @@ export const PROJECTS: Project[] = [
 export const CLIENT_LOGOS = Object.entries(import.meta.glob('/src/assets/client logos/*.{jpg,jpeg,png,webp,svg}', { eager: true, query: '?url', import: 'default' })).filter(([path]) => !/^c(?:[1-9]|1[0-9]|2[0-4])\.jpg$/i.test(path.split('/').pop() ?? '')).map(([, url]) => url) as string[];
 
 export const GALLERY = [
+  ...FIELD_GALLERY.map(([image]) => image),
   "/images/gallery/3.jpg",
   "/images/gallery/4.jpg",
   "/images/gallery/5.jpg",
@@ -198,6 +200,8 @@ export const GALLERY = [
   "/images/gallery/20.jpg",
   "/images/gallery/21.jpg",
 ];
+
+export const GALLERY_CAPTIONS: Record<string, string> = Object.fromEntries(FIELD_GALLERY);
 
 export const NAV_SERVICES = SERVICES.map((s) => ({ slug: s.slug, title: s.title, num: s.num, image: s.image }));
 

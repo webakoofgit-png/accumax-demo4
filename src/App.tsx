@@ -1,3 +1,4 @@
+import { FIELD_IMAGES, FIELD_SERVICE_IMAGES } from './field-images';
 import { Heading } from './components/Heading';
 import { ClientLogoCarousel } from './components/ClientLogoCarousel';
 import { CompanyStats } from './components/CompanyStats';
@@ -70,6 +71,7 @@ import {
   INDUSTRIES,
   PROJECTS,
   GALLERY,
+  GALLERY_CAPTIONS,
   QUALITY_POINTS,
   CLIENT_LOGOS,
   EXPERTISE_CATEGORIES,
@@ -93,6 +95,7 @@ const PERSPECTIVE_IMAGES: Record<string, string> = {
   "solar-ev-station":
     "/home page img/04  PROJECT PERSPECTIVES/Solar & EV Station.png",
   trading: "/home page img/04  PROJECT PERSPECTIVES/Trading.png",
+  ...FIELD_SERVICE_IMAGES,
 };
 const PERSPECTIVE_CAPTIONS: Record<string, string> = {
   "epc-projects": "Power infrastructure, end to end.",
@@ -514,10 +517,10 @@ function Story() {
 function ProjectsPage() {
   const [category, setCategory] = useState('All projects');
   const scopeImages: Record<string, string> = {
-    'GIS Substation': '/images/products/gis-direction-and-supervision.jpg',
-    'AIS Substation': '/images/products/epc-hero.jpg',
+    'GIS Substation': FIELD_IMAGES.gisHall,
+    'AIS Substation': FIELD_IMAGES.outdoorSubstation,
     'Solar': '/images/products/solar-and-ev-station.jpg',
-    'Protection': '/images/products/scada-and-relay-testing.jpg',
+    'Protection': FIELD_IMAGES.relayTestKit,
     'E-House': '/images/products/substation-t-and-c.jpg',
     'EV Infrastructure': '/images/products/solar-and-ev-station.jpg',
   };
@@ -878,7 +881,7 @@ function Home() {
           <Link className="home-contact-card" to="/contact">
             <div className="home-contact-image">
               <Img
-                src="/images/hero-testing.jpg"
+                src={FIELD_IMAGES.testing}
                 alt="Engineer testing electrical protection equipment"
               />
             </div>
@@ -905,7 +908,7 @@ function Home() {
           </Link>
           <Link className="home-contact-card" to="/contact">
             <div className="home-contact-image">
-              <Img src="/images/team1.jpg" alt="Accumax Controls team" />
+              <Img src={FIELD_IMAGES.team} alt="Accumax Controls team" />
             </div>
             <Heading as="h3"><span className="motion-line"><span>Let’s work</span></span>{' '}<span className="motion-line"><span>together</span></span></Heading>
             <p>Bring your project brief. We will help define the engineering, site or supply support you need.</p>
@@ -1346,7 +1349,7 @@ function Gallery() {
               onClick={() => setSelected(i)}
               aria-label={"Enlarge engineering photograph " + (GALLERY.indexOf(s) + 1)}
             >
-              <Img src={s} alt={"Accumax engineering archive " + (GALLERY.indexOf(s) + 1)} />
+              <Img src={s} alt={GALLERY_CAPTIONS[s] ?? ("Accumax engineering archive " + (GALLERY.indexOf(s) + 1))} />
             </button>
           ))}
         </div> : <VideoGallery />}
@@ -1368,7 +1371,7 @@ function Gallery() {
           </button>
           <Img
             src={GALLERY[selected]}
-            alt="Enlarged company archive photograph"
+            alt={GALLERY_CAPTIONS[GALLERY[selected]] ?? "Enlarged company archive photograph"}
           />
         </div>
       )}

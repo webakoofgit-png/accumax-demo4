@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { Check, FileText, Mail, Upload, X } from 'lucide-react';
 import { Heading } from './Heading';
 import { COMPANY, SERVICE_OPTIONS } from '../data';
-import teamPhoto from '../assets/images/team1.jpg';
+import { FIELD_IMAGES } from '../field-images';
 import { CAREER_EXPERIENCE, resumeError, validateResume } from '../careers/application';
 import { useWeb3Form } from '../forms/useWeb3Form';
 import { PhoneInput } from '../forms/PhoneInput';
@@ -36,7 +36,7 @@ export function Careers() {
         <p>Bring your skills to the systems that power industry. Introduce yourself to Accumax Controls and tell us where you want to make an impact.</p>
         <a className="site-cta" href="#career-application">Introduce yourself</a>
       </div>
-      <figure className="careers-team-image"><img src={teamPhoto} alt="The Accumax Controls team" loading="eager" /><figcaption>PEOPLE. PRACTICAL THINKING. SHARED PROGRESS.</figcaption></figure>
+      <figure className="careers-team-image"><img src={FIELD_IMAGES.team} alt="The Accumax Controls team" loading="eager" /><figcaption>PEOPLE. PRACTICAL THINKING. SHARED PROGRESS.</figcaption></figure>
     </section>
 
     <section className="section careers-application-layout" aria-label="Career opportunities and application">

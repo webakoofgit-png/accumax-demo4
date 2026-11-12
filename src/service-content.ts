@@ -1,7 +1,8 @@
+import { FIELD_SERVICE_IMAGES } from './field-images';
 import type { Service } from './data';
 
 /** Revised from Accumax's official service pages; see docs/content-refresh-2026-11-04.md. */
-export const SERVICE_CONTENT: Service[] = [
+const services: Service[] = [
   {
     slug: 'epc-projects', num: '01', title: 'EPC Projects', image: '/images/products/epc-hero.jpg',
     headline: 'One project. Every stage connected.',
@@ -121,3 +122,5 @@ export const SERVICE_CONTENT: Service[] = [
   },
 
 ];
+
+export const SERVICE_CONTENT: Service[] = services.map(service => ({ ...service, image: FIELD_SERVICE_IMAGES[service.slug] ?? service.image }));

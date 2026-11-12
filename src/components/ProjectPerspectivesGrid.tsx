@@ -1,3 +1,4 @@
+import { FIELD_SERVICE_IMAGES } from '../field-images';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
 import { SERVICES } from '../data';
@@ -13,6 +14,7 @@ const images: Record<string, string> = {
   'fabrication-civil-work': '/home page img/04  PROJECT PERSPECTIVES/Fabrication & Civil Work.png',
   'gis-erection-supervision': '/home page img/04  PROJECT PERSPECTIVES/GIS Erection & Supervision.png',
   'solar-ev-station': '/home page img/04  PROJECT PERSPECTIVES/Solar & EV Station.png',
+  ...FIELD_SERVICE_IMAGES,
 };
 const captions: Record<string, string> = {
   'epc-projects': 'Power infrastructure, end to end.',

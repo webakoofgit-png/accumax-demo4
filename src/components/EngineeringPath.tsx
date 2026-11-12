@@ -4,14 +4,10 @@ import { useReducedMotion } from 'framer-motion';
 import gsap from 'gsap';
 import './engineering-path.css';
 import understandImage from '../assets/Industrial Substation at Sunset.png';
-import planImage from '../assets/images/gallery/4.jpg';
-import engineerImage from '../assets/images/hero-testing.jpg';
-import executeImage from '../assets/images/gallery/12.jpg';
-import testImage from '../assets/images/gallery/9.jpg';
-import deliverImage from '../assets/images/gallery/13.jpg';
+import { FIELD_IMAGES } from '../field-images';
 import connectionImage from '../assets/images/transmission-wide.jpg';
 
-export const ENGINEERING_STAGE_IMAGES = [understandImage, planImage, engineerImage, executeImage, testImage, deliverImage, connectionImage] as const;
+export const ENGINEERING_STAGE_IMAGES = [understandImage, FIELD_IMAGES.siteInstallation, FIELD_IMAGES.controlPanels, FIELD_IMAGES.gisHall, FIELD_IMAGES.testing, FIELD_IMAGES.outdoorSubstation, connectionImage] as const;
 
 export const ENGINEERING_STAGES = [
   { title: 'Understand', description: 'Define scope, interfaces and operating requirements.' },

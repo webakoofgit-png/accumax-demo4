@@ -14,7 +14,9 @@
 .projects-section .perspective-service-card:nth-child(4n){--card-tint:#d4e3df}
 .projects-section .perspective-service-media{position:relative;overflow:hidden;aspect-ratio:1/1.05;background:#e5e7e1}
 .projects-section .perspective-service-media>img{width:100%;height:100%;object-fit:cover;filter:none;transition:transform .7s cubic-bezier(.22,1,.36,1)}
-.projects-section .perspective-image-overlay{position:absolute;inset:0;display:flex;align-items:flex-end;padding:24px;isolation:isolate;background:linear-gradient(180deg,#0000004d,#000000aa 40%,#000000f5);opacity:0;transition:opacity .4s;pointer-events:none}
+.projects-section .perspective-image-overlay{position:absolute;inset:0;display:flex;align-items:flex-end;padding:24px;isolation:isolate;background:linear-gradient(180deg,#f59b001f 0%,#ed642599 42%,#a81800f5 100%);opacity:0;transition:opacity .4s;pointer-events:none}
+.projects-section .perspective-image-overlay::before{content:'';position:absolute;top:6%;left:50%;transform:translateX(-50%);width:72%;aspect-ratio:128/120;background:linear-gradient(145deg,#ffe38d,#fff4dc 55%,#ffb45e);opacity:.3;-webkit-mask:url('../assets/images/logo-mark.svg') center/contain no-repeat;mask:url('../assets/images/logo-mark.svg') center/contain no-repeat;pointer-events:none}
+.projects-section .perspective-overlay-copy{position:relative;z-index:1}
 .projects-section .perspective-service-arrow{position:absolute;top:16px;right:16px;display:grid;place-items:center;width:44px;height:44px;border:1px solid #ffffff80;border-radius:50%;background:#00000080;color:#fff;pointer-events:none}
 .projects-section .perspective-overlay-copy{transform:translateY(10px);transition:transform .4s cubic-bezier(.22,1,.36,1)}
 .projects-section .perspective-overlay-copy strong{display:block;color:#fff;font-size:clamp(22px,2vw,30px);font-weight:600;line-height:1.2;letter-spacing:-.035em}
