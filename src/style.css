@@ -493,5 +493,5 @@ main[data-route]>.page-top+.section{padding-top:48px}
 .header .mobile-toggle{display:none}
 @media(max-width:1199px){.header .primary-nav{display:none}.header .header-right{margin-left:auto}.header .mobile-toggle{display:grid;place-items:center;padding:6px;color:#30312e}.header .mobile-toggle svg{width:22px;height:22px}}
 
-/* Keep every service option in the same regular typeface. */
-select:is([name="service"],[name="interest"]),select:is([name="service"],[name="interest"]) option{font:400 16px/1.5 Arial,sans-serif!important;letter-spacing:normal;text-transform:none}
+/* All dropdowns use the website body typeface, including their options. */
+#root select,#root select option{font-family:"DM Sans",Arial,sans-serif!important;font-size:16px;font-weight:400;font-style:normal;letter-spacing:normal;text-transform:none}

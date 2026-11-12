@@ -1533,7 +1533,7 @@ function Contact({ career = false }: { career?: boolean }) {
                 Select a service
               </option>
               {requestedInterest && !SERVICE_OPTIONS.includes(requestedInterest) && <option value={requestedInterest}>{requestedInterest}</option>}
-              {SERVICE_OPTIONS.map(title => <option key={title} style={{ fontFamily: "Arial, sans-serif", fontSize: 16, fontWeight: 400, fontStyle: "normal" }}>{title}</option>)}
+              {SERVICE_OPTIONS.map(title => <option key={title}>{title}</option>)}
             </select>
           </label>
           <label>
