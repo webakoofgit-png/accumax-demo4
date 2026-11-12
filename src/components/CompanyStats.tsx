@@ -5,7 +5,7 @@ import './company-stats.css';
 const stats = [
   { value: 501, suffix: '+', label: 'Projects Done' },
   { value: 1381, suffix: '+', label: 'Happy Clients' },
-  { value: 99, suffix: '%', label: 'Inhouse Testing Team' },
+  { value: 100, suffix: '%', label: 'Inhouse Testing Team' },
   { value: 61, suffix: '+', label: 'Testing Kits' },
   { value: 11, suffix: '+', label: 'Awards Won' },
 ];

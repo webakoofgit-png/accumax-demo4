@@ -49,3 +49,6 @@
   --heading-muted: #fff;
   text-shadow: 0 3px 20px #000b;
 }
+
+/* Every word of a heading uses the heading typography, including service names. */
+.two-tone-heading :is(.heading-tone-primary,.heading-tone-muted){font-family:inherit;font-size:inherit;font-weight:inherit;font-style:inherit;line-height:inherit;letter-spacing:inherit}

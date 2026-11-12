@@ -93,7 +93,7 @@ export function EnquiryPopup({ children }: { children: ReactNode }) {
         </div>
         <div className="enquiry-popup-row">
           <label><span className="enquiry-popup-label-text">Email address<span aria-hidden="true">*</span></span><input name="email" type="email" autoComplete="email" required maxLength={200} placeholder="you@company.com"/></label>
-          <label>Interested in<select name="service" value={service} onChange={event => setService(event.target.value)}><option value="">Select a service</option>{SERVICE_OPTIONS.map(title => <option key={title}>{title}</option>)}</select></label>
+          <label>Interested in<select name="service" value={service} onChange={event => setService(event.target.value)}><option value="">Select a service</option>{SERVICE_OPTIONS.map(title => <option key={title} style={{ fontFamily: "Arial, sans-serif", fontSize: 16, fontWeight: 400, fontStyle: "normal" }}>{title}</option>)}</select></label>
         </div>
         <label><span className="enquiry-popup-label-text">Project requirements<span aria-hidden="true">*</span></span><textarea name="message" required rows={3} maxLength={3000} placeholder={panelCleaning ? "Panel type, quantity, site location and preferred date" : "Tell us what you are planning"}/></label>
         <button className="enquiry-popup-submit" type="submit" disabled={submission.busy || submission.sent}>{submission.busy ? 'Sending enquiry…' : submission.sent ? 'Enquiry sent' : 'Send enquiry'} <ArrowUpRight size={18}/></button>
