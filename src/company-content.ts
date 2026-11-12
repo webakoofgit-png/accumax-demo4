@@ -52,6 +52,7 @@ export const PAGE_DESCRIPTIONS: Record<string, string> = {
   '/services': 'Explore EPC, SCADA and relay testing, exports, substation commissioning, fabrication and civil works, GIS supervision, solar, EV stations and trading.',
   '/industries': 'Electrical engineering and equipment supply for utilities, data centres, manufacturing, process industries, transport and institutions.',
   '/projects': 'Explore applications of Accumax engineering services across substation infrastructure, protection, renewable energy and EV charging.',
+  '/featured-works': 'Explore featured engineering scope profiles from Accumax Controls across substations, protection systems, solar power and EV charging.',
   '/quality-safety': 'Accumax quality commitments: customer specifications, field quality plans, continuous improvement, safe working conditions and teamwork.',
   '/contact': 'Contact Accumax Controls in Pune to discuss engineering, commissioning, maintenance, electrical equipment and export requirements.',
   '/careers': 'Explore career disciplines at Accumax Controls, Pune. Introduce your qualifications and experience, and prepare a career application with your resume attached.',

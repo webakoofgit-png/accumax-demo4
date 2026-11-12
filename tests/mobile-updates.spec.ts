@@ -44,7 +44,9 @@ for (const width of [320, 390, 768]) {
     }
 
     await page.getByRole('button', { name: 'Open navigation' }).click();
-    await page.getByRole('dialog', { name: 'Navigation' }).getByRole('link', { name: /Get in Touch/ }).click();
+    await page.getByRole('dialog', { name: 'Navigation' }).getByRole('link', { name: /Projects/, exact: false }).click();
+    await expect(page).toHaveURL(/\/projects$/);
+    await page.locator('footer').getByRole('link', { name: 'Get in Touch', exact: true }).click();
     await expect(page).toHaveURL(/\/contact$/);
     await page.locator('.contact-layout').getByLabel('Full name').fill('Mobile review');
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBeTruthy();

@@ -18,6 +18,7 @@ import { ABOUT_CONTENT, COMPANY_PROFILE, PAGE_DESCRIPTIONS } from "./company-con
 import "./components/project-perspectives.css";
 import "./components/story-colors.css";
 import "./components/engineering-step-thumbnails.css";
+import "./projects-page.css";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
   Link,
@@ -157,10 +158,10 @@ const HEADER_LINKS = [
   ['About Us', '/about'],
   ['Expertise', '/services'],
   ['Industry Solutions', '/industries'],
-  ['Featured Works', '/projects'],
+  ['Featured Works', '/featured-works'],
   ['Ideas & Insights', '/gallery'],
   ['Careers', '/careers'],
-  ['Get in Touch', '/contact'],
+  ['Projects', '/projects'],
 ] as const;
 function Header() {
   const reduced = useReducedMotion();
@@ -325,7 +326,8 @@ function Footer() {
             {[
               ["About", "/about"],
               ["Services", "/services"],
-              ["Featured Works", "/projects"],
+              ["Featured Works", "/featured-works"],
+              ["Projects", "/projects"],
               ["Industry Solutions", "/industries"],
               ["Quality & Safety", "/quality-safety"],
             ].map(([n, to]) => (
@@ -506,6 +508,46 @@ function Story() {
       <div className="story-bottom story-controls"><button type="button" aria-label="Previous approach" onClick={() => choose(active - 1)}><ArrowLeft size={20} /></button><button type="button" aria-label="Next approach" onClick={() => choose(active + 1)}><ArrowRight size={20} /></button><span aria-live="polite" aria-atomic="true">0{active + 1} / 04</span></div>
     </section>
   );
+}
+function ProjectsPage() {
+  const [category, setCategory] = useState('All projects');
+  const scopeImages: Record<string, string> = {
+    'GIS Substation': '/images/products/gis-direction-and-supervision.jpg',
+    'AIS Substation': '/images/products/epc-hero.jpg',
+    'Solar': '/images/products/solar-and-ev-station.jpg',
+    'Protection': '/images/products/scada-and-relay-testing.jpg',
+    'E-House': '/images/products/substation-t-and-c.jpg',
+    'EV Infrastructure': '/images/products/solar-and-ev-station.jpg',
+  };
+  const categories = ['All projects', ...new Set(PROJECTS.map(project => project.category))];
+  const projects = category === 'All projects' ? PROJECTS : PROJECTS.filter(project => project.category === category);
+  return <section className="section projects-page" aria-labelledby="project-portfolio-title">
+    <header className="projects-page-heading">
+      <span className="eyebrow">PROJECTS</span>
+      <Heading as="h1" id="project-portfolio-title">Engineering in action.</Heading>
+      <p>Explore project scopes across substations, protection systems, solar power and EV charging. See how engineering, equipment and site execution come together.</p>
+    </header>
+    <div className="projects-page-filters" role="group" aria-label="Filter projects by category">
+      {categories.map(item => <button type="button" key={item} aria-pressed={category === item} onClick={() => setCategory(item)}>{item}</button>)}
+    </div>
+    <p className="projects-page-count" role="status" aria-live="polite" aria-atomic="true">{projects.length} project {projects.length === 1 ? 'profile' : 'profiles'}{category === 'All projects' ? '' : ` / ${category}`}</p>
+    <div className="projects-page-grid">
+      {projects.map(project => <article className="projects-page-card" key={project.slug}>
+        <Link className="projects-page-image" to={'/projects/' + project.slug} aria-label={`View ${project.title}`}>
+          <Img src={scopeImages[project.category] ?? project.image} alt={project.title} />
+          <span>{project.num} / {project.category}</span>
+          <ArrowUpRight aria-hidden="true" />
+        </Link>
+        <div className="projects-page-copy">
+          <span className="eyebrow">PROJECT SCOPE</span>
+          <Heading as="h2">{project.title}</Heading>
+          <ul>{project.scope.map(scope => <li key={scope}><Check size={15} aria-hidden="true" /><span>{scope}</span></li>)}</ul>
+          <Link className="site-cta text-link" to={'/projects/' + project.slug}>Explore project <ArrowUpRight size={17} /></Link>
+        </div>
+      </article>)}
+    </div>
+    <p className="projects-page-note">{PROJECTS[0].note}</p>
+  </section>;
 }
 function ProjectCards({ all = false }: { all?: boolean }) {
   return (
@@ -1671,7 +1713,8 @@ const titles: Record<string, string> = {
   "/about": "About Us",
   "/services": "Engineering Expertise",
   "/industries": "Industries We Serve",
-  "/projects": "Project Perspectives",
+  "/projects": "Projects",
+  "/featured-works": "Featured Works",
   "/quality-safety": "Quality & Safety",
   "/gallery": "Engineering Gallery",
   "/videos": "Videos",
@@ -1840,8 +1883,9 @@ export default function App() {
               </>
             }
           />
+          <Route path="/projects" element={<ProjectsPage />} />
           <Route
-            path="/projects"
+            path="/featured-works"
             element={
               <>
                 <PageTop

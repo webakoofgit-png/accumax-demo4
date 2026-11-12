@@ -1,0 +1,58 @@
+/* Dedicated project portfolio; the homepage process keeps its approved layout. */
+#main[data-route="/projects"],
+#main[data-route="/featured-works"] { padding-top: 76px; }
+#main .projects-page.section { padding-top: 28px; }
+.projects-page-heading { max-width: 850px;margin-bottom: 28px; }
+.projects-page-heading h1 {
+  --heading-muted: var(--brand);
+  font-size: clamp(36px, 4.5vw, 64px);line-height: 1.1;margin: 10px 0 18px;
+}
+.projects-page-heading p { max-width: 70ch;margin: 0; }
+.projects-page-filters { display: flex;flex-wrap: wrap;gap: 10px; }
+.projects-page-filters button {
+  min-height: 44px;padding: 10px 18px;border: 1px solid var(--line);
+  border-radius: 24px;background: #fff;color: #555c4d;font-size: 14px;
+  transition: color .2s, background .2s, border-color .2s;
+}
+.projects-page-filters button:is(:hover, [aria-pressed=true]) {
+  border-color: var(--brand);background: var(--brand);color: #fff;
+}
+#root #main .projects-page-count { font-size: 13px;color: #687066;margin: 20px 0; }
+.projects-page-grid { display: grid;grid-template-columns: repeat(3, minmax(0, 1fr));gap: 24px; }
+.projects-page-card {
+  display: flex;flex-direction: column;min-width: 0;overflow: hidden;
+  border: 1px solid var(--line);border-radius: 10px;background: #fff;
+}
+.projects-page-image { display: block;position: relative;aspect-ratio: 16 / 11;overflow: hidden; }
+.projects-page-image img { width: 100%;height: 100%;object-fit: cover;transition: transform .4s; }
+.projects-page-image:is(:hover, :focus-visible) img { transform: scale(1.04); }
+.projects-page-image > span {
+  position: absolute;bottom: 14px;left: 14px;max-width: calc(100% - 28px);
+  padding: 7px 10px;border-radius: 4px;background: #ffffffed;font-size: 12px;color: #242522;
+}
+.projects-page-image > svg {
+  position: absolute;top: 14px;right: 14px;width: 38px;height: 38px;padding: 8px;
+  border-radius: 50%;background: #fff;color: var(--brand);
+}
+.projects-page-copy { display: flex;flex-direction: column;flex: 1;padding: 24px; }
+.projects-page-copy h2 { font-size: 25px;line-height: 1.25;letter-spacing: -.035em; }
+.projects-page-copy ul { display: grid;gap: 10px;list-style: none;padding: 0;margin: 20px 0 24px; }
+.projects-page-copy li { display: flex;align-items: flex-start;gap: 9px;font-size: 14px;line-height: 1.6;color: #687066; }
+.projects-page-copy li svg { color: var(--brand);margin-top: 4px; }
+.projects-page-copy .site-cta { margin-top: auto; }
+#root #main .projects-page-note { font-size: 12px;line-height: 1.7;color: #73796d;margin: 28px 0 0; }
+@media (max-width: 1000px) {
+  .projects-page-grid { grid-template-columns: repeat(2, minmax(0, 1fr));gap: 20px; }
+}
+@media (max-width: 640px) {
+  #main[data-route="/projects"], #main[data-route="/featured-works"] { padding-top: 64px; }
+  .projects-page-grid { grid-template-columns: minmax(0, 1fr); }
+  .projects-page-heading h1 { font-size: clamp(32px, 9vw, 42px); }
+  .projects-page-filters { gap: 8px; }
+  .projects-page-filters button { padding: 10px 14px;font-size: 13px; }
+  .projects-page-copy { padding: 20px; }
+  .projects-page-copy h2 { font-size: 24px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .projects-page-image img, .projects-page-filters button { transition: none; }
+}
