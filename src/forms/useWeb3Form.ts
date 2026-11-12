@@ -1,5 +1,6 @@
 import { useRef, useState } from 'react';
 import './form-status.css';
+import { phoneError } from './phone';
 
 export const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit';
 export const WEB3FORMS_ACCESS_KEY = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || '676251c3-6762-4d09-b427-b7cc24510dd7';
@@ -19,6 +20,8 @@ export function useWeb3Form() {
     const controller = new AbortController();
     const timeout = window.setTimeout(() => controller.abort(), 30000);
     try {
+      const phoneProblem = phoneError(String(data.get('phone') || ''));
+      if (phoneProblem) throw new Error(phoneProblem);
       await validate?.();
       data.set('access_key', WEB3FORMS_ACCESS_KEY);
       data.set('subject', `Accumax Controls | ${subject}`);

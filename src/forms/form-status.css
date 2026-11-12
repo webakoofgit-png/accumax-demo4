@@ -2,3 +2,5 @@
 .form-feedback[role=alert] { border-color: #efc6bb;background: #fff2ed;color: #922b19; }
 .form-feedback:focus { outline: 2px solid var(--brand);outline-offset: 3px; }
 .enquiry-popup .form-feedback { margin: 0; }
+.phone-field-error { display: block;font-size: 12px;font-weight: 400;line-height: 1.5;color: #a81800; }
+#root :is(main, .enquiry-popup) input[aria-invalid=true] { border-color: #a81800; }

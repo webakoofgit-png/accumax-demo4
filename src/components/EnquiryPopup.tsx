@@ -3,6 +3,7 @@ import { createContext, useContext, useEffect, useRef, useState, type ReactNode 
 import { ArrowUpRight, X } from 'lucide-react';
 import { SERVICE_OPTIONS } from '../data';
 import { useWeb3Form } from '../forms/useWeb3Form';
+import { PhoneInput } from '../forms/PhoneInput';
 import projectPhoto from '../assets/Industrial Substation at Sunset.png';
 import companyLogo from '../assets/images/logo.png';
 import './enquiry-popup.css';
@@ -88,7 +89,7 @@ export function EnquiryPopup({ children }: { children: ReactNode }) {
         <input type="checkbox" name="botcheck" hidden tabIndex={-1} aria-hidden="true" />
         <div className="enquiry-popup-row">
           <label><span className="enquiry-popup-label-text">Full name<span aria-hidden="true">*</span></span><input name="name" autoComplete="name" required maxLength={100} placeholder="Your name"/></label>
-          <label><span className="enquiry-popup-label-text">Phone number<span aria-hidden="true">*</span></span><input name="phone" type="tel" autoComplete="tel" required minLength={7} maxLength={25} placeholder="Your phone number"/></label>
+          <label><span className="enquiry-popup-label-text">Phone number<span aria-hidden="true">*</span></span><PhoneInput placeholder="Your phone number"/></label>
         </div>
         <div className="enquiry-popup-row">
           <label><span className="enquiry-popup-label-text">Email address<span aria-hidden="true">*</span></span><input name="email" type="email" autoComplete="email" required maxLength={200} placeholder="you@company.com"/></label>

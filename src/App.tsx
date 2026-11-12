@@ -20,6 +20,7 @@ import "./components/story-colors.css";
 import "./components/engineering-step-thumbnails.css";
 import "./projects-page.css";
 import { useWeb3Form } from './forms/useWeb3Form';
+import { PhoneInput } from './forms/PhoneInput';
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
   Link,
@@ -1491,7 +1492,7 @@ function Contact({ career = false }: { career?: boolean }) {
                   *
                 </span>
               </span>
-              <input
+              <PhoneInput
                 name="phone"
                 type="tel"
                 autoComplete="tel"

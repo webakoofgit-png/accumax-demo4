@@ -5,6 +5,7 @@ import { COMPANY, SERVICE_OPTIONS } from '../data';
 import teamPhoto from '../assets/images/team1.jpg';
 import { CAREER_EXPERIENCE, resumeError, validateResume } from '../careers/application';
 import { useWeb3Form } from '../forms/useWeb3Form';
+import { PhoneInput } from '../forms/PhoneInput';
 import './careers.css';
 
 const Required = () => <span className="career-required" aria-hidden="true">*</span>;
@@ -57,7 +58,7 @@ export function Careers() {
           <div className="career-field-grid">
             <label htmlFor="career-name">Full name <Required /><input id="career-name" name="name" autoComplete="name" placeholder="Your full name" required maxLength={100} /></label>
             <label htmlFor="career-email">Email address <Required /><input id="career-email" name="email" type="email" autoComplete="email" placeholder="you@example.com" required maxLength={254} /></label>
-            <label htmlFor="career-phone">Phone number <Required /><input id="career-phone" name="phone" type="tel" autoComplete="tel" placeholder="+91 98765 43210" required minLength={7} maxLength={25} pattern={String.raw`[+0-9\s\(\)\.\-]{7,25}`} /></label>
+            <label htmlFor="career-phone">Phone number <Required /><PhoneInput id="career-phone" placeholder="+91 98765 43210" /></label>
             <label htmlFor="career-city">Current location <Required /><input id="career-city" name="city" autoComplete="address-level2" placeholder="City, state" required maxLength={120} /></label>
           </div>
         </fieldset>
