@@ -58,7 +58,7 @@ export function Careers() {
           <div className="career-field-grid">
             <label htmlFor="career-name">Full name <Required /><input id="career-name" name="name" autoComplete="name" placeholder="Your full name" required maxLength={100} /></label>
             <label htmlFor="career-email">Email address <Required /><input id="career-email" name="email" type="email" autoComplete="email" placeholder="you@example.com" required maxLength={254} /></label>
-            <label htmlFor="career-phone">Phone number <Required /><PhoneInput id="career-phone" placeholder="+91 98765 43210" /></label>
+            <label htmlFor="career-phone">Phone number <Required /><PhoneInput id="career-phone" placeholder="9876543210" /></label>
             <label htmlFor="career-city">Current location <Required /><input id="career-city" name="city" autoComplete="address-level2" placeholder="City, state" required maxLength={120} /></label>
           </div>
         </fieldset>

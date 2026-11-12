@@ -2,10 +2,10 @@ import { test, expect } from '@playwright/test';
 import { phoneError } from '../src/forms/phone';
 
 test('phone validation checks length, characters, prefixes and repeated digits', () => {
-  for (const value of ['', '99999999999', '9999999999', '+91 9999999999', '1234567', '99201774411', '99201abc41', '5123456789', '+12', '++919920177441']) {
+  for (const value of ['', '99999999999', '9999999999', '+91 9999999999', '1234567', '99201774411', '99201abc41', '5123456789', '+12', '++919920177441', '+91 99201 77441', '98765-43210', '+1 415 555 2671']) {
     expect(phoneError(value), value).not.toBe('');
   }
-  for (const value of ['9920177441', '+91 99201 77441', '98765-43210', '+1 415 555 2671', '+44 20 7946 0958']) {
+  for (const value of ['9920177441', '9876543210', '7350200025']) {
     expect(phoneError(value), value).toBe('');
   }
 });
@@ -30,7 +30,14 @@ for (const kind of ['contact', 'popup', 'careers']) {
       expect(await phone.evaluate((input: HTMLInputElement) => input.checkValidity())).toBe(false);
       expect(posts).toBe(0);
     }
-    await phone.fill('+91 9920177441');await phone.blur();
+    await expect(phone).toHaveAttribute('maxlength', '10');
+    await phone.fill('992017744112345');
+    await expect(phone).toHaveValue('9920177441');
+    await phone.pressSequentially('999');
+    await expect(phone).toHaveValue('9920177441');
+    await phone.fill('992017744');await phone.blur();
+    expect(await phone.evaluate((input: HTMLInputElement) => input.checkValidity())).toBe(false);
+    await phone.fill('9920177441');await phone.blur();
     await expect(form.locator('.phone-field-error')).toHaveCount(0);
     expect(await phone.evaluate((input: HTMLInputElement) => input.checkValidity())).toBe(true);
   });

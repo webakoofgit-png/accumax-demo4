@@ -1496,10 +1496,8 @@ function Contact({ career = false }: { career?: boolean }) {
                 name="phone"
                 type="tel"
                 autoComplete="tel"
-                placeholder="e.g. +91 98765 43210"
+                placeholder="e.g. 9876543210"
                 required
-                minLength={7}
-                maxLength={25}
               />
             </label>
             {!career && (

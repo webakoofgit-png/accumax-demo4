@@ -35,7 +35,7 @@ for (const width of [390, 1440]) {
       expect(attempt).toBe(0);
       await form.locator('[name=name]').fill('Website reviewer');
       await form.locator('[name=email]').fill('review@example.com');
-      await form.locator('[name=phone]').fill('+91 9920177441');
+      await form.locator('[name=phone]').fill('9920177441');
       await form.locator('[name=message]').fill('Please discuss our engineering requirements.');
       if (kind === 'contact') await form.getByRole('checkbox').check();
       else await form.locator('[name=service]').selectOption('Live Electric Panel Cleaning');

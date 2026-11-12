@@ -28,7 +28,7 @@ for (const width of [390, 1200, 1440]) {
     await expect(form.locator('input:invalid').first()).toHaveAttribute('id', 'career-name');
     await form.getByLabel('Full name').fill('Demo Candidate');
     await form.getByLabel('Email address').fill('candidate@example.com');
-    await form.getByLabel('Phone number').fill('+91 98765 43210');
+    await form.getByLabel('Phone number').fill('9876543210');
     await form.getByLabel('Current location').fill('Pune, Maharashtra');
     await form.getByLabel('Education / qualification').fill('BE Electrical Engineering');
     expect((await form.locator('#career-interest option').allTextContents()).slice(1)).toEqual((await page.locator('.enquiry-popup select[name="service"] option').allTextContents()).slice(1));

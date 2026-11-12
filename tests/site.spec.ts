@@ -18,7 +18,7 @@ test('desktop services, gallery and email enquiry',async({page})=>{
   const form=page.locator('.contact-layout form');
   await form.getByLabel('Full name').fill('Demo Reviewer');
   await form.getByLabel('Work email').fill('review@example.com');
-  await form.getByLabel('Phone number').fill('+91 98765 43210');
+  await form.getByLabel('Phone number').fill('9876543210');
   await form.getByLabel('Service of interest').selectOption({label:'EPC Projects'});
   await form.getByRole('textbox',{name:/Tell us about/}).fill('We need engineering consultation.');
   await form.getByRole('checkbox').check();
