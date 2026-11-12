@@ -1,7 +1,8 @@
 import { Heading } from './Heading';
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from 'react';
 import { ArrowUpRight, X } from 'lucide-react';
-import { COMPANY, SERVICE_OPTIONS } from '../data';
+import { SERVICE_OPTIONS } from '../data';
+import { useWeb3Form } from '../forms/useWeb3Form';
 import projectPhoto from '../assets/Industrial Substation at Sunset.png';
 import companyLogo from '../assets/images/logo.png';
 import './enquiry-popup.css';
@@ -11,11 +12,13 @@ export const useEnquiry = () => useContext(EnquiryContext);
 
 export function EnquiryPopup({ children }: { children: ReactNode }) {
   const dialog = useRef<HTMLDialogElement>(null);
+  const submission = useWeb3Form();
 
   const [service, setService] = useState('');
   const manuallyOpened = useRef(false);
   const openEnquiry = (selectedService = '') => {
     manuallyOpened.current = true;
+    submission.clear();
     setService(selectedService);
     dialog.current?.showModal();
   };
@@ -77,12 +80,12 @@ export function EnquiryPopup({ children }: { children: ReactNode }) {
       <button type="button" className="enquiry-popup-close" aria-label="Close enquiry form" onClick={() => dialog.current?.close()}><X size={22}/></button>
       <Heading as="h2" id="enquiry-popup-title">{panelCleaning ? 'Live Electric Panel Cleaning ' : 'Project '}<span>enquiry.</span></Heading>
       <p id="enquiry-popup-intro">{panelCleaning ? 'Share your panel details, site location and preferred schedule. Our team will help define the cleaning scope.' : 'Tell us about your project. Our team will help you take the next step.'}</p>
-      <form onSubmit={event => {
+      <form aria-busy={submission.busy} onChange={submission.clear} onSubmit={event => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        const body = ['Name: ' + data.get('name'), 'Email: ' + data.get('email'), 'Phone: ' + data.get('phone'), 'Service: ' + (data.get('service') || 'General enquiry'), '', 'Requirements:', String(data.get('message'))].join('\n');
-        window.location.href = `mailto:${COMPANY.emails[0]}?subject=${encodeURIComponent(panelCleaning ? 'Live Electric Panel Cleaning enquiry' : 'Engineering project enquiry')}&body=${encodeURIComponent(body)}`;
+        void submission.send(data, panelCleaning ? 'Live Electric Panel Cleaning enquiry' : 'Engineering project enquiry', 'Enquiry popup');
       }}>
+        <input type="checkbox" name="botcheck" hidden tabIndex={-1} aria-hidden="true" />
         <div className="enquiry-popup-row">
           <label><span className="enquiry-popup-label-text">Full name<span aria-hidden="true">*</span></span><input name="name" autoComplete="name" required maxLength={100} placeholder="Your name"/></label>
           <label><span className="enquiry-popup-label-text">Phone number<span aria-hidden="true">*</span></span><input name="phone" type="tel" autoComplete="tel" required minLength={7} maxLength={25} placeholder="Your phone number"/></label>
@@ -92,7 +95,9 @@ export function EnquiryPopup({ children }: { children: ReactNode }) {
           <label>Interested in<select name="service" value={service} onChange={event => setService(event.target.value)}><option value="">Select a service</option>{SERVICE_OPTIONS.map(title => <option key={title}>{title}</option>)}</select></label>
         </div>
         <label><span className="enquiry-popup-label-text">Project requirements<span aria-hidden="true">*</span></span><textarea name="message" required rows={3} maxLength={3000} placeholder={panelCleaning ? "Panel type, quantity, site location and preferred date" : "Tell us what you are planning"}/></label>
-        <button className="enquiry-popup-submit" type="submit">Send enquiry <ArrowUpRight size={18}/></button>
+        <button className="enquiry-popup-submit" type="submit" disabled={submission.busy || submission.sent}>{submission.busy ? 'Sending enquiry…' : submission.sent ? 'Enquiry sent' : 'Send enquiry'} <ArrowUpRight size={18}/></button>
+        {submission.error && <div className="form-feedback" role="alert">{submission.error}</div>}
+        {submission.sent && <div className="form-feedback" role="status">Your enquiry has been sent successfully. Our team will get in touch with you.</div>}
       </form>
     </div>
     </div>

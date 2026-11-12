@@ -1,12 +1,16 @@
 import { expect, test } from '@playwright/test';
-import { readFile } from 'node:fs/promises';
 
 for (const width of [390, 1200, 1440]) {
-  test(`career application validation and resume email draft at ${width}px`, async ({ page }) => {
+  test(`career application validation and direct resume submission at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await page.emulateMedia({ reducedMotion: 'reduce' });
     const posts: string[] = [];
     const errors: string[] = [];
+    const submissions: string[] = [];
+    await page.route('https://api.web3forms.com/submit', async route => {
+      submissions.push(route.request().postData() ?? '');
+      await route.fulfill({ json: { success: true, message: 'Email sent successfully' } });
+    });
     page.on('request', request => { if (request.method() === 'POST') posts.push(request.url()); });
     page.on('pageerror', error => errors.push(error.message));
     await page.goto('/careers');
@@ -20,7 +24,7 @@ for (const width of [390, 1200, 1440]) {
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 
     const form = page.locator('#career-application');
-    await form.getByRole('button', { name: 'Prepare application email', exact: true }).click();
+    await form.getByRole('button', { name: 'Submit application', exact: true }).click();
     await expect(form.locator('input:invalid').first()).toHaveAttribute('id', 'career-name');
     await form.getByLabel('Full name').fill('Demo Candidate');
     await form.getByLabel('Email address').fill('candidate@example.com');
@@ -41,20 +45,14 @@ for (const width of [390, 1200, 1440]) {
     const resume = Buffer.from('%PDF-1.4\nDemo resume\n%%EOF');
     await form.getByLabel('Resume / CV').setInputFiles({ name: 'candidate-resume.pdf', mimeType: 'application/pdf', buffer: resume });
     await form.getByRole('checkbox').check();
-    await form.getByRole('button', { name: 'Prepare application email', exact: true }).click();
-    await expect(form.getByRole('status')).toContainText('Your application email is ready.');
-    const downloadPromise = page.waitForEvent('download');
-    await form.getByRole('link', { name: 'Download application email' }).click();
-    const download = await downloadPromise;
-    expect(download.suggestedFilename()).toBe('Accumax-career-application.eml');
-    const draft = await readFile((await download.path())!, 'utf8');
-    expect(draft).toContain('X-Unsent: 1');
-    expect(draft).toContain('To: info@accumaxcontrols.com');
-    expect(draft).toContain('filename="candidate-resume.pdf"');
-    expect(draft).toContain(resume.toString('base64'));
-    const body = draft.match(/Content-Type: text\/plain; charset=UTF-8\r\nContent-Transfer-Encoding: base64\r\n\r\n([\s\S]*?)\r\n\r\n--/)!;
-    expect(Buffer.from(body[1].replace(/\s/g, ''), 'base64').toString('utf8')).toContain('Full name: Demo Candidate');
-    expect(posts).toEqual([]);
+    await form.getByRole('button', { name: 'Submit application', exact: true }).click();
+    await expect(form.getByRole('status')).toContainText('Your application has been sent successfully.');
+    expect(submissions).toHaveLength(1);
+    expect(submissions[0]).toContain('name="attachment"; filename="candidate-resume.pdf"');
+    expect(submissions[0]).toContain(resume.toString());
+    expect(submissions[0]).toContain('Demo Candidate');
+    expect(submissions[0]).toContain('676251c3-6762-4d09-b427-b7cc24510dd7');
+    expect(posts).toEqual(['https://api.web3forms.com/submit']);
     expect(errors).toEqual([]);
     await form.getByLabel('Full name').fill('Updated Candidate');
     await expect(form.getByRole('status')).toHaveCount(0);

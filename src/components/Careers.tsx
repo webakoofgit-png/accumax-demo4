@@ -3,7 +3,8 @@ import { Check, FileText, Mail, Upload, X } from 'lucide-react';
 import { Heading } from './Heading';
 import { COMPANY, SERVICE_OPTIONS } from '../data';
 import teamPhoto from '../assets/images/team1.jpg';
-import { applicationEmail, CAREER_EXPERIENCE, resumeError, type CareerApplication } from '../careers/application';
+import { CAREER_EXPERIENCE, resumeError, validateResume } from '../careers/application';
+import { useWeb3Form } from '../forms/useWeb3Form';
 import './careers.css';
 
 const Required = () => <span className="career-required" aria-hidden="true">*</span>;
@@ -14,21 +15,16 @@ export function Careers() {
   const statusRef = useRef<HTMLDivElement>(null);
   const [resume, setResume] = useState<File | null>(null);
   const [fileError, setFileError] = useState('');
-  const [error, setError] = useState('');
-  const [busy, setBusy] = useState(false);
-  const [draft, setDraft] = useState('');
-  useEffect(() => () => { if (draft) URL.revokeObjectURL(draft); }, [draft]);
-  useEffect(() => { if (draft) statusRef.current?.focus(); }, [draft]);
+  const { busy, sent, error, clear, send } = useWeb3Form();
+  useEffect(() => { if (sent) statusRef.current?.focus(); }, [sent]);
 
   const prepare = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!resume || fileError || busy) return;
     const values = new FormData(event.currentTarget);
-    const data = Object.fromEntries(['name', 'email', 'phone', 'city', 'education', 'interest', 'experience', 'notice', 'message'].map(key => [key, String(values.get(key) ?? '').trim()])) as CareerApplication;
-    setBusy(true); setError('');
-    try { setDraft(URL.createObjectURL(await applicationEmail(data, resume, COMPANY.emails[0]))); }
-    catch (problem) { setError(problem instanceof Error ? problem.message : 'We could not prepare your email. Please try again.'); }
-    finally { setBusy(false); }
+    values.delete('resume');
+    values.set('attachment', resume);
+    await send(values, 'Career application', 'Careers application', () => validateResume(resume));
   };
 
   return <div className="careers-page">
@@ -53,7 +49,8 @@ export function Careers() {
         <div className="career-direct-contact"><Mail size={20} aria-hidden="true" /><div><strong>Prefer to email us?</strong><a href={`mailto:${COMPANY.emails[0]}?subject=Career%20application`}>{COMPANY.emails[0]}</a><small>Include your introduction and attach your resume.</small></div></div>
       </aside>
 
-      <form id="career-application" className="career-form" ref={formRef} onSubmit={prepare} onChange={() => { setDraft(''); setError(''); }} aria-labelledby="career-form-title">
+      <form id="career-application" className="career-form" ref={formRef} onSubmit={prepare} onChange={clear} aria-busy={busy} aria-labelledby="career-form-title">
+        <input type="checkbox" name="botcheck" hidden tabIndex={-1} aria-hidden="true" />
         <div className="career-form-heading"><span className="eyebrow">CAREER APPLICATION</span><Heading as="h2" id="career-form-title">Tell us about yourself.</Heading></div>
         <fieldset disabled={busy}>
           <legend><span>01</span> Personal details</legend>
@@ -88,14 +85,13 @@ export function Careers() {
             }} />
           </div>
           <div id="career-file-help" className="career-file-help">{fileError ? <span role="alert">{fileError}</span> : 'Your resume will be included as an attachment in your application email.'}</div>
-          {resume && <button className="career-remove-file" type="button" onClick={() => { setResume(null); setFileError(''); setDraft(''); if (fileRef.current) fileRef.current.value = ''; }}><X size={14} aria-hidden="true" />Remove file</button>}
+          {resume && <button className="career-remove-file" type="button" onClick={() => { setResume(null); setFileError(''); clear(); if (fileRef.current) fileRef.current.value = ''; }}><X size={14} aria-hidden="true" />Remove file</button>}
         </fieldset>
         <label className="career-consent"><input type="checkbox" name="consent" required disabled={busy} /><span>I agree to share my details and resume with Accumax Controls for recruitment. <Required /></span></label>
         {error && <p className="career-error" role="alert">{error}</p>}
-        <div className="career-form-footer"><button className="button" type="submit" disabled={busy} aria-busy={busy}>{busy ? 'Preparing your email…' : 'Prepare application email'}</button></div>
-        {draft && <div className="career-draft-status" role="status" ref={statusRef} tabIndex={-1}>
-          <strong>Your application email is ready.</strong><p>Download the draft, open it in your email app, and review and send it to {COMPANY.emails[0]}. Your resume is attached.</p>
-          <a className="site-cta" href={draft} download="Accumax-career-application.eml">Download application email</a>
+        <div className="career-form-footer"><button className="button" type="submit" disabled={busy || sent} aria-busy={busy}>{busy ? 'Submitting application…' : sent ? 'Application submitted' : 'Submit application'}</button></div>
+        {sent && <div className="career-draft-status" role="status" ref={statusRef} tabIndex={-1}>
+          <strong>Your application has been sent successfully.</strong><p>Thank you for your interest in Accumax Controls. Our team will review your details and resume.</p>
         </div>}
       </form>
     </section>

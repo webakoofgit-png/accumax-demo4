@@ -38,8 +38,7 @@ function encodedHeader(text: string): string {
 
 const wrap = (value: string) => value.match(/.{1,76}/g)?.join('\r\n') ?? '';
 
-/** Creates a local, reviewable email draft with the resume attached; sends no data. */
-export async function applicationEmail(data: CareerApplication, resume: File, recipient: string): Promise<Blob> {
+export async function validateResume(resume: File): Promise<Uint8Array> {
   const error = resumeError(resume);
   if (error) throw new Error(error);
   const bytes = new Uint8Array(await resume.arrayBuffer());
@@ -49,6 +48,13 @@ export async function applicationEmail(data: CareerApplication, resume: File, re
     : extension === 'doc' ? startsWith(0xd0, 0xcf, 0x11, 0xe0, 0xa1, 0xb1, 0x1a, 0xe1)
     : startsWith(0x50, 0x4b, 0x03, 0x04);
   if (!valid) throw new Error('This file does not match its format. Please choose a valid PDF, DOC or DOCX resume.');
+  return bytes;
+}
+
+/** Creates a local, reviewable email draft with the resume attached; sends no data. */
+export async function applicationEmail(data: CareerApplication, resume: File, recipient: string): Promise<Blob> {
+  const bytes = await validateResume(resume);
+  const extension = resume.name.split('.').pop()!.toLowerCase();
   const boundary = `accumax-career-${crypto.randomUUID()}`;
   const filename = resume.name.replace(/[^a-zA-Z0-9._-]/g, '_');
   const type = extension === 'pdf' ? 'application/pdf' : extension === 'doc' ? 'application/msword' : 'application/vnd.openxmlformats-officedocument.wordprocessingml.document';

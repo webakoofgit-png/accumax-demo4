@@ -19,6 +19,7 @@ import "./components/project-perspectives.css";
 import "./components/story-colors.css";
 import "./components/engineering-step-thumbnails.css";
 import "./projects-page.css";
+import { useWeb3Form } from './forms/useWeb3Form';
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
   Link,
@@ -1374,8 +1375,7 @@ function Gallery() {
   );
 }
 function Contact({ career = false }: { career?: boolean }) {
-  const [prepared, setPrepared] = useState(false);
-  const [draft, setDraft] = useState("");
+  const submission = useWeb3Form();
   const query = new URLSearchParams(useLocation().search);
   const requestedInterest = query.get("service") || query.get("industry") || "";
   return (
@@ -1428,17 +1428,15 @@ function Contact({ career = false }: { career?: boolean }) {
         <form
           className="enquiry-form"
           aria-labelledby="enquiry-heading"
-          onChange={() => setPrepared(false)}
+          aria-busy={submission.busy}
+          onChange={submission.clear}
           onSubmit={(e) => {
             e.preventDefault();
             const data = new FormData(e.currentTarget);
-            const text = `Name: ${data.get("name")}\nEmail: ${data.get("email")}\nPhone: ${data.get("phone")}${career ? "" : `\nCompany: ${data.get("company") || "Not provided"}`}\nInterest: ${data.get("interest")}\n\n${data.get("message")}`;
-            setDraft(
-              `mailto:${COMPANY.emails[0]}?subject=${encodeURIComponent(career ? "Career expression of interest" : "Engineering project enquiry")}&body=${encodeURIComponent(text)}`,
-            );
-            setPrepared(true);
+            void submission.send(data, career ? 'Career expression of interest' : 'Engineering project enquiry', 'Contact page');
           }}
         >
+          <input type="checkbox" name="botcheck" hidden tabIndex={-1} aria-hidden="true" />
           <div className="enquiry-form-heading">
             <span className="eyebrow">
               {career ? "YOUR INTRODUCTION" : "YOUR PROJECT BRIEF"}
@@ -1559,7 +1557,7 @@ function Contact({ career = false }: { career?: boolean }) {
             />
             <span className="field-hint" id="enquiry-message-hint">
               {career
-                ? "You can attach your CV to the email draft."
+                ? "Include your key skills, experience and preferred role."
                 : "Include any technical specifications that will help us understand the scope."}
             </span>
           </label>
@@ -1572,20 +1570,11 @@ function Contact({ career = false }: { career?: boolean }) {
               </span>
             </span>
           </label>
-          <button className="button" type="submit">
-            Prepare email enquiry <ArrowUpRight size={18} />
+          <button className="button" type="submit" disabled={submission.busy || submission.sent}>
+            {submission.busy ? 'Sending enquiry…' : submission.sent ? 'Enquiry sent' : 'Send enquiry'} <ArrowUpRight size={18} />
           </button>
-          {prepared && (
-            <div className="draft" role="status">
-              <b>Your email draft is ready.</b>
-              <p>
-                Review your details and send the enquiry from your email app.
-              </p>
-              <a className="text-link site-cta" href={draft}>
-                Open email draft <ArrowUpRight size={17} />
-              </a>
-            </div>
-          )}
+          {submission.error && <div className="form-feedback" role="alert">{submission.error}</div>}
+          {submission.sent && <div className="form-feedback" role="status">Your enquiry has been sent successfully. Our team will get in touch with you.</div>}
         </form>
       </section>
     </>

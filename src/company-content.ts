@@ -55,7 +55,7 @@ export const PAGE_DESCRIPTIONS: Record<string, string> = {
   '/featured-works': 'Explore featured engineering scope profiles from Accumax Controls across substations, protection systems, solar power and EV charging.',
   '/quality-safety': 'Accumax quality commitments: customer specifications, field quality plans, continuous improvement, safe working conditions and teamwork.',
   '/contact': 'Contact Accumax Controls in Pune to discuss engineering, commissioning, maintenance, electrical equipment and export requirements.',
-  '/careers': 'Explore career disciplines at Accumax Controls, Pune. Introduce your qualifications and experience, and prepare a career application with your resume attached.',
+  '/careers': 'Explore career disciplines at Accumax Controls, Pune. Submit your qualifications, experience and resume directly to our team.',
   '/catalogue': 'Browse the Accumax service index and request equipment specifications, technical documents and the current company catalogue.',
   '/gallery': 'Explore the Accumax image archive of electrical equipment, substations, engineering environments and power infrastructure.',
   '/videos': 'Watch the Accumax Controls video archive featuring electrical equipment and engineering work, with videos from the official company website.',

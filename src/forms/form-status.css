@@ -1,0 +1,4 @@
+.form-feedback { padding: 14px 16px;margin-top: 16px;border: 1px solid #cbdac4;border-radius: 8px;background: #f0f6ec;color: #304a29;font-size: 14px;line-height: 1.6;overflow-wrap: anywhere; }
+.form-feedback[role=alert] { border-color: #efc6bb;background: #fff2ed;color: #922b19; }
+.form-feedback:focus { outline: 2px solid var(--brand);outline-offset: 3px; }
+.enquiry-popup .form-feedback { margin: 0; }
