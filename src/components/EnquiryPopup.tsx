@@ -23,7 +23,7 @@ export function EnquiryPopup({ children }: { children: ReactNode }) {
     setService(selectedService);
     dialog.current?.showModal();
   };
-  const panelCleaning = service === 'Live Electric Panel Cleaning';
+  const panelCleaning = service === 'Live Electrical Panel Cleaning';
 
   useEffect(() => {
     let due = false;
@@ -79,12 +79,12 @@ export function EnquiryPopup({ children }: { children: ReactNode }) {
     </aside>
     <div className="enquiry-popup-content">
       <button type="button" className="enquiry-popup-close" aria-label="Close enquiry form" onClick={() => dialog.current?.close()}><X size={22}/></button>
-      <Heading as="h2" id="enquiry-popup-title">{panelCleaning ? 'Live Electric Panel Cleaning ' : 'Project '}<span>enquiry.</span></Heading>
+      <Heading as="h2" id="enquiry-popup-title">{panelCleaning ? 'Live Electrical Panel Cleaning ' : 'Project '}<span>enquiry.</span></Heading>
       <p id="enquiry-popup-intro">{panelCleaning ? 'Share your panel details, site location and preferred schedule. Our team will help define the cleaning scope.' : 'Tell us about your project. Our team will help you take the next step.'}</p>
       <form aria-busy={submission.busy} onChange={submission.clear} onSubmit={event => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
-        void submission.send(data, panelCleaning ? 'Live Electric Panel Cleaning enquiry' : 'Engineering project enquiry', 'Enquiry popup');
+        void submission.send(data, panelCleaning ? 'Live Electrical Panel Cleaning enquiry' : 'Engineering project enquiry', 'Enquiry popup');
       }}>
         <input type="checkbox" name="botcheck" hidden tabIndex={-1} aria-hidden="true" />
         <div className="enquiry-popup-row">

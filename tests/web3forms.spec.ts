@@ -38,7 +38,7 @@ for (const width of [390, 1440]) {
       await form.locator('[name=phone]').fill('9920177441');
       await form.locator('[name=message]').fill('Please discuss our engineering requirements.');
       if (kind === 'contact') await form.getByRole('checkbox').check();
-      else await form.locator('[name=service]').selectOption('Live Electric Panel Cleaning');
+      else await form.locator('[name=service]').selectOption('Live Electrical Panel Cleaning');
       await form.getByRole('button', { name: 'Send enquiry', exact: true }).click();
       await expect(form.getByRole('alert')).toHaveText('Please try again shortly.');
       await expect(form.locator('[name=name]')).toHaveValue('Website reviewer');
@@ -48,7 +48,7 @@ for (const width of [390, 1440]) {
       await expect(form.getByRole('button', { name: 'Enquiry sent', exact: true })).toBeDisabled();
       expect(attempt).toBe(2);
       for (const value of ['676251c3-6762-4d09-b427-b7cc24510dd7', 'review@example.com', 'Website reviewer', 'name="replyto"', 'name="page_url"']) expect(payload).toContain(value);
-      expect(payload).toContain(kind === 'contact' ? 'Data Centers' : 'Live Electric Panel Cleaning enquiry');
+      expect(payload).toContain(kind === 'contact' ? 'Data Centers' : 'Live Electrical Panel Cleaning enquiry');
     });
   }
 }
