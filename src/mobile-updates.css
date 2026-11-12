@@ -1,0 +1,193 @@
+/* Keep the current content and branding readable across phones and tablets.
+   Load after the shared review styles so desktop rules cannot shrink mobile copy. */
+@media (max-width: 999px) {
+  #main .section,
+  #main .home-page > section {
+    scroll-margin-top: 80px;
+  }
+
+  #main :is(.two-col, .about-block, .contact-layout, .catalogue,
+    .home-contact-grid, .about-editorial-layout, .careers-hero) > * {
+    min-width: 0;
+  }
+
+  #main .home-page .industries-home h2.section-title {
+    white-space: normal;
+  }
+}
+
+/* Preserve the complete process and its stage selection without scaling the
+   desktop diagram down to illegible container-relative text. */
+@media (max-width: 900px) {
+  .project-process .process-chart { padding-block: 4px; }
+  .project-process .process-stages {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .project-process .process-stages > button {
+    min-height: 60px;
+    padding: 14px 12px;
+    gap: 10px;
+    border-radius: 8px;
+  }
+  .project-process .process-stages > button:last-child { grid-column: 1 / -1; }
+  .project-process .process-stage-title { font-size: 15px;line-height: 1.4; }
+  .project-process .process-stages > button > svg:not(.process-stage-arrow) {
+    width: 24px;height: 24px;flex-shrink: 0;
+  }
+  .project-process :is(.process-stage-arrow, .process-connections) { display: none; }
+  .project-process .process-details {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+  .project-process .process-detail-label {
+    min-height: 52px;padding: 12px;font-size: 15px;border-radius: 8px;
+  }
+  .project-process .process-detail-copy {
+    min-height: 0;margin-top: 8px;padding: 18px 16px;border-radius: 8px;
+  }
+  .project-process .process-detail-stage {
+    font-size: 11px;line-height: 1.6;margin-bottom: 10px;
+  }
+  .project-process .process-detail h3 { font-size: 19px;line-height: 1.3; }
+  #root #main .project-process .process-detail p {
+    font-size: 16px;line-height: 1.65;margin-top: 12px;
+  }
+
+  #engineering-path[data-enhanced=true] .ke-surface {
+    height: auto;min-height: 0;max-height: none;
+  }
+  #engineering-path[data-enhanced=true] .ke-composition {
+    height: 210px;min-height: 210px;flex: 0 0 auto;margin: 20px 0;
+  }
+  #engineering-path .ke-stage-tiles button {
+    min-height: 72px;font-size: 12px;line-height: 1.4;
+  }
+  #engineering-path .ke-controls {
+    display: grid;grid-template-columns: 44px 44px minmax(0, 1fr);gap: 12px;
+  }
+  #engineering-path .ke-stage-tiles {
+    grid-column: 1 / -1;display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 8px;overflow: visible;margin-left: 0;padding: 4px;
+  }
+  #engineering-path .ke-stage-tiles button { min-width: 0;overflow-wrap: anywhere; }
+  #engineering-path .ke-stage-tiles button:last-child {
+    grid-column: 1 / -1;flex-direction: row;align-items: center;justify-content: center;
+  }
+
+  #root #main :is(input:not([type=checkbox]):not([type=radio]), select, textarea) {
+    max-width: 100%;font-size: 16px;
+  }
+}
+
+@media (max-width: 640px) {
+  #main,
+  #main .home-page { --section-space: 28px; }
+
+  #main .home-page > section { scroll-margin-top: 64px; }
+  #root #main .eyebrow { line-height: 1.6;letter-spacing: .1em; }
+
+  #main .home-page .hero-banner {
+    height: auto;min-height: 100svh;padding-top: 96px;padding-bottom: 84px;
+  }
+  #main .home-page .hero-banner .hero-copy { margin-block: auto; }
+  #main .home-page .hero-banner .hero-copy > .eyebrow {
+    font-size: 13px;line-height: 1.8;letter-spacing: .08em;
+  }
+  #main .home-page .hero-banner h1.hero-single-line {
+    font-size: clamp(30px, 8.2vw, 46px);line-height: 1.2;
+  }
+  #main .home-page .hero-banner .hero-copy > p {
+    font-size: 16px;line-height: 1.7;
+  }
+  #main .home-page .hero-banner .hero-actions { gap: 12px; }
+  #main .hero-banner .hero-actions .hero-action { min-width: 0;min-height: 48px; }
+
+  #main .home-page .about-photo { height: auto; }
+  #main .home-page .about-photo img {
+    height: auto;aspect-ratio: 4 / 3;object-fit: cover;
+  }
+  #main .home-page .story.story--carousel {
+    height: auto;min-height: 460px;padding: 28px 22px;row-gap: 24px;
+  }
+  #main .home-page .story.story--carousel .story-panel h2 {
+    font-size: clamp(38px, 11vw, 64px);line-height: 1.15;
+  }
+  #main .home-page .story.story--carousel .story-panel > .eyebrow { font-size: 14px; }
+  #main .home-page .story.story--carousel .story-panel p {
+    font-size: 18px;line-height: 1.65;margin-top: 16px;
+  }
+  #main .home-page .story.story--carousel .story-label { font-size: 11px; }
+
+  /* Retain the reference diagram's five stages and six detail columns on phones. */
+  #main .home-page .project-process.section { padding: 20px 16px; }
+  .project-process .project-process-heading { margin-bottom: 14px; }
+  #main .home-page .project-process h2.section-title {
+    font-size: clamp(25px, 7vw, 32px);line-height: 1.15;
+  }
+  #root #main .project-process .project-process-heading p {
+    font-size: 13px;line-height: 1.5;margin-top: 8px;
+  }
+  .project-process .process-stages {
+    grid-template-columns: repeat(5, minmax(0, 1fr));gap: 2cqw;margin-bottom: 4cqw;
+  }
+  .project-process .process-stages > button {
+    min-height: 6cqw;padding: 1.2cqw 1cqw;gap: .6cqw;
+    flex-direction: row;justify-content: space-between;text-align: left;border-radius: .8cqw;
+  }
+  .project-process .process-stages > button:last-child { grid-column: auto; }
+  .project-process .process-stage-title { flex: 1;font-size: 2cqw;line-height: 1.3; }
+  .project-process .process-stages > button > svg:not(.process-stage-arrow) {
+    width: 3.2cqw;height: 3.2cqw;
+  }
+  .project-process .process-details {
+    grid-template-columns: repeat(6, minmax(0, 1fr));gap: 2cqw;
+  }
+  .project-process .process-detail-label {
+    min-height: 7cqw;padding: 1cqw .6cqw;font-size: 1.8cqw;line-height: 1.3;border-radius: .8cqw;
+  }
+  .project-process .process-detail-copy {
+    padding: 2cqw 1cqw;margin-top: 1.5cqw;border-radius: .8cqw;
+  }
+  .project-process .process-detail-stage { display: none; }
+  .project-process .process-detail h3 { display: block;font-size: 1.9cqw;line-height: 1.3;letter-spacing: -.02em; }
+  #root #main .project-process .process-detail p {
+    font-size: 1.65cqw;line-height: 1.45;margin: 1.4cqw 0 0;
+    text-align: center!important;
+  }
+  #main .home-page .industries-home .industry-windows .iw-stage {
+    height: 380px;min-height: 0;
+  }
+  #root #main .home-page .industries-home .iw-copy p {
+    font-size: 15px;line-height: 1.65;
+  }
+  #main .home-page .industries-home .iw-selector button {
+    min-height: 60px;padding: 16px 12px;
+  }
+  #main .home-page .home-contact-grid { grid-template-columns: minmax(0, 1fr); }
+  #main .home-page .home-contact-image { height: auto;aspect-ratio: 16 / 10; }
+  #root #main .home-contact-card h3 {
+    white-space: normal;font-size: clamp(22px, 6vw, 28px);line-height: 1.25;
+  }
+
+  #root .contact-band h2 {
+    white-space: normal;font-size: clamp(30px, 8.5vw, 42px);line-height: 1.2;
+  }
+  #root footer .footer-grid :is(p, a) { font-size: 16px;line-height: 1.8; }
+  footer .footer-grid .footer-brand-column {
+    max-width: 100%;display: flex;flex-direction: column;align-items: center;
+  }
+  footer .footer-grid .footer-logo-map { max-width: 100%;height: 200px; }
+  #main .service-mobile > button {
+    min-height: 44px;padding-block: 10px;font-size: 13px;
+  }
+  #main .filters button { min-height: 44px;font-size: 13px; }
+  .mobile-menu { padding-bottom: max(24px, env(safe-area-inset-bottom)); }
+  .floating-whatsapp {
+    right: max(16px, env(safe-area-inset-right));
+    bottom: max(16px, env(safe-area-inset-bottom));
+  }
+}
+

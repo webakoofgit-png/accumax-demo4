@@ -14,4 +14,5 @@ import './section-spacing.css';
 import './buttons.css';
 import './about-content.css';
 import './heading-colors.css';
+import './mobile-updates.css';
 ReactDOM.createRoot(document.getElementById('root')!).render(<React.StrictMode><HelmetProvider><BrowserRouter><EnquiryPopup><App/></EnquiryPopup></BrowserRouter></HelmetProvider></React.StrictMode>);

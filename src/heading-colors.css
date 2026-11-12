@@ -19,6 +19,13 @@
   --heading-muted: #898b81;
 }
 
+#projects-title,
+#careers-title,
+#main[data-route="/gallery"] .gallery-heading h2,
+#main[data-route="/contact"] .contact-layout > div > h2 {
+  --heading-muted: var(--brand, #a81800);
+}
+
 .two-tone-heading .heading-tone-primary {
   color: var(--heading-primary);
 }

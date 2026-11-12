@@ -350,6 +350,12 @@ dialog.enquiry-popup { border-radius:18px;background:#fafbf8;border-color:#e1e5d
   text-align-last:start;
 }
 
+#root #main .hero-banner .hero-copy > p {
+  text-align:center!important;
+  text-align-last:center;
+  margin-inline:auto;
+}
+
 /* Use the logo's A symbol as a soft grey watermark. */
 .about-copy .about-brand-watermark {
   position:absolute;right:0;bottom:-65px;
