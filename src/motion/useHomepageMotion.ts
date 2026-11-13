@@ -31,7 +31,7 @@ export function useHomepageMotion(rootRef: RefObject<HTMLDivElement>) {
       finePointer: '(hover: hover) and (pointer: fine)',
     }, match => {
       if (!match.conditions?.motion) return;
-      const { desktop, finePointer } = match.conditions;
+      const { desktop } = match.conditions;
       const cleanups: Array<() => void> = [];
       const context = gsap.context(() => {
         const all = (selector: string) => Array.from(root.querySelectorAll<HTMLElement>(selector));
@@ -115,30 +115,7 @@ export function useHomepageMotion(rootRef: RefObject<HTMLDivElement>) {
           cleanups.push(() => cta.classList.remove('motion-cta'));
         }
 
-        if (finePointer) {
-          const buttons = [...all('.button'), ...Array.from(cta?.querySelectorAll<HTMLElement>('.button') ?? [])];
-          buttons.forEach(button => {
-            const xTo = gsap.quickTo(button, 'x', { duration: .45, ease: 'power3.out' });
-            const yTo = gsap.quickTo(button, 'y', { duration: .45, ease: 'power3.out' });
-            let bounds: DOMRect | undefined;
-            const move = (event: PointerEvent) => {
-              if (event.pointerType !== 'mouse') return;
-              bounds ??= button.getBoundingClientRect();
-              xTo(gsap.utils.clamp(-7, 7, (event.clientX - bounds.left - bounds.width / 2) * .08));
-              yTo(gsap.utils.clamp(-5, 5, (event.clientY - bounds.top - bounds.height / 2) * .12));
-            };
-            const reset = () => { bounds = undefined; xTo(0); yTo(0); };
-            button.addEventListener('pointermove', move);
-            button.addEventListener('pointerleave', reset);
-            button.addEventListener('blur', reset);
-            cleanups.push(() => {
-              button.removeEventListener('pointermove', move);
-              button.removeEventListener('pointerleave', reset);
-              button.removeEventListener('blur', reset);
-              xTo.tween.kill(); yTo.tween.kill();
-            });
-          });
-        }
+
       }, root);
       refresh();
       return () => { cleanups.forEach(cleanup => cleanup()); context.revert(); };

@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef, useState, type CSSProperties } from 'react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { useReducedMotion } from 'framer-motion';
+import { useAutoAdvance } from '../motion/useAutoAdvance';
 import gsap from 'gsap';
 import './engineering-path.css';
 import understandImage from '../assets/Industrial Substation at Sunset.png';
@@ -24,6 +25,7 @@ export function EngineeringPath() {
   const [active, setActive] = useState(0);
   const reduced = useReducedMotion();
   const last = ENGINEERING_STAGES.length;
+  useAutoAdvance(root, active, last + 1, setActive, reduced);
   const choose = (index: number) => {
     setActive(Math.max(0, Math.min(last, index)));
   };
@@ -62,7 +64,7 @@ export function EngineeringPath() {
     <h2 id="kinetic-engineering-title" className="ke-sr-only">Kinetic engineering — six stages, one continuous motion.</h2>
     <div className="ke-surface" style={{ backgroundImage: `linear-gradient(90deg,#0b172bd9,#0b172b73 65%,#0b172b40),url("${ENGINEERING_STAGE_IMAGES[active]}")` }}>
       <header className="ke-header"><span className="eyebrow">04 / FROM INTENT TO INFRASTRUCTURE</span></header>
-      <div className="ke-topline" aria-hidden="true"><span className="ke-counter-label"><span className="ke-counter-window"><span className="ke-counter-track"><span>{String(Math.min(active + 1, last)).padStart(2, '0')}</span></span></span><span className="ke-counter-total">/ 06</span></span></div>
+      {active < last && <div className="ke-topline" aria-hidden="true"><span className="ke-counter-label"><span className="ke-counter-window"><span className="ke-counter-track"><span>{String(active + 1).padStart(2, '0')}</span></span></span><span className="ke-counter-total">/ 06</span></span></div>}
       <div className="ke-composition" onPointerDown={event => {
         if (event.button !== 0 || swipe.current) return;
         swipe.current = { x: event.clientX, y: event.clientY, pointerId: event.pointerId };

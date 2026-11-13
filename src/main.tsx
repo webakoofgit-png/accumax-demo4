@@ -1,3 +1,4 @@
+import { ButtonMotion } from './components/ButtonMotion';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {BrowserRouter} from 'react-router-dom';
@@ -15,4 +16,4 @@ import './buttons.css';
 import './about-content.css';
 import './heading-colors.css';
 import './mobile-updates.css';
-ReactDOM.createRoot(document.getElementById('root')!).render(<React.StrictMode><HelmetProvider><BrowserRouter><EnquiryPopup><App/></EnquiryPopup></BrowserRouter></HelmetProvider></React.StrictMode>);
+ReactDOM.createRoot(document.getElementById('root')!).render(<React.StrictMode><HelmetProvider><BrowserRouter><ButtonMotion/><EnquiryPopup><App/></EnquiryPopup></BrowserRouter></HelmetProvider></React.StrictMode>);

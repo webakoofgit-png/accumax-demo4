@@ -74,21 +74,26 @@ export function IndustryWindows() {
     if (!root.current) return;
     const context = gsap.context(() => {
       const layers = gsap.utils.toArray<HTMLElement>('.iw-layer');
-      layers.forEach((layer, index) => {
-        gsap.set(layer, { autoAlpha: 0, zIndex: 0 });
-      });
+      gsap.set(layers, { autoAlpha: 0, zIndex: 0, scale: 1 });
       const incoming = layers[active];
       const outgoing = layers[previous.current];
       gsap.set(outgoing, { autoAlpha: 1, zIndex: 0 });
       gsap.set(incoming, { autoAlpha: 1, zIndex: 1 });
       const changed = previous.current !== active;
       previous.current = active;
-      if (!reduced) {
-        if (changed) gsap.fromTo(incoming, { opacity: 0 }, { opacity: 1, duration: .45, ease: 'power2.out' });
-        gsap.fromTo('.iw-title-line>span', { yPercent: 105 }, { yPercent: 0, duration: .5, stagger: .04, ease: 'power3.out' });
-        gsap.fromTo('.iw-cta', { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: .35 });
-        gsap.fromTo('.iw-progress>span', { scaleX: 0 }, { scaleX: 1, duration: .65, ease: 'power2.inOut' });
+      if (reduced) {
+        gsap.set(layers.filter(layer => layer !== incoming), { autoAlpha: 0 });
+        return;
       }
+      const timeline = gsap.timeline();
+      if (changed) {
+        timeline.to(outgoing, { autoAlpha: 0, duration: .6, ease: 'power2.inOut' }, 0)
+          .fromTo(incoming, { opacity: 0, scale: 1.055 }, { opacity: 1, scale: 1, duration: .8, ease: 'power2.inOut' }, 0);
+      }
+      timeline.fromTo('.iw-title-line>span', { yPercent: 105 }, { yPercent: 0, duration: .7, stagger: .04, ease: 'power3.out' }, .08)
+        .fromTo('.iw-copy p', { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: .7, ease: 'power3.out' }, .08)
+        .fromTo('.iw-cta', { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .5, ease: 'power2.out' }, .25)
+        .fromTo('.iw-progress>span', { scaleX: 0 }, { scaleX: 1, duration: .8, ease: 'power2.inOut' }, 0);
     }, root);
     return () => context.revert();
   }, [active, reduced]);
@@ -143,6 +148,8 @@ export function IndustryWindows() {
     </div>
     <div className="iw-directory">
     <div className="iw-selector" role="tablist" aria-label="Industries we serve" aria-orientation="vertical">{industries.map((item, index) => <button type="button" role="tab" id={`industry-selector-${index}`} aria-controls="industry-window" aria-selected={active === index} tabIndex={active === index ? 0 : -1} key={item.name}
+      onPointerEnter={event => { if (event.pointerType === 'mouse' && window.matchMedia('(hover: hover) and (pointer: fine)').matches) void choose(index); }}
+      onFocus={() => { void choose(index); }}
       onClick={() => { void choose(index); }}
       onKeyDown={event => {
         let next = index;

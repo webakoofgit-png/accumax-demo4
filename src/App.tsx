@@ -1,6 +1,7 @@
 import { FIELD_IMAGES, FIELD_SERVICE_IMAGES } from './field-images';
 import { Heading } from './components/Heading';
 import { ClientLogoCarousel } from './components/ClientLogoCarousel';
+import { HomeTestimonials } from './components/HomeTestimonials';
 import { CompanyStats } from './components/CompanyStats';
 import { ProjectPerspectivesGrid } from './components/ProjectPerspectivesGrid';
 import logoMark from './assets/images/logo-mark.svg';
@@ -10,6 +11,7 @@ import aboutPerspective from "./assets/home page img/_A CONNECTED PERSPECTIVE.pn
 import homeBanner from "./assets/home banners/banner1.png";
 import { OpeningFilm } from "./components/OpeningFilm";
 import { useHomepageMotion } from "./motion/useHomepageMotion";
+import { useAutoAdvance } from "./motion/useAutoAdvance";
 import { ProjectManagementProcess } from "./components/ProjectManagementProcess";
 import { IndustryWindows } from "./components/IndustryWindows";
 import { useEnquiry } from "./components/EnquiryPopup";
@@ -466,6 +468,7 @@ function Story() {
   ];
   const choose = (index: number) => setActive((index + 4) % 4);
   const reduced = useReducedMotion();
+  useAutoAdvance(ref, active, photos.length, setActive, reduced);
   useLayoutEffect(() => {
     if (!ref.current) return;
     const context = gsap.context(() => {
@@ -870,10 +873,11 @@ function Home() {
         </div>
         <ClientLogoCarousel />
       </section>
+      <HomeTestimonials />
       <section className="home-contact section">
         <div className="home-contact-heading">
           <div>
-            <span className="eyebrow">09 / LET&apos;S CONNECT</span>
+            <span className="eyebrow">10 / LET&apos;S CONNECT</span>
             <Heading as="h2" className="section-title">Let&apos;s discuss <em>your next project</em></Heading>
           </div>
         </div>
@@ -1350,6 +1354,7 @@ function Gallery() {
               aria-label={"Enlarge engineering photograph " + (GALLERY.indexOf(s) + 1)}
             >
               <Img src={s} alt={GALLERY_CAPTIONS[s] ?? ("Accumax engineering archive " + (GALLERY.indexOf(s) + 1))} />
+              <span className="gallery-photo-overlay" aria-hidden="true"><span>{GALLERY_CAPTIONS[s] ?? 'Engineering in focus'}</span><ArrowUpRight size={22} /></span>
             </button>
           ))}
         </div> : <VideoGallery />}

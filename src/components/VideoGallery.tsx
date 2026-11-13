@@ -1,9 +1,10 @@
 import { useRef, useState } from 'react';
+import './gallery-media.css';
 
 export const COMPANY_VIDEOS = Array.from({ length: 5 }, (_, index) => ({
   id: index + 1,
   title: `Accumax Controls video ${String(index + 1).padStart(2, '0')}`,
-  src: `https://www.accumaxcontrols.com/${index + 1}.mp4`,
+  src: `/videos/clips/accumax-${String(index + 1).padStart(2, '0')}.mp4`,
   poster: `/videos/posters/accumax-video-${index + 1}.jpg`,
 }));
 
@@ -18,7 +19,7 @@ export function VideoGallery() {
         <a className="site-cta" href={video.src} target="_blank" rel="noreferrer">Open video</a>
       </div>
     ) : (
-      <video key={video.id} src={video.src} poster={video.poster} controls playsInline preload="none" aria-label={video.title}
+      <video key={video.id} src={video.src} poster={video.poster} width={668} height={1080} controls playsInline preload="none" aria-label={video.title}
         onPlay={event => { root.current?.querySelectorAll('video').forEach(other => { if (other !== event.currentTarget) other.pause(); }); }}
         onError={() => setFailed(previous => [...previous, video.id])}
       />

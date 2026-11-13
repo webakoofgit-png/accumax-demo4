@@ -25,5 +25,23 @@
 #root #main .service-perspective-caption>p{font-size:14px;line-height:1.7;margin:12px 0 0;color:#536267}
 .service-perspectives-bottom{display:flex;justify-content:center;margin-top:28px}
 @media(max-width:1000px){#main .home-page .service-perspectives-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 16px}}
-@media(max-width:600px){#main .home-page .service-perspectives-grid{grid-template-columns:minmax(0,1fr)}#main .service-perspective-photo{aspect-ratio:1.1/1}#main .service-perspective-caption>h3{font-size:24px}}
+/* Mobile cards show a preview of the next card and swipe into place. */
+@media(max-width:640px){
+  #main .home-page .service-perspectives-grid{
+    grid-template-columns:none;grid-auto-flow:column;grid-auto-columns:82%;
+    grid-template-rows:auto;gap:12px;overflow-x:auto;overflow-y:hidden;
+    padding:4px 0 14px;scroll-snap-type:x mandatory;scroll-padding-inline:0;
+    overscroll-behavior-x:contain;scrollbar-width:thin;
+  }
+  #main .service-perspective-card{scroll-snap-align:start;scroll-snap-stop:always}
+  #main .service-perspective-photo{aspect-ratio:1.05/1;flex-shrink:0}
+  #main .service-perspective-caption{padding:16px 14px 20px}
+  #main .service-perspective-caption>h3{font-size:20px;line-height:1.25}
+  #root #main .service-perspective-caption>p{font-size:14px;line-height:1.6;margin-top:10px}
+  #main .service-perspective-arrow{width:34px;height:34px;top:12px;right:12px}
+}
+@media(hover:none){
+  #main .service-perspective-card:hover .service-perspective-overlay{opacity:0}
+  #main .service-perspective-card:hover .service-perspective-photo>img{transform:none}
+}
 @media(prefers-reduced-motion:reduce){#main .service-perspective-card *{transition:none!important}}
