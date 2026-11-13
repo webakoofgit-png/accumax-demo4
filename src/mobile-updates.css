@@ -137,7 +137,18 @@
     font-size: 13px;line-height: 1.5;margin-top: 8px;
   }
   .project-process .process-stages {
-    grid-template-columns: repeat(5, minmax(0, 1fr));gap: 2cqw;margin-bottom: 4cqw;
+    grid-template-columns: repeat(5, minmax(0, 1fr));gap: 2cqw;margin-bottom: 0;
+  }
+  .project-process .process-stages .process-stage-arrow {
+    display: block;left: calc(100% + .2cqw);top: 50%;
+    width: 1.6cqw;height: 2.4cqw;transform: translateY(-50%);
+    color: #626d64;animation: none;
+  }
+  .project-process .process-connections {
+    display: block;height: 6cqw;margin-bottom: 2cqw;
+  }
+  .project-process .process-connections > path {
+    stroke-width: 1.5;stroke-dasharray: none;animation: none;
   }
   .project-process .process-stages > button {
     min-height: 6cqw;padding: 1.2cqw 1cqw;gap: .6cqw;

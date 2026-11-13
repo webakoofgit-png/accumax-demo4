@@ -80,11 +80,17 @@
 /* Keep industry choices in a single vertical list on every screen. */
 .industry-windows .iw-selector{display:flex;flex-direction:column;gap:0;border-top:1px solid #dedbd3}
 .industry-windows .iw-selector button{display:flex;align-items:center;gap:18px;width:100%;min-height:65px;padding:18px 16px;border:0;border-bottom:1px solid #dedbd3;border-radius:0;background:transparent;box-shadow:none;font-size:17px}
-.industry-windows .iw-selector button:hover{transform:none;background:#f2eee7;box-shadow:none}
-.industry-windows .iw-selector button[aria-selected=true]{background:#f9ebe1;border-left:2px solid #c87951;box-shadow:none}
+.home-page .industry-windows .iw-selector button{padding:27px 0;gap:24px;color:#242522;font-size:clamp(18px,1.8vw,27px);font-weight:600;letter-spacing:-.04em}
+.home-page .industry-windows .iw-selector button:is(:hover,[aria-selected=true]){transform:none;background:transparent;border-left:0;box-shadow:none;color:#242522}
+.home-page .industry-windows .iw-selector button::after{content:'';position:absolute;bottom:-1px;left:0;width:0;height:1px;background:var(--brand,#a81800);transition:width .3s;pointer-events:none}
+.home-page .industry-windows .iw-selector button[aria-selected=true]::after{width:100%}
+.home-page .industry-windows .iw-tab-copy>span{transition:transform .3s}
+.home-page .industry-windows .iw-selector button[aria-selected=true] .iw-tab-copy>span{transform:translateX(7px)}
 .industry-windows .iw-selector .iw-tab-index{position:static;display:block;align-self:flex-start;min-width:18px;height:auto;margin-top:4px;padding:0;border:0;border-radius:0;background:transparent;color:#999187;font-size:10px;backdrop-filter:none}
-.industry-windows .iw-selector button[aria-selected=true] .iw-tab-index{background:transparent;color:var(--iw-accent)}
+.home-page .industry-windows .iw-selector .iw-tab-index{align-self:center;margin-top:0;color:#83877b;font-weight:400;letter-spacing:0}
+.home-page .industry-windows .iw-selector button[aria-selected=true] .iw-tab-index{background:transparent;color:#83877b}
 .industry-windows .iw-tab-copy{flex:1;min-width:0;padding-left:0}
-.industry-windows .iw-selector button svg{flex-shrink:0;width:18px}
+.home-page .industry-windows .iw-selector button svg{flex-shrink:0;width:20px;color:inherit;transition:transform .3s,color .3s}
+.home-page .industry-windows .iw-selector button[aria-selected=true] svg{transform:rotate(15deg);color:var(--brand,#a81800)}
 @media(max-width:700px){.industry-windows .iw-selector button{min-height:60px;padding:16px 12px;font-size:16px;gap:14px}}
 @media(prefers-reduced-motion:reduce){.industry-windows *{animation:none!important;transition:none!important}}

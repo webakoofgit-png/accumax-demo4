@@ -248,7 +248,7 @@ footer .footer-bottom{padding-top:14px;gap:12px}
   .opening-playback{bottom:18px;right:22px;padding:8px 12px}
   .home-page .industries-home .industry-windows{grid-template-columns:1fr}
   .home-page .industries-home .industry-windows .iw-stage{height:430px}
-  .industry-matrix>a>img{display:block;position:relative;inset:auto;grid-column:1/-1;grid-row:auto;justify-self:end;width:min(calc(100% - 48px),240px);height:145px;transform:none;margin-top:12px;margin-right:48px}
+  .industry-matrix>a>img{display:block;position:relative;inset:auto;grid-column:1/-1;grid-row:auto;justify-self:center;width:min(calc(100% - 48px),240px);height:145px;transform:none;margin:12px auto 0}
   .header .header-socials{gap:6px}
   .header .header-socials a{width:29px;height:40px}
   .header .header-socials svg{width:22px;height:22px}
@@ -273,7 +273,8 @@ footer .footer-bottom{padding-top:14px;gap:12px}
   white-space:normal;
   text-wrap:balance;
 }
-.service-list > div > .site-cta { margin:0 0 20px 38px; }
+.service-list > div > .site-cta { margin:16px 0 20px 38px; }
+.service-list > div > .site-cta::after { content:none;display:none; }
 #expertise .expertise-related { margin-left:12px; }
 .enquiry-popup .enquiry-popup-delivery-note { display:block;font-size:12px;line-height:1.5;color:#64685f;margin:0; }
 @media(max-width:480px) {

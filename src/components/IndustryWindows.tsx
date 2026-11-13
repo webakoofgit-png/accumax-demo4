@@ -1,7 +1,7 @@
 import { Heading } from './Heading';
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, ArrowRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import { useReducedMotion } from 'framer-motion';
 import gsap from 'gsap';
 import { INDUSTRIES } from '../data';
@@ -92,7 +92,6 @@ export function IndustryWindows() {
       }
       timeline.fromTo('.iw-title-line>span', { yPercent: 105 }, { yPercent: 0, duration: .7, stagger: .04, ease: 'power3.out' }, .08)
         .fromTo('.iw-copy p', { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: .7, ease: 'power3.out' }, .08)
-        .fromTo('.iw-cta', { opacity: 0, y: 8 }, { opacity: 1, y: 0, duration: .5, ease: 'power2.out' }, .25)
         .fromTo('.iw-progress>span', { scaleX: 0 }, { scaleX: 1, duration: .8, ease: 'power2.inOut' }, 0);
     }, root);
     return () => context.revert();
@@ -161,7 +160,7 @@ export function IndustryWindows() {
         event.preventDefault();
         root.current?.querySelector<HTMLButtonElement>(`#industry-selector-${next}`)?.focus({ preventScroll: true });
         void choose(next);
-      }}><span className="iw-tab-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><span className="iw-tab-copy"><span>{item.name}</span>{active === index && <small>{item.applications}</small>}</span><ArrowRight size={18}/></button>)}</div>
+      }}><span className="iw-tab-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><span className="iw-tab-copy"><span>{item.name}</span></span><ArrowUpRight size={20}/></button>)}</div>
     <div className="iw-details"><Link className="iw-cta site-cta" to={'/contact?industry=' + encodeURIComponent(industry.name)}>Discuss your project <ArrowUpRight size={20}/></Link></div>
     </div>
     <span className="iw-accessible-status" role="status">{loading ? 'Loading industry image' : industry.name + ': ' + industry.applications}</span>
