@@ -434,7 +434,7 @@ function ServicesList() {
               <Heading as="h3">{s.title}</Heading>
               <ArrowUpRight />
             </Link>
-            {s.relatedSlug && <Link className="text-link site-cta" to={'/services/' + s.relatedSlug}>Explore Trading <ArrowUpRight size={16} /></Link>}
+            {s.relatedSlug && <div className="service-trading-action"><Link className="site-cta" to={'/services/' + s.relatedSlug}>Explore Trading <ArrowUpRight size={16} /></Link></div>}
             <div className="service-mobile">
               <button
                 onClick={() => setActive(active === i ? -1 : i)}
