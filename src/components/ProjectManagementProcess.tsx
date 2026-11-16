@@ -56,6 +56,8 @@ export function ProjectManagementProcess() {
       <div className="process-stages" role="group" aria-label="Project management stages">
         {stages.map(({ title, icon: Icon }, index) => <motion.button key={title} type="button"
           aria-pressed={active === index} aria-controls="process-details" onClick={() => setActive(index)}
+          onPointerEnter={event => { if (event.pointerType !== 'touch') setActive(index); }}
+          onFocus={() => setActive(index)}
           initial={reduced ? false : { opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.45, delay: reduced ? 0 : index * 0.1 }}>
           <span className="process-stage-number">0{index + 1}</span>
@@ -64,8 +66,11 @@ export function ProjectManagementProcess() {
         </motion.button>)}
       </div>
       <svg className="process-connections" viewBox="0 0 1200 48" preserveAspectRatio="none" aria-hidden="true">
-        <defs><marker id="process-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#a5ada8" /></marker></defs>
-        {connections.map((path, index) => <path key={path} d={path} markerEnd="url(#process-arrow)" className={steps[index].stage === active ? 'is-active' : ''} />)}
+        <defs>
+          <marker id="process-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#a5ada8" /></marker>
+          <marker id="process-arrow-active" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L8 4L0 8Z" fill="var(--process-orange)" /></marker>
+        </defs>
+        {connections.map((path, index) => <path key={path} d={path} markerEnd={steps[index].stage === active ? 'url(#process-arrow-active)' : 'url(#process-arrow)'} className={steps[index].stage === active ? 'is-active' : ''} />)}
       </svg>
       <div className="process-details" id="process-details">
         {steps.map((step, index) => <motion.article key={step.title} className={`process-detail${active === step.stage ? ' is-active' : ''}`}
