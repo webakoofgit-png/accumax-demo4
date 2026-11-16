@@ -181,6 +181,8 @@
 /* ABB-style CTAs: sliding fill for primary actions, fading gradient outline for secondary actions. */
 #root :is(.button, .site-cta, .enquiry-popup-submit) {
   --cta-gradient: linear-gradient(90deg, #b58cff 13%, var(--brand, #a81800) 50%);
+  /* Spread the outline across its full width; the fill uses a double-width image. */
+  --cta-outline-gradient: linear-gradient(90deg, #6558ff 0%, #9975ff 25%, #c462a5 55%, var(--brand, #a81800) 100%);
   translate: none !important;
 }
 
@@ -202,7 +204,7 @@
 
 /* Secondary actions retain their transparent center in both themes. */
 #root :is(#main, footer, .contact-band, .enquiry-popup) :is(.site-cta, .button.light, .button.hero-action-secondary) {
-  --cta-outline-color: var(--brand, #a81800);
+  --cta-outline-color: #262626;
   background: transparent;
   border-color: transparent;
   color: var(--cta-outline-color);
@@ -228,7 +230,7 @@
 
 #root :is(#main, footer, .contact-band, .enquiry-popup) :is(.site-cta, .button.light, .button.hero-action-secondary)::after {
   padding: 2px;
-  background: var(--cta-gradient);
+  background: var(--cta-outline-gradient);
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
