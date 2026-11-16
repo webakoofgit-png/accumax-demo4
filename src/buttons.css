@@ -178,71 +178,132 @@
   }
 }
 
-/* Shared pointer response for primary actions; outline actions stay steady. */
-#root :is(.button,.site-cta,.enquiry-popup-submit){
-  translate:var(--cta-magnet-x,0px) calc(var(--cta-magnet-y,0px) + var(--cta-lift,0px))!important;
+/* ABB-style CTAs: sliding fill for primary actions, fading gradient outline for secondary actions. */
+#root :is(.button, .site-cta, .enquiry-popup-submit) {
+  --cta-gradient: linear-gradient(90deg, #b58cff 13%, var(--brand, #a81800) 50%);
+  translate: none !important;
 }
-@media(hover:hover) and (pointer:fine){
-  #root :is(.button,.enquiry-popup-submit):not(:disabled):not([aria-disabled="true"]):hover{--cta-lift:-3px}
-}
-#root :is(.button,.enquiry-popup-submit):not(:disabled):not([aria-disabled="true"]):focus-visible{--cta-lift:-3px}
-#root :is(.button,.site-cta,.enquiry-popup-submit):not(:disabled):not([aria-disabled="true"]):is(:active,[data-pressed]){--cta-lift:-3px}
-#root :is(.button,.site-cta,.enquiry-popup-submit):is(:disabled,[aria-disabled="true"]){cursor:not-allowed;translate:none!important}
 
-/* The journey uses an inline CTA rather than the shared pill. */
+#root :is(#main, footer, .contact-band, .enquiry-popup) :is(.button, .site-cta, .enquiry-popup-submit) {
+  position: relative;
+  box-shadow: none;
+  transition: background-position .3s cubic-bezier(.65, 0, .35, 1), background-color .2s ease, opacity .2s ease;
+}
+
+/* Primary: the resting position shows the solid brand end of a double-width gradient. */
+#root :is(#main, footer, .contact-band, .enquiry-popup) :is(.button, .enquiry-popup-submit):not(.light):not(.hero-action-secondary) {
+  background-color: var(--brand, #a81800);
+  background-image: var(--cta-gradient);
+  background-size: 200% 100%;
+  background-position: 100% 50%;
+  color: #fff;
+  border-color: transparent;
+}
+
+/* Secondary actions retain their transparent center in both themes. */
+#root :is(#main, footer, .contact-band, .enquiry-popup) :is(.site-cta, .button.light, .button.hero-action-secondary) {
+  --cta-outline-color: var(--brand, #a81800);
+  background: transparent;
+  border-color: transparent;
+  color: var(--cta-outline-color);
+  box-shadow: none;
+  backdrop-filter: none;
+}
+
+#root :is(#main, footer, .contact-band, .enquiry-popup) :is(.site-cta, .button.light, .button.hero-action-secondary)::before,
+#root :is(#main, footer, .contact-band, .enquiry-popup) :is(.site-cta, .button.light, .button.hero-action-secondary)::after {
+  content: '';
+  display: block;
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  transition: opacity .5s ease-in-out, border-color .2s ease;
+}
+
+#root :is(#main, footer, .contact-band, .enquiry-popup) :is(.site-cta, .button.light, .button.hero-action-secondary)::before {
+  border: 2px solid var(--cta-outline-color);
+  opacity: 1;
+}
+
+#root :is(#main, footer, .contact-band, .enquiry-popup) :is(.site-cta, .button.light, .button.hero-action-secondary)::after {
+  padding: 2px;
+  background: var(--cta-gradient);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+}
+
+#root :is(#main, .contact-band) :is(.button, .site-cta).light,
+#root #main .hero-banner .hero-action-secondary,
+#root #main :is(#expertise, .image-break) .site-cta {
+  --cta-outline-color: #fff;
+}
+
+/* Match the reference without shifting the button or label. */
+#root :is(#main, footer, .contact-band, .enquiry-popup) :is(.button, .site-cta, .enquiry-popup-submit):where(:not(:disabled):not([aria-disabled="true"])):is(:hover, :focus-visible, :active, [data-pressed]) {
+  padding-inline: var(--cta-padding-x, 28px);
+  box-shadow: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  #root :is(#main, footer, .contact-band, .enquiry-popup) :is(.button, .enquiry-popup-submit):not(.light):not(.hero-action-secondary):where(:not(:disabled):not([aria-disabled="true"])):hover {
+    background-position: 30% 50%;
+  }
+}
+
+#root :is(#main, footer, .contact-band, .enquiry-popup) :is(.button, .enquiry-popup-submit):not(.light):not(.hero-action-secondary):where(:not(:disabled):not([aria-disabled="true"])):is(:focus-visible, [data-pressed]) {
+  background-position: 30% 50%;
+}
+
+#root :is(#main, footer, .contact-band, .enquiry-popup) :is(.site-cta, .button.light, .button.hero-action-secondary):where(:not(:disabled):not([aria-disabled="true"])):is(:hover, :focus-visible, :active, [data-pressed]),
+#root #main :is(.project-card, .home-contact-card):is(:hover, :focus-visible, :active, [data-pressed]) .site-cta {
+  background: transparent;
+  color: var(--cta-outline-color);
+  border-color: transparent;
+  box-shadow: none;
+}
+
+#root :is(#main, footer, .contact-band, .enquiry-popup) :is(.site-cta, .button.light, .button.hero-action-secondary):where(:not(:disabled):not([aria-disabled="true"])):is(:hover, :focus-visible, [data-pressed])::before,
+#root #main :is(.project-card, .home-contact-card):is(:hover, :focus-visible, [data-pressed]) .site-cta::before {
+  opacity: 0;
+}
+
+#root :is(#main, footer, .contact-band, .enquiry-popup) :is(.site-cta, .button.light, .button.hero-action-secondary):where(:not(:disabled):not([aria-disabled="true"])):is(:hover, :focus-visible, [data-pressed])::after,
+#root #main :is(.project-card, .home-contact-card):is(:hover, :focus-visible, [data-pressed]) .site-cta::after {
+  opacity: 1;
+}
+
+#root :is(#main, footer, .contact-band, .enquiry-popup) :is(.button, .enquiry-popup-submit):not(.light):not(.hero-action-secondary):where(:not(:disabled):not([aria-disabled="true"])):active {
+  background-color: color-mix(in srgb, var(--brand, #a81800) 82%, #000);
+  background-image: none;
+}
+
+#root :is(.button, .site-cta, .enquiry-popup-submit):is(:disabled, [aria-disabled="true"]) {
+  cursor: not-allowed;
+  opacity: .5;
+}
+
+#root :is(#main, footer, .contact-band, .enquiry-popup) :is(.button, .site-cta, .enquiry-popup-submit):focus-visible {
+  outline: 2px solid var(--cta-outline-color, var(--brand, #a81800));
+  outline-offset: 4px;
+}
+
 #root #work-journey .journey-result-cta {
   transition: color .25s ease, border-color .25s ease;
 }
-
 #root #work-journey .journey-result-cta:is(:hover, :focus-visible) {
   color: var(--brand, #a81800);
   border-color: currentColor;
 }
 
-#root #work-journey .journey-result-cta:focus-visible svg {
-  transform: translate(3px, -3px);
-}
-
 @media (prefers-reduced-motion: reduce) {
-  #root :is(.button, .site-cta, .enquiry-popup-submit, .floating-whatsapp):not(:disabled):not([aria-disabled="true"]):is(:hover, :focus-visible, :active, [data-pressed]),
-  #root :is(#main, footer, .contact-band, .enquiry-popup) :is(.button, .site-cta, .enquiry-popup-submit),
-  #root #main :is(.project-card, .home-contact-card):is(:hover, :focus-visible, :active, [data-pressed]) .site-cta,
-  #root .floating-whatsapp,
-  #root #work-journey .journey-result-cta {
-    transition: none;
+  #root :is(.button, .site-cta, .enquiry-popup-submit, .floating-whatsapp, .journey-result-cta),
+  #root :is(.button, .site-cta)::before,
+  #root :is(.button, .site-cta)::after {
+    transition: none !important;
     translate: none !important;
   }
-
-  #root #work-journey .journey-result-cta:is(:hover, :focus-visible) svg {
-    transform: none;
-  }
-}
-/* Shift the label without changing the button's outer size. */
-@media (prefers-reduced-motion: no-preference) {
-  #root :is(#main, footer, .contact-band, .enquiry-popup) :is(.button, .site-cta, .enquiry-popup-submit):not(:disabled):not([aria-disabled="true"]):is(:hover, :focus-visible, :active, [data-pressed]),
-  #root #main :is(.project-card, .home-contact-card):is(:hover, :focus-visible, :active, [data-pressed]) .site-cta {
-    padding-inline-start:calc(var(--cta-padding-x, 28px) + 4px);
-    padding-inline-end:calc(var(--cta-padding-x, 28px) - 4px);
-  }
-}
-
-/* Secondary actions use the outline treatment throughout the site. */
-#root :is(#main,footer,.enquiry-popup) .site-cta{
-  background:transparent;color:var(--brand,#a81800);border-color:currentColor;box-shadow:none;
-}
-#root :is(#main,footer,.enquiry-popup) .site-cta:not(:disabled):not([aria-disabled="true"]):is(:hover,:focus-visible,:active,[data-pressed]),
-#root #main :is(.project-card,.home-contact-card):is(:hover,:focus-visible,:active,[data-pressed]) .site-cta{
-  background:var(--brand,#a81800);color:#fff;border-color:var(--brand,#a81800);box-shadow:none;
-}
-#root :is(#main,.contact-band) :is(.button,.site-cta).light{
-  background:transparent;border-color:#fff;color:#fff;box-shadow:none;
-}
-#root :is(#main,.contact-band) :is(.button,.site-cta).light:is(:hover,:focus-visible,:active,[data-pressed]){
-  background:#fff;border-color:#fff;color:var(--brand,#a81800);box-shadow:none;
-}
-#root #main :is(#expertise,.image-break) .site-cta{
-  background:transparent;color:#fff;border-color:#ffffffb3;box-shadow:none;
-}
-#root #main :is(#expertise,.image-break) .site-cta:is(:hover,:focus-visible,:active,[data-pressed]){
-  background:#fff;border-color:#fff;color:var(--brand,#a81800);
 }
