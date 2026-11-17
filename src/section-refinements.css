@@ -156,6 +156,12 @@
     margin-bottom: 0;
   }
   #root #main .process-connections > path { stroke-width: 1.5; }
+  #main .project-process { --process-column-gap: 3cqw; }
+  #main :is(.process-stages, .process-details) { gap: var(--process-column-gap); }
+}
+@media (max-width: 480px) {
+  #root #main .process-stages > button > svg:not(.process-stage-arrow) { display: none; }
+  #main .process-stages > button { gap: 0; }
 }
 
 /* A brief shake on the industry name leaves the link and row steady. */

@@ -19,6 +19,7 @@ for (const width of [320, 390, 640, 1440]) {
       expect(arrow.x).toBeGreaterThanOrEqual(button.x + button.width - 1);
       expect(arrow.x + arrow.width).toBeLessThanOrEqual(next.x + 2);
       expect(arrow.height).toBeLessThanOrEqual(button.height);
+      if (width <= 760) expect(arrow.width).toBeGreaterThanOrEqual(8);
     }
     await expect(chart.locator('.process-connections > path')).toHaveCount(6);
     await expect(chart.locator('marker').first()).toHaveAttribute('markerWidth', width <= 760 ? '10' : '20');
