@@ -18,3 +18,10 @@
 #main .home-page .story.story--carousel::after {
   background: linear-gradient(90deg, #1b2417fc 0%, #202a1bf2 30%, #222d1ed9 58%, #263122a3 100%);
 }
+@media (min-width: 1000px) {
+  #root #main .home-page .story.story--carousel .story-panel p {
+    max-width: none;
+    font-size: clamp(18px, 1.65vw, 26px);
+    white-space: nowrap;
+  }
+}
