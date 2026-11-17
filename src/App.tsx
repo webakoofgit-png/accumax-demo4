@@ -344,7 +344,7 @@ function Footer() {
               </Link>
             ))}
           </div>
-          <div>
+          <div className="footer-resources-column">
             <span className="eyebrow">RESOURCES</span>
             {[
               ["Ideas & Insights", "/gallery"],
@@ -358,7 +358,7 @@ function Footer() {
               </Link>
             ))}
           </div>
-          <div>
+          <div className="footer-contact-column">
             <span className="eyebrow">GET IN TOUCH</span>
             <div className="footer-contact-detail">
               <h3>Email:</h3>

@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-for (const width of [390, 1440]) {
+for (const width of [320, 390, 640, 1440]) {
   test(`footer layout stays readable at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await page.emulateMedia({ reducedMotion: 'reduce' });
@@ -16,6 +16,21 @@ for (const width of [390, 1440]) {
     await expect(footer.locator('.footer-address')).toHaveAttribute('href', /https:\/\/www.google.com\/maps\/search/);
     await expect(footer.locator('.footer-address')).toHaveAttribute('target', '_blank');
     await expect(footer.getByText('View on Google Maps', { exact: true })).toHaveCount(0);
+    if (width <= 640) {
+      const grid = (await footer.locator('.footer-grid').boundingBox())!;
+      const contact = (await footer.locator('.footer-contact-column').boundingBox())!;
+      expect(contact.width).toBeCloseTo(grid.width, 1);
+      const email = footer.locator('.footer-contact-detail a[href^="mailto:"]');
+      const phone = footer.locator('.footer-contact-detail a[href^="tel:"]');
+      for (const link of [email, phone]) {
+        const singleLine = await link.evaluate(element => {
+          const range = document.createRange();
+          range.selectNodeContents(element);
+          return range.getClientRects().length === 1;
+        });
+        expect(singleLine).toBeTruthy();
+      }
+    }
     expect(await footer.locator('.footer-brand img').evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0)).toBeTruthy();
     expect(await footer.evaluate(element => element.scrollWidth <= element.clientWidth)).toBeTruthy();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy();
