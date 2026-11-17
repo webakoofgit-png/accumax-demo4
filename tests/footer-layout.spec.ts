@@ -22,12 +22,15 @@ for (const width of [320, 390, 640, 1440]) {
       expect(contact.width).toBeCloseTo(grid.width, 1);
       const resources = await footer.locator('.footer-resources-column > a').evaluateAll(links => links.map(link => link.getBoundingClientRect().x));
       expect(new Set(resources.map(x => Math.round(x))).size).toBe(1);
-      const services = footer.locator('.footer-grid > div').nth(0).locator(':scope > a');
-      const explore = footer.locator('.footer-grid > div').nth(1).locator(':scope > a');
-      for (let index = 0; index < 6; index++) {
-        const left = (await services.nth(index).boundingBox())!;
-        const right = (await explore.nth(index).boundingBox())!;
-        expect(left.y).toBeCloseTo(right.y, 1);
+      const columns = footer.locator('.footer-grid > div');
+      for (let index = 0; index < 4; index++) {
+        const column = (await columns.nth(index).boundingBox())!;
+        expect(column.x).toBeCloseTo(grid.x, 1);
+        expect(column.width).toBeCloseTo(grid.width, 1);
+        if (index > 0) {
+          const previous = (await columns.nth(index - 1).boundingBox())!;
+          expect(column.y).toBeGreaterThan(previous.y + previous.height);
+        }
       }
       const brand = (await footer.locator('.footer-brand').boundingBox())!;
       expect(brand.x + brand.width).toBeLessThanOrEqual(width - 80);
