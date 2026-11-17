@@ -144,6 +144,20 @@
   animation: none;
 }
 
+@media (max-width: 760px) {
+  #root #main .process-stages .process-stage-arrow {
+    top: 50%;
+    height: 10px;
+    transform: translateY(-50%);
+    stroke-width: 1.5;
+  }
+  #root #main .process-connections {
+    height: 28px;
+    margin-bottom: 0;
+  }
+  #root #main .process-connections > path { stroke-width: 1.5; }
+}
+
 /* A brief shake on the industry name leaves the link and row steady. */
 @media (prefers-reduced-motion: no-preference) {
   #main .industry-matrix > a:is(:hover, :focus-visible) > h3 {

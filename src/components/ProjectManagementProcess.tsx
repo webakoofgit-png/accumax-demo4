@@ -27,7 +27,7 @@ export function ProjectManagementProcess() {
   const reduced = useReducedMotion();
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
-  const [connectors, setConnectors] = useState({ width: 1200, paths: [] as string[], arrows: [] as number[] });
+  const [connectors, setConnectors] = useState({ width: 1200, paths: [] as string[], arrows: [] as number[], compact: false });
 
   useEffect(() => {
     const chart = root.current?.querySelector<HTMLElement>('.process-chart');
@@ -45,8 +45,8 @@ export function ProjectManagementProcess() {
         return `M${from} 0V20H${to}V46.5`;
       });
       const arrows = Array.from(buttons).slice(0, -1).map((button, index) =>
-        Math.max(8, buttons[index + 1].getBoundingClientRect().left - button.getBoundingClientRect().right));
-      setConnectors({ width: bounds.width, paths, arrows });
+        Math.max(1, buttons[index + 1].getBoundingClientRect().left - button.getBoundingClientRect().right));
+      setConnectors({ width: bounds.width, paths, arrows, compact: window.matchMedia('(max-width: 760px)').matches });
     };
     const observer = new ResizeObserver(update);
     observer.observe(chart);
@@ -76,6 +76,7 @@ export function ProjectManagementProcess() {
       <div className="process-stages" role="group" aria-label="Project management stages">
         {stages.map(({ title, icon: Icon }, index) => {
           const arrowWidth = connectors.arrows[index] ?? 26;
+          const arrowHead = Math.min(8, arrowWidth * .45);
           return <motion.button key={title} type="button"
           className={index === 2 ? 'process-stage-execution' : undefined}
           aria-label={title} aria-pressed={active === index} aria-controls="process-details" onClick={() => setActive(index)}
@@ -85,12 +86,12 @@ export function ProjectManagementProcess() {
           viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.45, delay: reduced ? 0 : index * 0.1 }}>
           <span className="process-stage-number"><span className="button-label">0{index + 1}</span></span>
           <span className="process-stage-title"><span className="button-label">{title}</span></span><Icon size={28} strokeWidth={1.5} aria-hidden="true" />
-          {index < stages.length - 1 && <svg className="process-stage-arrow lucide lucide-arrow-right" viewBox={`0 0 ${arrowWidth} 24`} preserveAspectRatio="none" style={{ width: arrowWidth }} height="28" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d={`M0 12H${arrowWidth - 1}m-8-8 8 8-8 8`} /></svg>}
+          {index < stages.length - 1 && <svg className="process-stage-arrow lucide lucide-arrow-right" viewBox={`0 0 ${arrowWidth} 24`} preserveAspectRatio="none" style={{ width: arrowWidth }} height="28" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path vectorEffect="non-scaling-stroke" d={`M0 12H${Math.max(0, arrowWidth - 1)}m-${arrowHead}-8 ${arrowHead} 8-${arrowHead} 8`} /></svg>}
         </motion.button>;
         })}
       </div>
       <svg className="process-connections" viewBox={`0 0 ${connectors.width} 48`} preserveAspectRatio="none" aria-hidden="true">
-        <defs>{steps.map((step, index) => <marker key={step.title} id={`process-arrow-${index}`} viewBox="0 0 20 20" refX="18" refY="10" markerWidth="20" markerHeight="20" markerUnits="userSpaceOnUse" orient="auto"><path d="M10 2L18 10L10 18" fill="none" stroke="var(--process-line, #888)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" /></marker>)}</defs>
+        <defs>{steps.map((step, index) => <marker key={step.title} id={`process-arrow-${index}`} viewBox="0 0 20 20" refX="18" refY="10" markerWidth={connectors.compact ? 10 : 20} markerHeight={connectors.compact ? 10 : 20} markerUnits="userSpaceOnUse" orient="auto"><path d="M10 2L18 10L10 18" fill="none" stroke="var(--process-line, #888)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" /></marker>)}</defs>
         {connectors.paths.map((path, index) => <path key={steps[index].title} d={path} markerEnd={`url(#process-arrow-${index})`} className={steps[index].stage === active ? 'is-active' : ''} />)}
       </svg>
       <div className="process-details" id="process-details">
