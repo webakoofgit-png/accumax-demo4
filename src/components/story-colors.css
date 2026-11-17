@@ -2,3 +2,19 @@
 .story.story:after{background:linear-gradient(90deg,#22291f 25%,#22291f12 90%)}
 .story .story-label{color:#b2b8a7}
 .story .story-panel p{color:#bbc1b4}
+
+/* Full-width photography with the existing olive tone fading left to right. */
+#main .home-page .story.story--carousel .story-photo {
+  position: absolute;
+  inset: 0;
+  opacity: 1;
+}
+#main .home-page .story.story--carousel .story-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+#main .home-page .story.story--carousel::after {
+  background: linear-gradient(90deg, #22291ff2 0%, #22291fe0 25%, #22291fb3 55%, #22291f6b 100%);
+}
