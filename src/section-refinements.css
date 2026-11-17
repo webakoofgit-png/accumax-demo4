@@ -1,7 +1,16 @@
 /* A little more weight for directional icons throughout the site. */
 #main .home-page .about-block { padding-bottom: 72px; }
 @media (max-width: 640px) {
-  #main .home-page .about-block { padding-bottom: 22px; }
+  #main .home-page .about-block { padding-bottom: 16px; }
+  #main .home-page .about-copy { padding-bottom: 8px; }
+  #main .home-page .about-copy .about-brand-watermark {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 64px;
+    margin: 0;
+    z-index: 0;
+  }
 }
 
 #root svg:is([class*="lucide-arrow-"], [class*="lucide-chevron-"], [class*="lucide-move-"]) {
