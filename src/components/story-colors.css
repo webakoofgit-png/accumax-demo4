@@ -16,5 +16,5 @@
   object-position: center;
 }
 #main .home-page .story.story--carousel::after {
-  background: linear-gradient(90deg, #22291ff2 0%, #22291fe0 25%, #22291fb3 55%, #22291f6b 100%);
+  background: linear-gradient(90deg, #1b2417fc 0%, #202a1bf2 30%, #222d1ed9 58%, #263122a3 100%);
 }
