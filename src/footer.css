@@ -1,0 +1,85 @@
+#root footer.site-footer {
+  padding: 26px max(3.7vw, 24px) 20px !important;
+  background: #302d29;
+  color: #f7f3ec;
+}
+#root .site-footer .footer-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) minmax(0, 1.2fr);
+  gap: clamp(24px, 3vw, 52px);
+  padding-top: 18px;
+  border-top: 0;
+}
+#root .site-footer .footer-grid > div { grid-column: auto; min-width: 0; }
+#root :is(#main, footer.site-footer) .footer-grid .eyebrow {
+  margin: 0 0 18px;
+  color: #faf6ef;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+#root .site-footer .footer-grid :is(p, a) {
+  color: #e2dbd1;
+  font-size: 14px;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+}
+#root .site-footer .footer-grid > div > a { display: block; margin-top: 9px; width: fit-content; }
+#root .site-footer .footer-grid > div > a:has(svg) { display: inline-flex;align-items: center;gap: 6px; }
+#root .site-footer .footer-grid .footer-address { color: #c5bbaf; margin: 16px 0; }
+#root .site-footer .footer-contact-detail { display: grid;grid-template-columns: 72px minmax(0, 1fr);align-items: baseline;gap: 8px;margin-top: 9px; }
+#root .site-footer .footer-contact-detail h3 {
+  margin: 0;
+  flex-shrink: 0;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: 0;
+  color: #faf6ef;
+}
+#root .site-footer .footer-contact-detail a { display: inline-block;min-width: 0; }
+#root .site-footer .footer-contact-detail .footer-address { margin: 0; }
+#root .site-footer .footer-grid .footer-address:is(:hover, :focus-visible) { color: #f1bd36; }
+#root .site-footer .footer-address-arrow { display: inline-block;margin-left: 4px;vertical-align: -2px; }
+#root .site-footer .footer-grid p { text-align: left !important; text-align-last: left; }
+#root .site-footer a { transition: color .2s; }
+#root .site-footer a:hover { color: #f1bd36; text-decoration: underline; text-underline-offset: 4px; }
+#root .site-footer :focus-visible { outline: 2px solid #f1bd36; outline-offset: 5px; }
+#root .site-footer .footer-identity-row { display: flex;align-items: center;justify-content: space-between;gap: 24px;margin-top: 24px; }
+#root .site-footer .footer-socials { display: flex;align-items: center;gap: 16px; }
+#root .site-footer .footer-socials a { display: grid;place-items: center;min-width: 32px;min-height: 36px; }
+#root .site-footer .footer-brand { display: block;padding: 0;background: transparent;border-radius: 0; }
+#root .site-footer .footer-brand img { width: 180px;height: auto; }
+#root .site-footer .footer-bottom {
+  display: flex;align-items: center;justify-content: space-between;flex-wrap: wrap;
+  gap: 16px 24px;margin-top: 20px;padding-top: 16px;border-top: 1px solid #d6cabc40;
+}
+#root .site-footer .footer-bottom-links { display: flex;align-items: center;flex-wrap: wrap;gap: 10px 20px;font-size: 13px; }
+#root .site-footer .footer-bottom-links a { color: #e2dbd1; }
+#root .site-footer .footer-bottom > span { display: block;width: auto;max-width: 560px;text-align: right;font-size: 11px;line-height: 1.7;color: #bfb5a9; }
+#root .site-footer .footer-bottom > button { position: static;display: inline-flex;align-items: center;gap: 8px;color: #e2dbd1;font-size: 12px;padding: 8px 0;margin-right: 64px; }
+@media (max-width: 1100px) {
+  #root .site-footer .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr));gap: 30px; }
+}
+@media (max-width: 640px) {
+  #root footer.site-footer { padding-inline: 22px !important; }
+  #root .site-footer .footer-grid { grid-template-columns: repeat(2, minmax(0, 1fr));gap: 28px 22px;padding-top: 14px; }
+  #root .site-footer .footer-identity-row { margin-top: 20px;flex-wrap: wrap; }
+  #root .site-footer .footer-brand img { width: 145px; }
+  #root .site-footer .footer-bottom { align-items: flex-start;margin-top: 16px; }
+  #root .site-footer .footer-bottom > span { width: 100%;text-align: left;order: 3; }
+}
+@media (prefers-reduced-motion: reduce) { #root .site-footer a { transition: none; } }
+@media (prefers-reduced-motion: no-preference) {
+  #root .site-footer .footer-grid a:is(:hover, :focus-visible),
+  #root .site-footer .footer-bottom > span > a:is(:hover, :focus-visible) {
+    animation: footer-link-shake .4s ease-in-out;
+  }
+}
+#root .site-footer .footer-bottom > span > a { display: inline-block; }
+@keyframes footer-link-shake {
+  0%, 100% { translate: 0 0; }
+  20%, 60% { translate: -1.5px 0; }
+  40%, 80% { translate: 1.5px 0; }
+}

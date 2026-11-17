@@ -96,7 +96,7 @@ export function EnquiryPopup({ children }: { children: ReactNode }) {
           <label>Interested in<select name="service" value={service} onChange={event => setService(event.target.value)}><option value="">Select a service</option>{SERVICE_OPTIONS.map(title => <option key={title}>{title}</option>)}</select></label>
         </div>
         <label><span className="enquiry-popup-label-text">Project requirements<span aria-hidden="true">*</span></span><textarea name="message" required rows={3} maxLength={3000} placeholder={panelCleaning ? "Panel type, quantity, site location and preferred date" : "Tell us what you are planning"}/></label>
-        <button className="enquiry-popup-submit" type="submit" disabled={submission.busy || submission.sent}>{submission.busy ? 'Sending enquiry…' : submission.sent ? 'Enquiry sent' : 'Send enquiry'} <ArrowUpRight size={18}/></button>
+        <button className="enquiry-popup-submit" type="submit" disabled={submission.busy || submission.sent}><span className="button-label">{submission.busy ? 'Sending enquiry…' : submission.sent ? 'Enquiry sent' : 'Send enquiry'} </span><ArrowUpRight size={18}/></button>
         {submission.error && <div className="form-feedback" role="alert">{submission.error}</div>}
         {submission.sent && <div className="form-feedback" role="status">Your enquiry has been sent successfully. Our team will get in touch with you.</div>}
       </form>

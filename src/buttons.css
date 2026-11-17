@@ -179,10 +179,24 @@
 }
 
 /* ABB-style CTAs: sliding fill for primary actions, fading gradient outline for secondary actions. */
+.button-label { display: inline-block; }
+
+@media (prefers-reduced-motion: no-preference) {
+  #root :is(button, .button, .site-cta, .header-cta, .text-link):where(:not(:disabled):not([aria-disabled="true"])):is(:hover, :focus-visible, [data-pressed]) .button-label {
+    animation: button-text-shake .4s ease-in-out;
+  }
+}
+
+@keyframes button-text-shake {
+  0%, 100% { translate: 0 0; }
+  20%, 60% { translate: -1.5px 0; }
+  40%, 80% { translate: 1.5px 0; }
+}
+
 #root :is(.button, .site-cta, .enquiry-popup-submit) {
-  --cta-gradient: linear-gradient(90deg, #b58cff 13%, var(--brand, #a81800) 50%);
+  --cta-gradient: linear-gradient(90deg, #e6a800 13%, #dc4b14 32%, var(--brand, #a81800) 50%);
   /* Spread the outline across its full width; the fill uses a double-width image. */
-  --cta-outline-gradient: linear-gradient(90deg, #6558ff 0%, #9975ff 25%, #c462a5 55%, var(--brand, #a81800) 100%);
+  --cta-outline-gradient: linear-gradient(90deg, #f2bd18 0%, #e6a800 25%, #dc4b14 55%, var(--brand, #a81800) 100%);
   translate: none !important;
 }
 

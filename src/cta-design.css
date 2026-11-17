@@ -1,0 +1,49 @@
+#root .contact-band {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(40px, 4vw, 58px) max(5.2vw, 24px);
+  min-height: 350px;
+  background-color: #243b4b;
+  background-image:
+    linear-gradient(90deg, #162a36f5 0%, #162a36b3 42%, #162a3610 100%),
+    url('./assets/images/cta-flow-waves.svg'),
+    radial-gradient(ellipse at 100% 90%, #a978574d, transparent 55%),
+    linear-gradient(125deg, #243b4b 20%, #476775 70%, #344b55);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-top: 1px solid #a8bec626;
+  border-bottom: 1px solid #ffffff12;
+}
+#root .contact-band::before,
+#root .contact-band::after { content: none; }
+#root .contact-band > .eyebrow { color: #c7d6de;font-size: 12px;letter-spacing: .16em;margin-bottom: 18px; }
+#root .contact-band h2 {
+  --heading-primary: #fff;
+  --heading-muted: #d1dfe5;
+  max-width: 1000px;
+  font-size: clamp(36px, 4.6vw, 70px);
+  line-height: 1.12;
+  white-space: normal;
+}
+#root .contact-band > p {
+  max-width: 760px;
+  color: #d2dce2;
+  font-size: 17px;
+  line-height: 1.8;
+  margin: 18px 0 22px;
+  text-align: left !important;
+  text-align-last: left;
+}
+#root .contact-band > .contact-band-actions { margin-top: 0; }
+@media (max-width: 640px) {
+  #root .contact-band {
+    min-height: 0;
+    padding: 36px 24px;
+    background-position: center, 62% center, center, center;
+  }
+  #root .contact-band > .eyebrow { font-size: 11px;letter-spacing: .12em;margin-bottom: 16px; }
+  #root .contact-band h2 { font-size: clamp(32px, 8.5vw, 44px); }
+  #root .contact-band > p { font-size: 16px;margin: 16px 0 20px; }
+}

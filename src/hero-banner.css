@@ -1,0 +1,30 @@
+/* Keep the video copy legible over bright footage. */
+#main .home-page .hero-banner .hero-copy > :is(.eyebrow, h1.hero-single-line, p) {
+  text-shadow: 0 2px 4px #000, 0 4px 16px #000c;
+}
+
+#main .home-page .hero-banner .hero-copy > .eyebrow {
+  font-size: clamp(20px, 2.2vw, 32px);
+  line-height: 1.5;
+  letter-spacing: .1em;
+}
+
+/* Independent translation preserves the existing GSAP entrance transforms. */
+@media (prefers-reduced-motion: no-preference) {
+  #main .home-page .hero-banner .hero-copy > :is(.eyebrow, h1.hero-single-line, p) {
+    animation: hero-text-vibration 4.8s ease-in-out 2s infinite;
+  }
+}
+
+@keyframes hero-text-vibration {
+  0%, 6%, 18%, 100% { translate: 0 0; }
+  8%, 12%, 16% { translate: -.6px .3px; }
+  10%, 14% { translate: .6px -.3px; }
+}
+
+@media (max-width: 640px) {
+  #main .home-page .hero-banner .hero-copy > .eyebrow {
+    font-size: clamp(18px, 4.5vw, 24px);
+    letter-spacing: .07em;
+  }
+}

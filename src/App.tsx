@@ -4,7 +4,7 @@ import { ClientLogoCarousel } from './components/ClientLogoCarousel';
 import { HomeTestimonials } from './components/HomeTestimonials';
 import { CompanyStats } from './components/CompanyStats';
 import { ProjectPerspectivesGrid } from './components/ProjectPerspectivesGrid';
-import logoMark from './assets/images/logo-mark.svg';
+import logoMark from './assets/images/logo-mark-outline.svg';
 import { Careers } from './components/Careers';
 import { VideoGallery } from './components/VideoGallery';
 import aboutPerspective from "./assets/home page img/_A CONNECTED PERSPECTIVE.png";
@@ -12,6 +12,9 @@ import homeBanner from "./assets/home banners/banner1.png";
 import { OpeningFilm } from "./components/OpeningFilm";
 import { useHomepageMotion } from "./motion/useHomepageMotion";
 import { useAutoAdvance } from "./motion/useAutoAdvance";
+import { useSwipeNavigation } from './motion/useSwipeNavigation';
+import './components/swipe-interaction.css';
+import './footer.css';
 import { ProjectManagementProcess } from "./components/ProjectManagementProcess";
 import { IndustryWindows } from "./components/IndustryWindows";
 import { useEnquiry } from "./components/EnquiryPopup";
@@ -137,9 +140,9 @@ const Button = ({
   children: React.ReactNode;
   light?: boolean;
 }) => (
-  <Link className={`button ${light ? "light" : ""}`} to={to}>
+  <Link className={`button ${light ? "light" : ""}`} to={to}><span className="button-label">
     {children}
-  </Link>
+  </span></Link>
 );
 function Reveal({
   children,
@@ -304,9 +307,11 @@ function Header() {
   );
 }
 function Footer() {
+  const { pathname } = useLocation();
+  const showCta = ['/', '/about', '/projects'].includes(pathname.replace(/\/+$/, '') || '/');
   return (
     <>
-      <section className="contact-band section">
+      {showCta && <section className="contact-band section">
         <span className="eyebrow">LET'S ENGINEER WHAT'S NEXT</span>
         <div>
           <Heading as="h2">Have an engineering challenge?</Heading>
@@ -314,19 +319,15 @@ function Footer() {
         <p>From a first brief to a defined scope, let&apos;s plan the engineering, site work and equipment your project needs.</p>
         <div className="contact-band-actions">
           <a className="site-cta light" href={COMPANY.whatsapp} target="_blank" rel="noreferrer">
-            <span className="whatsapp-cta-label">Enquire on WhatsApp</span>
+            <span className="whatsapp-cta-label"><span className="button-label">Enquire on WhatsApp</span></span>
           </a>
         </div>
-      </section>
-      <footer className="section">
+      </section>}
+      <footer className="section site-footer">
         <div className="footer-grid">
-          <div className="footer-brand-column">
-            <Img src={COMPANY.logo} alt="Accumax Controls" />
-            <p className="footer-tagline">
-              <span className="footer-tagline-main">{COMPANY.tagline} Pune, India.</span>
-              <span className="footer-tagline-connection">Connected to the world.</span>
-            </p>
-            <iframe className="office-map footer-logo-map" title="Accumax Controls office location in Kothrud, Pune" src={COMPANY.mapsEmbed} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+          <div>
+            <span className="eyebrow">SERVICES</span>
+            {SERVICES.slice(0, 6).map(service => <Link key={service.slug} to={'/services/' + service.slug}>{service.title}</Link>)}
           </div>
           <div>
             <span className="eyebrow">EXPLORE</span>
@@ -359,14 +360,27 @@ function Footer() {
           </div>
           <div>
             <span className="eyebrow">GET IN TOUCH</span>
-            <a href={"mailto:" + COMPANY.emails[0]}>{COMPANY.emails[0]}</a>
-            <a href="tel:+919920177441">{COMPANY.phones[0]}</a>
-            <p className="footer-address">{COMPANY.address}</p>
-            <a href={COMPANY.mapsUrl} target="_blank" rel="noreferrer">View on Google Maps <ArrowUpRight size={16} /></a>
+            <div className="footer-contact-detail">
+              <h3>Email:</h3>
+              <a href={"mailto:" + COMPANY.emails[0]}>{COMPANY.emails[0]}</a>
+            </div>
+            <div className="footer-contact-detail">
+              <h3>Phone No.:</h3>
+              <a href="tel:+919920177441">{COMPANY.phones[0]}</a>
+            </div>
+            <div className="footer-contact-detail">
+              <h3>Address:</h3>
+              <a className="footer-address" href={COMPANY.mapsUrl} target="_blank" rel="noreferrer" aria-label={`Open office location in Google Maps: ${COMPANY.address}`}>{COMPANY.address}<ArrowUpRight className="footer-address-arrow" size={13} aria-hidden="true" /></a>
+            </div>
           </div>
         </div>
-        <div className="footer-word">
-          ACCUMAX<span>&reg;</span>
+        <div className="footer-identity-row">
+          <nav className="footer-socials" aria-label="Footer social media">
+            <a href="https://www.facebook.com/share/19o5XUanBS/" aria-label="Facebook" target="_blank" rel="noreferrer"><Facebook size={20} /></a>
+            <a href="https://www.instagram.com/accumax_controls?stkn=dW12a2xrdTV5MW13" aria-label="Instagram" target="_blank" rel="noreferrer"><Instagram size={20} /></a>
+            <a href="https://www.linkedin.com/company/accumaxcontrols/" aria-label="LinkedIn" target="_blank" rel="noreferrer"><Linkedin size={20} /></a>
+          </nav>
+          <Link className="footer-brand" to="/" aria-label="Accumax Controls home"><Img src={COMPANY.logo} alt="Accumax Controls" /></Link>
         </div>
         <div className="footer-bottom">
           <span>
@@ -376,7 +390,6 @@ function Footer() {
               <strong>Webakoof</strong>
             </a>
           </span>
-          <span>{COMPANY.tagline}</span>
           <button
             onClick={() =>
               window.scrollTo({
@@ -386,8 +399,8 @@ function Footer() {
                   : "smooth",
               })
             }
-          >
-            Back to top <ArrowUp size={15} />
+          ><span className="button-label">
+            Back to top </span><ArrowUp size={15} />
           </button>
         </div>
       </footer>
@@ -434,14 +447,14 @@ function ServicesList() {
               <Heading as="h3">{s.title}</Heading>
               <ArrowUpRight />
             </Link>
-            {s.relatedSlug && <div className="service-trading-action"><Link className="site-cta" to={'/services/' + s.relatedSlug}>Explore Trading <ArrowUpRight size={16} /></Link></div>}
+            {s.relatedSlug && <div className="service-trading-action"><Link className="site-cta" to={'/services/' + s.relatedSlug}><span className="button-label">Explore Trading </span><ArrowUpRight size={16} /></Link></div>}
             <div className="service-mobile">
               <button
                 onClick={() => setActive(active === i ? -1 : i)}
                 aria-expanded={active === i}
               >
                 {active === i ? <Minus /> : <Plus />}
-                <span>Explore service</span>
+                <span><span className="button-label">Explore service</span></span>
               </button>
               {active === i && (
                 <>
@@ -459,7 +472,7 @@ function ServicesList() {
 function Story() {
   const ref = useRef<HTMLElement>(null);
   const [active, setActive] = useState(0);
-  const swipe = useRef<{ x: number; y: number } | null>(null);
+  const swipe = useSwipeNavigation(direction => setActive(current => (current + direction + 4) % 4), ref);
   const photos = [
     ['/images/gallery/3.jpg', 'Substation engineering and project planning'],
     ['/images/hero-testing.jpg', 'Electrical protection and relay testing'],
@@ -480,12 +493,7 @@ function Story() {
     return () => context.revert();
   }, [active, reduced]);
   return (
-    <section className="story story--animated story--carousel" ref={ref} data-active={active} aria-label="The principles behind every connection" onPointerDown={event => { swipe.current = { x: event.clientX, y: event.clientY }; }} onPointerCancel={() => { swipe.current = null; }} onPointerUp={event => {
-      const start = swipe.current; swipe.current = null;
-      if (!start) return;
-      const dx = event.clientX - start.x, dy = event.clientY - start.y;
-      if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.4) choose(active + (dx < 0 ? 1 : -1));
-    }}>
+    <section className="story story--animated story--carousel" ref={ref} data-active={active} aria-label="The principles behind every connection" {...swipe}>
       <div className="story-photo">
         <Img
           src={photos[active][0]}
@@ -536,7 +544,7 @@ function ProjectsPage() {
       <p>Explore project scopes across substations, protection systems, solar power and EV charging. See how engineering, equipment and site execution come together.</p>
     </header>
     <div className="projects-page-filters" role="group" aria-label="Filter projects by category">
-      {categories.map(item => <button type="button" key={item} aria-pressed={category === item} onClick={() => setCategory(item)}>{item}</button>)}
+      {categories.map(item => <button type="button" key={item} aria-pressed={category === item} onClick={() => setCategory(item)}><span className="button-label">{item}</span></button>)}
     </div>
     <p className="projects-page-count" role="status" aria-live="polite" aria-atomic="true">{projects.length} project {projects.length === 1 ? 'profile' : 'profiles'}{category === 'All projects' ? '' : ` / ${category}`}</p>
     <div className="projects-page-grid">
@@ -550,7 +558,7 @@ function ProjectsPage() {
           <span className="eyebrow">PROJECT SCOPE</span>
           <Heading as="h2">{project.title}</Heading>
           <ul>{project.scope.map(scope => <li key={scope}><Check size={15} aria-hidden="true" /><span>{scope}</span></li>)}</ul>
-          <Link className="site-cta text-link" to={'/projects/' + project.slug}>Explore project <ArrowUpRight size={17} /></Link>
+          <Link className="site-cta text-link" to={'/projects/' + project.slug}><span className="button-label">Explore project </span><ArrowUpRight size={17} /></Link>
         </div>
       </article>)}
     </div>
@@ -576,8 +584,8 @@ function ProjectCards({ all = false }: { all?: boolean }) {
             <span>LOCATION · TO BE VERIFIED</span>
           </div>
           <Heading as="h3">{p.title}</Heading>
-          <span className="text-link site-cta">
-            View project <ArrowUpRight size={15} />
+          <span className="text-link site-cta"><span className="button-label">
+            View project </span><ArrowUpRight size={15} />
           </span>
         </Link>
       ))}
@@ -760,9 +768,9 @@ function AboutBlock() {
         <p>{COMPANY_PROFILE.introduction}</p>
         <p>{COMPANY_PROFILE.capabilities}</p>
         <p>{COMPANY_PROFILE.supply}</p>
-        <Link className="button about-story-button" to="/about">
+        <Link className="button about-story-button" to="/about"><span className="button-label">
           Discover our story
-        </Link>
+        </span></Link>
         <span className="about-brand-watermark" aria-hidden="true">
           <img src={logoMark} alt="" />
         </span>
@@ -790,12 +798,12 @@ function Home() {
             From substations to solar and EV charging, connect your next project with the engineering behind it.
           </p>
           <div className="hero-actions">
-            <Link className="button hero-action hero-action-primary" to="/services">
+            <Link className="button hero-action hero-action-primary" to="/services"><span className="button-label">
               Explore expertise
-            </Link>
-            <Link className="button hero-action hero-action-secondary" to="/contact">
+            </span></Link>
+            <Link className="button hero-action hero-action-secondary" to="/contact"><span className="button-label">
               Start a project
-            </Link>
+            </span></Link>
           </div>
         </div>
       </section>
@@ -828,8 +836,8 @@ function Home() {
             <br />
             <em>meets execution</em>
           </Heading>
-          <Link className="text-link site-cta" to="/services">
-            See what we do <ArrowUpRight />
+          <Link className="text-link site-cta" to="/services"><span className="button-label">
+            See what we do </span><ArrowUpRight />
           </Link>
         </div>
       </section>
@@ -891,8 +899,8 @@ function Home() {
             </div>
             <Heading as="h3"><span className="motion-line"><span>Engineering</span></span>{' '}<span className="motion-line"><span>enquiries</span></span></Heading>
             <p>Planning a new installation or upgrading an existing system? Share your scope, site and schedule.</p>
-            <span className="home-contact-link site-cta">
-              Submit your enquiry <ArrowRight size={18} />
+            <span className="home-contact-link site-cta"><span className="button-label">
+              Submit your enquiry </span><ArrowRight size={18} />
             </span>
           </Link>
           <Link className="home-contact-card" to="/services/export">
@@ -906,8 +914,8 @@ function Home() {
             <p>
               Send your equipment list, specifications and destination to discuss the right supply scope.
             </p>
-            <span className="home-contact-link site-cta">
-              Explore export services <ArrowRight size={18} />
+            <span className="home-contact-link site-cta"><span className="button-label">
+              Explore export services </span><ArrowRight size={18} />
             </span>
           </Link>
           <Link className="home-contact-card" to="/contact">
@@ -916,8 +924,8 @@ function Home() {
             </div>
             <Heading as="h3"><span className="motion-line"><span>Let’s work</span></span>{' '}<span className="motion-line"><span>together</span></span></Heading>
             <p>Bring your project brief. We will help define the engineering, site or supply support you need.</p>
-            <span className="home-contact-link site-cta">
-              Get in touch <ArrowRight size={18} />
+            <span className="home-contact-link site-cta"><span className="button-label">
+              Get in touch </span><ArrowRight size={18} />
             </span>
           </Link>
         </div>
@@ -1142,8 +1150,8 @@ function About() {
             <p>{ABOUT_CONTENT.introduction}</p>
             <p>{ABOUT_CONTENT.delivery}</p>
             <p>{ABOUT_CONTENT.partnership}</p>
-            <Link className="perspective-simple-link site-cta" to="/services">
-              Our capabilities <ArrowUpRight size={18} />
+            <Link className="perspective-simple-link site-cta" to="/services"><span className="button-label">
+              Our capabilities </span><ArrowUpRight size={18} />
             </Link>
           </div>
           <figure className="about-editorial-image">
@@ -1178,9 +1186,9 @@ function About() {
             <article className="about-capability-card" key={capability.title}>
               <Heading as="h3">{capability.title}</Heading>
               <p>{capability.text}</p>
-              <Link className="site-cta" to={capability.to} aria-label={`${capability.to.startsWith('/contact') ? 'Discuss requirements' : 'Explore service'}: ${capability.title}`}>
+              <Link className="site-cta" to={capability.to} aria-label={`${capability.to.startsWith('/contact') ? 'Discuss requirements' : 'Explore service'}: ${capability.title}`}><span className="button-label">
                 {capability.to.startsWith('/contact') ? 'Discuss requirements' : 'Explore service'}
-              </Link>
+              </span></Link>
             </article>
           ))}
         </div>
@@ -1208,7 +1216,7 @@ function ExpertiseList({ animated = false }: { animated?: boolean }) {
                   <li key={point}>{point}</li>
                 ))}
               </ul>
-              {animated && <Link className="text-link site-cta expertise-service-link" to={'/services/' + item.slug}>Discuss this expertise <ArrowUpRight size={16}/></Link>}
+              {animated && <Link className="text-link site-cta expertise-service-link" to={'/services/' + item.slug}><span className="button-label">Discuss this expertise </span><ArrowUpRight size={16}/></Link>}
             </div>
             <Img src={item.image} alt={item.title} />
           </div>
@@ -1237,7 +1245,7 @@ function ServiceDetail() {
         </div>
         <div className="service-overview-intro">
           <p>{s.intro}</p>
-          {s.slug === 'panel-cleaning' ? <button type="button" className="button" onClick={() => openEnquiry(s.title)}>Enquire about {s.title}</button> : <Button to={"/contact?service=" + encodeURIComponent(s.title)}>Discuss this service</Button>}
+          {s.slug === 'panel-cleaning' ? <button type="button" className="button" onClick={() => openEnquiry(s.title)}><span className="button-label">Enquire about {s.title}</span></button> : <Button to={"/contact?service=" + encodeURIComponent(s.title)}>Discuss this service</Button>}
         </div>
         <div className="service-overview-scope">
           <Heading as="h3" className="service-scope-heading">What we cover</Heading>
@@ -1261,7 +1269,7 @@ function ServiceDetail() {
             <Heading as="h3" id="service-brief-title">A useful first conversation starts here.</Heading>
             <p>Share what you have available:</p>
             <ul>{s.enquiryItems.map(item => <li key={item}>{item}</li>)}</ul>
-            {s.slug === 'panel-cleaning' ? <button type="button" className="text-link site-cta" onClick={() => openEnquiry(s.title)}>Tell us about your panels <ArrowUpRight size={18} /></button> : <Link className="text-link site-cta" to={"/contact?service=" + encodeURIComponent(s.title)}>Tell us about your project <ArrowUpRight size={18} /></Link>}
+            {s.slug === 'panel-cleaning' ? <button type="button" className="text-link site-cta" onClick={() => openEnquiry(s.title)}><span className="button-label">Tell us about your panels </span><ArrowUpRight size={18} /></button> : <Link className="text-link site-cta" to={"/contact?service=" + encodeURIComponent(s.title)}><span className="button-label">Tell us about your project </span><ArrowUpRight size={18} /></Link>}
           </aside>
       </section>
       <section className="section service-explore-more">
@@ -1341,9 +1349,9 @@ function Gallery() {
               aria-pressed={filter === f}
               key={f}
               onClick={() => { setSelected(null); setFilter(f); }}
-            >
+            ><span className="button-label">
               {f}
-            </button>
+            </span></button>
           ))}
         </div>
         {filter === 'Photos' ? <div className="gallery-grid">
@@ -1354,7 +1362,7 @@ function Gallery() {
               aria-label={"Enlarge engineering photograph " + (GALLERY.indexOf(s) + 1)}
             >
               <Img src={s} alt={GALLERY_CAPTIONS[s] ?? ("Accumax engineering archive " + (GALLERY.indexOf(s) + 1))} />
-              <span className="gallery-photo-overlay" aria-hidden="true"><span>{GALLERY_CAPTIONS[s] ?? 'Engineering in focus'}</span><ArrowUpRight size={22} /></span>
+              <span className="gallery-photo-overlay" aria-hidden="true"><span><span className="button-label">{GALLERY_CAPTIONS[s] ?? 'Engineering in focus'}</span></span><ArrowUpRight size={22} /></span>
             </button>
           ))}
         </div> : <VideoGallery />}
@@ -1425,7 +1433,7 @@ function Contact({ career = false }: { career?: boolean }) {
             <MapPin />
             <p>{COMPANY.address}</p>
           </div>
-          <a className="text-link site-cta office-directions" href={COMPANY.mapsUrl} target="_blank" rel="noreferrer">Get directions <ArrowUpRight size={18} /></a>
+          <a className="text-link site-cta office-directions" href={COMPANY.mapsUrl} target="_blank" rel="noreferrer"><span className="button-label">Get directions </span><ArrowUpRight size={18} /></a>
           <iframe className="office-map" title="Find the Accumax Controls office" src={COMPANY.mapsEmbed} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
           {career && (
             <p className="fine">
@@ -1577,8 +1585,8 @@ function Contact({ career = false }: { career?: boolean }) {
               </span>
             </span>
           </label>
-          <button className="button" type="submit" disabled={submission.busy || submission.sent}>
-            {submission.busy ? 'Sending enquiry…' : submission.sent ? 'Enquiry sent' : 'Send enquiry'} <ArrowUpRight size={18} />
+          <button className="button" type="submit" disabled={submission.busy || submission.sent}><span className="button-label">
+            {submission.busy ? 'Sending enquiry…' : submission.sent ? 'Enquiry sent' : 'Send enquiry'} </span><ArrowUpRight size={18} />
           </button>
           {submission.error && <div className="form-feedback" role="alert">{submission.error}</div>}
           {submission.sent && <div className="form-feedback" role="status">Your enquiry has been sent successfully. Our team will get in touch with you.</div>}
@@ -1660,8 +1668,8 @@ function Catalogue() {
             latest official company catalogue and project-specific technical
             information.
           </p>
-          <a className="button" href="/capability-index.txt" download>
-            Download service index <Download size={18} />
+          <a className="button" href="/capability-index.txt" download><span className="button-label">
+            Download service index </span><Download size={18} />
           </a>
           <p className="fine">
             Service summary based on the company's published information.

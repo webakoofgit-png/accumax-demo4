@@ -59,14 +59,19 @@ export function useHomepageMotion(rootRef: RefObject<HTMLDivElement>) {
 
         const about = root.querySelector('.about-block');
         if (about) {
-          // Different edge slopes during the reveal create the diagonal opening.
-          const photo = about.querySelector('.about-photo');
-          if (photo) gsap.fromTo(photo, { clipPath: 'polygon(0 0, 0 0, 0 100%, 0 100%)' },
-            { keyframes: [{ clipPath: 'polygon(0 0, 70% 0, 35% 100%, 0 100%)', duration: .65 }, { clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)', duration: .65 }], ease: 'power2.inOut', scrollTrigger: { trigger: about, start: 'top 82%', once: true } });
           gsap.fromTo(all('.about-photo>img'), { scale: 1.1 }, { scale: 1, ease: 'none', scrollTrigger: { trigger: about, start: 'top bottom', end: 'bottom top', scrub: true } });
-          const intro = gsap.timeline({ scrollTrigger: { trigger: about, start: 'top 78%', once: true } });
-          intro.fromTo(all('.about-copy .motion-line>span'), { yPercent: 110 }, { yPercent: 0, duration: .9, stagger: .12, ease: 'power3.out' })
-            .fromTo(all('.about-copy>p,.about-copy>.text-link'), { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: .75, stagger: .12, ease: 'power3.out' }, .3);
+          // Replay the complete reveal when entering from either scroll direction.
+          const intro = gsap.timeline({ scrollTrigger: {
+            trigger: about,
+            start: 'top 85%',
+            end: 'bottom top',
+            toggleActions: 'restart none restart reset',
+          } });
+          intro.fromTo(all('.about-photo'), { clipPath: 'polygon(0 0, 0 0, 0 100%, 0 100%)' },
+            { keyframes: [{ clipPath: 'polygon(0 0, 70% 0, 35% 100%, 0 100%)', duration: .65 }, { clipPath: 'polygon(0 0, 100% 0, 100% 100%, 0 100%)', duration: .65 }], ease: 'power2.inOut' }, 0)
+            .fromTo(all('.about-copy>.eyebrow'), { autoAlpha: 0, y: 16 }, { autoAlpha: 1, y: 0, duration: .55, ease: 'power3.out' }, 0)
+            .fromTo(all('.about-copy .motion-line>span'), { yPercent: 110 }, { yPercent: 0, duration: .9, stagger: .12, ease: 'power3.out' }, .15)
+            .fromTo(all('.about-copy>p,.about-copy>.about-story-button,.about-photo>span'), { autoAlpha: 0, y: 18 }, { autoAlpha: 1, y: 0, duration: .75, stagger: .12, ease: 'power3.out' }, .4);
         }
 
         all('.section-heading,.clients-heading,.home-contact-heading').forEach(heading => {

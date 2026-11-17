@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Heading } from './Heading';
 import { motion, useInView, useReducedMotion } from 'framer-motion';
-import { ClipboardCheck, DraftingCompass, FileCheck2, Hammer, Flag, ArrowRight } from 'lucide-react';
+import { ClipboardCheck, DraftingCompass, FileCheck2, Hammer, Flag } from 'lucide-react';
 import './project-management-process.css';
 
 const stages = [
@@ -21,18 +21,38 @@ const steps = [
   { stage: 4, title: 'Lessons Learned', heading: 'Lessons Learned', text: 'Complete handover and capture lessons for future projects.' },
 ];
 
-const connections = [
-  'M120 0V22H100V48', 'M360 0V22H300V48',
-  'M600 0V22H500V48', 'M600 22H700V48',
-  'M840 0V22H900V48', 'M1080 0V22H1100V48',
-];
-
 export function ProjectManagementProcess() {
   const root = useRef<HTMLElement>(null);
   const visible = useInView(root, { amount: 0.2 });
   const reduced = useReducedMotion();
   const [active, setActive] = useState(0);
   const [paused, setPaused] = useState(false);
+  const [connectors, setConnectors] = useState({ width: 1200, paths: [] as string[], arrows: [] as number[] });
+
+  useEffect(() => {
+    const chart = root.current?.querySelector<HTMLElement>('.process-chart');
+    if (!chart) return;
+    const update = () => {
+      const bounds = chart.getBoundingClientRect();
+      const buttons = chart.querySelectorAll('.process-stages > button');
+      const labels = chart.querySelectorAll('.process-detail-label');
+      if (!bounds.width || buttons.length !== stages.length || labels.length !== steps.length) return;
+      const paths = steps.map((step, index) => {
+        const upper = buttons[step.stage].getBoundingClientRect();
+        const lower = labels[index].getBoundingClientRect();
+        const from = upper.left + upper.width / 2 - bounds.left;
+        const to = lower.left + lower.width / 2 - bounds.left;
+        return `M${from} 0V20H${to}V46.5`;
+      });
+      const arrows = Array.from(buttons).slice(0, -1).map((button, index) =>
+        Math.max(8, buttons[index + 1].getBoundingClientRect().left - button.getBoundingClientRect().right));
+      setConnectors({ width: bounds.width, paths, arrows });
+    };
+    const observer = new ResizeObserver(update);
+    observer.observe(chart);
+    update();
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     if (!visible || reduced || paused) return;
@@ -54,23 +74,24 @@ export function ProjectManagementProcess() {
       <div className="process-chart-scroll" role="region" aria-label="Project management flow chart" tabIndex={0}>
       <div className="process-chart">
       <div className="process-stages" role="group" aria-label="Project management stages">
-        {stages.map(({ title, icon: Icon }, index) => <motion.button key={title} type="button"
-          aria-pressed={active === index} aria-controls="process-details" onClick={() => setActive(index)}
+        {stages.map(({ title, icon: Icon }, index) => {
+          const arrowWidth = connectors.arrows[index] ?? 26;
+          return <motion.button key={title} type="button"
+          className={index === 2 ? 'process-stage-execution' : undefined}
+          aria-label={title} aria-pressed={active === index} aria-controls="process-details" onClick={() => setActive(index)}
           onPointerEnter={event => { if (event.pointerType !== 'touch') setActive(index); }}
           onFocus={() => setActive(index)}
           initial={reduced ? false : { opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.45, delay: reduced ? 0 : index * 0.1 }}>
-          <span className="process-stage-number">0{index + 1}</span>
-          <span className="process-stage-title">{title}</span><Icon size={28} strokeWidth={1.5} aria-hidden="true" />
-          {index < stages.length - 1 && <ArrowRight className="process-stage-arrow" size={20} aria-hidden="true" />}
-        </motion.button>)}
+          <span className="process-stage-number"><span className="button-label">0{index + 1}</span></span>
+          <span className="process-stage-title"><span className="button-label">{title}</span></span><Icon size={28} strokeWidth={1.5} aria-hidden="true" />
+          {index < stages.length - 1 && <svg className="process-stage-arrow lucide lucide-arrow-right" viewBox={`0 0 ${arrowWidth} 24`} preserveAspectRatio="none" style={{ width: arrowWidth }} height="28" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d={`M0 12H${arrowWidth - 1}m-8-8 8 8-8 8`} /></svg>}
+        </motion.button>;
+        })}
       </div>
-      <svg className="process-connections" viewBox="0 0 1200 48" preserveAspectRatio="none" aria-hidden="true">
-        <defs>
-          <marker id="process-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#a5ada8" /></marker>
-          <marker id="process-arrow-active" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L8 4L0 8Z" fill="var(--process-orange)" /></marker>
-        </defs>
-        {connections.map((path, index) => <path key={path} d={path} markerEnd={steps[index].stage === active ? 'url(#process-arrow-active)' : 'url(#process-arrow)'} className={steps[index].stage === active ? 'is-active' : ''} />)}
+      <svg className="process-connections" viewBox={`0 0 ${connectors.width} 48`} preserveAspectRatio="none" aria-hidden="true">
+        <defs>{steps.map((step, index) => <marker key={step.title} id={`process-arrow-${index}`} viewBox="0 0 20 20" refX="18" refY="10" markerWidth="20" markerHeight="20" markerUnits="userSpaceOnUse" orient="auto"><path d="M10 2L18 10L10 18" fill="none" stroke="var(--process-line, #888)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" /></marker>)}</defs>
+        {connectors.paths.map((path, index) => <path key={steps[index].title} d={path} markerEnd={`url(#process-arrow-${index})`} className={steps[index].stage === active ? 'is-active' : ''} />)}
       </svg>
       <div className="process-details" id="process-details">
         {steps.map((step, index) => <motion.article key={step.title} className={`process-detail${active === step.stage ? ' is-active' : ''}`}

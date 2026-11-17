@@ -160,8 +160,8 @@ export function IndustryWindows() {
         event.preventDefault();
         root.current?.querySelector<HTMLButtonElement>(`#industry-selector-${next}`)?.focus({ preventScroll: true });
         void choose(next);
-      }}><span className="iw-tab-index" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span><span className="iw-tab-copy"><span>{item.name}</span></span><ArrowUpRight size={20}/></button>)}</div>
-    <div className="iw-details"><Link className="iw-cta site-cta" to={'/contact?industry=' + encodeURIComponent(industry.name)}>Discuss your project <ArrowUpRight size={20}/></Link></div>
+      }}><span className="iw-tab-index" aria-hidden="true"><span className="button-label">{String(index + 1).padStart(2, '0')}</span></span><span className="iw-tab-copy"><span><span className="button-label">{item.name}</span></span></span><ArrowUpRight size={20}/></button>)}</div>
+    <div className="iw-details"><Link className="iw-cta site-cta" to={'/contact?industry=' + encodeURIComponent(industry.name)}><span className="button-label">Discuss your project </span><ArrowUpRight size={20}/></Link></div>
     </div>
     <span className="iw-accessible-status" role="status">{loading ? 'Loading industry image' : industry.name + ': ' + industry.applications}</span>
   </div>;

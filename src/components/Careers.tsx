@@ -34,7 +34,7 @@ export function Careers() {
         <span className="eyebrow">WORK WITH ACCUMAX</span>
         <Heading as="h1" id="careers-title">Build your next chapter with us.</Heading>
         <p>Bring your skills to the systems that power industry. Introduce yourself to Accumax Controls and tell us where you want to make an impact.</p>
-        <a className="site-cta" href="#career-application">Introduce yourself</a>
+        <a className="site-cta" href="#career-application"><span className="button-label">Introduce yourself</span></a>
       </div>
       <figure className="careers-team-image"><img src={FIELD_IMAGES.team} alt="The Accumax Controls team" loading="eager" /><figcaption>PEOPLE. PRACTICAL THINKING. SHARED PROGRESS.</figcaption></figure>
     </section>
@@ -86,11 +86,11 @@ export function Careers() {
             }} />
           </div>
           <div id="career-file-help" className="career-file-help">{fileError ? <span role="alert">{fileError}</span> : 'Your resume will be included as an attachment in your application email.'}</div>
-          {resume && <button className="career-remove-file" type="button" onClick={() => { setResume(null); setFileError(''); clear(); if (fileRef.current) fileRef.current.value = ''; }}><X size={14} aria-hidden="true" />Remove file</button>}
+          {resume && <button className="career-remove-file" type="button" onClick={() => { setResume(null); setFileError(''); clear(); if (fileRef.current) fileRef.current.value = ''; }}><X size={14} aria-hidden="true" /><span className="button-label">Remove file</span></button>}
         </fieldset>
         <label className="career-consent"><input type="checkbox" name="consent" required disabled={busy} /><span>I agree to share my details and resume with Accumax Controls for recruitment. <Required /></span></label>
         {error && <p className="career-error" role="alert">{error}</p>}
-        <div className="career-form-footer"><button className="button" type="submit" disabled={busy || sent} aria-busy={busy}>{busy ? 'Submitting application…' : sent ? 'Application submitted' : 'Submit application'}</button></div>
+        <div className="career-form-footer"><button className="button" type="submit" disabled={busy || sent} aria-busy={busy}><span className="button-label">{busy ? 'Submitting application…' : sent ? 'Application submitted' : 'Submit application'}</span></button></div>
         {sent && <div className="career-draft-status" role="status" ref={statusRef} tabIndex={-1}>
           <strong>Your application has been sent successfully.</strong><p>Thank you for your interest in Accumax Controls. Our team will review your details and resume.</p>
         </div>}

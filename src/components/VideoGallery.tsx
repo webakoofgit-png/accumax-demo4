@@ -16,7 +16,7 @@ export function VideoGallery() {
       <div className="gallery-video-error" key={video.id} role="status">
         <strong>{video.title}</strong>
         <p>This video could not load. You can open it directly below.</p>
-        <a className="site-cta" href={video.src} target="_blank" rel="noreferrer">Open video</a>
+        <a className="site-cta" href={video.src} target="_blank" rel="noreferrer"><span className="button-label">Open video</span></a>
       </div>
     ) : (
       <video key={video.id} src={video.src} poster={video.poster} width={668} height={1080} controls playsInline preload="none" aria-label={video.title}

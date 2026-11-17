@@ -16,4 +16,7 @@ import './buttons.css';
 import './about-content.css';
 import './heading-colors.css';
 import './mobile-updates.css';
+import './hero-banner.css';
+import './section-refinements.css';
+import './cta-design.css';
 ReactDOM.createRoot(document.getElementById('root')!).render(<React.StrictMode><HelmetProvider><BrowserRouter><ButtonMotion/><EnquiryPopup><App/></EnquiryPopup></BrowserRouter></HelmetProvider></React.StrictMode>);

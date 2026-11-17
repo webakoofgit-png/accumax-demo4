@@ -15,6 +15,7 @@ export function useAutoAdvance(
     const timer = window.setInterval(() => {
       const section = root.current;
       if (!section || document.hidden || document.querySelector('dialog[open]')) return;
+      if (section.matches('[data-swiping]') || section.querySelector('[data-swiping]')) return;
       if (section.contains(document.activeElement)) return;
       setActive(current => (current + 1) % count);
     }, 10_000);

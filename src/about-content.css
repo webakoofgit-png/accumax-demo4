@@ -94,6 +94,7 @@
 }
 
 .about-capability-card {
+  position: relative;
   display: flex;
   flex-direction: column;
   min-width: 0;
@@ -101,6 +102,24 @@
   border: 1px solid #dce0d2;
   border-radius: 8px;
   background: #fafaf6;
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .about-capability-card:hover {
+    z-index: 1;
+    transform: translateY(-3px) scale(1.015);
+    border-color: #c4c8bb;
+    box-shadow: 0 12px 28px #302d2914;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .about-capability-card:focus-within {
+    z-index: 1;
+    transform: translateY(-3px) scale(1.015);
+    border-color: #c4c8bb;
+    box-shadow: 0 12px 28px #302d2914;
+  }
 }
 
 .about-capability-card h3 {

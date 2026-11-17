@@ -65,3 +65,14 @@
 .career-draft-status p{font-size:14px;line-height:1.8;margin:10px 0 18px;color:#555f4a;overflow-wrap:anywhere}
 @media(max-width:1000px){.careers-hero{gap:28px}.careers-application-layout{grid-template-columns:minmax(0,1fr)}.careers-introduction{max-width:760px}.career-disciplines{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:640px){.careers-hero{grid-template-columns:minmax(0,1fr);gap:26px}.careers-hero h1{font-size:42px}.careers-hero-copy>p{font-size:16px}.careers-breadcrumb{margin-bottom:20px}.careers-team-image img{height:240px}.careers-application-layout{gap:28px}.career-field-grid{grid-template-columns:minmax(0,1fr);gap:16px}.career-disciplines{grid-template-columns:minmax(0,1fr)}.career-form-heading h2{font-size:28px}.career-upload{padding:18px 14px}.career-upload>svg{width:22px}.career-form{scroll-margin-top:80px}}
+.career-direct-contact a { display: inline-block; }
+@media (prefers-reduced-motion: no-preference) {
+  .career-direct-contact a:is(:hover, :focus-visible) {
+    animation: career-email-shake .4s ease-in-out;
+  }
+}
+@keyframes career-email-shake {
+  0%, 100% { translate: 0 0; }
+  20%, 60% { translate: -1.5px 0; }
+  40%, 80% { translate: 1.5px 0; }
+}
