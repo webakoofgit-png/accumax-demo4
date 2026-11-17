@@ -20,6 +20,15 @@ for (const width of [320, 390, 640, 1440]) {
       const grid = (await footer.locator('.footer-grid').boundingBox())!;
       const contact = (await footer.locator('.footer-contact-column').boundingBox())!;
       expect(contact.width).toBeCloseTo(grid.width, 1);
+      const services = footer.locator('.footer-grid > div').nth(0).locator(':scope > a');
+      const explore = footer.locator('.footer-grid > div').nth(1).locator(':scope > a');
+      for (let index = 0; index < 6; index++) {
+        const left = (await services.nth(index).boundingBox())!;
+        const right = (await explore.nth(index).boundingBox())!;
+        expect(left.y).toBeCloseTo(right.y, 1);
+      }
+      const brand = (await footer.locator('.footer-brand').boundingBox())!;
+      expect(brand.x + brand.width).toBeLessThanOrEqual(width - 80);
       const email = footer.locator('.footer-contact-detail a[href^="mailto:"]');
       const phone = footer.locator('.footer-contact-detail a[href^="tel:"]');
       for (const link of [email, phone]) {
