@@ -1858,16 +1858,13 @@ export default function App() {
           <Route
             path="/services"
             element={
-              <>
-                <PageTop
-                  label="Services"
-                  title="Expertise, connected."
-                  description="Build, connect, test and maintain your power infrastructure. Explore services for new projects, existing installations and equipment supply."
-                />
-                <section className="section">
-                  <ServicesList />
-                </section>
-              </>
+              <section className="section page-listing" aria-labelledby="expertise-title">
+                <header className="page-listing-heading">
+                  <span className="eyebrow">EXPERTISE</span>
+                  <Heading as="h1" id="expertise-title">Expertise, connected.</Heading>
+                </header>
+                <ServicesList />
+              </section>
             }
           />
           <Route path="/services/:slug" element={<ServiceDetail />} />
