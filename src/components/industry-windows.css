@@ -75,7 +75,7 @@
 .industry-windows .iw-selector button{font-size:13px;padding:7px 7px 12px;gap:10px 4px}
 .industry-windows .iw-tab-image{height:80px}
 .industry-windows .iw-tab-copy small{font-size:12px}
-.industry-windows .iw-details{padding:22px 0 0}
+.industry-windows .iw-details{justify-content:center;padding:22px 0 0}
 }
 /* Keep industry choices in a single vertical list on every screen. */
 .industry-windows .iw-selector{display:flex;flex-direction:column;gap:0;border-top:1px solid #dedbd3}

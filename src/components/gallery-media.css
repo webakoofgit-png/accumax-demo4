@@ -13,5 +13,11 @@
 #main .gallery-video-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;max-width:1100px}
 #main .gallery-video-grid video{width:100%;height:auto;aspect-ratio:668/1080;max-height:none;object-fit:contain;background:#111;border-radius:12px}
 @media(max-width:900px){#main .gallery-video-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}}
-@media(max-width:480px){#main .gallery-video-grid{grid-template-columns:minmax(0,1fr);max-width:360px}#main .gallery-grid>button>.gallery-photo-overlay{padding:14px;font-size:13px}}
+@media(max-width:480px){
+  #main .gallery-video-grid{grid-template-columns:minmax(0,1fr);max-width:360px}
+  #main .gallery-grid>button>.gallery-photo-overlay{gap:8px;padding:10px;font-size:10px;line-height:1.35}
+  #main .gallery-grid>button>.gallery-photo-overlay>span{display:block;max-width:calc(100% - 24px);overflow:hidden;transform:none}
+  #main .gallery-grid>button>.gallery-photo-overlay .button-label{display:block}
+  #main .gallery-grid>button>.gallery-photo-overlay>svg{width:16px;height:16px;align-self:flex-end}
+}
 @media(prefers-reduced-motion:reduce){#main .gallery-grid>button>img,#main .gallery-grid>button>.gallery-photo-overlay,.gallery-photo-overlay>span{transition:none;transform:none!important}}
