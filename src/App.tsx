@@ -1874,37 +1874,26 @@ export default function App() {
           <Route
             path="/industries"
             element={
-              <>
-                <PageTop
-                  label="Industries"
-                  title="Powering different worlds."
-                  description="Power-sector engineering for utilities, data centres, manufacturing, transport, process industries and institutional facilities."
-                  image="/images/portfolio/i7.jpg"
-                />
-                <section className="section">
-                  <Industries full />
-                </section>
-              </>
+              <section className="section page-listing" aria-labelledby="industries-title">
+                <header className="page-listing-heading">
+                  <span className="eyebrow">INDUSTRY SOLUTIONS</span>
+                  <Heading as="h1" id="industries-title">Powering different worlds.</Heading>
+                </header>
+                <Industries full />
+              </section>
             }
           />
           <Route path="/projects" element={<ProjectsPage />} />
           <Route
             path="/featured-works"
             element={
-              <>
-                <PageTop
-                  label="Projects"
-                  title="The shape of possibility."
-                  description="Illustrative scope profiles using company archive photographs. Project names, locations and completion details require company verification."
-                />
-                <section className="section project-listing" aria-labelledby="projects-title">
-                  <header className="project-listing-heading">
-                    <span className="eyebrow">FEATURED WORKS</span>
-                    <Heading as="h1" id="projects-title">The shape of possibility.</Heading>
-                  </header>
-                  <ProjectCards all />
-                </section>
-              </>
+              <section className="section page-listing" aria-labelledby="projects-title">
+                <header className="page-listing-heading">
+                  <span className="eyebrow">FEATURED WORKS</span>
+                  <Heading as="h1" id="projects-title">The shape of possibility.</Heading>
+                </header>
+                <ProjectCards all />
+              </section>
             }
           />
           <Route path="/projects/:slug" element={<ProjectDetail />} />
