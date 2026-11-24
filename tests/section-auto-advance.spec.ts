@@ -27,7 +27,8 @@ for (const width of [390, 1440]) {
       // Manual selection starts a fresh reading interval.
       await page.clock.runFor(5_000);
       await section.getByRole('button', { name: next, exact: true }).evaluate((button: HTMLButtonElement) => button.click());
-      const selected = Number(await section.getAttribute('data-active'));
+      const selected = (initial + 2) % count;
+      await expect(section).toHaveAttribute('data-active', String(selected));
       await page.clock.runFor(9_000);
       await expect(section).toHaveAttribute('data-active', String(selected));
       await page.clock.runFor(1_100);

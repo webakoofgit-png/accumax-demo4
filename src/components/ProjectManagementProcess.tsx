@@ -26,7 +26,8 @@ export function ProjectManagementProcess() {
   const visible = useInView(root, { amount: 0.2 });
   const reduced = useReducedMotion();
   const [active, setActive] = useState(0);
-  const [paused, setPaused] = useState(false);
+  const [hovered, setHovered] = useState(false);
+  const [focused, setFocused] = useState(false);
   const [connectors, setConnectors] = useState({ width: 1200, paths: [] as string[], arrows: [] as number[], compact: false });
 
   useEffect(() => {
@@ -55,16 +56,18 @@ export function ProjectManagementProcess() {
   }, []);
 
   useEffect(() => {
-    if (!visible || reduced || paused) return;
+    if (!visible || reduced || hovered || focused) return;
     const timer = window.setInterval(() => {
       if (!document.hidden) setActive(current => (current + 1) % stages.length);
     }, 3200);
     return () => window.clearInterval(timer);
-  }, [visible, reduced, paused]);
+  }, [visible, reduced, hovered, focused]);
 
   return <section id="project-management-process" className="section project-process" ref={root} aria-labelledby="project-process-title"
-    onPointerEnter={() => setPaused(true)} onPointerLeave={() => setPaused(false)}
-    onFocusCapture={() => setPaused(true)} onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setPaused(false); }}>
+    onPointerEnter={event => { if (event.pointerType !== 'touch') setHovered(true); }}
+    onPointerLeave={event => { if (event.pointerType !== 'touch') setHovered(false); }}
+    onFocusCapture={() => setFocused(true)}
+    onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget as Node | null)) setFocused(false); }}>
     <div className="project-process-inner">
       <header className="project-process-heading">
         <span className="eyebrow">02 / HOW WE DELIVER</span>
@@ -72,37 +75,37 @@ export function ProjectManagementProcess() {
         <p>A clear path from the first brief to the final handover.</p>
       </header>
       <div className="process-chart-scroll" role="region" aria-label="Project management flow chart" tabIndex={0}>
-      <div className="process-chart">
+      <motion.div className="process-chart"
+        initial={reduced ? false : { opacity: 0, y: 12 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.25 }}
+        transition={{ duration: reduced ? 0 : 0.5, ease: [0.22, 1, 0.36, 1] }}>
       <div className="process-stages" role="group" aria-label="Project management stages">
         {stages.map(({ title, icon: Icon }, index) => {
           const arrowWidth = connectors.arrows[index] ?? 26;
           const arrowHead = Math.min(8, arrowWidth * .45);
-          return <motion.button key={title} type="button"
+          return <button key={title} type="button"
           className={index === 2 ? 'process-stage-execution' : undefined}
           aria-label={title} aria-pressed={active === index} aria-controls="process-details" onClick={() => setActive(index)}
           onPointerEnter={event => { if (event.pointerType !== 'touch') setActive(index); }}
-          onFocus={() => setActive(index)}
-          initial={reduced ? false : { opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }} transition={{ duration: 0.45, delay: reduced ? 0 : index * 0.1 }}>
+          onFocus={() => setActive(index)}>
           <span className="process-stage-number"><span className="button-label">0{index + 1}</span></span>
           <span className="process-stage-title"><span className="button-label">{title}</span></span><Icon size={28} strokeWidth={1.5} aria-hidden="true" />
           {index < stages.length - 1 && <svg className="process-stage-arrow lucide lucide-arrow-right" viewBox={`0 0 ${arrowWidth} 24`} preserveAspectRatio="none" style={{ width: arrowWidth }} height="28" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path vectorEffect="non-scaling-stroke" d={`M0 12H${Math.max(0, arrowWidth - 1)}m-${arrowHead}-8 ${arrowHead} 8-${arrowHead} 8`} /></svg>}
-        </motion.button>;
+        </button>;
         })}
       </div>
       <svg className="process-connections" viewBox={`0 0 ${connectors.width} 48`} preserveAspectRatio="none" aria-hidden="true">
-        <defs>{steps.map((step, index) => <marker key={step.title} id={`process-arrow-${index}`} viewBox="0 0 20 20" refX="18" refY="10" markerWidth={connectors.compact ? 10 : 20} markerHeight={connectors.compact ? 10 : 20} markerUnits="userSpaceOnUse" orient="auto"><path d="M10 2L18 10L10 18" fill="none" stroke="var(--process-line, #888)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" /></marker>)}</defs>
+        <defs>{steps.map((step, index) => <marker key={step.title} id={`process-arrow-${index}`} className={step.stage === active ? 'is-active' : undefined} viewBox="0 0 20 20" refX="18" refY="10" markerWidth={connectors.compact ? 10 : 20} markerHeight={connectors.compact ? 10 : 20} markerUnits="userSpaceOnUse" orient="auto"><path d="M10 2L18 10L10 18" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" /></marker>)}</defs>
         {connectors.paths.map((path, index) => <path key={steps[index].title} d={path} markerEnd={`url(#process-arrow-${index})`} className={steps[index].stage === active ? 'is-active' : ''} />)}
       </svg>
       <div className="process-details" id="process-details">
-        {steps.map((step, index) => <motion.article key={step.title} className={`process-detail${active === step.stage ? ' is-active' : ''}`}
-          initial={reduced ? false : { opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }} transition={{ duration: 0.5, delay: reduced ? 0 : index * 0.08 }}>
+        {steps.map(step => <article key={step.title} className={`process-detail${active === step.stage ? ' is-active' : ''}`}>
           <div className="process-detail-label">{step.title}</div>
           <div className="process-detail-copy"><span className="process-detail-stage">0{step.stage + 1} / {stages[step.stage].title}</span><h3>{step.heading}</h3><p>{step.text}</p></div>
-        </motion.article>)}
+        </article>)}
       </div>
-      </div>
+      </motion.div>
       </div>
     </div>
   </section>;

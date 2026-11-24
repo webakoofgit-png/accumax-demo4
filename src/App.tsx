@@ -12,6 +12,7 @@ import homeBanner from "./assets/home banners/banner1.png";
 import { OpeningFilm } from "./components/OpeningFilm";
 import { useHomepageMotion } from "./motion/useHomepageMotion";
 import { useAutoAdvance } from "./motion/useAutoAdvance";
+import { useReadyImageSelection } from "./motion/useReadyImageSelection";
 import { useSwipeNavigation } from './motion/useSwipeNavigation';
 import './components/swipe-interaction.css';
 import './footer.css';
@@ -165,6 +166,7 @@ function Reveal({
   );
 }
 const HEADER_LINKS = [
+  ['Home', '/'],
   ['About Us', '/about'],
   ['Expertise', '/services'],
   ['Industry Solutions', '/industries'],
@@ -286,7 +288,7 @@ function Header() {
               <X />
             </button>
             <span className="eyebrow mobile-menu-label">EXPLORE ACCUMAX</span>
-            {[["Home", "/"], ...HEADER_LINKS].map(([n, to], i) => (
+            {HEADER_LINKS.map(([n, to], i) => (
               <motion.div
                 key={to}
                 initial={reduced ? false : { y: 28, opacity: 0 }}
@@ -469,19 +471,21 @@ function ServicesList() {
     </div>
   );
 }
+const STORY_PHOTOS = [
+  ['/images/gallery/3.jpg', 'Substation engineering and project planning'],
+  ['/images/hero-testing.jpg', 'Electrical protection and relay testing'],
+  ['/images/gallery/13.jpg', 'Substation protection and control systems'],
+  ['/images/products/solar-and-ev-station.jpg', 'Solar power and EV charging infrastructure'],
+] as const;
+const STORY_SOURCES = STORY_PHOTOS.map(([src]) => IMAGE_ASSETS['/src/assets' + src] ?? src);
+
 function Story() {
   const ref = useRef<HTMLElement>(null);
-  const [active, setActive] = useState(0);
-  const swipe = useSwipeNavigation(direction => setActive(current => (current + direction + 4) % 4), ref);
-  const photos = [
-    ['/images/gallery/3.jpg', 'Substation engineering and project planning'],
-    ['/images/hero-testing.jpg', 'Electrical protection and relay testing'],
-    ['/images/gallery/13.jpg', 'Substation protection and control systems'],
-    ['/images/products/solar-and-ev-station.jpg', 'Solar power and EV charging infrastructure'],
-  ];
-  const choose = (index: number) => setActive((index + 4) % 4);
+  const { active, previous, requested, setRequested } = useReadyImageSelection(ref, STORY_SOURCES);
+  const choose = (direction: number) => setRequested(current => (current + direction + STORY_SOURCES.length) % STORY_SOURCES.length);
+  const swipe = useSwipeNavigation(choose, ref);
   const reduced = useReducedMotion();
-  useAutoAdvance(ref, active, photos.length, setActive, reduced);
+  useAutoAdvance(ref, active, requested, STORY_SOURCES.length, setRequested, reduced);
   useLayoutEffect(() => {
     if (!ref.current) return;
     const context = gsap.context(() => {
@@ -496,9 +500,10 @@ function Story() {
     <section className="story story--animated story--carousel" ref={ref} data-active={active} aria-label="The principles behind every connection" {...swipe}>
       <div className="story-photo">
         <Img
-          src={photos[active][0]}
-          alt={photos[active][1]}
+          src={STORY_SOURCES[active]}
+          alt={STORY_PHOTOS[active][1]}
         />
+        {!reduced && active !== previous && <div key={active} className="image-crossfade-out" aria-hidden="true" style={{ backgroundImage: `url("${STORY_SOURCES[previous]}")` }} />}
       </div>
       <div className="story-label eyebrow">
         THE PRINCIPLES BEHIND EVERY CONNECTION
@@ -521,7 +526,7 @@ function Story() {
           </div>
         ),
       )}
-      <div className="story-bottom story-controls"><button type="button" aria-label="Previous approach" onClick={() => choose(active - 1)}><ArrowLeft size={20} /></button><button type="button" aria-label="Next approach" onClick={() => choose(active + 1)}><ArrowRight size={20} /></button><span aria-live="polite" aria-atomic="true">0{active + 1} / 04</span></div>
+      <div className="story-bottom story-controls"><button type="button" aria-label="Previous approach" onClick={() => choose(-1)}><ArrowLeft size={20} /></button><button type="button" aria-label="Next approach" onClick={() => choose(1)}><ArrowRight size={20} /></button><span aria-live="polite" aria-atomic="true">0{active + 1} / 04</span></div>
     </section>
   );
 }
@@ -541,7 +546,7 @@ function ProjectsPage() {
     <header className="projects-page-heading">
       <span className="eyebrow">PROJECTS</span>
       <Heading as="h1" id="project-portfolio-title">Engineering in action.</Heading>
-      <p>Explore project scopes across substations, protection systems, solar power and EV charging. See how engineering, equipment and site execution come together.</p>
+      <p>Explore project scopes across substations, protection systems, solar power and EV charging.</p>
     </header>
     <div className="projects-page-filters" role="group" aria-label="Filter projects by category">
       {categories.map(item => <button type="button" key={item} aria-pressed={category === item} onClick={() => setCategory(item)}><span className="button-label">{item}</span></button>)}
@@ -1182,15 +1187,25 @@ function About() {
           <Heading as="h2" id="about-capabilities-title">The expertise behind your power infrastructure.</Heading>
         </div>
         <div className="about-capabilities-grid">
-          {ABOUT_CONTENT.capabilities.map(capability => (
-            <article className="about-capability-card" key={capability.title}>
-              <Heading as="h3">{capability.title}</Heading>
-              <p>{capability.text}</p>
-              <Link className="site-cta" to={capability.to} aria-label={`${capability.to.startsWith('/contact') ? 'Discuss requirements' : 'Explore service'}: ${capability.title}`}><span className="button-label">
-                {capability.to.startsWith('/contact') ? 'Discuss requirements' : 'Explore service'}
-              </span></Link>
-            </article>
-          ))}
+          {ABOUT_CONTENT.capabilities.map(capability => {
+            const action = capability.to.startsWith('/contact') ? 'Discuss requirements' : 'Explore service';
+
+            return (
+              <Link
+                className="about-capability-card"
+                key={capability.title}
+                to={capability.to}
+                aria-label={`${action}: ${capability.title}`}
+              >
+                <div className="about-capability-image">
+                  <Img src={capability.image} alt="" />
+                </div>
+                <Heading as="h3">{capability.title}</Heading>
+                <p>{capability.text}</p>
+                <span className="site-cta"><span className="button-label">{action}</span></span>
+              </Link>
+            );
+          })}
         </div>
       </section>
       <PerspectiveSection />

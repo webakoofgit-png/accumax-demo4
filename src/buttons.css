@@ -99,7 +99,7 @@
 }
 
 #root :is(#main, footer, .contact-band, .enquiry-popup) :is(.button, .site-cta, .enquiry-popup-submit):where(:not(:disabled):not([aria-disabled="true"])):is(:hover, :focus-visible, :active, [data-pressed]),
-#root #main :is(.project-card, .home-contact-card):is(:hover, :focus-visible, :active, [data-pressed]) .site-cta {
+#root #main :is(.project-card, .projects-page-card, .home-contact-card, .about-capability-card):is(:hover, :focus-visible, :has(:focus-visible), :active, [data-pressed]) .site-cta {
   background: #fff;
   color: var(--brand, #a81800);
   border-color: var(--brand, #a81800);
@@ -275,7 +275,7 @@
 }
 
 #root :is(#main, footer, .contact-band, .enquiry-popup) :is(.site-cta, .button.light, .button.hero-action-secondary):where(:not(:disabled):not([aria-disabled="true"])):is(:hover, :focus-visible, :active, [data-pressed]),
-#root #main :is(.project-card, .home-contact-card):is(:hover, :focus-visible, :active, [data-pressed]) .site-cta {
+#root #main :is(.project-card, .projects-page-card, .home-contact-card, .about-capability-card):is(:hover, :focus-visible, :has(:focus-visible), :active, [data-pressed]) .site-cta {
   background: transparent;
   color: var(--cta-outline-color);
   border-color: transparent;
@@ -283,12 +283,12 @@
 }
 
 #root :is(#main, footer, .contact-band, .enquiry-popup) :is(.site-cta, .button.light, .button.hero-action-secondary):where(:not(:disabled):not([aria-disabled="true"])):is(:hover, :focus-visible, [data-pressed])::before,
-#root #main :is(.project-card, .home-contact-card):is(:hover, :focus-visible, [data-pressed]) .site-cta::before {
+#root #main :is(.project-card, .projects-page-card, .home-contact-card, .about-capability-card):is(:hover, :focus-visible, :has(:focus-visible), [data-pressed]) .site-cta::before {
   opacity: 0;
 }
 
 #root :is(#main, footer, .contact-band, .enquiry-popup) :is(.site-cta, .button.light, .button.hero-action-secondary):where(:not(:disabled):not([aria-disabled="true"])):is(:hover, :focus-visible, [data-pressed])::after,
-#root #main :is(.project-card, .home-contact-card):is(:hover, :focus-visible, [data-pressed]) .site-cta::after {
+#root #main :is(.project-card, .projects-page-card, .home-contact-card, .about-capability-card):is(:hover, :focus-visible, :has(:focus-visible), [data-pressed]) .site-cta::after {
   opacity: 1;
 }
 

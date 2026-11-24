@@ -93,6 +93,6 @@ export function ProjectPerspectivesGrid() {
         </Link>;
       })}
     </div>
-    <div className="service-perspectives-bottom"><Link className="site-cta" to="/projects"><span className="button-label">Explore all projects </span><ArrowUpRight size={18} /></Link></div>
+    <div className="service-perspectives-bottom"><Link className="site-cta" to="/projects"><span className="button-label">See Projects in Action </span><ArrowUpRight size={18} /></Link></div>
   </section>;
 }

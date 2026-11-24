@@ -35,12 +35,13 @@ export function IndustryWindows() {
     const token = ++request.current;
     if (next === selected.current) { setLoading(false); return; }
     setLoading(true);
-    const photo = new Image();
-    photo.src = source(next);
-    try { await photo.decode(); } catch { /* Keep the current image if loading fails. */ }
+    const photo = root.current?.querySelectorAll<HTMLImageElement>('.iw-photo')[next];
+    if (!photo) { setLoading(false); return; }
+    photo.loading = 'eager';
+    const ready = await photo.decode().then(() => true, () => false);
     if (!alive.current || token !== request.current) return;
     setLoading(false);
-    if (!photo.naturalWidth) return;
+    if (!ready) return;
     selected.current = next;
     setActive(next);
   }, []);
@@ -87,8 +88,8 @@ export function IndustryWindows() {
       }
       const timeline = gsap.timeline();
       if (changed) {
-        timeline.to(outgoing, { autoAlpha: 0, duration: .6, ease: 'power2.inOut' }, 0)
-          .fromTo(incoming, { opacity: 0, scale: 1.055 }, { opacity: 1, scale: 1, duration: .8, ease: 'power2.inOut' }, 0);
+        timeline.fromTo(incoming, { opacity: 0, scale: 1.055 }, { opacity: 1, scale: 1, duration: .8, ease: 'power2.inOut' }, 0)
+          .set(outgoing, { autoAlpha: 0 }, .8);
       }
       timeline.fromTo('.iw-title-line>span', { yPercent: 105 }, { yPercent: 0, duration: .7, stagger: .04, ease: 'power3.out' }, .08)
         .fromTo('.iw-copy p', { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: .7, ease: 'power3.out' }, .08)

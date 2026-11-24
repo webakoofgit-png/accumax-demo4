@@ -1,5 +1,6 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useReducedMotion } from 'framer-motion';
+import { useReadyImageSelection } from '../motion/useReadyImageSelection';
 import installation from '../assets/images/gallery/9.jpg';
 import testing from '../assets/images/hero-testing.jpg';
 import solar from '../assets/images/products/solar-and-ev-station.jpg';
@@ -8,16 +9,19 @@ import film from '../assets/home banners/ACPL-23-11-26.mp4';
 export function OpeningFilm({ poster }: { poster: string }) {
   const reduced = useReducedMotion();
   const video = useRef<HTMLVideoElement>(null);
-  const [active, setActive] = useState(0);
+  const montage = useRef<HTMLDivElement>(null);
   const [failed, setFailed] = useState(false);
-  const frames = [poster, installation, testing, solar];
+  const frames = useMemo(() => [poster, installation, testing, solar], [poster]);
   const useFilm = Boolean(film) && !failed;
+  const { active, previous, setRequested } = useReadyImageSelection(montage, frames, !useFilm && !reduced);
 
   useEffect(() => {
     if (useFilm || reduced) return;
-    const timer = window.setInterval(() => setActive(index => (index + 1) % frames.length), 3000);
+    const timer = window.setInterval(() => {
+      if (!document.hidden) setRequested(index => (index + 1) % frames.length);
+    }, 3000);
     return () => window.clearInterval(timer);
-  }, [useFilm, reduced, frames.length]);
+  }, [useFilm, reduced, frames.length, setRequested]);
   useEffect(() => {
     const element = video.current;
     if (!element || !useFilm) return;
@@ -46,6 +50,11 @@ export function OpeningFilm({ poster }: { poster: string }) {
   }, [useFilm]);
 
   return <>
-    {useFilm ? <video className="hero-banner-image opening-video" ref={video} src={film} poster={poster} autoPlay muted playsInline loop preload="auto" aria-label="Accumax engineering, installation and testing opening film" onError={() => setFailed(true)} /> : <div className="opening-montage" data-paused={Boolean(reduced)} aria-label="Accumax engineering and infrastructure">{frames.map((source, i) => <img key={source} src={source} alt={i === 0 ? 'Power infrastructure and substation engineering' : ''} aria-hidden={i !== active} className={`hero-banner-image opening-frame${i === active ? ' is-active' : ''}`} loading={i === 0 ? 'eager' : 'lazy'} decoding="async" />)}</div>}
+    {useFilm ? <video className="hero-banner-image opening-video" ref={video} src={film} poster={poster} autoPlay muted playsInline loop preload="auto" aria-label="Accumax engineering, installation and testing opening film" onError={() => setFailed(true)} /> : (
+      <div className="opening-montage" ref={montage} data-paused={Boolean(reduced)} aria-label="Accumax engineering and infrastructure">
+        <img src={frames[active]} alt={active === 0 ? 'Power infrastructure and substation engineering' : ''} className="hero-banner-image opening-frame is-active" decoding="async" />
+        {!reduced && active !== previous && <img key={active} className="hero-banner-image image-crossfade-out" src={frames[previous]} alt="" aria-hidden="true" />}
+      </div>
+    )}
   </>;
 }

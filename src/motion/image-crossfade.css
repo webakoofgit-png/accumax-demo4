@@ -1,0 +1,18 @@
+.image-crossfade-out {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  pointer-events: none;
+  animation: image-crossfade-out .55s ease-out;
+}
+
+@keyframes image-crossfade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image-crossfade-out { animation: none; }
+}

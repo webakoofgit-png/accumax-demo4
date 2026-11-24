@@ -57,10 +57,9 @@
 @media(prefers-reduced-motion:reduce){.process-connections>path,.process-connections>path.is-active{animation:none;stroke-dasharray:none}.process-stages .process-stage-arrow{animation:none}.project-process *{transition:none!important}}
 /* Keep the introductory copy at the shared body size; cards use compact copy. */
 #root #main .project-process .project-process-heading p{font-size:var(--body-copy-size,18px);line-height:1.8}
-/* Keep each label, heading and description on the same inset. */
+/* Keep the descriptive copy aligned to its inset on wide screens. */
 @media(min-width:901px){
   .process-details{align-items:stretch}
-  .process-detail-label{justify-content:flex-start;padding-inline:16px;text-align:left}
   .process-detail-copy{display:flex;flex-direction:column;align-items:stretch;text-align:left}
   .process-detail h3{margin:0;text-align:left}
   #root #main .project-process .process-detail p{margin-top:10px;text-wrap:pretty}

@@ -4,8 +4,9 @@ import { useInView } from 'framer-motion';
 export function useAutoAdvance(
   root: RefObject<HTMLElement>,
   active: number,
+  requested: number,
   count: number,
-  setActive: Dispatch<SetStateAction<number>>,
+  setRequested: Dispatch<SetStateAction<number>>,
   reducedMotion: boolean | null,
 ) {
   const visible = useInView(root, { amount: .2 });
@@ -17,8 +18,8 @@ export function useAutoAdvance(
       if (!section || document.hidden || document.querySelector('dialog[open]')) return;
       if (section.matches('[data-swiping]') || section.querySelector('[data-swiping]')) return;
       if (section.contains(document.activeElement)) return;
-      setActive(current => (current + 1) % count);
+      setRequested(current => (current + 1) % count);
     }, 10_000);
     return () => window.clearInterval(timer);
-  }, [root, active, count, setActive, reducedMotion, visible]);
+  }, [root, active, requested, count, setRequested, reducedMotion, visible]);
 }

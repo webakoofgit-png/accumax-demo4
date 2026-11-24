@@ -1,3 +1,5 @@
+import { FIELD_IMAGES } from './field-images';
+
 /** Editorial summaries of accumaxcontrols.com and its Vision Mission Values PDF. */
 export const COMPANY_PROFILE = {
   introduction: 'Power infrastructure needs clear thinking and precise execution. Based in Pune, Accumax Controls brings engineering, site services and equipment supply together for substations, industrial power systems, solar projects and EV charging.',
@@ -15,31 +17,37 @@ export const ABOUT_CONTENT = {
   capabilities: [
     {
       title: 'Substations & project execution',
+      image: FIELD_IMAGES.outdoorSubstation,
       text: 'GIS and AIS substations, E-House solutions and EPC coordination, with civil works, steel fabrication, electrical installation and GIS supervision.',
       to: '/services/epc-projects',
     },
     {
       title: 'Automation & protection',
+      image: FIELD_IMAGES.controlPanels,
       text: 'SCADA and substation automation connect monitoring and control, supported by relay programming, protection settings and system audits.',
       to: '/services/scada-relay-testing',
     },
     {
       title: 'Testing & commissioning',
+      image: FIELD_IMAGES.testing,
       text: 'Testing and commissioning for substation equipment, automation and E-House systems, including primary injection, secondary injection and end-to-end relay testing.',
       to: '/services/substation-testing-commissioning',
     },
     {
       title: 'Solar & EV infrastructure',
+      image: '/images/products/solar-and-ev-station.jpg',
       text: 'Solar generation and EV charging planned around site requirements, with inverter systems, storage, charging loads and grid interfaces considered together.',
       to: '/services/solar-ev-station',
     },
     {
       title: 'Maintenance & technical support',
+      image: FIELD_IMAGES.switchgearPanels,
       text: 'Annual maintenance for substations and electrical installations, covering equipment reviews, operating conditions, service schedules and system audit requirements.',
       to: '/contact?service=Operations%2C%20Maintenance%20%26%20AMC',
     },
     {
       title: 'Equipment supply & exports',
+      image: '/images/products/export-projects.jpg',
       text: 'Import, export and trading of electrical equipment, testing kits, panels, cables and accessories, plus tools, safety equipment, construction materials and FRP products.',
       to: '/services/export',
     },

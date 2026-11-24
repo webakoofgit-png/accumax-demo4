@@ -1,7 +1,8 @@
-import { useLayoutEffect, useRef, useState, type CSSProperties } from 'react';
+import { useLayoutEffect, useRef, type CSSProperties } from 'react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { useReducedMotion } from 'framer-motion';
 import { useAutoAdvance } from '../motion/useAutoAdvance';
+import { useReadyImageSelection } from '../motion/useReadyImageSelection';
 import { useSwipeNavigation } from '../motion/useSwipeNavigation';
 import gsap from 'gsap';
 import './engineering-path.css';
@@ -10,6 +11,7 @@ import { FIELD_IMAGES } from '../field-images';
 import connectionImage from '../assets/images/transmission-wide.jpg';
 
 export const ENGINEERING_STAGE_IMAGES = [understandImage, FIELD_IMAGES.siteInstallation, FIELD_IMAGES.controlPanels, FIELD_IMAGES.gisHall, FIELD_IMAGES.testing, FIELD_IMAGES.outdoorSubstation, connectionImage] as const;
+const stageBackground = (index: number) => `linear-gradient(90deg,#0b172bd9,#0b172b73 65%,#0b172b40),url("${ENGINEERING_STAGE_IMAGES[index]}")`;
 
 export const ENGINEERING_STAGES = [
   { title: 'Understand', description: 'Define scope, interfaces and operating requirements.' },
@@ -22,14 +24,12 @@ export const ENGINEERING_STAGES = [
 
 export function EngineeringPath() {
   const root = useRef<HTMLElement>(null);
-  const [active, setActive] = useState(0);
+  const { active, previous, requested, setRequested } = useReadyImageSelection(root, ENGINEERING_STAGE_IMAGES);
   const reduced = useReducedMotion();
   const last = ENGINEERING_STAGES.length;
-  const swipe = useSwipeNavigation(direction => setActive(current => Math.max(0, Math.min(last, current + direction))), root);
-  useAutoAdvance(root, active, last + 1, setActive, reduced);
-  const choose = (index: number) => {
-    setActive(Math.max(0, Math.min(last, index)));
-  };
+  const move = (direction: number) => setRequested(current => Math.max(0, Math.min(last, current + direction)));
+  const swipe = useSwipeNavigation(move, root);
+  useAutoAdvance(root, active, requested, last + 1, setRequested, reduced);
 
   useLayoutEffect(() => {
     const tiles = root.current?.querySelector<HTMLElement>('.ke-stage-tiles');
@@ -63,7 +63,8 @@ export function EngineeringPath() {
 
   return <section id="engineering-path" className="kinetic-engineering" ref={root} data-enhanced="true" data-active={active} aria-labelledby="kinetic-engineering-title">
     <h2 id="kinetic-engineering-title" className="ke-sr-only">Kinetic engineering — six stages, one continuous motion.</h2>
-    <div className="ke-surface" {...swipe} style={{ backgroundImage: `linear-gradient(90deg,#0b172bd9,#0b172b73 65%,#0b172b40),url("${ENGINEERING_STAGE_IMAGES[active]}")` }}>
+    <div className="ke-surface" {...swipe} style={{ backgroundImage: stageBackground(active) }}>
+      {!reduced && active !== previous && <div key={active} className="image-crossfade-out ke-outgoing-photo" aria-hidden="true" style={{ backgroundImage: stageBackground(previous) }} />}
       <header className="ke-header"><span className="eyebrow">04 / FROM INTENT TO INFRASTRUCTURE</span></header>
       {active < last && <div className="ke-topline" aria-hidden="true"><span className="ke-counter-label"><span className="ke-counter-window"><span className="ke-counter-track"><span>{String(active + 1).padStart(2, '0')}</span></span></span><span className="ke-counter-total">/ 06</span></span></div>}
       <div className="ke-composition">
@@ -75,7 +76,7 @@ export function EngineeringPath() {
         <article className="ke-scene ke-finale" aria-hidden={active !== last}><h3><span className="ke-final-line"><span>Every connection.</span></span><span className="ke-final-line"><span>Considered<span className="ke-final-dot">.</span></span></span></h3><p className="ke-description">A coordinated path from requirements to handover.</p></article>
         </div>
       </div>
-      <div className="ke-controls"><button type="button" aria-label="Previous engineering stage" disabled={active === 0} onClick={() => choose(active - 1)}><ArrowLeft size={20} /></button><button type="button" aria-label="Next engineering stage" disabled={active === last} onClick={() => choose(active + 1)}><ArrowRight size={20} /></button><div className="ke-stage-tiles" role="group" aria-label="Choose an engineering stage">{[...ENGINEERING_STAGES.map(item => item.title), 'Every connection'].map((title, index) => <button type="button" key={title} aria-label={`Show ${title}`} aria-pressed={active === index} style={{ '--step-thumbnail': `url("${ENGINEERING_STAGE_IMAGES[index]}")` } as CSSProperties} onPointerEnter={event => { if (event.pointerType === 'mouse' && window.matchMedia('(hover: hover) and (min-width: 901px)').matches) choose(index); }} onClick={() => choose(index)}><span className="ke-tile-number" aria-hidden="true"><span className="button-label">{index < last ? String(index + 1).padStart(2, '0') : '✓'}</span></span><span><span className="button-label">{title}</span></span></button>)}</div></div>
+      <div className="ke-controls"><button type="button" aria-label="Previous engineering stage" disabled={active === 0} onClick={() => move(-1)}><ArrowLeft size={20} /></button><button type="button" aria-label="Next engineering stage" disabled={active === last} onClick={() => move(1)}><ArrowRight size={20} /></button><div className="ke-stage-tiles" role="group" aria-label="Choose an engineering stage">{[...ENGINEERING_STAGES.map(item => item.title), 'Every connection'].map((title, index) => <button type="button" key={title} aria-label={`Show ${title}`} aria-pressed={active === index} style={{ '--step-thumbnail': `url("${ENGINEERING_STAGE_IMAGES[index]}")` } as CSSProperties} onPointerEnter={event => { if (event.pointerType === 'mouse' && window.matchMedia('(hover: hover) and (min-width: 901px)').matches) setRequested(index); }} onClick={() => setRequested(index)}><span className="ke-tile-number" aria-hidden="true"><span className="button-label">{index < last ? String(index + 1).padStart(2, '0') : '✓'}</span></span><span><span className="button-label">{title}</span></span></button>)}</div></div>
       <span className="ke-sr-only" role="status" aria-live="polite" aria-atomic="true">{active < last ? `${active + 1} of ${last}: ${ENGINEERING_STAGES[active].title}. ${ENGINEERING_STAGES[active].description}` : 'Every connection. Considered. A coordinated path from requirements to handover.'}</span>
     </div>
   </section>;
