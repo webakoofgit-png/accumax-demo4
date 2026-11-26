@@ -11,7 +11,6 @@ import team from './assets/all images/company-team.jpg';
 import engineeringTeam from './assets/all images/engineering-team.jpg';
 import siteTeam from './assets/all images/site-engineering-team.jpg';
 import teamGroup from './assets/all images/team-group.jpg';
-import leadership from './assets/all images/leadership-portrait.jpg';
 import controlPanels from './assets/all images/control-panels-original.jpg';
 import testing from './assets/all images/relay-testing-original.jpg';
 import relayTestKit from './assets/all images/cmc356-original.jpg';
@@ -46,7 +45,6 @@ export const FIELD_GALLERY = [
   [engineeringTeam, 'Accumax Controls team group photo'],
   [teamGroup, 'Accumax Controls team members'],
   [team, 'Accumax Controls anniversary group photo'],
-  [leadership, 'Accumax Controls leadership portrait'],
   [solar, 'Ground-mounted solar panels'],
   [ev, 'EV chargers under a solar canopy'],
 ] as const;
