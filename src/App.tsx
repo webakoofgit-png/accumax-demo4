@@ -1,14 +1,15 @@
-import { FIELD_IMAGES, FIELD_SERVICE_IMAGES } from './field-images';
+import { FIELD_IMAGES } from './field-images';
 import { Heading } from './components/Heading';
 import { ClientLogoCarousel } from './components/ClientLogoCarousel';
 import { HomeTestimonials } from './components/HomeTestimonials';
 import { CompanyStats } from './components/CompanyStats';
 import { ProjectPerspectivesGrid } from './components/ProjectPerspectivesGrid';
 import logoMark from './assets/images/logo-mark-outline.svg';
+import aboutSubstation from './assets/images/about-01.jpg';
+import transmissionPhoto from './assets/images/transmission-wide.jpg';
+import aboutPerspective from './assets/home page img/_A CONNECTED PERSPECTIVE.png';
 import { Careers } from './components/Careers';
 import { VideoGallery } from './components/VideoGallery';
-import aboutPerspective from "./assets/home page img/_A CONNECTED PERSPECTIVE.png";
-import homeBanner from "./assets/home banners/banner1.png";
 import { OpeningFilm } from "./components/OpeningFilm";
 import { useHomepageMotion } from "./motion/useHomepageMotion";
 import { useAutoAdvance } from "./motion/useAutoAdvance";
@@ -83,26 +84,6 @@ import {
   EXPERTISE_CATEGORIES,
 } from "./data";
 gsap.registerPlugin(ScrollTrigger);
-const IMAGE_ASSETS = import.meta.glob(
-  "/src/assets/**/*.{jpg,jpeg,png,webp,svg}",
-  { eager: true, query: "?url", import: "default" },
-) as Record<string, string>;
-const PERSPECTIVE_IMAGES: Record<string, string> = {
-  "epc-projects": "/home page img/04  PROJECT PERSPECTIVES/EPC Projects.png",
-  "scada-relay-testing":
-    "/home page img/04  PROJECT PERSPECTIVES/Scada & Relay Testing.png",
-  export: "/home page img/04  PROJECT PERSPECTIVES/Export.png",
-  "substation-testing-commissioning":
-    "/home page img/04  PROJECT PERSPECTIVES/Substation - T&C.png",
-  "fabrication-civil-work":
-    "/home page img/04  PROJECT PERSPECTIVES/Fabrication & Civil Work.png",
-  "gis-erection-supervision":
-    "/home page img/04  PROJECT PERSPECTIVES/GIS Erection & Supervision.png",
-  "solar-ev-station":
-    "/home page img/04  PROJECT PERSPECTIVES/Solar & EV Station.png",
-  trading: "/home page img/04  PROJECT PERSPECTIVES/Trading.png",
-  ...FIELD_SERVICE_IMAGES,
-};
 const PERSPECTIVE_CAPTIONS: Record<string, string> = {
   "epc-projects": "Power infrastructure, end to end.",
   "scada-relay-testing": "Automation, protection and relay testing.",
@@ -125,7 +106,7 @@ const Img = ({
   eager?: boolean;
 }) => (
   <img
-    src={IMAGE_ASSETS["/src/assets" + src] ?? src}
+    src={src}
     alt={alt}
     className={className}
     loading={eager ? "eager" : "lazy"}
@@ -472,12 +453,12 @@ function ServicesList() {
   );
 }
 const STORY_PHOTOS = [
-  ['/images/gallery/3.jpg', 'Substation engineering and project planning'],
-  ['/images/hero-testing.jpg', 'Electrical protection and relay testing'],
-  ['/images/gallery/13.jpg', 'Substation protection and control systems'],
-  ['/images/products/solar-and-ev-station.jpg', 'Solar power and EV charging infrastructure'],
+  [FIELD_IMAGES.siteTeam, 'Site engineering team at a safety briefing'],
+  [FIELD_IMAGES.testing, 'Technicians working on electrical protection panels'],
+  [FIELD_IMAGES.controlPanels, 'Substation protection and control panels'],
+  [FIELD_IMAGES.ev, 'EV chargers under a solar canopy'],
 ] as const;
-const STORY_SOURCES = STORY_PHOTOS.map(([src]) => IMAGE_ASSETS['/src/assets' + src] ?? src);
+const STORY_SOURCES = STORY_PHOTOS.map(([src]) => src);
 
 function Story() {
   const ref = useRef<HTMLElement>(null);
@@ -532,14 +513,6 @@ function Story() {
 }
 function ProjectsPage() {
   const [category, setCategory] = useState('All projects');
-  const scopeImages: Record<string, string> = {
-    'GIS Substation': FIELD_IMAGES.gisHall,
-    'AIS Substation': FIELD_IMAGES.outdoorSubstation,
-    'Solar': '/images/products/solar-and-ev-station.jpg',
-    'Protection': FIELD_IMAGES.relayTestKit,
-    'E-House': '/images/products/substation-t-and-c.jpg',
-    'EV Infrastructure': '/images/products/solar-and-ev-station.jpg',
-  };
   const categories = ['All projects', ...new Set(PROJECTS.map(project => project.category))];
   const projects = category === 'All projects' ? PROJECTS : PROJECTS.filter(project => project.category === category);
   return <section className="section projects-page" aria-labelledby="project-portfolio-title">
@@ -555,7 +528,7 @@ function ProjectsPage() {
     <div className="projects-page-grid">
       {projects.map(project => <article className="projects-page-card" key={project.slug}>
         <Link className="projects-page-image" to={'/projects/' + project.slug} aria-label={`View ${project.title}`}>
-          <Img src={scopeImages[project.category] ?? project.image} alt={project.title} />
+          <Img src={project.image} alt={project.title} />
           <span>{project.num} / {project.category}</span>
           <ArrowUpRight aria-hidden="true" />
         </Link>
@@ -717,7 +690,7 @@ function ProjectsSection() {
             to={"/services/" + s.slug}
           >
             <div className="perspective-service-media">
-              <Img src={PERSPECTIVE_IMAGES[s.slug] ?? s.image} alt={s.title} />
+              <Img src={s.image} alt={s.title} />
               <div className="perspective-image-overlay" aria-hidden="true">
                 <div className="perspective-overlay-copy"><strong>{s.title}</strong><p>{s.short}</p></div>
               </div>
@@ -789,7 +762,7 @@ function Home() {
   return (
     <div className="home-page" ref={homeRef}>
       <section className="hero hero-banner">
-        <OpeningFilm poster={homeBanner} />
+        <OpeningFilm poster={FIELD_IMAGES.electricalEpc} />
         <div className="hero-banner-shade" />
         <div className="hero-copy">
           <span className="eyebrow">
@@ -831,7 +804,7 @@ function Home() {
       </section>
       <section className="image-break">
         <Img
-          src="/images/transmission-wide.jpg"
+          src={transmissionPhoto}
           alt="Power transmission infrastructure"
         />
         <div>
@@ -899,7 +872,7 @@ function Home() {
             <div className="home-contact-image">
               <Img
                 src={FIELD_IMAGES.testing}
-                alt="Engineer testing electrical protection equipment"
+                alt="Technicians working on electrical protection panels"
               />
             </div>
             <Heading as="h3"><span className="motion-line"><span>Engineering</span></span>{' '}<span className="motion-line"><span>enquiries</span></span></Heading>
@@ -911,8 +884,8 @@ function Home() {
           <Link className="home-contact-card" to="/services/export">
             <div className="home-contact-image">
               <Img
-                src="/images/products/export-projects.jpg"
-                alt="Equipment prepared for export"
+                src={FIELD_IMAGES.transformer}
+                alt="Power transformer"
               />
             </div>
             <Heading as="h3"><span className="motion-line"><span>Equipment &amp;</span></span>{' '}<span className="motion-line"><span>export support</span></span></Heading>
@@ -1161,7 +1134,7 @@ function About() {
           </div>
           <figure className="about-editorial-image">
             <Img
-              src="/images/about-01.jpg"
+              src={aboutSubstation}
               alt="Electrical substation infrastructure supported by Accumax"
               eager
             />
@@ -1617,7 +1590,7 @@ function Quality() {
         label="Quality & Safety"
         title="Standards that shape the work."
         description="Clear specifications. Consistent checks. Safer working practices. Quality starts with how the work is planned."
-        image="/images/hero-testing.jpg"
+        image={FIELD_IMAGES.siteTeam}
       />
       <section className="section policy-list">
         {QUALITY_POINTS.map((p, i) => (

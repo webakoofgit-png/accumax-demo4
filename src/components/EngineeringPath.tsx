@@ -6,11 +6,9 @@ import { useReadyImageSelection } from '../motion/useReadyImageSelection';
 import { useSwipeNavigation } from '../motion/useSwipeNavigation';
 import gsap from 'gsap';
 import './engineering-path.css';
-import understandImage from '../assets/Industrial Substation at Sunset.png';
 import { FIELD_IMAGES } from '../field-images';
-import connectionImage from '../assets/images/transmission-wide.jpg';
 
-export const ENGINEERING_STAGE_IMAGES = [understandImage, FIELD_IMAGES.siteInstallation, FIELD_IMAGES.controlPanels, FIELD_IMAGES.gisHall, FIELD_IMAGES.testing, FIELD_IMAGES.outdoorSubstation, connectionImage] as const;
+export const ENGINEERING_STAGE_IMAGES = [FIELD_IMAGES.electricalEpc, FIELD_IMAGES.siteInstallation, FIELD_IMAGES.controlPanels, FIELD_IMAGES.gisHall, FIELD_IMAGES.testing, FIELD_IMAGES.outdoorSubstation, FIELD_IMAGES.siteTeam] as const;
 const stageBackground = (index: number) => `linear-gradient(90deg,#0b172bd9,#0b172b73 65%,#0b172b40),url("${ENGINEERING_STAGE_IMAGES[index]}")`;
 
 export const ENGINEERING_STAGES = [

@@ -35,7 +35,7 @@ export const ABOUT_CONTENT = {
     },
     {
       title: 'Solar & EV infrastructure',
-      image: '/images/products/solar-and-ev-station.jpg',
+      image: FIELD_IMAGES.ev,
       text: 'Solar generation and EV charging planned around site requirements, with inverter systems, storage, charging loads and grid interfaces considered together.',
       to: '/services/solar-ev-station',
     },
@@ -47,7 +47,7 @@ export const ABOUT_CONTENT = {
     },
     {
       title: 'Equipment supply & exports',
-      image: '/images/products/export-projects.jpg',
+      image: FIELD_IMAGES.transformer,
       text: 'Import, export and trading of electrical equipment, testing kits, panels, cables and accessories, plus tools, safety equipment, construction materials and FRP products.',
       to: '/services/export',
     },

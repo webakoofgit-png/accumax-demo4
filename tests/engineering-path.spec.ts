@@ -130,7 +130,7 @@ for (const width of [390, 1440]) {
     const section = page.locator('#engineering-path');
     const surface = section.locator('.ke-surface');
     const original = await surface.evaluate(element => getComputedStyle(element).backgroundImage);
-    expect(original.replaceAll('%20', ' ')).toContain('Industrial Substation at Sunset.png');
+    expect(original).toContain('electrical-epc.jpg');
     const buttons = section.locator('.ke-stage-tiles button');
     const images: string[] = [];
     for (let i = 0; i < 7; i++) {

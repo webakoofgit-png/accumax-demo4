@@ -11,7 +11,6 @@ import './expertise-experience.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const photos = import.meta.glob('/src/assets/images/products/*.{jpg,jpeg,png,webp}', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
 const glowPositions = [[-160, -90], [160, -90], [-180, 0], [180, 0], [-140, 90], [140, 90], [0, 130]];
 
 export function ExpertiseExperience() {
@@ -232,7 +231,7 @@ export function ExpertiseExperience() {
             if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy) * 1.4) choose(activeRef.current + (dx < 0 ? 1 : -1));
           }}>
             <div className="expertise-depth-layer depth-back" aria-hidden="true"/><div className="expertise-depth-layer depth-mid" aria-hidden="true"/>
-            <div className="expertise-image-window">{EXPERTISE_CATEGORIES.map((category, i) => <img key={category.num} ref={element => { imageRefs.current[i] = element; }} src={photos['/src/assets' + category.image] ?? category.image} alt={category.title} aria-hidden={active !== i} loading="lazy" decoding="async" width="960" height="600" style={{ opacity: i === 0 ? 1 : 0 }}/>) }<div className="expertise-photo-shade"/></div>
+            <div className="expertise-image-window">{EXPERTISE_CATEGORIES.map((category, i) => <img key={category.num} ref={element => { imageRefs.current[i] = element; }} src={category.image} alt={category.title} aria-hidden={active !== i} loading="lazy" decoding="async" width="960" height="600" style={{ opacity: i === 0 ? 1 : 0 }}/>) }<div className="expertise-photo-shade"/></div>
           </div>
           <div className="expertise-hotspots" role="tablist" aria-label="Engineering expertise" ref={tabsRef}>{EXPERTISE_CATEGORIES.map((category, i) => <button type="button" role="tab" id={`expertise-tab-${category.num}`} aria-controls="expertise-selected" aria-selected={active === i} tabIndex={active === i ? 0 : -1} className={`expertise-hotspot hotspot-${i}${active === i ? ' is-active' : ''}`} key={category.num} ref={element => { buttonRefs.current[i] = element; }} onClick={() => choose(i)} onPointerEnter={event => { if (event.pointerType === 'mouse' && window.matchMedia('(hover: hover)').matches) choose(i); }} onFocus={() => choose(i)} onKeyDown={event => keyNavigate(event, i)}><span className="expertise-node" aria-hidden="true"/><span className="expertise-hotspot-label"><span className="button-label">{category.title}</span></span></button>)}</div>
         </div>

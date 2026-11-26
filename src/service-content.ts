@@ -1,10 +1,10 @@
-import { FIELD_SERVICE_IMAGES } from './field-images';
+import { FIELD_IMAGES } from './field-images';
 import type { Service } from './data';
 
 /** Revised from Accumax's official service pages; see docs/content-refresh-2026-11-04.md. */
 const services: Service[] = [
   {
-    slug: 'epc-projects', num: '01', title: 'EPC Projects', image: '/images/products/epc-hero.jpg',
+    slug: 'epc-projects', num: '01', title: 'EPC Projects', image: FIELD_IMAGES.electricalEpcPreview,
     headline: 'One project. Every stage connected.',
     short: 'Turn your project brief into a coordinated plan for engineering, procurement, construction and handover.',
     intro: 'Build with a clear connection between what is designed, what is sourced and what happens on site. Accumax coordinates EPC services for electrical infrastructure, bringing project decisions and execution into one delivery scope.',
@@ -17,7 +17,7 @@ const services: Service[] = [
     enquiryItems: ['Project location and target completion date', 'Single-line diagram or initial technical brief', 'Engineering, procurement and construction scope', 'Customer specifications and site constraints'],
   },
   {
-    slug: 'panel-cleaning', num: '09', title: 'Live Electrical Panel Cleaning', image: '/images/products/scada-and-relay-testing.jpg',
+    slug: 'panel-cleaning', num: '09', title: 'Live Electrical Panel Cleaning', image: FIELD_IMAGES.switchgearPanels,
     headline: 'Plan panel care around your installation.',
     short: 'Discuss electrical panel cleaning, equipment suitability and site requirements with our team.',
     intro: 'Share your panel details and operating conditions so the team can review the cleaning scope, access and maintenance requirements. The method and work schedule are agreed around the equipment and site conditions.',
@@ -30,7 +30,7 @@ const services: Service[] = [
     enquiryItems: ['Panel type, quantity and condition', 'Site location and operating environment', 'Access and isolation requirements', 'Preferred maintenance date or service schedule'],
   },
   {
-    slug: 'scada-relay-testing', num: '02', title: 'SCADA & Relay Testing', image: '/images/products/scada-and-relay-testing.jpg',
+    slug: 'scada-relay-testing', num: '02', title: 'SCADA & Relay Testing', image: FIELD_IMAGES.relayTestKit,
     headline: 'See the system. Check the protection.',
     short: 'Connect real-time monitoring with relay testing, protection settings and substation automation.',
     intro: 'Keep operating data and protection performance in the same conversation. Accumax supports Supervisory Control and Data Acquisition (SCADA), Substation Automation Systems (SAS), relay programming and testing for electrical networks.',
@@ -43,7 +43,7 @@ const services: Service[] = [
     enquiryItems: ['Relay make, model and protection functions', 'Approved settings or coordination requirements', 'Single-line diagram and automation architecture', 'Testing scope, site access and outage window'],
   },
   {
-    slug: 'export', num: '03', title: 'Exports', image: '/images/products/export-projects.jpg',
+    slug: 'export', num: '03', title: 'Exports', image: FIELD_IMAGES.transformer,
     headline: 'Source the right equipment for your project.',
     short: 'Electrical equipment, testing kits and installation materials sourced around your technical requirements.',
     intro: 'Bring your equipment list to a team that understands the installation around it. Accumax supports export and import requirements for power-sector equipment, electrical goods and construction materials.',
@@ -56,7 +56,7 @@ const services: Service[] = [
     enquiryItems: ['Item descriptions, quantities and technical specifications', 'Required drawings, datasheets or approved makes', 'Destination and delivery requirements', 'Target procurement date and documentation needs'],
   },
   {
-    slug: 'substation-testing-commissioning', num: '04', title: 'Substation Testing & Commissioning', image: '/images/products/substation-t-and-c.jpg',
+    slug: 'substation-testing-commissioning', num: '04', title: 'Substation Testing & Commissioning', image: FIELD_IMAGES.testing,
     headline: 'Bring equipment, control and protection together.',
     short: 'Coordinated testing and commissioning for GIS, AIS, automation and E-House systems.',
     intro: 'An installed system needs its equipment and interfaces checked together. Accumax supports substation testing and commissioning across voltage levels, with relay programming, protection settings and system audits within the agreed scope.',
@@ -69,7 +69,7 @@ const services: Service[] = [
     enquiryItems: ['Equipment list and voltage levels', 'Single-line diagrams and protection details', 'Installation status and proposed test schedule', 'Customer test requirements and handover expectations'],
   },
   {
-    slug: 'fabrication-civil-work', num: '05', title: 'Fabrication & Civil Work', image: '/images/products/material-and-mech-fabrication-and-civil.jpg',
+    slug: 'fabrication-civil-work', num: '05', title: 'Fabrication & Civil Work', image: FIELD_IMAGES.fabrication,
     headline: 'Build the foundations for electrical execution.',
     short: 'Custom steel fabrication and substation civil works aligned with your electrical installation.',
     intro: 'Good site execution starts with the physical works around the equipment. Accumax supports customised steel fabrication and substation civil works, coordinating construction needs with the wider electrical project.',
@@ -82,7 +82,7 @@ const services: Service[] = [
     enquiryItems: ['Site location and available drawings', 'Fabrication quantities and material specifications', 'Civil scope and electrical layout', 'Site access, sequence and target schedule'],
   },
   {
-    slug: 'gis-erection-supervision', num: '06', title: 'GIS Erection & Supervision', image: '/images/products/gis-direction-and-supervision.jpg',
+    slug: 'gis-erection-supervision', num: '06', title: 'GIS Erection & Supervision', image: FIELD_IMAGES.gisHall,
     headline: 'Precision at every installation interface.',
     short: 'Specialist supervision for GIS assembly, gas handling, electrical connections, testing and handover.',
     intro: 'Gas-insulated substations combine high-voltage equipment in a compact footprint. Accumax supports GIS erection and supervision, connecting installation checks with testing, protection and automation interfaces.',
@@ -95,7 +95,7 @@ const services: Service[] = [
     enquiryItems: ['GIS make, configuration and voltage rating', 'Installation drawings and manufacturer requirements', 'Erection, gas handling and testing scope', 'Site readiness and handover schedule'],
   },
   {
-    slug: 'solar-ev-station', num: '07', title: 'Solar & EV Station', image: '/images/products/solar-and-ev-station.jpg',
+    slug: 'solar-ev-station', num: '07', title: 'Solar & EV Station', image: FIELD_IMAGES.solar,
     headline: 'Connect cleaner power with everyday mobility.',
     short: 'Plan solar generation and EV charging around your site, available power and energy needs.',
     intro: 'Make solar and EV charging part of one electrical plan. Accumax brings experience from work across India to renewable generation and charging infrastructure, with system options considered around the site requirement.',
@@ -108,7 +108,7 @@ const services: Service[] = [
     enquiryItems: ['Site location and available installation area', 'Electricity demand and available sanctioned load', 'Vehicle types, charger count and usage pattern', 'Solar, storage and grid-connection requirements'],
   },
   {
-    slug: 'trading', num: '08', title: 'Trading', image: '/images/products/trading.jpg',
+    slug: 'trading', num: '08', title: 'Trading', image: FIELD_IMAGES.controlPanels,
     headline: 'Keep your material list moving.',
     short: 'Source electrical products, site tools and installation materials through one focused enquiry.',
     intro: 'From core electrical equipment to the accessories around it, Accumax supports sourcing for project and installation requirements. Share your material list to start a clear, specification-led supply discussion.',
@@ -123,4 +123,4 @@ const services: Service[] = [
 
 ];
 
-export const SERVICE_CONTENT: Service[] = services.map(service => ({ ...service, image: FIELD_SERVICE_IMAGES[service.slug] ?? service.image }));
+export const SERVICE_CONTENT: Service[] = services;

@@ -1,9 +1,7 @@
+import { FIELD_IMAGES } from '../field-images';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useReducedMotion } from 'framer-motion';
 import { useReadyImageSelection } from '../motion/useReadyImageSelection';
-import installation from '../assets/images/gallery/9.jpg';
-import testing from '../assets/images/hero-testing.jpg';
-import solar from '../assets/images/products/solar-and-ev-station.jpg';
 import film from '../assets/home banners/ACPL-23-11-26.mp4';
 
 export function OpeningFilm({ poster }: { poster: string }) {
@@ -11,7 +9,7 @@ export function OpeningFilm({ poster }: { poster: string }) {
   const video = useRef<HTMLVideoElement>(null);
   const montage = useRef<HTMLDivElement>(null);
   const [failed, setFailed] = useState(false);
-  const frames = useMemo(() => [poster, installation, testing, solar], [poster]);
+  const frames = useMemo(() => [poster, FIELD_IMAGES.gisHall, FIELD_IMAGES.testing, FIELD_IMAGES.solar], [poster]);
   const useFilm = Boolean(film) && !failed;
   const { active, previous, setRequested } = useReadyImageSelection(montage, frames, !useFilm && !reduced);
 

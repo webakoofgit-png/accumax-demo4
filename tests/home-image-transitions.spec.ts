@@ -18,9 +18,9 @@ test('homepage photo carousels keep the current frame while the next image is de
     return { started, release };
   };
 
-  const storyPhoto = await hold('/hero-testing.jpg');
-  const engineeringPhoto = await hold('2.21.16 PM (1).jpeg');
-  const industryPhoto = await hold('/i16.jpg');
+  const storyPhoto = await hold('/relay-testing-original.jpg');
+  const engineeringPhoto = await hold('/ehouse-installation.jpg');
+  const industryPhoto = await hold('/industry-data-centres.jpg');
   await page.setViewportSize({ width: 1440, height: 900 });
   await page.goto('/', { waitUntil: 'domcontentloaded' });
   await page.locator('.enquiry-popup').evaluate((dialog: HTMLDialogElement) => {
@@ -35,20 +35,20 @@ test('homepage photo carousels keep the current frame while the next image is de
     await story.getByRole('button', { name: 'Next approach' }).click();
     await storyPhoto.started;
     await expect(story).toHaveAttribute('data-active', '0');
-    await expect(story.locator('.story-photo img')).toHaveAttribute('src', /\/3\.jpg$/);
+    await expect(story.locator('.story-photo img')).toHaveAttribute('src', /\/site-engineering-team\.jpg$/);
     storyPhoto.release();
     await expect(story).toHaveAttribute('data-active', '1');
-    await expect(story.locator('.story-photo .image-crossfade-out')).toHaveCSS('background-image', /\/3\.jpg/);
+    await expect(story.locator('.story-photo .image-crossfade-out')).toHaveCSS('background-image', /\/site-engineering-team\.jpg/);
 
     const engineering = page.locator('#engineering-path');
     const surface = engineering.locator('.ke-surface');
     await engineering.getByRole('button', { name: 'Next engineering stage' }).click();
     await engineeringPhoto.started;
     await expect(engineering).toHaveAttribute('data-active', '0');
-    await expect(surface).toHaveCSS('background-image', /Industrial(?: |%20)Substation/);
+    await expect(surface).toHaveCSS('background-image', /electrical-epc\.jpg/);
     engineeringPhoto.release();
     await expect(engineering).toHaveAttribute('data-active', '1');
-    await expect(surface.locator('.image-crossfade-out')).toHaveCSS('background-image', /Industrial(?: |%20)Substation/);
+    await expect(surface.locator('.image-crossfade-out')).toHaveCSS('background-image', /electrical-epc\.jpg/);
 
     const industries = page.locator('.industry-windows');
     const tabs = industries.getByRole('tab');

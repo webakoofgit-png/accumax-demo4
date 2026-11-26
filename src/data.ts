@@ -1,3 +1,19 @@
+import powerUtilitiesPhoto from './assets/all images/industry-power-utilities.jpg';
+import dataCentresPhoto from './assets/all images/industry-data-centres.jpg';
+import automobilesPhoto from './assets/all images/industry-automobiles.jpg';
+import refineriesPhoto from './assets/all images/industry-refineries.jpg';
+import chemicalPhoto from './assets/all images/industry-chemical-480.webp';
+import pharmaceuticalPhoto from './assets/all images/industry-pharmaceutical.jpg';
+import foodBeveragePhoto from './assets/all images/industry-food-beverage-960.webp';
+import cementPhoto from './assets/all images/industry-cement.jpg';
+import metroPhoto from './assets/all images/industry-metro-480.webp';
+import evStationsPhoto from './assets/all images/industry-ev-stations.jpg';
+import textilesPhoto from './assets/all images/industry-textiles.jpg';
+import miningPhoto from './assets/all images/industry-mining.jpg';
+import plasticsPhoto from './assets/all images/industry-plastics-1600.webp';
+import educationPhoto from './assets/all images/industry-education.jpg';
+import pulpPaperPhoto from './assets/all images/industry-pulp-paper.jpg';
+import logo from './assets/images/logo.png';
 import { FIELD_IMAGES, FIELD_GALLERY } from './field-images';
 import { SERVICE_CONTENT } from './service-content';
 
@@ -13,7 +29,7 @@ export const COMPANY = {
   phones: ["+91 99201 77441", "+91 73502 00025"],
   emails: ["info@accumaxcontrols.com"],
   whatsapp: "https://wa.link/yypj14",
-  logo: "/images/logo.png",
+  logo,
 };
 
 
@@ -96,21 +112,21 @@ export const HOME_EXPERTISE_CATEGORIES: ExpertiseCategory[] = [
 ];
 
 export const INDUSTRIES: Industry[] = [
-  { name: "Power Utilities", image: "/images/portfolio/i7.jpg", applications: "GIS and AIS substations, protection testing and automation" },
-  { name: "Data Centers", image: "/images/portfolio/i16.jpg", applications: "Electrical EPC, substation systems and E-House solutions" },
-  { name: "Automobiles", image: "/images/portfolio/i1.jpg", applications: "Industrial electrical infrastructure and EV charging" },
-  { name: "Refineries", image: "/images/portfolio/i4.jpg", applications: "Electrical infrastructure, SCADA and protection testing" },
-  { name: "Chemical Industries", image: "/images/portfolio/i2.jpg", applications: "Substation infrastructure and electrical project support" },
-  { name: "Pharmaceutical", image: "/images/portfolio/i8.jpg", applications: "Electrical EPC, testing and maintenance support" },
-  { name: "Food & Beverage", image: "/images/portfolio/i3.jpg", applications: "Industrial electrical systems and equipment supply" },
-  { name: "Cement Industries", image: "/images/portfolio/i10.jpg", applications: "Substations, electrical works and commissioning" },
-  { name: "Metro", image: "/images/portfolio/i11.jpg", applications: "Power infrastructure, substations and electrical works" },
-  { name: "EV Stations", image: "/images/portfolio/i13.jpg", applications: "Solar generation, charging infrastructure and load management" },
-  { name: "Textile Industries", image: "/images/portfolio/i14.jpg", applications: "Electrical installation, substation and AMC requirements" },
-  { name: "Mining Industry", image: "/images/portfolio/i15.jpg", applications: "Substation infrastructure, electrical systems and testing" },
-  { name: "Plastic Industries", image: "/images/portfolio/i17.jpg", applications: "Electrical installation, automation and equipment supply" },
-  { name: "Educational", image: "/images/portfolio/i5.jpg", applications: "Electrical infrastructure, maintenance and equipment supply" },
-  { name: "Pulp & Paper", image: "/images/portfolio/i9.jpg", applications: "Industrial electrical systems, testing and maintenance" },
+  { name: "Power Utilities", image: powerUtilitiesPhoto, applications: "GIS and AIS substations, protection testing and automation" },
+  { name: "Data Centers", image: dataCentresPhoto, applications: "Electrical EPC, substation systems and E-House solutions" },
+  { name: "Automobiles", image: automobilesPhoto, applications: "Industrial electrical infrastructure and EV charging" },
+  { name: "Refineries", image: refineriesPhoto, applications: "Electrical infrastructure, SCADA and protection testing" },
+  { name: "Chemical Industries", image: chemicalPhoto, applications: "Substation infrastructure and electrical project support" },
+  { name: "Pharmaceutical", image: pharmaceuticalPhoto, applications: "Electrical EPC, testing and maintenance support" },
+  { name: "Food & Beverage", image: foodBeveragePhoto, applications: "Industrial electrical systems and equipment supply" },
+  { name: "Cement Industries", image: cementPhoto, applications: "Substations, electrical works and commissioning" },
+  { name: "Metro", image: metroPhoto, applications: "Power infrastructure, substations and electrical works" },
+  { name: "EV Stations", image: evStationsPhoto, applications: "Solar generation, charging infrastructure and load management" },
+  { name: "Textile Industries", image: textilesPhoto, applications: "Electrical installation, substation and AMC requirements" },
+  { name: "Mining Industry", image: miningPhoto, applications: "Substation infrastructure, electrical systems and testing" },
+  { name: "Plastic Industries", image: plasticsPhoto, applications: "Electrical installation, automation and equipment supply" },
+  { name: "Educational", image: educationPhoto, applications: "Electrical infrastructure, maintenance and equipment supply" },
+  { name: "Pulp & Paper", image: pulpPaperPhoto, applications: "Industrial electrical systems, testing and maintenance" },
 ];
 
 /** Company scope and contact details checked against accumaxcontrols.com. Detailed service scopes and sample project profiles require company review. */
@@ -151,7 +167,7 @@ export const PROJECTS: Project[] = [
     num: "03",
     category: "Solar",
     title: "Ground-Mounted Solar Power Plant",
-    image: "/images/gallery/5.jpg",
+    image: FIELD_IMAGES.solar,
     note: SAMPLE_NOTE,
     scope: ["Module mounting structures", "Inverter & transformer installation", "Grid evacuation"],
   },
@@ -160,7 +176,7 @@ export const PROJECTS: Project[] = [
     num: "04",
     category: "Protection",
     title: "Relay Panel Testing & Commissioning",
-    image: FIELD_IMAGES.relayTestKit,
+    image: FIELD_IMAGES.testing,
     note: SAMPLE_NOTE,
     scope: ["Relay programming", "Setting calculations", "Secondary injection testing"],
   },
@@ -169,7 +185,7 @@ export const PROJECTS: Project[] = [
     num: "05",
     category: "E-House",
     title: "Prefabricated E-House Power Solution",
-    image: "/images/gallery/12.jpg",
+    image: FIELD_IMAGES.siteInstallation,
     note: SAMPLE_NOTE,
     scope: ["E-House fabrication", "Equipment integration", "Site installation"],
   },
@@ -178,7 +194,7 @@ export const PROJECTS: Project[] = [
     num: "06",
     category: "EV Infrastructure",
     title: "EV Charging Station Network",
-    image: "/images/gallery/13.jpg",
+    image: FIELD_IMAGES.ev,
     note: SAMPLE_NOTE,
     scope: ["Charger installation", "Load management", "O&M support"],
   },
@@ -186,20 +202,7 @@ export const PROJECTS: Project[] = [
 
 export const CLIENT_LOGOS = Object.entries(import.meta.glob('/src/assets/client logos/*.{jpg,jpeg,png,webp,svg}', { eager: true, query: '?url', import: 'default' })).filter(([path]) => !/^c(?:[1-9]|1[0-9]|2[0-4])\.jpg$/i.test(path.split('/').pop() ?? '')).map(([, url]) => url) as string[];
 
-export const GALLERY = [
-  ...FIELD_GALLERY.map(([image]) => image),
-  "/images/gallery/3.jpg",
-  "/images/gallery/4.jpg",
-  "/images/gallery/5.jpg",
-  "/images/gallery/9.jpg",
-  "/images/gallery/12.jpg",
-  "/images/gallery/13.jpg",
-  "/images/gallery/14.jpg",
-  "/images/gallery/15.jpg",
-  "/images/gallery/16.jpg",
-  "/images/gallery/20.jpg",
-  "/images/gallery/21.jpg",
-];
+export const GALLERY = FIELD_GALLERY.map(([image]) => image);
 
 export const GALLERY_CAPTIONS: Record<string, string> = Object.fromEntries(FIELD_GALLERY);
 

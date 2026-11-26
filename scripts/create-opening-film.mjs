@@ -4,10 +4,10 @@ import { resolve } from 'node:path';
 
 // A 12-second silent film made only from the project's existing imagery.
 const sources = [
-  ['src/assets/home banners/banner1.png', 'image/png'],
-  ['src/assets/images/gallery/9.jpg', 'image/jpeg'],
-  ['src/assets/images/hero-testing.jpg', 'image/jpeg'],
-  ['src/assets/images/products/solar-and-ev-station.jpg', 'image/jpeg'],
+  ['src/assets/all images/electrical-epc.jpg', 'image/jpeg'],
+  ['src/assets/all images/gis-gallery-enhanced.jpg', 'image/jpeg'],
+  ['src/assets/all images/relay-testing-original.jpg', 'image/jpeg'],
+  ['src/assets/all images/solar-epc.jpg', 'image/jpeg'],
 ].map(([path, type]) => `data:${type};base64,${readFileSync(resolve(path)).toString('base64')}`);
 const browser = await chromium.launch({ executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE || 'C:/Program Files/Google/Chrome/Application/chrome.exe', headless: true });
 try {

@@ -5,12 +5,9 @@ import { ArrowUpRight } from 'lucide-react';
 import { useReducedMotion } from 'framer-motion';
 import gsap from 'gsap';
 import { INDUSTRIES } from '../data';
-import powerUtilitiesPhoto from '../assets/images/transmission-wide.jpg';
 import './industry-windows.css';
 
 const industries = INDUSTRIES.slice(0, 6);
-const photographs = import.meta.glob('/src/assets/images/portfolio/*.{jpg,jpeg,png,webp}', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
-const source = (index: number) => index === 0 ? powerUtilitiesPhoto : photographs['/src/assets' + industries[index].image] ?? industries[index].image;
 
 export function IndustryWindows() {
   const [active, setActive] = useState(0);
@@ -135,7 +132,7 @@ export function IndustryWindows() {
         if (Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.4) void choose(active + (dx < 0 ? 1 : -1));
       }}>
       <div className="iw-plane" aria-hidden="true">{industries.map((item, index) => <div className="iw-layer" key={item.name} style={{ visibility: index === 0 ? 'visible' : 'hidden' }}>
-        <img className="iw-photo" src={source(index)} alt="" loading={index === 0 ? 'eager' : 'lazy'} decoding="async" width={index === 0 ? 1920 : 550} height={index === 0 ? 1088 : 400}/>
+        <img className="iw-photo" src={item.image} alt="" loading={index === 0 ? 'eager' : 'lazy'} decoding="async" width={item.name === "Chemical Industries" ? 480 : 2528} height={item.name === "Chemical Industries" ? 322 : 1696}/>
       </div>)}</div>
       <div className="iw-shade"/>
       <div className="iw-topline"><span><i /> ENGINEERING ACROSS INDUSTRIES</span><span>{String(active + 1).padStart(2, '0')} <span className="iw-total">/ 06</span></span></div>
