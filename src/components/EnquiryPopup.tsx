@@ -4,7 +4,7 @@ import { ArrowUpRight, X } from 'lucide-react';
 import { SERVICE_OPTIONS } from '../data';
 import { useWeb3Form } from '../forms/useWeb3Form';
 import { PhoneInput } from '../forms/PhoneInput';
-import projectPhoto from '../assets/all images/electrical-epc-960.webp';
+import projectPhoto from '../assets/Industrial Substation at Sunset.png';
 import companyLogo from '../assets/images/logo.png';
 import './enquiry-popup.css';
 
