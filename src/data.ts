@@ -52,6 +52,7 @@ export const SERVICES: Service[] = SERVICE_CONTENT;
 export const SERVICE_OPTIONS = SERVICES.map(service => service.title);
 
 export type Industry = {
+  slug?: string;
   name: string;
   image: string;
   applications: string;
@@ -111,13 +112,53 @@ export const HOME_EXPERTISE_CATEGORIES: ExpertiseCategory[] = [
   category('07', 'Exports & Engineered Products', 'export'),
 ];
 
+export const FEATURED_INDUSTRIES = [
+  {
+    slug: 'power-utilities', name: 'Power Utilities', image: powerUtilitiesPhoto,
+    applications: 'GIS and AIS substations, protection testing and automation',
+    overview: 'Plan new substations and upgrades to existing utility assets with a coordinated scope for switchgear installation, protection testing, automation and commissioning.',
+    focus: 'Share the voltage level, single-line diagram and interfaces with existing equipment. For upgrades, identify outage windows and the protection schemes affected by the work.',
+    services: ['gis-erection-supervision', 'scada-relay-testing', 'substation-testing-commissioning'],
+  },
+  {
+    slug: 'data-centers', name: 'Data Centers', image: dataCentresPhoto,
+    applications: 'Electrical EPC, substation systems and E-House solutions',
+    overview: 'Coordinate incoming power, substations and prefabricated E-Houses for new data centres and phased capacity expansions.',
+    focus: 'Share the planned load by phase, utility connection requirements and the space available for electrical equipment. Note any systems that must stay in operation during an expansion.',
+    services: ['epc-projects', 'gis-erection-supervision', 'substation-testing-commissioning'],
+  },
+  {
+    slug: 'automobiles', name: 'Automobiles', image: automobilesPhoto,
+    applications: 'Industrial electrical infrastructure and EV charging',
+    overview: 'Plan electrical infrastructure for automotive plants, production-line expansions and on-site EV charging. Coordinate equipment and commissioning around the plant’s operating schedule.',
+    focus: 'Identify the production areas affected, changes in load, available shutdown windows and any proposed charging locations.',
+    services: ['epc-projects', 'substation-testing-commissioning', 'solar-ev-station'],
+  },
+  {
+    slug: 'refineries', name: 'Refineries', image: refineriesPhoto,
+    applications: 'Electrical infrastructure, SCADA and protection testing',
+    overview: 'Bring electrical infrastructure, monitoring and protection testing into a coordinated scope for refinery upgrades and new installations.',
+    focus: 'Provide the existing protection and control drawings, site access requirements and the commissioning windows available for each area.',
+    services: ['epc-projects', 'scada-relay-testing', 'substation-testing-commissioning'],
+  },
+  {
+    slug: 'chemical-industries', name: 'Chemical Industries', image: chemicalPhoto,
+    applications: 'Substation infrastructure and electrical project support',
+    overview: 'Coordinate substation, civil and electrical works for chemical plants, including upgrades that need to fit around existing operations.',
+    focus: 'Share plant layouts, equipment specifications and the site’s access, area classification and safety requirements before the scope is agreed.',
+    services: ['epc-projects', 'fabrication-civil-work', 'substation-testing-commissioning'],
+  },
+  {
+    slug: 'pharmaceutical', name: 'Pharmaceutical', image: pharmaceuticalPhoto,
+    applications: 'Electrical EPC, testing and maintenance support',
+    overview: 'Plan electrical installation, testing and maintenance for pharmaceutical facilities, from new production areas to upgrades in an operating plant.',
+    focus: 'Identify critical loads, site access limits and maintenance windows. Share any documentation or handover requirements that apply to the facility.',
+    services: ['epc-projects', 'substation-testing-commissioning', 'panel-cleaning'],
+  },
+];
+
 export const INDUSTRIES: Industry[] = [
-  { name: "Power Utilities", image: powerUtilitiesPhoto, applications: "GIS and AIS substations, protection testing and automation" },
-  { name: "Data Centers", image: dataCentresPhoto, applications: "Electrical EPC, substation systems and E-House solutions" },
-  { name: "Automobiles", image: automobilesPhoto, applications: "Industrial electrical infrastructure and EV charging" },
-  { name: "Refineries", image: refineriesPhoto, applications: "Electrical infrastructure, SCADA and protection testing" },
-  { name: "Chemical Industries", image: chemicalPhoto, applications: "Substation infrastructure and electrical project support" },
-  { name: "Pharmaceutical", image: pharmaceuticalPhoto, applications: "Electrical EPC, testing and maintenance support" },
+  ...FEATURED_INDUSTRIES,
   { name: "Food & Beverage", image: foodBeveragePhoto, applications: "Industrial electrical systems and equipment supply" },
   { name: "Cement Industries", image: cementPhoto, applications: "Substations, electrical works and commissioning" },
   { name: "Metro", image: metroPhoto, applications: "Power infrastructure, substations and electrical works" },

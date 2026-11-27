@@ -58,8 +58,13 @@ for (const width of [390, 1440]) {
     await expect(section.locator('.iw-layer').nth(3)).toHaveCSS('opacity', '1');
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy();
     await page.screenshot({ path: `test-results/industry-windows-${width}.png`, fullPage: false });
-    await section.locator('.iw-cta').click();
-    await expect(page).toHaveURL(/contact\?industry=Refineries/);
+    await section.getByRole('link', { name: 'Explore Automobiles' }).click();
+    await expect(page).toHaveURL(/\/industries\/automobiles$/);
+    await expect(page.getByRole('heading', { level: 1, name: 'Automobiles' })).toBeVisible();
+    await expect(page.getByRole('link', { name: 'Solar & EV Station' })).toHaveAttribute('href', '/services/solar-ev-station');
+    await page.getByRole('link', { name: 'Discuss your project' }).click();
+    await expect(page).toHaveURL(/contact\?industry=Automobiles/);
+    await expect(page.getByLabel('Service of interest')).toHaveValue('Automobiles');
     expect(errors).toEqual([]);
   });
 }

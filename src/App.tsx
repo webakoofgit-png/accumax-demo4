@@ -28,6 +28,7 @@ import "./components/project-perspectives.css";
 import "./components/story-colors.css";
 import "./components/engineering-step-thumbnails.css";
 import "./projects-page.css";
+import "./industry-detail.css";
 import { useWeb3Form } from './forms/useWeb3Form';
 import { PhoneInput } from './forms/PhoneInput';
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
@@ -77,6 +78,7 @@ import {
   SERVICES,
   SERVICE_OPTIONS,
   INDUSTRIES,
+  FEATURED_INDUSTRIES,
   PROJECTS,
   GALLERY,
   GALLERY_CAPTIONS,
@@ -716,7 +718,7 @@ function Industries({ full = false }: { full?: boolean }) {
       {INDUSTRIES.slice(0, full ? 16 : 6).map((v, i) => (
         <Link
           key={v.name}
-          to={"/contact?industry=" + encodeURIComponent(v.name)}
+          to={v.slug ? "/industries/" + v.slug : "/contact?industry=" + encodeURIComponent(v.name)}
           onMouseEnter={() => setActive(i)}
           onMouseLeave={() => setActive(-1)}
           onFocus={() => setActive(i)}
@@ -730,6 +732,42 @@ function Industries({ full = false }: { full?: boolean }) {
         </Link>
       ))}
     </div>
+  );
+}
+function IndustryDetail() {
+  const { slug } = useParams();
+  const industry = FEATURED_INDUSTRIES.find((item) => item.slug === slug);
+  if (!industry) return <NotFound />;
+
+  const services = SERVICES.filter((service) => industry.services.includes(service.slug));
+  return (
+    <>
+      <section className="section page-intro industry-detail-intro">
+        <div>
+          <Link to="/industries" className="eyebrow industry-detail-back">All industries</Link>
+          <Heading as="h1">{industry.name}</Heading>
+          <p>{industry.overview}</p>
+          <Button to={"/contact?industry=" + encodeURIComponent(industry.name)}>Discuss your project</Button>
+        </div>
+        <Img src={industry.image} alt={industry.name + " infrastructure"} eager />
+      </section>
+      <section className="section two-col industry-detail-planning">
+        <div>
+          <Heading as="h2">Planning your project</Heading>
+          <p>{industry.focus}</p>
+        </div>
+        <div>
+          <Heading as="h2">Related services</Heading>
+          <ul className="industry-detail-services">
+            {services.map((service) => (
+              <li key={service.slug}>
+                <Link to={"/services/" + service.slug}>{service.title}<ArrowUpRight size={17} aria-hidden="true" /></Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+    </>
   );
 }
 function AboutBlock() {
@@ -1772,6 +1810,7 @@ export default function App({ prerendered = false }: { prerendered?: boolean }) 
               </section>
             }
           />
+          <Route path="/industries/:slug" element={<IndustryDetail />} />
           <Route path="/projects" element={<ProjectsPage />} />
           <Route
             path="/featured-works"

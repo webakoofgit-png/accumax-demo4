@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
 import { useReducedMotion } from 'framer-motion';
 import gsap from 'gsap';
-import { INDUSTRIES } from '../data';
+import { FEATURED_INDUSTRIES as industries } from '../data';
 import './industry-windows.css';
 
-const industries = INDUSTRIES.slice(0, 6);
+const industryEnquiry = (name: string) => '/contact?industry=' + encodeURIComponent(name);
 
 export function IndustryWindows() {
   const [active, setActive] = useState(0);
@@ -144,7 +144,8 @@ export function IndustryWindows() {
       <div className="iw-progress" aria-hidden="true"><span/></div>
     </div>
     <div className="iw-directory">
-    <div className="iw-selector" role="tablist" aria-label="Industries we serve" aria-orientation="vertical">{industries.map((item, index) => <button type="button" role="tab" id={`industry-selector-${index}`} aria-controls="industry-window" aria-selected={active === index} tabIndex={active === index ? 0 : -1} key={item.name}
+    <div className="iw-selector" role="tablist" aria-label="Industries we serve" aria-orientation="vertical">{industries.map((item, index) => <div className="iw-option" role="presentation" key={item.name}>
+      <button type="button" role="tab" id={`industry-selector-${index}`} aria-controls="industry-window" aria-selected={active === index} tabIndex={active === index ? 0 : -1}
       onPointerEnter={event => { if (event.pointerType === 'mouse' && window.matchMedia('(hover: hover) and (pointer: fine)').matches) void choose(index); }}
       onFocus={() => { void choose(index); }}
       onClick={() => { void choose(index); }}
@@ -158,8 +159,10 @@ export function IndustryWindows() {
         event.preventDefault();
         root.current?.querySelector<HTMLButtonElement>(`#industry-selector-${next}`)?.focus({ preventScroll: true });
         void choose(next);
-      }}><span className="iw-tab-index" aria-hidden="true"><span className="button-label">{String(index + 1).padStart(2, '0')}</span></span><span className="iw-tab-copy"><span><span className="button-label">{item.name}</span></span></span><ArrowUpRight size={20}/></button>)}</div>
-    <div className="iw-details"><Link className="iw-cta site-cta" to={'/contact?industry=' + encodeURIComponent(industry.name)}><span className="button-label">Discuss your project </span><ArrowUpRight size={20}/></Link></div>
+      }}><span className="iw-tab-index" aria-hidden="true"><span className="button-label">{String(index + 1).padStart(2, '0')}</span></span><span className="iw-tab-copy"><span><span className="button-label">{item.name}</span></span></span></button>
+      <Link className="iw-option-link" to={'/industries/' + item.slug} aria-label={`Explore ${item.name}`}><ArrowUpRight size={20} aria-hidden="true" /></Link>
+    </div>)}</div>
+    <div className="iw-details"><Link className="iw-cta site-cta" to={industryEnquiry(industry.name)}><span className="button-label">Discuss your project </span><ArrowUpRight size={20}/></Link></div>
     </div>
     <span className="iw-accessible-status" role="status">{loading ? 'Loading industry image' : industry.name + ': ' + industry.applications}</span>
   </div>;

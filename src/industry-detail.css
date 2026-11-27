@@ -1,0 +1,51 @@
+.industry-detail-intro {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: center;
+  gap: clamp(24px, 5vw, 80px);
+}
+
+.industry-detail-back {
+  width: fit-content;
+  margin-bottom: 16px;
+  color: var(--brand);
+}
+
+.industry-detail-intro > img {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  border-radius: 8px;
+}
+
+#root #main :is(.industry-detail-intro, .industry-detail-planning) p {
+  text-align: start !important;
+}
+
+.industry-detail-planning h2 {
+  font-size: clamp(28px, 3vw, 44px);
+}
+
+.industry-detail-services {
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.industry-detail-services a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.industry-detail-services a:hover {
+  color: var(--brand);
+}
+
+@media (max-width: 700px) {
+  .industry-detail-intro {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
