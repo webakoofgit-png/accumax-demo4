@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import './custom-cursor.css';
 
@@ -24,6 +24,9 @@ export function CustomCursor() {
   const root = useRef<HTMLDivElement>(null);
   const pointer = useRef({ x: 0, y: 0 });
   const positions = useRef(PARTICLE_SIZES.map(() => ({ x: 0, y: 0 })));
+
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
 
   useEffect(() => {
     const host = root.current;
@@ -186,8 +189,9 @@ export function CustomCursor() {
     configure();
     media.addEventListener('change', configure);
     return () => { media.removeEventListener('change', configure); dispose?.(); };
-  }, []);
+  }, [mounted]);
 
+  if (!mounted) return null;
   return createPortal(<div className="ac-global-cursor ac-comet-cursor" ref={root} data-visible="false" data-motion="idle" data-mode="default" data-tone="light" aria-hidden="true">
     <span className="ac-comet-trail">{PARTICLE_SIZES.map((size, index) => <span className="ac-comet-particle" key={index} style={{ width: size, height: size, marginLeft: -size / 2, marginTop: -size / 2, opacity: [.6, .46, .34, .24, .15, .08][index] }}/>)}</span>
     <span className="ac-comet-head"><span className="ac-comet-core"/><svg className="ac-comet-arrow" width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M3 10L10 3M3 3H10V10" stroke="currentColor" strokeWidth="1.3"/></svg><span className="ac-comet-view">VIEW</span></span>

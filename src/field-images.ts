@@ -12,6 +12,7 @@ import engineeringTeam from './assets/all images/engineering-team.jpg';
 import siteTeam from './assets/all images/site-engineering-team.jpg';
 import teamGroup from './assets/all images/team-group.jpg';
 import controlPanels from './assets/all images/control-panels-original.jpg';
+import electricalPanel from './assets/all images/Copy of Before_After diffrence_747.jpeg';
 import testing from './assets/all images/relay-testing-original.jpg';
 import relayTestKit from './assets/all images/cmc356-original.jpg';
 import solar from './assets/all images/solar-epc.jpg';
@@ -34,6 +35,7 @@ export const FIELD_GALLERY = [
   [transformer, 'Power transformer'],
   [switchgearPanels, 'Indoor switchgear panels and overhead cable trays'],
   [controlPanels, 'Electrical control and protection panels'],
+  [electricalPanel, 'Electrical panel with rotary switches and indicator lights'],
   [testing, 'Technicians working on electrical protection panels'],
   [relayTestKit, 'OMICRON CMC 500 protection relay test set'],
   [gisAccess, 'Access platform beside gas-insulated switchgear'],

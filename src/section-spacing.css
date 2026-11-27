@@ -31,8 +31,16 @@ main[data-route]:not([data-route="/"]) {
   padding-top:76px;
 }
 
-#main[data-route] > .page-top + .section {
+#main[data-route] > .page-intro {
   padding-top:24px;
+}
+
+.page-intro h1 {
+  font-size: clamp(36px, 4.5vw, 66px);
+}
+
+.quality-intro {
+  padding-bottom: 0;
 }
 
 #main .home-page .counter-bar + .engineering-scroll-scene {
@@ -85,7 +93,7 @@ main[data-route]:not([data-route="/"]) {
   }
 
   main[data-route]:not([data-route="/"]) { padding-top:64px; }
-  #main[data-route] > .page-top + .section { padding-top:20px; }
+  #main[data-route] > .page-intro { padding-top:20px; }
 
   #main .section-heading,
   #main .home-page :is(.section-heading, .clients-heading, .home-contact-heading) {

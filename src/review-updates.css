@@ -16,7 +16,7 @@
 #main .gallery-section.section{padding-top:24px}
 .gallery-heading{margin-bottom:28px}
 .gallery-heading>.eyebrow{font-size:12px;font-weight:600;letter-spacing:.16em}
-.gallery-heading h2{font-family:'Manrope',Arial,sans-serif;font-size:clamp(36px,4.2vw,60px);font-weight:600;line-height:1.1;letter-spacing:-.055em;margin:18px 0 0}
+.gallery-heading h1{font-family:'Manrope',Arial,sans-serif;font-size:clamp(36px,4.2vw,60px);font-weight:600;line-height:1.1;letter-spacing:-.055em;margin:18px 0 0}
 #main .gallery-grid>button{overflow:hidden;border:1px solid #e2e4db;border-radius:10px;background:#fff;box-shadow:0 4px 18px #24252206;transition:border-color .25s,box-shadow .25s}
 #main .gallery-grid img{display:block;object-fit:cover}
 #main .gallery-grid>button:is(:hover,:focus-visible){border-color:#b8bfad;box-shadow:0 8px 24px #24252210}
@@ -29,16 +29,16 @@
 .gallery-video-error p{font-size:14px;line-height:1.7;margin:12px 0 20px}
 @media(max-width:900px){.gallery-video-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:32px}}
 @media(max-width:480px){.gallery-video-grid{grid-template-columns:minmax(0,1fr);max-width:360px}}
-@media(max-width:640px){#main[data-route="/gallery"],#main[data-route="/videos"]{padding-top:64px}.gallery-heading h2{font-size:clamp(30px,8.5vw,42px)}}
+@media(max-width:640px){#main[data-route="/gallery"],#main[data-route="/videos"]{padding-top:64px}.gallery-heading h1{font-size:clamp(30px,8.5vw,42px)}}
 #main[data-route="/contact"]{padding-top:69px}
 #main[data-route="/contact"]>.contact-layout.section{padding-top:24px}
 @media(max-width:640px){#main[data-route="/contact"]{padding-top:64px}#main[data-route="/contact"]>.contact-layout.section{padding-top:20px}}
 .contact-layout .enquiry-form-heading{border-bottom:0;padding-bottom:0;margin-bottom:18px}
 .contact-layout .enquiry-form-heading p{margin:8px 0 0}
 .contact-layout .enquiry-form label{margin-bottom:16px}
-.contact-layout>div>h2{font-family:'Manrope',Arial,sans-serif;font-size:clamp(36px,4.2vw,60px);font-weight:600;line-height:1.1;letter-spacing:-.055em}
+.contact-layout>div>h1{font-family:'Manrope',Arial,sans-serif;font-size:clamp(36px,4.2vw,60px);font-weight:600;line-height:1.1;letter-spacing:-.055em}
 #main .contact-layout .contact-line,#main .contact-layout .contact-line p{font-size:var(--body-copy-size,18px);line-height:1.8}
-@media(max-width:640px){.contact-layout>div>h2{font-size:clamp(30px,8.5vw,42px)}}
+@media(max-width:640px){.contact-layout>div>h1{font-size:clamp(30px,8.5vw,42px)}}
 #root .contact-band h2{font-size:clamp(16px,4.6vw,74px);line-height:1.15;letter-spacing:-.045em;white-space:nowrap}
 #main .home-page .hero-banner .hero-copy{width:100%;padding-inline:max(20px,5.2vw);text-align:center}
 #main .home-page .hero-banner .hero-copy>.eyebrow{justify-content:center}

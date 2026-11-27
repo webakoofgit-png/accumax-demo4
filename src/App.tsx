@@ -1,3 +1,4 @@
+import { pageSeo } from './seo';
 import { FIELD_IMAGES } from './field-images';
 import { Heading } from './components/Heading';
 import { ClientLogoCarousel } from './components/ClientLogoCarousel';
@@ -22,7 +23,7 @@ import { IndustryWindows } from "./components/IndustryWindows";
 import { useEnquiry } from "./components/EnquiryPopup";
 import { EngineeringPath } from "./components/EngineeringPath";
 import { CustomCursor } from "./components/CustomCursor";
-import { ABOUT_CONTENT, COMPANY_PROFILE, PAGE_DESCRIPTIONS } from "./company-content";
+import { ABOUT_CONTENT, COMPANY_PROFILE } from "./company-content";
 import "./components/project-perspectives.css";
 import "./components/story-colors.css";
 import "./components/engineering-step-thumbnails.css";
@@ -137,6 +138,7 @@ function Reveal({
   return (
     <motion.div
       className={className}
+      data-scroll-reveal
       initial={reduced ? false : { opacity: 0, y: 26 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.1 }}
@@ -773,7 +775,7 @@ function Home() {
             <span className="hero-line"><span>{COMPANY.tagline}</span></span>
           </Heading>
           <p>
-            From substations to solar and EV charging, connect your next project with the engineering behind it.
+            Based in Pune, Accumax Controls delivers electrical EPC, substation engineering, testing and commissioning, and solar and EV charging infrastructure.
           </p>
           <div className="hero-actions">
             <Link className="button hero-action hero-action-primary" to="/services"><span className="button-label">
@@ -909,33 +911,6 @@ function Home() {
         </div>
       </section>
     </div>
-  );
-}
-function PageTop({
-  label,
-  title,
-  description,
-  image,
-}: {
-  label: string;
-  title: string;
-  description: string;
-  image?: string;
-}) {
-  return (
-    <section className={"page-top section " + (image ? "has-image" : "")}>
-      <div className="breadcrumb">
-        <Link to="/">Home</Link>
-        <span>/</span>
-        {label}
-      </div>
-      <div>
-        <span className="eyebrow">ACCUMAX / {label.toUpperCase()}</span>
-        <Heading as="h1">{title}</Heading>
-        <p>{description}</p>
-      </div>
-      {image && <Img src={image} alt={label} eager />}
-    </section>
   );
 }
 function PerspectiveSection() {
@@ -1220,16 +1195,11 @@ function ServiceDetail() {
   if (!s) return <NotFound />;
   return (
     <>
-      <PageTop
-        label="Services"
-        title={s.title}
-        description={s.short}
-        image={s.image}
-      />
-      <section className="section two-col service-overview">
+      <section className="section page-intro two-col service-overview">
         <div>
           <span className="eyebrow">{s.num} / EXPERTISE</span>
-          <Heading as="h2">{s.slug === 'epc-projects' ? <>One project.<br/><em>Every stage<br/>connected.</em></> : s.headline}</Heading>
+          <Heading as="h1">{s.title}</Heading>
+          <p>{s.headline}</p>
         </div>
         <div className="service-overview-intro">
           <p>{s.intro}</p>
@@ -1273,18 +1243,12 @@ function ProjectDetail() {
   if (!p) return <NotFound />;
   return (
     <>
-      <PageTop
-        label="Projects"
-        title={p.title}
-        description={p.note}
-        image={p.image}
-      />
-      <section className="section two-col">
+      <section className="section page-intro two-col">
         <div>
           <span className="sample inline">
             SAMPLE PROFILE · NOT A COMPLETION CLAIM
           </span>
-          <Heading as="h2">{p.category}</Heading>
+          <Heading as="h1">{p.title}</Heading>
           <p>
             Location: awaiting verification.
             <br />
@@ -1319,15 +1283,10 @@ function Gallery() {
   }, []);
   return (
     <>
-      <PageTop
-        label="Gallery"
-        title="A closer look at the work."
-        description="Equipment, engineering environments and infrastructure from the company image archive."
-      />
-      <section className="section gallery-section">
+      <section className="section page-intro gallery-section">
         <header className="gallery-heading">
           <span className="eyebrow">IDEAS &amp; INSIGHTS</span>
-          <Heading as="h2">A closer look at the work.</Heading>
+          <Heading as="h1">A closer look at the work.</Heading>
         </header>
         <div className="filters" role="group" aria-label="Gallery media filters">
           {(['Photos', 'Videos'] as const).map((f) => (
@@ -1383,27 +1342,16 @@ function Contact({ career = false }: { career?: boolean }) {
   const submission = useWeb3Form();
   const query = new URLSearchParams(useLocation().search);
   const requestedInterest = query.get("service") || query.get("industry") || "";
+  const [prefilledInterest, setPrefilledInterest] = useState("");
+  useEffect(() => { setPrefilledInterest(requestedInterest); }, [requestedInterest]);
   return (
     <>
-      <PageTop
-        label={career ? "Careers" : "Contact"}
-        title={
-          career
-            ? "Bring your perspective."
-            : "Great projects start with a conversation."
-        }
-        description={
-          career
-            ? "Interested in engineering, testing or project execution? Introduce yourself to the team."
-            : "Tell us what you are building. Let’s explore the engineering behind it."
-        }
-      />
-      <section className="section contact-layout">
+      <section className="section page-intro contact-layout">
         <div>
           <span className="eyebrow">
             {career ? "WORK WITH ACCUMAX" : "DIRECT CONNECTIONS"}
           </span>
-          <Heading as="h2">{career ? "Build what matters." : "Let’s connect."}</Heading>
+          <Heading as="h1">Contact Accumax Controls</Heading>
           <a className="contact-line" href={"mailto:" + COMPANY.emails[0]}>
             <Mail />
             {COMPANY.emails[0]}
@@ -1526,14 +1474,15 @@ function Contact({ career = false }: { career?: boolean }) {
               </span>
             </span>
             <select
+              key={prefilledInterest}
               name="interest"
               required
-              defaultValue={requestedInterest}
+              defaultValue={prefilledInterest}
             >
               <option value="" disabled>
                 Select a service
               </option>
-              {requestedInterest && !SERVICE_OPTIONS.includes(requestedInterest) && <option value={requestedInterest}>{requestedInterest}</option>}
+              {prefilledInterest && !SERVICE_OPTIONS.includes(prefilledInterest) && <option value={prefilledInterest}>{prefilledInterest}</option>}
               {SERVICE_OPTIONS.map(title => <option key={title}>{title}</option>)}
             </select>
           </label>
@@ -1586,12 +1535,10 @@ function Contact({ career = false }: { career?: boolean }) {
 function Quality() {
   return (
     <>
-      <PageTop
-        label="Quality & Safety"
-        title="Standards that shape the work."
-        description="Clear specifications. Consistent checks. Safer working practices. Quality starts with how the work is planned."
-        image={FIELD_IMAGES.siteTeam}
-      />
+      <header className="section page-intro quality-intro">
+        <Heading as="h1">Electrical project quality &amp; safety</Heading>
+        <p>Clear specifications, consistent checks and safer working practices from planning to handover.</p>
+      </header>
       <section className="section policy-list">
         {QUALITY_POINTS.map((p, i) => (
           <Reveal key={p}>
@@ -1627,20 +1574,11 @@ function Quality() {
 function Catalogue() {
   return (
     <>
-      <PageTop
-        label="Catalogue"
-        title="The capability index."
-        description="A concise overview of the disciplines available from Accumax Controls."
-      />
-      <section className="section catalogue">
+      <section className="section page-intro catalogue">
         <div className="catalogue-cover">
           <Img src={COMPANY.logo} alt="Accumax Controls" />
           <span className="eyebrow">ACCUMAX / SERVICE OVERVIEW</span>
-          <Heading as="h2">
-            Engineering
-            <br />
-            connections.
-          </Heading>
+          <Heading as="h1">Electrical services catalogue</Heading>
           <div className="cover-lines" />
           <p>ENGINEERING · EQUIPMENT · EXECUTION</p>
         </div>
@@ -1672,15 +1610,10 @@ function Catalogue() {
 function Videos() {
   return (
     <>
-      <PageTop
-        label="Videos"
-        title="Engineering, in motion."
-        description="Explore substation engineering, testing, renewable energy and equipment supply with the Accumax team."
-      />
-      <section className="section gallery-section">
+      <section className="section page-intro gallery-section">
         <header className="gallery-heading">
           <span className="eyebrow">VIDEO LIBRARY</span>
-          <Heading as="h2">Engineering, in motion.</Heading>
+          <Heading as="h1">Engineering, in motion.</Heading>
         </header>
         <VideoGallery />
       </section>
@@ -1700,60 +1633,23 @@ function NotFound() {
     </section>
   );
 }
-const titles: Record<string, string> = {
-  "/": "Powering Progress",
-  "/about": "About Us",
-  "/services": "Engineering Expertise",
-  "/industries": "Industries We Serve",
-  "/projects": "Projects",
-  "/featured-works": "Featured Works",
-  "/quality-safety": "Quality & Safety",
-  "/gallery": "Engineering Gallery",
-  "/videos": "Videos",
-  "/catalogue": "Catalogue",
-  "/careers": "Careers",
-  "/contact": "Contact Us",
-};
 function Seo() {
   const { pathname } = useLocation();
-  const s = SERVICES.find((s) => pathname === "/services/" + s.slug);
-  const p = PROJECTS.find((p) => pathname === "/projects/" + p.slug);
-  const title = s?.title || p?.title || titles[pathname] || "Page Not Found";
-  const description =
-    s?.short ||
-    p?.note ||
-    PAGE_DESCRIPTIONS[pathname] ||
-    `Explore ${title.toLowerCase()} at Accumax Controls, Pune. Engineering services, energy infrastructure, testing and equipment exports.`;
-  const base = import.meta.env.VITE_SITE_URL;
+  const { title, description, canonical, robots, image, schema } = pageSeo(pathname, import.meta.env.VITE_SITE_URL);
   return (
     <Helmet>
-      <title>{title} | Accumax Controls</title>
+      <title>{title}</title>
       <meta name="description" content={description} />
-      <meta
-        name="robots"
-        content={base ? "index,follow" : "noindex,nofollow"}
-      />
-      {base && (
-        <link rel="canonical" href={base.replace(/\/$/, "") + pathname} />
-      )}
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Organization",
-          name: COMPANY.name,
-          email: COMPANY.emails[0],
-          telephone: COMPANY.phones[0],
-          ...(base ? { url: base } : {}),
-          address: {
-            "@type": "PostalAddress",
-            streetAddress: COMPANY.address,
-            addressLocality: "Pune",
-            addressRegion: "Maharashtra",
-            postalCode: "411 038",
-            addressCountry: "IN",
-          },
-        })}
-      </script>
+      <meta name="robots" content={robots} />
+      <meta name="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
+      <meta property="og:site_name" content={COMPANY.short} />
+      <meta property="og:type" content="website" />
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={description} />
+      {canonical && <link rel="canonical" href={canonical} />}
+      {canonical && <meta property="og:url" content={canonical} />}
+      {image && <meta property="og:image" content={image} />}
+      {schema && <script type="application/ld+json">{JSON.stringify(schema).replaceAll('<', '\\u003c')}</script>}
     </Helmet>
   );
 }
@@ -1800,7 +1696,7 @@ function SitePreloader() {
     </motion.div>}
   </AnimatePresence>;
 }
-export default function App() {
+export default function App({ prerendered = false }: { prerendered?: boolean }) {
   const location = useLocation();
   const { scrollYProgress } = useScroll();
   const reduced = useReducedMotion();
@@ -1819,10 +1715,18 @@ export default function App() {
     }, 100);
     return () => clearTimeout(id);
   }, [location.key]);
+  useEffect(() => {
+    if (!prerendered) return;
+    const frame = requestAnimationFrame(() => {
+      ScrollTrigger.refresh();
+      window.dispatchEvent(new Event('accumax:ready'));
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [prerendered]);
   return (
     <>
       <Seo />
-      <SitePreloader />
+      {!prerendered && <SitePreloader />}
       <CustomCursor />
       <motion.div
         className="scroll-progress"
@@ -1836,7 +1740,7 @@ export default function App() {
         id="main"
         data-route={location.pathname}
         key={location.pathname}
-        initial={reduced ? false : { opacity: 0 }}
+        initial={prerendered || reduced ? false : { opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.35 }}
       >

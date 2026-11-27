@@ -19,4 +19,18 @@ import './mobile-updates.css';
 import './hero-banner.css';
 import './section-refinements.css';
 import './cta-design.css';
-ReactDOM.createRoot(document.getElementById('root')!).render(<React.StrictMode><HelmetProvider><BrowserRouter><ButtonMotion/><EnquiryPopup><App/></EnquiryPopup></BrowserRouter></HelmetProvider></React.StrictMode>);
+const root = document.getElementById('root')!;
+const prerendered = root.hasAttribute('data-prerendered');
+const app = (
+  <React.StrictMode>
+    <HelmetProvider>
+      <BrowserRouter>
+        <ButtonMotion />
+        <EnquiryPopup><App prerendered={prerendered} /></EnquiryPopup>
+      </BrowserRouter>
+    </HelmetProvider>
+  </React.StrictMode>
+);
+
+if (prerendered) ReactDOM.hydrateRoot(root, app);
+else ReactDOM.createRoot(root).render(app);
