@@ -29,6 +29,7 @@ import "./components/story-colors.css";
 import "./components/engineering-step-thumbnails.css";
 import "./projects-page.css";
 import "./industry-detail.css";
+import { ConnectionCollage } from "./components/ConnectionCollage";
 import cementPlant from "./assets/all images/industry-cement.jpg";
 import productionMachinery from "./assets/all images/industry-plastics-1600.webp";
 import { useWeb3Form } from './forms/useWeb3Form';
@@ -839,21 +840,24 @@ function Home() {
         </div>
         <IndustryWindows />
       </section>
-      <section className="image-break">
+      <section className="image-break image-break--collage">
         <Img
           src={transmissionPhoto}
           alt="Power transmission infrastructure"
         />
-        <div>
-          <span className="eyebrow">06 / THE CONNECTION THAT MATTERS</span>
-          <Heading as="h2" className="section-title">
-            Where technical expertise
-            <br />
-            <em>meets execution</em>
-          </Heading>
-          <Link className="text-link site-cta" to="/services"><span className="button-label">
-            See what we do </span><ArrowUpRight />
-          </Link>
+        <div className="image-break-content">
+          <div>
+            <span className="eyebrow">06 / THE CONNECTION THAT MATTERS</span>
+            <Heading as="h2" className="section-title">
+              Where technical expertise
+              <br />
+              <em>meets execution</em>
+            </Heading>
+            <Link className="text-link site-cta" to="/services"><span className="button-label">
+              See what we do </span><ArrowUpRight />
+            </Link>
+          </div>
+          <ConnectionCollage />
         </div>
       </section>
       <section className="section why">

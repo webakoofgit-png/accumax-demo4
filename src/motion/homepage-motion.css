@@ -13,8 +13,8 @@
 .about-editorial-image{overflow:hidden}
 /* Independent scale preserves the existing scroll transforms and image fades. */
 @media(hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference){
-  :is(.home-page .about-photo,.about-editorial-image,.home-page .image-break,#expertise .expertise-image-window,.industry-windows .iw-stage) img{scale:1;transition:scale .65s cubic-bezier(.22,1,.36,1)}
-  :is(.home-page .image-break,#expertise .expertise-image-window,.industry-windows .iw-stage):hover img{scale:1.035}
+  :is(.home-page .about-photo,.about-editorial-image,#expertise .expertise-image-window,.industry-windows .iw-stage) img,.home-page .image-break>img{scale:1;transition:scale .65s cubic-bezier(.22,1,.36,1)}
+  :is(#expertise .expertise-image-window,.industry-windows .iw-stage):hover img,.home-page .image-break:hover>img{scale:1.035}
   #root #main :is(.home-page .about-photo,.about-editorial-image)>img{scale:1.08!important;transition:scale .85s cubic-bezier(.22,1,.36,1)}
   #root #main :is(.home-page .about-photo,.about-editorial-image):hover>img{scale:1!important}
 }

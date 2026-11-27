@@ -20,7 +20,7 @@ const captions: Record<string, string> = {
 const photoModifiers: Partial<Record<string, string>> = {
   'scada-relay-testing': 'service-perspective-photo--contain',
   'fabrication-civil-work': 'service-perspective-photo--fabrication',
-  'solar-ev-station': 'service-perspective-photo--focus-right',
+  'solar-ev-station': 'service-perspective-photo--solar',
 };
 
 export function ProjectPerspectivesGrid() {
