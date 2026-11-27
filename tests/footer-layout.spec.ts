@@ -10,7 +10,10 @@ for (const width of [320, 390, 640, 1440]) {
     await footer.scrollIntoViewIfNeeded();
     await expect(footer).toHaveCSS('background-color', 'rgb(48, 45, 41)');
     await expect(footer.locator('.footer-grid > div')).toHaveCount(4);
-    await expect(footer.getByRole('navigation', { name: 'Footer social media' }).getByRole('link')).toHaveCount(3);
+    const socials = footer.getByRole('navigation', { name: 'Footer social media' });
+    await expect(socials.getByRole('link')).toHaveCount(4);
+    await expect(socials.getByRole('link', { name: 'WhatsApp' })).toHaveAttribute('href', 'https://wa.link/yypj14');
+    await expect(footer.locator('.footer-bottom > span')).toHaveCSS('font-size', '12px');
     await expect(footer.locator('.footer-brand img')).toBeVisible();
     await expect(footer.locator('iframe')).toHaveCount(0);
     await expect(footer.locator('.footer-address')).toHaveAttribute('href', /https:\/\/www.google.com\/maps\/search/);

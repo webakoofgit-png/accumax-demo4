@@ -18,7 +18,7 @@ test('homepage photo carousels keep the current frame while the next image is de
     return { started, release };
   };
 
-  const storyPhoto = await hold('/relay-testing-original.jpg');
+  const storyPhoto = await hold('/industry-plastics-1600.webp');
   const engineeringPhoto = await hold('/ehouse-installation.jpg');
   const industryPhoto = await hold('/industry-data-centres.jpg');
   await page.setViewportSize({ width: 1440, height: 900 });
@@ -35,10 +35,10 @@ test('homepage photo carousels keep the current frame while the next image is de
     await story.getByRole('button', { name: 'Next approach' }).click();
     await storyPhoto.started;
     await expect(story).toHaveAttribute('data-active', '0');
-    await expect(story.locator('.story-photo img')).toHaveAttribute('src', /\/site-engineering-team\.jpg$/);
+    await expect(story.locator('.story-photo img')).toHaveAttribute('src', /\/industry-cement\.jpg$/);
     storyPhoto.release();
     await expect(story).toHaveAttribute('data-active', '1');
-    await expect(story.locator('.story-photo .image-crossfade-out')).toHaveCSS('background-image', /\/site-engineering-team\.jpg/);
+    await expect(story.locator('.story-photo .image-crossfade-out')).toHaveCSS('background-image', /\/industry-cement\.jpg/);
 
     const engineering = page.locator('#engineering-path');
     const surface = engineering.locator('.ke-surface');

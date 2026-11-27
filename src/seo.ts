@@ -9,7 +9,7 @@ const pageTitles: Record<string, string> = {
   '/projects': 'Electrical Engineering Project Applications',
   '/featured-works': 'Featured Electrical Engineering Applications',
   '/quality-safety': 'Electrical Project Quality & Safety',
-  '/gallery': 'Substation & Electrical Equipment Photo Gallery',
+  '/insights': 'Electrical Engineering Insights',
   '/videos': 'Electrical Engineering & Equipment Videos',
   '/catalogue': 'Electrical Equipment & Services Catalogue',
   '/careers': 'Electrical Engineering Careers in Pune',

@@ -21,7 +21,7 @@
 
 #projects-title,
 #careers-title,
-#main[data-route="/gallery"] .gallery-heading h1,
+#main[data-route="/insights"] .gallery-heading h1,
 #main[data-route="/contact"] .contact-layout > div > h2 {
   --heading-muted: var(--brand, #a81800);
 }

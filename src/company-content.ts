@@ -65,6 +65,6 @@ export const PAGE_DESCRIPTIONS: Record<string, string> = {
   '/contact': 'Contact Accumax Controls in Pune to discuss engineering, commissioning, maintenance, electrical equipment and export requirements.',
   '/careers': 'Explore career disciplines at Accumax Controls, Pune. Submit your qualifications, experience and resume directly to our team.',
   '/catalogue': 'Browse the Accumax service index and request equipment specifications, technical documents and the current company catalogue.',
-  '/gallery': 'Explore the Accumax image archive of electrical equipment, substations, engineering environments and power infrastructure.',
+  '/insights': 'Explore photos and videos of Accumax Controls engineering work, substation equipment, installations and power infrastructure.',
   '/videos': 'Watch the Accumax Controls video archive featuring electrical equipment and engineering work, with videos from the official company website.',
 };

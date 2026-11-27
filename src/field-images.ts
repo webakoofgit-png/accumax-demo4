@@ -26,6 +26,7 @@ export const FIELD_IMAGES = {
   electricalEpc, electricalEpcPreview, gisHall, outdoorSubstation,
   siteInstallation, transformer, switchgearPanels, team,
   siteTeam, controlPanels, testing, relayTestKit, solar, ev, fabrication,
+  gisAccess, siteLifting, transformerErection,
 };
 
 export const FIELD_GALLERY = [

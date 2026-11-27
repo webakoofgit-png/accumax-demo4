@@ -143,6 +143,8 @@ for (const width of [390, 1440]) {
       const image = url.slice(5, -2);
       images.push(image);
       expect(await surface.evaluate(element => getComputedStyle(element).backgroundImage)).toContain(image);
+      if (i === 4) expect(image).toContain('relay-testing-original.jpg');
+      await expect(surface).toHaveCSS('background-size', /cover$/);
       expect(await page.evaluate(src => new Promise<boolean>(resolve => { const img = new Image(); img.onload = () => resolve(img.naturalWidth > 0); img.onerror = () => resolve(false); img.src = src; }), image)).toBeTruthy();
     }
     expect(new Set(images).size).toBe(7);

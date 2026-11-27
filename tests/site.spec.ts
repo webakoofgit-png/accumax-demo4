@@ -1,5 +1,5 @@
 import {test,expect} from '@playwright/test';
-const pages=['/','/about','/services','/industries','/projects','/quality-safety','/gallery','/videos','/catalogue','/careers','/contact'];
+const pages=['/','/about','/services','/industries','/projects','/quality-safety','/insights','/videos','/catalogue','/careers','/contact'];
 const serviceSlugs=['epc-projects','scada-relay-testing','export','substation-testing-commissioning','fabrication-civil-work','gis-erection-supervision','solar-ev-station','trading'];
 const projectSlugs=['gis-substation-erection','ais-substation-epc','solar-power-project','relay-panel-commissioning','ehouse-solution','ev-charging-infrastructure'];
 test('all routes render and all referenced image assets load',async({page,request})=>{const errors:string[]=[];page.on('pageerror',e=>errors.push(e.message));for(const path of [...pages,...serviceSlugs.map(s=>'/services/'+s),...projectSlugs.map(s=>'/projects/'+s)]){await page.goto(path);await expect(page.locator('main')).toBeVisible();await expect(page.locator('h1')).toBeAttached();await expect(page).toHaveTitle(/Accumax Controls/);expect(await page.locator('body').evaluate(el=>el.scrollWidth<=innerWidth)).toBeTruthy();const sources=await page.locator('img').evaluateAll(imgs=>[...new Set(imgs.map(i=>i.getAttribute('src')!))]);for(const src of sources){if(src.startsWith('data:')){expect(await page.evaluate(async url=>{const image=new Image();image.src=url;await image.decode();return image.naturalWidth},src)).toBeGreaterThan(0)}else{expect((await request.get(src)).ok(),src).toBeTruthy()}}}expect(errors).toEqual([])});
@@ -8,7 +8,7 @@ test('desktop services, gallery and email enquiry',async({page})=>{
   await page.goto('/services');
   await page.locator('.service-list a[href="/services/epc-projects"]').click();
   await expect(page.locator('h1')).toHaveText('EPC Projects');
-  await page.goto('/gallery');
+  await page.goto('/insights');
   await page.getByRole('button',{name:'Photos',exact:true}).click();
   await page.getByRole('button',{name:/Enlarge engineering photograph/}).first().click();
   await expect(page.locator('.lightbox')).toBeVisible();

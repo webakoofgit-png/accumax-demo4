@@ -3,7 +3,7 @@
 .story .story-label{color:#b2b8a7}
 .story .story-panel p{color:#bbc1b4}
 
-/* Full-width photography with the existing olive tone fading left to right. */
+/* Keep the text area dark and reveal the photo across the rightmost 40%. */
 #main .home-page .story.story--carousel .story-photo {
   position: absolute;
   inset: 0;
@@ -16,7 +16,7 @@
   object-position: center;
 }
 #main .home-page .story.story--carousel::after {
-  background: linear-gradient(90deg, #1b2417fc 0%, #202a1bf2 30%, #222d1ed9 58%, #263122a3 100%);
+  background: linear-gradient(90deg, #1b2417f5 0%, #202a1be8 38%, #222d1ec7 60%, #26312266 75%, #26312226 100%);
 }
 @media (min-width: 1000px) {
   #root #main .home-page .story.story--carousel .story-panel p {

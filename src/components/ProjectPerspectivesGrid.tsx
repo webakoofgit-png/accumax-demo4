@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useReducedMotion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
+import commissioningPhoto from '../assets/all images/gis-detail-575.webp';
 import { SERVICES } from '../data';
 import { Heading } from './Heading';
 import './project-perspectives-grid.css';
@@ -14,6 +15,12 @@ const captions: Record<string, string> = {
   'fabrication-civil-work': 'Civil works and structural fabrication.',
   'gis-erection-supervision': 'GIS installation, supervision and equipment supply.',
   'solar-ev-station': 'Solar power and EV charging infrastructure.',
+};
+
+const photoModifiers: Partial<Record<string, string>> = {
+  'scada-relay-testing': 'service-perspective-photo--contain',
+  'fabrication-civil-work': 'service-perspective-photo--fabrication',
+  'solar-ev-station': 'service-perspective-photo--focus-right',
 };
 
 export function ProjectPerspectivesGrid() {
@@ -70,9 +77,10 @@ export function ProjectPerspectivesGrid() {
     <div className="service-perspectives-grid" ref={track}>
       {SERVICES.filter(service => service.slug !== 'trading').map(service => {
         const title = service.slug === 'gis-erection-supervision' ? 'GIS & Trading' : service.title;
+        const isCommissioning = service.slug === 'substation-testing-commissioning';
         return <Link className="service-perspective-card" to={'/services/' + service.slug} key={service.slug}>
-          <div className="service-perspective-photo">
-            <img src={service.image} alt={title} loading="lazy" decoding="async" />
+          <div className={['service-perspective-photo', photoModifiers[service.slug]].filter(Boolean).join(' ')}>
+            <img src={isCommissioning ? commissioningPhoto : service.image} alt={isCommissioning ? 'Gas-insulated switchgear inside a substation' : title} loading="lazy" decoding="async" />
             <span className="service-perspective-arrow" aria-hidden="true"><ArrowUpRight size={22} /></span>
             <div className="service-perspective-overlay" aria-hidden="true"><strong>{title}</strong><p>{service.short}</p></div>
           </div>

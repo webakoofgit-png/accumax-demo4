@@ -16,6 +16,8 @@ for (const width of [390, 1440]) {
     await expect(story.locator('.story-photo')).toHaveCSS('opacity', '1');
     const overlay = await story.evaluate(element => getComputedStyle(element, '::after').backgroundImage);
     expect(overlay).toContain('linear-gradient(90deg');
+    expect(overlay).toContain('60%');
+    expect(overlay).toMatch(/rgba\(38, 49, 34, 0\.1[45]\d*\) 100%/);
     await expect(story.getByRole('heading', { name: 'Engineering', exact: true })).toBeVisible();
   });
 }

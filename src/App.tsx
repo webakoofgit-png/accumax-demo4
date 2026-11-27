@@ -29,11 +29,14 @@ import "./components/story-colors.css";
 import "./components/engineering-step-thumbnails.css";
 import "./projects-page.css";
 import "./industry-detail.css";
+import cementPlant from "./assets/all images/industry-cement.jpg";
+import productionMachinery from "./assets/all images/industry-plastics-1600.webp";
 import { useWeb3Form } from './forms/useWeb3Form';
 import { PhoneInput } from './forms/PhoneInput';
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import {
   Link,
+  Navigate,
   NavLink,
   Route,
   Routes,
@@ -156,10 +159,29 @@ const HEADER_LINKS = [
   ['Expertise', '/services'],
   ['Industry Solutions', '/industries'],
   ['Featured Works', '/featured-works'],
-  ['Ideas & Insights', '/gallery'],
+  ['Insights', '/insights'],
   ['Projects', '/projects'],
   ['Careers', '/careers'],
 ] as const;
+function WhatsAppIcon({ social = false }: { social?: boolean }) {
+  return (
+    <svg viewBox={social ? "-2 -2 28 28" : "0 0 24 24"} width="24" height="24" fill="currentColor" aria-hidden="true">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
+    </svg>
+  );
+}
+
+function SocialIcons() {
+  return (
+    <>
+      <a href="https://www.instagram.com/accumax_controls?stkn=dW12a2xrdTV5MW13" aria-label="Instagram" target="_blank" rel="noreferrer"><Instagram size={22} /></a>
+      <a href="https://www.facebook.com/share/19o5XUanBS/" aria-label="Facebook" target="_blank" rel="noreferrer"><Facebook size={22} /></a>
+      <a href="https://www.linkedin.com/company/accumaxcontrols/" aria-label="LinkedIn" target="_blank" rel="noreferrer"><Linkedin size={22} /></a>
+      <a href={COMPANY.whatsapp} aria-label="WhatsApp" target="_blank" rel="noreferrer"><WhatsAppIcon social /></a>
+    </>
+  );
+}
+
 function Header() {
   const reduced = useReducedMotion();
   const [open, setOpen] = useState(false);
@@ -215,31 +237,8 @@ function Header() {
           {HEADER_LINKS.map(([label, to]) => <NavLink key={to} to={to}>{label}</NavLink>)}
         </nav>
         <div className="header-right">
-          <span className="header-socials" aria-label="Social media">
-            <a
-              href="https://www.instagram.com/accumax_controls?stkn=dW12a2xrdTV5MW13"
-              aria-label="Instagram"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <Instagram size={23} />
-            </a>
-            <a
-              href="https://www.facebook.com/share/19o5XUanBS/"
-              aria-label="Facebook"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <Facebook size={23} />
-            </a>
-            <a
-              href="https://www.linkedin.com/company/accumaxcontrols/"
-              aria-label="LinkedIn"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <Linkedin size={23} />
-            </a>
+          <span className="header-socials social-links" aria-label="Social media">
+            <SocialIcons />
           </span>
           <button
             className="mobile-toggle"
@@ -334,7 +333,7 @@ function Footer() {
           <div className="footer-resources-column">
             <span className="eyebrow">RESOURCES</span>
             {[
-              ["Ideas & Insights", "/gallery"],
+              ["Insights", "/insights"],
               ["Videos", "/videos"],
               ["Catalogue", "/catalogue"],
               ["Careers", "/careers"],
@@ -362,10 +361,8 @@ function Footer() {
           </div>
         </div>
         <div className="footer-identity-row">
-          <nav className="footer-socials" aria-label="Footer social media">
-            <a href="https://www.facebook.com/share/19o5XUanBS/" aria-label="Facebook" target="_blank" rel="noreferrer"><Facebook size={20} /></a>
-            <a href="https://www.instagram.com/accumax_controls?stkn=dW12a2xrdTV5MW13" aria-label="Instagram" target="_blank" rel="noreferrer"><Instagram size={20} /></a>
-            <a href="https://www.linkedin.com/company/accumaxcontrols/" aria-label="LinkedIn" target="_blank" rel="noreferrer"><Linkedin size={20} /></a>
+          <nav className="footer-socials social-links" aria-label="Footer social media">
+            <SocialIcons />
           </nav>
           <Link className="footer-brand" to="/" aria-label="Accumax Controls home"><Img src={COMPANY.logo} alt="Accumax Controls" /></Link>
         </div>
@@ -457,9 +454,9 @@ function ServicesList() {
   );
 }
 const STORY_PHOTOS = [
-  [FIELD_IMAGES.siteTeam, 'Site engineering team at a safety briefing'],
-  [FIELD_IMAGES.testing, 'Technicians working on electrical protection panels'],
-  [FIELD_IMAGES.controlPanels, 'Substation protection and control panels'],
+  [cementPlant, 'Conveyors and silos at a cement plant'],
+  [productionMachinery, 'Industrial production machinery with automated controls'],
+  [FIELD_IMAGES.transformerErection, 'Site crew positioning a power transformer'],
   [FIELD_IMAGES.ev, 'EV chargers under a solar canopy'],
 ] as const;
 const STORY_SOURCES = STORY_PHOTOS.map(([src]) => src);
@@ -911,8 +908,8 @@ function Home() {
           <Link className="home-contact-card" to="/contact">
             <div className="home-contact-image">
               <Img
-                src={FIELD_IMAGES.testing}
-                alt="Technicians working on electrical protection panels"
+                src={FIELD_IMAGES.gisAccess}
+                alt="Site crew working beside gas-insulated switchgear and an access platform"
               />
             </div>
             <Heading as="h3"><span className="motion-line"><span>Engineering</span></span>{' '}<span className="motion-line"><span>enquiries</span></span></Heading>
@@ -924,8 +921,8 @@ function Home() {
           <Link className="home-contact-card" to="/services/export">
             <div className="home-contact-image">
               <Img
-                src={FIELD_IMAGES.transformer}
-                alt="Power transformer"
+                src={FIELD_IMAGES.siteLifting}
+                alt="Crane lifting a prefabricated electrical enclosure"
               />
             </div>
             <Heading as="h3"><span className="motion-line"><span>Equipment &amp;</span></span>{' '}<span className="motion-line"><span>export support</span></span></Heading>
@@ -1309,7 +1306,7 @@ function ProjectDetail() {
     </>
   );
 }
-function Gallery() {
+function Insights() {
   const [filter, setFilter] = useState<'Photos' | 'Videos'>('Photos');
   const [selected, setSelected] = useState<number | null>(null);
   useEffect(() => {
@@ -1323,7 +1320,7 @@ function Gallery() {
     <>
       <section className="section page-intro gallery-section">
         <header className="gallery-heading">
-          <span className="eyebrow">IDEAS &amp; INSIGHTS</span>
+          <span className="eyebrow">INSIGHTS</span>
           <Heading as="h1">A closer look at the work.</Heading>
         </header>
         <div className="filters" role="group" aria-label="Gallery media filters">
@@ -1826,7 +1823,8 @@ export default function App({ prerendered = false }: { prerendered?: boolean }) 
           />
           <Route path="/projects/:slug" element={<ProjectDetail />} />
           <Route path="/quality-safety" element={<Quality />} />
-          <Route path="/gallery" element={<Gallery />} />
+          <Route path="/insights" element={<Insights />} />
+          <Route path="/gallery" element={<Navigate to="/insights" replace />} />
           <Route path="/videos" element={<Videos />} />
           <Route path="/catalogue" element={<Catalogue />} />
           <Route path="/careers" element={<Careers />} />
@@ -1836,9 +1834,7 @@ export default function App({ prerendered = false }: { prerendered?: boolean }) 
       </motion.main>
       <Footer />
       <a className="floating-whatsapp" href={COMPANY.whatsapp} target="_blank" rel="noreferrer" aria-label="Chat with Accumax Controls on WhatsApp" title="Chat on WhatsApp">
-        <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor" aria-hidden="true">
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
-        </svg>
+        <WhatsAppIcon />
       </a>
     </>
   );

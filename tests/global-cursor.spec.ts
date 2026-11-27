@@ -66,7 +66,7 @@ test('navigation stays precise, buttons outline, links point and clickable photo
   await expect(cursor.locator('.ac-comet-arrow')).toHaveCSS('opacity', '1');
   await expect(cursor).toHaveAttribute('data-tone', 'dark');
   await expect(cursor).toHaveCSS('color', 'rgb(243, 154, 99)');
-  await open(page, '/gallery');
+  await open(page, '/insights');
   const image = page.locator('.gallery-grid button img').first();
   await image.hover();
   await expect(cursor).toHaveAttribute('data-mode', 'view');

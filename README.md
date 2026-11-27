@@ -31,7 +31,7 @@ Deploy the `dist` directory on a static host with SPA fallback to `index.html`. 
 
 Run `npm run build` to generate static HTML for every public page, a custom 404 page, `dist/sitemap.xml` and `dist/robots.txt`. Each page includes its metadata and content in the first HTML response. Set `VITE_SITE_URL` to the final HTTPS origin in the production hosting environment. That build enables crawling and uses the configured origin for canonical URLs and the sitemap. Demo builds keep crawling disabled. The illustrative project profiles stay accessible and use `noindex` until verified case studies are ready to publish.
 
-Before replacing an existing website, inventory its actual URLs and approve a redirect mapping to /about, /services/:slug, /industries, /projects, /quality-safety, /gallery, /videos, /catalogue, /careers and /contact. Do not redirect unknown pages indiscriminately. No old-domain redirects have been activated.
+Before replacing an existing website, inventory its actual URLs and approve a redirect mapping to /about, /services/:slug, /industries, /projects, /quality-safety, /insights, /videos, /catalogue, /careers and /contact. Do not redirect unknown pages indiscriminately. No old-domain redirects have been activated.
 
 ## Motion and accessibility
 
