@@ -37,7 +37,8 @@
 .contact-layout .enquiry-form-heading p{margin:8px 0 0}
 .contact-layout .enquiry-form label{margin-bottom:16px}
 .contact-layout>div>h1{font-family:'Manrope',Arial,sans-serif;font-size:clamp(36px,4.2vw,60px);font-weight:600;line-height:1.1;letter-spacing:-.055em}
-#main .contact-layout .contact-line,#main .contact-layout .contact-line p{font-size:var(--body-copy-size,18px);line-height:1.8}
+#main .contact-layout .contact-line{font-size:var(--body-copy-size,18px);line-height:1.8}
+#main .contact-layout .contact-address{font-size:calc(var(--body-copy-size,18px) - 1px);color:inherit;text-align:start}
 @media(max-width:640px){.contact-layout>div>h1{font-size:clamp(30px,8.5vw,42px)}}
 #root .contact-band h2{font-size:clamp(16px,4.6vw,74px);line-height:1.15;letter-spacing:-.045em;white-space:nowrap}
 #main .home-page .hero-banner .hero-copy{width:100%;padding-inline:max(20px,5.2vw);text-align:center}
@@ -345,7 +346,7 @@ dialog.enquiry-popup { border-radius:18px;background:#fafbf8;border-color:#e1e5d
 }
 
 /* Keep paragraph alignment consistent across every page and viewport. */
-#root :is(main,footer,.contact-band,.enquiry-popup) p {
+#root :is(main,footer,.contact-band,.enquiry-popup) p:not(:where(.contact-address)) {
   text-align:justify!important;
   text-align-last:start;
 }

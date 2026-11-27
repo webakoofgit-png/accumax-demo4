@@ -1367,7 +1367,7 @@ function Contact({ career = false }: { career?: boolean }) {
           </div>
           <div className="contact-line">
             <MapPin />
-            <p>{COMPANY.address}</p>
+            <p className="contact-address">{COMPANY.address}</p>
           </div>
           <a className="text-link site-cta office-directions" href={COMPANY.mapsUrl} target="_blank" rel="noreferrer"><span className="button-label">Get directions </span><ArrowUpRight size={18} /></a>
           <iframe className="office-map" title="Find the Accumax Controls office" src={COMPANY.mapsEmbed} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
