@@ -24,7 +24,7 @@ if (light) await page.route('**/*', route => {
   return route.continue();
 });
 const widths = process.env.AUDIT_WIDTHS?.split(',').map(Number) ?? [320, 360, 375, 390, 414, 480, 600, 768, 820, 1024];
-const routes = process.env.AUDIT_ROUTES?.split(',') ?? ['/', '/about', '/services', '/industries', '/projects', '/quality-safety', '/insights', '/videos', '/catalogue', '/careers', '/contact', '/services/substation-testing-commissioning', '/projects/gis-substation-erection'];
+const routes = process.env.AUDIT_ROUTES?.split(',') ?? ['/', '/about', '/services', '/industries', '/projects', '/quality-safety', '/insights', '/videos', '/catalogue', '/careers', '/contact', '/services/substation-testing-commissioning'];
 const results = [];
 const errors = [];
 const report = resolve('test-results', process.env.AUDIT_REPORT ?? 'mobile-audit.json');

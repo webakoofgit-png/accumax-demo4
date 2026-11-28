@@ -529,45 +529,34 @@ function ProjectsPage() {
     <p className="projects-page-count" role="status" aria-live="polite" aria-atomic="true">{projects.length} project {projects.length === 1 ? 'profile' : 'profiles'}{category === 'All projects' ? '' : ` / ${category}`}</p>
     <div className="projects-page-grid">
       {projects.map(project => <article className="projects-page-card" key={project.slug}>
-        <Link className="projects-page-image" to={'/projects/' + project.slug} aria-label={`View ${project.title}`}>
+        <div className="projects-page-image">
           <Img src={project.image} alt={project.title} />
           <span>{project.num} / {project.category}</span>
-          <ArrowUpRight aria-hidden="true" />
-        </Link>
+        </div>
         <div className="projects-page-copy">
           <span className="eyebrow">PROJECT SCOPE</span>
           <Heading as="h2">{project.title}</Heading>
           <ul>{project.scope.map(scope => <li key={scope}><Check size={15} aria-hidden="true" /><span>{scope}</span></li>)}</ul>
-          <Link className="site-cta text-link" to={'/projects/' + project.slug}><span className="button-label">Explore project </span><ArrowUpRight size={17} /></Link>
         </div>
       </article>)}
     </div>
-    <p className="projects-page-note">{PROJECTS[0].note}</p>
   </section>;
 }
-function ProjectCards({ all = false }: { all?: boolean }) {
+function FeaturedProjectCards() {
   return (
-    <div className={all ? "project-grid" : "project-track"}>
-      {PROJECTS.slice(0, all ? 6 : 4).map((p) => (
-        <Link className="project-card" key={p.slug} to={"/projects/" + p.slug}>
+    <div className="project-grid">
+      {PROJECTS.slice(0, 6).map((p) => (
+        <article className="project-card" key={p.slug}>
           <div className="project-image">
             <Img src={p.image} alt={p.title} />
-            <span className="sample">SAMPLE PROJECT</span>
-            <span className="round-arrow">
-              <ArrowUpRight />
-            </span>
           </div>
           <div className="project-meta">
             <span>
               {p.num} / {p.category}
             </span>
-            <span>LOCATION · TO BE VERIFIED</span>
           </div>
           <Heading as="h3">{p.title}</Heading>
-          <span className="text-link site-cta"><span className="button-label">
-            View project </span><ArrowUpRight size={15} />
-          </span>
-        </Link>
+        </article>
       ))}
     </div>
   );
@@ -1276,40 +1265,6 @@ function ServiceDetail() {
     </>
   );
 }
-function ProjectDetail() {
-  const { slug } = useParams();
-  const p = PROJECTS.find((p) => p.slug === slug);
-  if (!p) return <NotFound />;
-  return (
-    <>
-      <section className="section page-intro two-col">
-        <div>
-          <span className="sample inline">
-            SAMPLE PROFILE · NOT A COMPLETION CLAIM
-          </span>
-          <Heading as="h1">{p.title}</Heading>
-          <p>
-            Location: awaiting verification.
-            <br />
-            Client and completion date: awaiting verification.
-          </p>
-        </div>
-        <div>
-          <Heading as="h3">Illustrative scope</Heading>
-          <ul className="capabilities">
-            {p.scope.map((s) => (
-              <li key={s}>
-                <Check />
-                {s}
-              </li>
-            ))}
-          </ul>
-          <Button to="/contact">Discuss a similar requirement</Button>
-        </div>
-      </section>
-    </>
-  );
-}
 function Insights() {
   const [filter, setFilter] = useState<'Photos' | 'Videos'>('Photos');
   const [selected, setSelected] = useState<number | null>(null);
@@ -1821,11 +1776,10 @@ export default function App({ prerendered = false }: { prerendered?: boolean }) 
                   <span className="eyebrow">FEATURED WORKS</span>
                   <Heading as="h1" id="projects-title">The shape of possibility.</Heading>
                 </header>
-                <ProjectCards all />
+                <FeaturedProjectCards />
               </section>
             }
           />
-          <Route path="/projects/:slug" element={<ProjectDetail />} />
           <Route path="/quality-safety" element={<Quality />} />
           <Route path="/insights" element={<Insights />} />
           <Route path="/gallery" element={<Navigate to="/insights" replace />} />

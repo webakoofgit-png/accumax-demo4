@@ -8,9 +8,10 @@ for (const width of [320, 390, 1440]) {
     await expect(page.locator('.site-preloader')).toHaveCount(0);
     const popup = page.locator('dialog.enquiry-popup');
     if (await popup.isVisible()) await popup.getByRole('button', { name: 'Close enquiry form' }).click();
-    await expect(page).toHaveTitle('Projects | Accumax Controls');
+    await expect(page).toHaveTitle('Electrical Engineering Project Applications | Accumax Controls');
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Engineering in action.');
     await expect(page.locator('.projects-page-card')).toHaveCount(6);
+    await expect(page.getByText(/sample project profile shown for design review/i)).toHaveCount(0);
     await expect(page.locator('header.header a[href="/contact"]')).toHaveCount(0);
 
     if (width < 1200) {
@@ -29,8 +30,9 @@ for (const width of [320, 390, 1440]) {
     await expect(page.locator('.projects-page-card')).toHaveCount(6);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBeTruthy();
     await page.screenshot({ path: `test-results/projects-page-${width}.png`, fullPage: true });
-    await page.locator('.projects-page-card').first().getByRole('link', { name: 'Explore project' }).click();
-    await expect(page).toHaveURL(/\/projects\/gis-substation-erection$/);
+    await expect(page.locator('.projects-page-grid').getByRole('link')).toHaveCount(0);
+    await page.locator('.projects-page-image').first().click();
+    await expect(page).toHaveURL(/\/projects$/);
 
     await page.locator('footer').getByRole('link', { name: 'Get in Touch', exact: true }).click();
     await expect(page).toHaveURL(/\/contact$/);
@@ -38,5 +40,12 @@ for (const width of [320, 390, 1440]) {
     await page.locator('footer').getByRole('link', { name: 'Featured Works', exact: true }).click();
     await expect(page).toHaveURL(/\/featured-works$/);
     await expect(page.locator('.project-grid .project-card')).toHaveCount(6);
+    await expect(page.locator('.project-grid').getByText('SAMPLE PROJECT', { exact: true })).toHaveCount(0);
+    await expect(page.locator('.project-grid').getByText(/location · to be verified/i)).toHaveCount(0);
+    await expect(page.locator('.project-grid').getByRole('link')).toHaveCount(0);
+    await page.locator('.project-grid .project-image').first().click();
+    await expect(page).toHaveURL(/\/featured-works$/);
+    await page.goto('/projects/gis-substation-erection');
+    await expect(page.locator('main .not-found')).toBeVisible();
   });
 }

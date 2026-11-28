@@ -177,12 +177,8 @@ export type Project = {
   category: string;
   title: string;
   image: string;
-  note: string;
   scope: string[];
 };
-
-export const SAMPLE_NOTE =
-  "Sample project profile shown for design review. Names, locations and figures are published only after client verification.";
 
 export const PROJECTS: Project[] = [
   {
@@ -191,7 +187,6 @@ export const PROJECTS: Project[] = [
     category: "GIS Substation",
     title: "Gas-Insulated Switchgear Erection",
     image: FIELD_IMAGES.gisHall,
-    note: SAMPLE_NOTE,
     scope: ["Bay assembly & alignment", "SF6 gas handling", "Testing & commissioning interface"],
   },
   {
@@ -200,7 +195,6 @@ export const PROJECTS: Project[] = [
     category: "AIS Substation",
     title: "Air-Insulated Substation EPC Package",
     image: FIELD_IMAGES.outdoorSubstation,
-    note: SAMPLE_NOTE,
     scope: ["Civil & electrical works", "Primary plant erection", "Energisation support"],
   },
   {
@@ -209,7 +203,6 @@ export const PROJECTS: Project[] = [
     category: "Solar",
     title: "Ground-Mounted Solar Power Plant",
     image: FIELD_IMAGES.solar,
-    note: SAMPLE_NOTE,
     scope: ["Module mounting structures", "Inverter & transformer installation", "Grid evacuation"],
   },
   {
@@ -218,7 +211,6 @@ export const PROJECTS: Project[] = [
     category: "Protection",
     title: "Relay Panel Testing & Commissioning",
     image: FIELD_IMAGES.testing,
-    note: SAMPLE_NOTE,
     scope: ["Relay programming", "Setting calculations", "Secondary injection testing"],
   },
   {
@@ -227,7 +219,6 @@ export const PROJECTS: Project[] = [
     category: "E-House",
     title: "Prefabricated E-House Power Solution",
     image: FIELD_IMAGES.siteInstallation,
-    note: SAMPLE_NOTE,
     scope: ["E-House fabrication", "Equipment integration", "Site installation"],
   },
   {
@@ -236,7 +227,6 @@ export const PROJECTS: Project[] = [
     category: "EV Infrastructure",
     title: "EV Charging Station Network",
     image: FIELD_IMAGES.ev,
-    note: SAMPLE_NOTE,
     scope: ["Charger installation", "Load management", "O&M support"],
   },
 ];
