@@ -33,7 +33,9 @@ export function ConnectionCollage() {
     <ul ref={root} className="connection-collage" aria-label="Engineering and infrastructure photos">
       {photos.map(({ src, alt }) => (
         <li key={src}>
-          <img src={src} alt={alt} loading="lazy" decoding="async" />
+          <span className="connection-collage-photo">
+            <img src={src} alt={alt} loading="lazy" decoding="async" />
+          </span>
         </li>
       ))}
     </ul>

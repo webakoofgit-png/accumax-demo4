@@ -14,8 +14,7 @@
   grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
   align-items: center;
   gap: clamp(28px, 4vw, 68px);
-  min-height: min(68svh, 650px);
-  padding: clamp(40px, 5vw, 82px) max(7%, 24px);
+  padding: clamp(24px, 2.1vw, 36px) max(7%, 24px);
 }
 
 #main .home-page .image-break--collage .section-title {
@@ -23,21 +22,56 @@
 }
 
 .connection-collage {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(8px, 1vw, 14px);
+  --diamond: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+  position: relative;
+  aspect-ratio: 10 / 9;
   width: 100%;
-  max-width: 640px;
+  max-width: 520px;
   margin: 0 0 0 auto;
   padding: 0;
   list-style: none;
 }
 
 .connection-collage > li {
-  aspect-ratio: 8 / 5;
-  overflow: hidden;
-  border: 1px solid #ffffff57;
-  border-radius: 8px;
+  position: absolute;
+  width: 44%;
+  aspect-ratio: 1;
+  clip-path: var(--diamond);
+  background: #f8f7f1;
+}
+
+.connection-collage > li:nth-child(1) {
+  --photo-enter-x: -24px;
+  top: 50%;
+  left: 5%;
+  translate: 0 -50%;
+}
+
+.connection-collage > li:nth-child(2) {
+  --photo-enter-y: -24px;
+  top: 0;
+  left: 50%;
+  translate: -50% 0;
+}
+
+.connection-collage > li:nth-child(3) {
+  --photo-enter-x: 24px;
+  top: 50%;
+  right: 5%;
+  translate: 0 -50%;
+}
+
+.connection-collage > li:nth-child(4) {
+  --photo-enter-y: 24px;
+  bottom: 0;
+  left: 50%;
+  translate: -50% 0;
+}
+
+.connection-collage-photo {
+  position: absolute;
+  inset: clamp(6px, .8vw, 11px);
+  clip-path: var(--diamond);
   background: #1a251f;
 }
 
@@ -48,7 +82,7 @@
   object-fit: cover;
 }
 
-.connection-collage > li:last-child img { object-position: center 40%; }
+.connection-collage > li:last-child img { object-position: center 38%; }
 
 @media (prefers-reduced-motion: no-preference) {
   .connection-collage[data-in-view] > li {
@@ -68,20 +102,20 @@
 }
 
 @keyframes connection-photo-zoom {
-  from { opacity: 0; transform: scale(.84); }
-  to { opacity: 1; transform: scale(1); }
+  from { opacity: 0; transform: translate(var(--photo-enter-x, 0), var(--photo-enter-y, 0)) scale(.9); }
+  to { opacity: 1; transform: translate(0, 0) scale(1); }
 }
 
 @keyframes connection-photo-pulse {
   0%, 25%, 100% { transform: scale(1); }
-  12.5% { transform: scale(1.15); }
+  12.5% { transform: scale(1.14); }
 }
 
 @media (max-width: 760px) {
   #main .home-page .image-break--collage > .image-break-content {
     grid-template-columns: minmax(0, 1fr);
-    min-height: 0;
-    padding: 36px 24px;
+    gap: 22px;
+    padding: 24px;
     background: linear-gradient(180deg, #07100bf2, #07100b73);
   }
   #main .home-page .image-break--collage .section-title {
